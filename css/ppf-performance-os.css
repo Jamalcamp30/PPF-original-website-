@@ -6,6 +6,20 @@
    ============================================================ */
 
 /* ------------------------------------------------------------
+   POS-SPECIFIC CUSTOM PROPERTIES
+   Extended palette used only within this layer.
+   ------------------------------------------------------------ */
+
+:root {
+  --pos-green: #50c878;
+  --pos-green-subtle: rgba(80, 200, 120, 0.06);
+  --pos-green-border: rgba(80, 200, 120, 0.2);
+  --pos-red: rgba(200, 50, 30, 0.7);
+  --pos-red-bg: rgba(200, 50, 30, 0.03);
+  --pos-red-border: rgba(200, 50, 30, 0.4);
+}
+
+/* ------------------------------------------------------------
    0. KEYFRAME ANIMATIONS
    ------------------------------------------------------------ */
 
@@ -626,9 +640,9 @@ body.pos-ignition-active .pos-ignition-status {
 }
 
 .pos-passport-status--unlocked {
-  color: #50c878;
-  background: rgba(80, 200, 120, 0.06);
-  border: 1px solid rgba(80, 200, 120, 0.2);
+  color: var(--pos-green);
+  background: var(--pos-green-subtle);
+  border: 1px solid var(--pos-green-border);
 }
 
 
@@ -837,8 +851,8 @@ body.pos-ignition-active .pos-ignition-status {
 
 .pos-dossier-refusal {
   padding: 12px 16px;
-  border-left: 2px solid rgba(200, 50, 30, 0.4);
-  background: rgba(200, 50, 30, 0.03);
+  border-left: 2px solid var(--pos-red-border);
+  background: var(--pos-red-bg);
   margin-top: 16px;
 }
 
@@ -855,7 +869,7 @@ body.pos-ignition-active .pos-ignition-status {
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(200, 80, 60, 0.7);
+  color: var(--pos-red);
   margin-bottom: 6px;
 }
 
