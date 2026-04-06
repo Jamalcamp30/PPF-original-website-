@@ -955,7 +955,7 @@
           const fill = entry.target.querySelector('.ct-fill');
           if (fill) {
             setTimeout(() => {
-              fill.style.width = fill.style.getPropertyValue('--fill-width');
+              fill.style.width = getComputedStyle(fill).getPropertyValue('--fill-width');
             }, 300);
           }
           ctObs.unobserve(entry.target);
