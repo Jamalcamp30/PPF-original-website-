@@ -1242,36 +1242,68 @@
        SECTION — MEMBERSHIP PATHS
   ============================================================ -->
   <section class="section memberships-section" id="memberships">
+    <!-- Performance Grid Background -->
+    <div class="ms-perf-grid"></div>
     <div class="container">
-      <div class="section-label reveal-up">MEMBERSHIP PATHS</div>
-      <h2 class="section-title reveal-up">
-        Choose Your<br />
-        <span class="accent">Commitment Level.</span>
-      </h2>
-      <p class="section-intro reveal-up">
-        Choose the commitment level that matches your goals. Every tier runs through the same PPF coaching standard.
-      </p>
-
-      <!-- Membership Tabs -->
-      <div class="membership-tabs reveal-up">
-        <button class="membership-tab active" data-mtab="general">All Paths</button>
-        <button class="membership-tab" data-mtab="athlete">Athlete</button>
-        <button class="membership-tab" data-mtab="adult">Adult</button>
-        <button class="membership-tab" data-mtab="integrated">Integrated</button>
-        <button class="membership-tab" data-mtab="pt">1:1 Personal Training</button>
+      <!-- Top Block: 12-col grid -->
+      <div class="ms-top-block">
+        <div class="ms-top-left">
+          <div class="section-label reveal-up">MEMBERSHIP SYSTEM</div>
+          <h2 class="section-title reveal-up">
+            Choose Your<br />
+            <span class="accent">Coaching Depth.</span>
+          </h2>
+          <p class="section-intro reveal-up">
+            Every path runs through the same PPF standard. Your commitment level changes how much structure, accountability, momentum, and carryover you build over time.
+          </p>
+        </div>
+        <div class="ms-top-right reveal-up">
+          <div class="ms-trust-stack">
+            <div class="ms-trust-chip"><span class="ms-chip-dot"></span>COACH-LED</div>
+            <div class="ms-trust-chip"><span class="ms-chip-dot"></span>STRUCTURE BUILT IN</div>
+            <div class="ms-trust-chip"><span class="ms-chip-dot"></span>RESULTS STACK OVER TIME</div>
+          </div>
+          <!-- Commitment Depth Meter -->
+          <div class="ms-depth-meter">
+            <div class="ms-dm-track">
+              <div class="ms-dm-fill" data-level="0"></div>
+            </div>
+            <div class="ms-dm-labels">
+              <span class="ms-dm-label" data-level="1">START</span>
+              <span class="ms-dm-label" data-level="2">BUILD</span>
+              <span class="ms-dm-label" data-level="3">DEVELOP</span>
+              <span class="ms-dm-label" data-level="4">TRANSFORM</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Membership Tier Cards -->
-      <div class="membership-panel active" id="membershipGeneral">
+      <!-- Controls Row -->
+      <div class="ms-controls reveal-up">
+        <div class="ms-controls-row ms-path-filters">
+          <button class="ms-filter-btn active" data-path="all">All Paths</button>
+          <button class="ms-filter-btn" data-path="athlete">Athlete</button>
+          <button class="ms-filter-btn" data-path="adult">Adult</button>
+          <button class="ms-filter-btn" data-path="integrated">Integrated</button>
+        </div>
+        <div class="ms-controls-row ms-lane-toggle">
+          <button class="ms-lane-btn active" data-lane="memberships">Memberships</button>
+          <button class="ms-lane-btn" data-lane="private">Private Coaching</button>
+        </div>
+      </div>
+
+      <!-- ═══ LANE A: MEMBERSHIP COMMITMENTS ═══ -->
+      <div class="ms-lane ms-lane-memberships active" id="laneMemberships">
         <div class="membership-grid">
+          <!-- CARD 01 — Month-to-Month -->
           <div class="membership-card reveal-up" data-tier="monthly">
-            <div class="mc-tier-tag">ENTRY POINT</div>
+            <div class="mc-tier-tag">FASTEST ENTRY</div>
             <div class="mc-header">
               <h3 class="mc-name">Month-to-Month</h3>
               <div class="mc-price"><span class="mc-currency">$</span><span class="mc-amount">150</span><span class="mc-period">/mo</span></div>
             </div>
-            <p class="mc-description">Best for new members who want to get started immediately, experience the system, and build consistency without a long commitment.</p>
-            <div class="mc-best-for"><span class="mc-bf-label">BEST FOR:</span> Explorers &amp; trial members</div>
+            <p class="mc-description" data-default="Get inside the system. Build rhythm. Learn the standard." data-athlete="Get inside the system. Build rhythm. Learn the standard." data-adult="Get inside the system. Build rhythm. Learn the standard." data-integrated="Get inside the system. Build rhythm. Learn the standard.">Get inside the system. Build rhythm. Learn the standard.</p>
+            <div class="mc-best-for" data-default="Best for: first-time members, trial-minded adults, and athletes who want to start now without a long commitment" data-athlete="Best for: first-time athletes ready to experience structured coaching immediately" data-adult="Best for: adults testing the waters, building a routine, and starting without pressure" data-integrated="Best for: new members exploring the integrated path with full flexibility"><span class="mc-bf-label">BEST FOR:</span> <span class="mc-bf-text">first-time members, trial-minded adults, and athletes who want to start now without a long commitment</span></div>
             <ul class="mc-features">
               <li><span class="mc-check">&#10003;</span> Coach-led training access</li>
               <li><span class="mc-check">&#10003;</span> Structured programming</li>
@@ -1279,8 +1311,9 @@
               <li><span class="mc-check">&#10003;</span> Path placement support</li>
               <li><span class="mc-check">&#10003;</span> Monthly flexibility</li>
             </ul>
+            <div class="mc-commitment-signal">ENTRY</div>
             <div class="ppf-cta is-rest" data-cta-tier="3" data-section="memberships">
-              <span class="cta-pre-label" data-rest-text="ENTRY LEVEL" data-active-text="START">ENTRY LEVEL</span>
+              <span class="cta-pre-label" data-rest-text="SYSTEM OPEN" data-active-text="START">SYSTEM OPEN</span>
               <div class="cta-shell cta-shell--ghost">
                 <div class="cta-corner cta-corner--tl"></div>
                 <div class="cta-corner cta-corner--tr"></div>
@@ -1290,32 +1323,47 @@
                 <div class="cta-scanner"></div>
                 <div class="cta-burst"></div>
                 <a href="#start" class="cta-action">
-                  <span class="cta-label" data-confirm-text="STARTED">GET STARTED</span>
-                  <span class="cta-subline">Month-to-month flexibility</span>
+                  <span class="cta-label" data-confirm-text="STARTED">START NOW</span>
+                  <span class="cta-subline">Immediate access. Zero long lock-in.</span>
                   <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
               </div>
             </div>
+            <!-- Hover Drawer -->
+            <div class="mc-drawer">
+              <div class="mc-drawer-title">WHAT THIS UNLOCKS</div>
+              <ul class="mc-drawer-list">
+                <li>Immediate floor access</li>
+                <li>Coaching voice and structure</li>
+                <li>Clear path placement</li>
+                <li>First standard-building reps</li>
+              </ul>
+            </div>
+            <div class="mc-unlock-dots">
+              <span class="mc-dot"></span><span class="mc-dot"></span><span class="mc-dot"></span><span class="mc-dot"></span><span class="mc-dot"></span>
+            </div>
           </div>
 
+          <!-- CARD 02 — Quarterly -->
           <div class="membership-card reveal-up" data-tier="quarterly">
-            <div class="mc-tier-tag mc-tag-accent">BEST STARTING POINT</div>
+            <div class="mc-tier-tag mc-tag-accent">MOST POPULAR</div>
             <div class="mc-header">
               <h3 class="mc-name">Quarterly</h3>
-              <div class="mc-price"><span class="mc-currency">$</span><span class="mc-amount">650</span><span class="mc-period">/3 mo</span></div>
+              <div class="mc-price"><span class="mc-currency">$</span><span class="mc-amount">650</span><span class="mc-period">/ 90 days</span></div>
               <div class="mc-savings">Save $100 vs. monthly</div>
             </div>
-            <p class="mc-description">Best for members who want a true performance block with enough time to build rhythm, develop momentum, and see visible results.</p>
-            <div class="mc-best-for"><span class="mc-bf-label">BEST FOR:</span> Athletes in-season &amp; new adults</div>
+            <p class="mc-description" data-default="Long enough to build momentum. Short enough to move now." data-athlete="Long enough to improve output, movement quality, and competitive readiness." data-adult="Long enough to build consistency, strength momentum, and lifestyle traction." data-integrated="Long enough to build familiarity, trust, routine, and meaningful progression.">Long enough to build momentum. Short enough to move now.</p>
+            <div class="mc-best-for" data-default="Best for: athletes in-season, new adult members, and anyone ready for a real 90-day block" data-athlete="Best for: in-season athletes ready for a structured 90-day performance block" data-adult="Best for: new adults ready to commit to 90 days of real consistency" data-integrated="Best for: members ready to explore the integrated path with a committed 90-day cycle"><span class="mc-bf-label">BEST FOR:</span> <span class="mc-bf-text">athletes in-season, new adult members, and anyone ready for a real 90-day block</span></div>
             <ul class="mc-features">
-              <li><span class="mc-check">&#10003;</span> Everything in month-to-month</li>
+              <li><span class="mc-check">&#10003;</span> Everything in Month-to-Month</li>
               <li><span class="mc-check">&#10003;</span> 90-day training arc</li>
               <li><span class="mc-check">&#10003;</span> Progress checkpoint</li>
               <li><span class="mc-check">&#10003;</span> Stronger commitment pricing</li>
-              <li><span class="mc-check">&#10003;</span> Ideal for athletes and adults ready for a real block</li>
+              <li><span class="mc-check">&#10003;</span> Real performance rhythm</li>
             </ul>
+            <div class="mc-commitment-signal">MOMENTUM</div>
             <div class="ppf-cta is-rest" data-cta-tier="2" data-section="memberships">
-              <span class="cta-pre-label" data-rest-text="MOMENTUM" data-active-text="COMMIT">MOMENTUM</span>
+              <span class="cta-pre-label" data-rest-text="MOMENTUM ACTIVE" data-active-text="COMMIT">MOMENTUM ACTIVE</span>
               <div class="cta-shell">
                 <div class="cta-corner cta-corner--tl"></div>
                 <div class="cta-corner cta-corner--tr"></div>
@@ -1325,32 +1373,47 @@
                 <div class="cta-scanner"></div>
                 <div class="cta-burst"></div>
                 <a href="#start" class="cta-action">
-                  <span class="cta-label" data-confirm-text="COMMITTED">COMMIT TO A QUARTER</span>
-                  <span class="cta-subline">90 days of structured growth</span>
+                  <span class="cta-label" data-confirm-text="COMMITTED">COMMIT TO 90 DAYS</span>
+                  <span class="cta-subline">Build real rhythm inside the system.</span>
                   <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
               </div>
             </div>
+            <!-- Hover Drawer -->
+            <div class="mc-drawer">
+              <div class="mc-drawer-title">YOUR FIRST 90 DAYS</div>
+              <ul class="mc-drawer-list">
+                <li>Weeks 1–2: assessment + placement</li>
+                <li>Weeks 3–6: rhythm + coaching consistency</li>
+                <li>Weeks 7–10: progression + workload build</li>
+                <li>Weeks 11–12: milestone review</li>
+              </ul>
+            </div>
+            <div class="mc-unlock-dots">
+              <span class="mc-dot"></span><span class="mc-dot"></span><span class="mc-dot"></span><span class="mc-dot"></span><span class="mc-dot"></span>
+            </div>
           </div>
 
+          <!-- CARD 03 — Semi-Annual -->
           <div class="membership-card reveal-up" data-tier="semiannual">
-            <div class="mc-tier-tag">BEST VALUE</div>
+            <div class="mc-tier-tag mc-tag-accent">BEST DEVELOPMENT ARC</div>
             <div class="mc-header">
               <h3 class="mc-name">Semi-Annual</h3>
-              <div class="mc-price"><span class="mc-currency">$</span><span class="mc-amount">875</span><span class="mc-period">/6 mo</span></div>
+              <div class="mc-price"><span class="mc-currency">$</span><span class="mc-amount">875</span><span class="mc-period">/ 6 months</span></div>
               <div class="mc-savings">Save $25/mo vs. monthly</div>
             </div>
-            <p class="mc-description">Best for members who want deeper accountability, stronger consistency, and a more serious development cycle.</p>
-            <div class="mc-best-for"><span class="mc-bf-label">BEST FOR:</span> Off-season athletes &amp; committed adults</div>
+            <p class="mc-description" data-default="Where accountability gets serious and progress begins to stack." data-athlete="Where off-season work compounds into in-season dominance." data-adult="Where consistency becomes automatic and results begin stacking." data-integrated="Where trust, routine, and meaningful development take root.">Where accountability gets serious and progress begins to stack.</p>
+            <div class="mc-best-for" data-default="Best for: off-season athletes, committed adults, and members ready for a deeper development cycle" data-athlete="Best for: off-season athletes ready to commit to long-range development" data-adult="Best for: committed adults who want accountability that compounds over time" data-integrated="Best for: integrated members ready for a full development arc"><span class="mc-bf-label">BEST FOR:</span> <span class="mc-bf-text">off-season athletes, committed adults, and members ready for a deeper development cycle</span></div>
             <ul class="mc-features">
-              <li><span class="mc-check">&#10003;</span> Everything in quarterly</li>
+              <li><span class="mc-check">&#10003;</span> Everything in Quarterly</li>
               <li><span class="mc-check">&#10003;</span> Long-range coaching consistency</li>
-              <li><span class="mc-check">&#10003;</span> Stronger path retention</li>
               <li><span class="mc-check">&#10003;</span> Milestone tracking emphasis</li>
+              <li><span class="mc-check">&#10003;</span> Stronger path retention</li>
               <li><span class="mc-check">&#10003;</span> Better value for committed members</li>
             </ul>
+            <div class="mc-commitment-signal">DEVELOPMENT</div>
             <div class="ppf-cta is-rest" data-cta-tier="3" data-section="memberships">
-              <span class="cta-pre-label" data-rest-text="DEVELOPMENT" data-active-text="COMMIT">DEVELOPMENT</span>
+              <span class="cta-pre-label" data-rest-text="DEVELOPMENT LIVE" data-active-text="COMMIT">DEVELOPMENT LIVE</span>
               <div class="cta-shell cta-shell--ghost">
                 <div class="cta-corner cta-corner--tl"></div>
                 <div class="cta-corner cta-corner--tr"></div>
@@ -1361,31 +1424,46 @@
                 <div class="cta-burst"></div>
                 <a href="#start" class="cta-action">
                   <span class="cta-label" data-confirm-text="COMMITTED">COMMIT TO SIX MONTHS</span>
-                  <span class="cta-subline">Deep performance development</span>
+                  <span class="cta-subline">Deep coaching. Better carryover.</span>
                   <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
               </div>
             </div>
+            <!-- Hover Drawer -->
+            <div class="mc-drawer">
+              <div class="mc-drawer-title">WHY SIX MONTHS HITS DIFFERENT</div>
+              <ul class="mc-drawer-list">
+                <li>Coaching habits become automatic</li>
+                <li>Weak links actually get addressed</li>
+                <li>Milestones stop being random</li>
+                <li>Results begin compounding</li>
+              </ul>
+            </div>
+            <div class="mc-unlock-dots">
+              <span class="mc-dot"></span><span class="mc-dot"></span><span class="mc-dot"></span><span class="mc-dot"></span><span class="mc-dot"></span>
+            </div>
           </div>
 
-          <div class="membership-card reveal-up" data-tier="yearly">
-            <div class="mc-tier-tag mc-tag-premium">MOST COMMITTED</div>
+          <!-- CARD 04 — Yearly -->
+          <div class="membership-card reveal-up mc-yearly-tall" data-tier="yearly">
+            <div class="mc-tier-tag mc-tag-premium">BEST VALUE</div>
             <div class="mc-header">
               <h3 class="mc-name">Yearly</h3>
-              <div class="mc-price"><span class="mc-currency">$</span><span class="mc-amount">1,675</span><span class="mc-period">/yr</span></div>
-              <div class="mc-savings">Best value — $139/mo effective</div>
+              <div class="mc-price"><span class="mc-currency">$</span><span class="mc-amount">1,675</span><span class="mc-period">/ year</span></div>
+              <div class="mc-savings">$139/mo effective</div>
             </div>
-            <p class="mc-description">Best for people who want the full PPF experience over time: structure, accountability, coaching, and a true long-term transformation path.</p>
-            <div class="mc-best-for"><span class="mc-bf-label">BEST FOR:</span> Year-round athletes &amp; transformation seekers</div>
+            <p class="mc-description" data-default="The full PPF standard over enough time to truly transform." data-athlete="The full PPF standard — year-round athletic development without interruption." data-adult="The full PPF standard — long-term lifestyle transformation built to last." data-integrated="The full PPF standard — complete integrated development across every dimension.">The full PPF standard over enough time to truly transform.</p>
+            <div class="mc-best-for" data-default="Best for: year-round athletes, long-term adults, and members who want results to stack without interruption" data-athlete="Best for: year-round athletes who want uninterrupted performance development" data-adult="Best for: long-term adults committed to full lifestyle transformation" data-integrated="Best for: members who want the deepest possible integrated development path"><span class="mc-bf-label">BEST FOR:</span> <span class="mc-bf-text">year-round athletes, long-term adults, and members who want results to stack without interruption</span></div>
             <ul class="mc-features">
               <li><span class="mc-check">&#10003;</span> Full-year commitment to the standard</li>
               <li><span class="mc-check">&#10003;</span> Strongest membership value</li>
               <li><span class="mc-check">&#10003;</span> Year-round coaching environment</li>
               <li><span class="mc-check">&#10003;</span> Long-range progression focus</li>
-              <li><span class="mc-check">&#10003;</span> Best for serious members who want results to stack</li>
+              <li><span class="mc-check">&#10003;</span> Best path for serious transformation</li>
             </ul>
+            <div class="mc-commitment-signal">TRANSFORMATION</div>
             <div class="ppf-cta is-rest" data-cta-tier="3" data-section="memberships">
-              <span class="cta-pre-label" data-rest-text="TRANSFORMATION" data-active-text="LOCK IN">TRANSFORMATION</span>
+              <span class="cta-pre-label" data-rest-text="STANDARD LOCKED" data-active-text="LOCK IN">STANDARD LOCKED</span>
               <div class="cta-shell cta-shell--ghost">
                 <div class="cta-corner cta-corner--tl"></div>
                 <div class="cta-corner cta-corner--tr"></div>
@@ -1396,208 +1474,194 @@
                 <div class="cta-burst"></div>
                 <a href="#start" class="cta-action">
                   <span class="cta-label" data-confirm-text="LOCKED IN">COMMIT TO THE YEAR</span>
-                  <span class="cta-subline">Full transformation commitment</span>
+                  <span class="cta-subline">Full-system investment. Full carryover.</span>
+                  <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
+            <!-- Hover Drawer -->
+            <div class="mc-drawer">
+              <div class="mc-drawer-title">WHAT A YEAR CHANGES</div>
+              <ul class="mc-drawer-list">
+                <li>Identity, not just attendance</li>
+                <li>Deep trust in coaching</li>
+                <li>Long-range progression</li>
+                <li>Standard becomes lifestyle</li>
+              </ul>
+            </div>
+            <div class="mc-unlock-dots">
+              <span class="mc-dot"></span><span class="mc-dot"></span><span class="mc-dot"></span><span class="mc-dot"></span><span class="mc-dot"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Commitment Runway -->
+        <div class="ms-commitment-runway reveal-up">
+          <div class="ms-runway-track">
+            <div class="ms-runway-stage" data-stage="monthly">
+              <div class="ms-runway-fill" style="--fill-width: 25%"></div>
+              <div class="ms-runway-label">ENTRY</div>
+              <div class="ms-runway-desc">Start the habit</div>
+            </div>
+            <div class="ms-runway-stage" data-stage="quarterly">
+              <div class="ms-runway-fill" style="--fill-width: 50%"></div>
+              <div class="ms-runway-label">MOMENTUM</div>
+              <div class="ms-runway-desc">Build rhythm</div>
+            </div>
+            <div class="ms-runway-stage" data-stage="semiannual">
+              <div class="ms-runway-fill" style="--fill-width: 75%"></div>
+              <div class="ms-runway-label">DEVELOPMENT</div>
+              <div class="ms-runway-desc">Stack progress</div>
+            </div>
+            <div class="ms-runway-stage" data-stage="yearly">
+              <div class="ms-runway-fill" style="--fill-width: 100%"></div>
+              <div class="ms-runway-label">TRANSFORMATION</div>
+              <div class="ms-runway-desc">Become the standard</div>
+            </div>
+          </div>
+          <!-- Commitment pulse line -->
+          <div class="ms-runway-pulse"></div>
+        </div>
+      </div>
+
+      <!-- ═══ LANE B: PRIVATE COACHING ═══ -->
+      <div class="ms-lane ms-lane-private" id="lanePrivate">
+        <div class="ms-pc-header">
+          <div class="section-label reveal-up">PRIVATE COACHING</div>
+          <h3 class="ms-pc-headline reveal-up">Precision. Correction. Direct Development.</h3>
+          <p class="ms-pc-subheadline reveal-up">For members who want individualized coaching, hands-on attention, and exact programming built around exact needs.</p>
+        </div>
+
+        <!-- Session Benefits Strip -->
+        <div class="ms-pc-benefits reveal-up">
+          <div class="ms-pc-benefit"><span class="ms-pc-benefit-icon">&#9201;</span> 45–60 minute private sessions</div>
+          <div class="ms-pc-benefit"><span class="ms-pc-benefit-icon">&#9998;</span> Hands-on technical coaching</div>
+          <div class="ms-pc-benefit"><span class="ms-pc-benefit-icon">&#10003;</span> Individualized strength and conditioning</div>
+          <div class="ms-pc-benefit"><span class="ms-pc-benefit-icon">&#8634;</span> Movement correction and body alignment</div>
+          <div class="ms-pc-benefit"><span class="ms-pc-benefit-icon">&#9650;</span> Measurable progression</div>
+        </div>
+
+        <!-- Private Coaching Cards -->
+        <div class="ms-pc-grid">
+          <!-- Single Session -->
+          <div class="ms-pc-card reveal-up" data-pkg="single">
+            <div class="ms-pc-badge">SESSION OPEN</div>
+            <div class="ms-pc-name">Single Session</div>
+            <div class="ms-pc-price"><span class="pt-currency">$</span>65</div>
+            <div class="ms-pc-line">Try the experience</div>
+            <div class="ppf-cta is-rest" data-cta-tier="3" data-section="memberships">
+              <span class="cta-pre-label" data-rest-text="SESSION OPEN" data-active-text="BOOK">SESSION OPEN</span>
+              <div class="cta-shell cta-shell--ghost">
+                <div class="cta-corner cta-corner--tl"></div>
+                <div class="cta-corner cta-corner--tr"></div>
+                <div class="cta-corner cta-corner--bl"></div>
+                <div class="cta-corner cta-corner--br"></div>
+                <div class="cta-edge-runner"></div>
+                <div class="cta-scanner"></div>
+                <div class="cta-burst"></div>
+                <a href="#start" class="cta-action">
+                  <span class="cta-label" data-confirm-text="SESSION BOOKED">BOOK A SESSION</span>
+                  <span class="cta-subline">One-on-one coach access</span>
+                  <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5 Sessions -->
+          <div class="ms-pc-card reveal-up" data-pkg="five">
+            <div class="ms-pc-badge">PACKAGE READY</div>
+            <div class="ms-pc-name">5 Sessions</div>
+            <div class="ms-pc-price"><span class="pt-currency">$</span>325</div>
+            <div class="ms-pc-line">Build a foundation</div>
+            <div class="ppf-cta is-rest" data-cta-tier="3" data-section="memberships">
+              <span class="cta-pre-label" data-rest-text="PACKAGE READY" data-active-text="BOOK">PACKAGE READY</span>
+              <div class="cta-shell cta-shell--ghost">
+                <div class="cta-corner cta-corner--tl"></div>
+                <div class="cta-corner cta-corner--tr"></div>
+                <div class="cta-corner cta-corner--bl"></div>
+                <div class="cta-corner cta-corner--br"></div>
+                <div class="cta-edge-runner"></div>
+                <div class="cta-scanner"></div>
+                <div class="cta-burst"></div>
+                <a href="#start" class="cta-action">
+                  <span class="cta-label" data-confirm-text="SESSIONS BOOKED">BOOK 5 SESSIONS</span>
+                  <span class="cta-subline">Consistent coaching block</span>
+                  <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 10 Sessions -->
+          <div class="ms-pc-card reveal-up" data-pkg="ten">
+            <div class="ms-pc-badge ms-pc-badge--accent">MOST EFFICIENT</div>
+            <div class="ms-pc-name">10 Sessions</div>
+            <div class="ms-pc-price"><span class="pt-currency">$</span>650</div>
+            <div class="ms-pc-line">Create real momentum</div>
+            <div class="ppf-cta is-rest" data-cta-tier="2" data-section="memberships">
+              <span class="cta-pre-label" data-rest-text="BEST VALUE" data-active-text="CLAIM">BEST VALUE</span>
+              <div class="cta-shell">
+                <div class="cta-corner cta-corner--tl"></div>
+                <div class="cta-corner cta-corner--tr"></div>
+                <div class="cta-corner cta-corner--bl"></div>
+                <div class="cta-corner cta-corner--br"></div>
+                <div class="cta-edge-runner"></div>
+                <div class="cta-scanner"></div>
+                <div class="cta-burst"></div>
+                <a href="#start" class="cta-action">
+                  <span class="cta-label" data-confirm-text="SESSIONS CLAIMED">BOOK 10 SESSIONS</span>
+                  <span class="cta-subline">Maximum value training</span>
+                  <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 20 Sessions -->
+          <div class="ms-pc-card reveal-up" data-pkg="twenty">
+            <div class="ms-pc-badge ms-pc-badge--premium">ELITE PACKAGE</div>
+            <div class="ms-pc-name">20 Sessions</div>
+            <div class="ms-pc-price"><span class="pt-currency">$</span>1,150</div>
+            <div class="ms-pc-line">Full transformation commitment</div>
+            <div class="ppf-cta is-rest" data-cta-tier="3" data-section="memberships">
+              <span class="cta-pre-label" data-rest-text="ELITE PACKAGE" data-active-text="LOCK IN">ELITE PACKAGE</span>
+              <div class="cta-shell cta-shell--ghost">
+                <div class="cta-corner cta-corner--tl"></div>
+                <div class="cta-corner cta-corner--tr"></div>
+                <div class="cta-corner cta-corner--bl"></div>
+                <div class="cta-corner cta-corner--br"></div>
+                <div class="cta-edge-runner"></div>
+                <div class="cta-scanner"></div>
+                <div class="cta-burst"></div>
+                <a href="#start" class="cta-action">
+                  <span class="cta-label" data-confirm-text="SESSIONS LOCKED">BOOK 20 SESSIONS</span>
+                  <span class="cta-subline">Premium transformation package</span>
                   <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
               </div>
             </div>
           </div>
         </div>
-
-        <!-- Commitment Timeline -->
-        <div class="commitment-timeline reveal-up">
-          <div class="ct-header">WHY COMMIT LONGER?</div>
-          <div class="ct-bar">
-            <div class="ct-stage" data-stage="monthly">
-              <div class="ct-fill" style="--fill-width: 25%"></div>
-              <div class="ct-label">Month-to-Month</div>
-              <div class="ct-sublabel">Entry</div>
-            </div>
-            <div class="ct-stage" data-stage="quarterly">
-              <div class="ct-fill" style="--fill-width: 50%"></div>
-              <div class="ct-label">Quarterly</div>
-              <div class="ct-sublabel">Momentum</div>
-            </div>
-            <div class="ct-stage" data-stage="semiannual">
-              <div class="ct-fill" style="--fill-width: 75%"></div>
-              <div class="ct-label">Semi-Annual</div>
-              <div class="ct-sublabel">Development</div>
-            </div>
-            <div class="ct-stage" data-stage="yearly">
-              <div class="ct-fill" style="--fill-width: 100%"></div>
-              <div class="ct-label">Yearly</div>
-              <div class="ct-sublabel">Transformation</div>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <!-- Personal Training Panel (shown when PT tab is active) -->
-      <div class="membership-panel" id="membershipPT">
-        <div class="pt-section">
-          <div class="pt-hero-content">
-            <h3 class="pt-headline">1:1 Personal Training</h3>
-            <p class="pt-tagline">Private coaching. Precise execution. World-class hands-on development.</p>
-            <p class="pt-sub">For members who want individualized attention, body alignment, strength and conditioning, body sculpting, and a coaching experience built around exact needs and exact results.</p>
-          </div>
-
-          <div class="pt-features-grid">
-            <div class="pt-feature">
-              <div class="pt-feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-              </div>
-              <div class="pt-feature-text">45–60 minute private sessions</div>
-            </div>
-            <div class="pt-feature">
-              <div class="pt-feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-              </div>
-              <div class="pt-feature-text">Hands-on technical coaching</div>
-            </div>
-            <div class="pt-feature">
-              <div class="pt-feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-              </div>
-              <div class="pt-feature-text">Individualized strength &amp; conditioning</div>
-            </div>
-            <div class="pt-feature">
-              <div class="pt-feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>
-              </div>
-              <div class="pt-feature-text">Movement correction &amp; body alignment</div>
-            </div>
-            <div class="pt-feature">
-              <div class="pt-feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
-              </div>
-              <div class="pt-feature-text">Body sculpting &amp; physical development</div>
-            </div>
-            <div class="pt-feature">
-              <div class="pt-feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-              </div>
-              <div class="pt-feature-text">Measurable progression, not guesswork</div>
-            </div>
-          </div>
-
-          <!-- PT Packages -->
-          <div class="pt-packages-grid">
-            <div class="pt-package reveal-up" data-pkg="single">
-              <div class="pt-pkg-name">Single Session</div>
-              <div class="pt-pkg-price"><span class="pt-currency">$</span>65</div>
-              <div class="pt-pkg-desc">Try the experience</div>
-              <div class="ppf-cta is-rest" data-cta-tier="3" data-section="memberships">
-                <span class="cta-pre-label" data-rest-text="SESSION OPEN" data-active-text="BOOK">SESSION OPEN</span>
-                <div class="cta-shell cta-shell--ghost">
-                  <div class="cta-corner cta-corner--tl"></div>
-                  <div class="cta-corner cta-corner--tr"></div>
-                  <div class="cta-corner cta-corner--bl"></div>
-                  <div class="cta-corner cta-corner--br"></div>
-                  <div class="cta-edge-runner"></div>
-                  <div class="cta-scanner"></div>
-                  <div class="cta-burst"></div>
-                  <a href="#start" class="cta-action">
-                    <span class="cta-label" data-confirm-text="SESSION BOOKED">BOOK A SESSION</span>
-                    <span class="cta-subline">One-on-one coach access</span>
-                    <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="pt-package reveal-up" data-pkg="five">
-              <div class="pt-pkg-name">5 Sessions</div>
-              <div class="pt-pkg-price"><span class="pt-currency">$</span>325</div>
-              <div class="pt-pkg-desc">Build a foundation</div>
-              <div class="ppf-cta is-rest" data-cta-tier="3" data-section="memberships">
-                <span class="cta-pre-label" data-rest-text="PACKAGE READY" data-active-text="BOOK">PACKAGE READY</span>
-                <div class="cta-shell cta-shell--ghost">
-                  <div class="cta-corner cta-corner--tl"></div>
-                  <div class="cta-corner cta-corner--tr"></div>
-                  <div class="cta-corner cta-corner--bl"></div>
-                  <div class="cta-corner cta-corner--br"></div>
-                  <div class="cta-edge-runner"></div>
-                  <div class="cta-scanner"></div>
-                  <div class="cta-burst"></div>
-                  <a href="#start" class="cta-action">
-                    <span class="cta-label" data-confirm-text="SESSIONS BOOKED">BOOK 5 SESSIONS</span>
-                    <span class="cta-subline">Consistent coaching block</span>
-                    <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="pt-package reveal-up" data-pkg="ten">
-              <div class="pt-pkg-tag">BEST VALUE</div>
-              <div class="pt-pkg-name">10 Sessions</div>
-              <div class="pt-pkg-price"><span class="pt-currency">$</span>650</div>
-              <div class="pt-pkg-desc">Create real momentum</div>
-              <div class="ppf-cta is-rest" data-cta-tier="2" data-section="memberships">
-                <span class="cta-pre-label" data-rest-text="BEST VALUE" data-active-text="CLAIM">BEST VALUE</span>
-                <div class="cta-shell">
-                  <div class="cta-corner cta-corner--tl"></div>
-                  <div class="cta-corner cta-corner--tr"></div>
-                  <div class="cta-corner cta-corner--bl"></div>
-                  <div class="cta-corner cta-corner--br"></div>
-                  <div class="cta-edge-runner"></div>
-                  <div class="cta-scanner"></div>
-                  <div class="cta-burst"></div>
-                  <a href="#start" class="cta-action">
-                    <span class="cta-label" data-confirm-text="SESSIONS CLAIMED">BOOK 10 SESSIONS</span>
-                    <span class="cta-subline">Maximum value training</span>
-                    <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="pt-package reveal-up" data-pkg="twenty">
-              <div class="pt-pkg-name">20 Sessions</div>
-              <div class="pt-pkg-price"><span class="pt-currency">$</span>1,150</div>
-              <div class="pt-pkg-desc">Full transformation commitment</div>
-              <div class="ppf-cta is-rest" data-cta-tier="3" data-section="memberships">
-                <span class="cta-pre-label" data-rest-text="ELITE PACKAGE" data-active-text="LOCK IN">ELITE PACKAGE</span>
-                <div class="cta-shell cta-shell--ghost">
-                  <div class="cta-corner cta-corner--tl"></div>
-                  <div class="cta-corner cta-corner--tr"></div>
-                  <div class="cta-corner cta-corner--bl"></div>
-                  <div class="cta-corner cta-corner--br"></div>
-                  <div class="cta-edge-runner"></div>
-                  <div class="cta-scanner"></div>
-                  <div class="cta-burst"></div>
-                  <a href="#start" class="cta-action">
-                    <span class="cta-label" data-confirm-text="SESSIONS LOCKED">BOOK 20 SESSIONS</span>
-                    <span class="cta-subline">Premium transformation package</span>
-                    <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Session Structure -->
-          <div class="pt-session-structure reveal-up">
-            <div class="pt-ss-title">WHAT EACH SESSION INCLUDES</div>
-            <div class="pt-ss-grid">
-              <div class="pt-ss-item">
-                <div class="pt-ss-num">01</div>
-                <div class="pt-ss-text">Movement review &amp; alignment check</div>
-              </div>
-              <div class="pt-ss-item">
-                <div class="pt-ss-num">02</div>
-                <div class="pt-ss-text">Coach-led warm-up</div>
-              </div>
-              <div class="pt-ss-item">
-                <div class="pt-ss-num">03</div>
-                <div class="pt-ss-text">Focused work block based on your goal</div>
-              </div>
-              <div class="pt-ss-item">
-                <div class="pt-ss-num">04</div>
-                <div class="pt-ss-text">Conditioning or sculpting finish</div>
-              </div>
-              <div class="pt-ss-item">
-                <div class="pt-ss-num">05</div>
-                <div class="pt-ss-text">Next-step recommendations</div>
-              </div>
-            </div>
+      <!-- Final CTA -->
+      <div class="ms-final-cta reveal-up">
+        <div class="ppf-cta is-rest" data-cta-tier="1" data-section="memberships">
+          <span class="cta-pre-label" data-rest-text="YOUR MOVE" data-active-text="CLAIM">YOUR MOVE</span>
+          <div class="cta-shell">
+            <div class="cta-corner cta-corner--tl"></div>
+            <div class="cta-corner cta-corner--tr"></div>
+            <div class="cta-corner cta-corner--bl"></div>
+            <div class="cta-corner cta-corner--br"></div>
+            <div class="cta-edge-runner"></div>
+            <div class="cta-scanner"></div>
+            <div class="cta-burst"></div>
+            <a href="#start" class="cta-action">
+              <span class="cta-label" data-confirm-text="CLAIMED">CLAIM YOUR 3-DAY EXPERIENCE</span>
+              <span class="cta-subline">Start with a free 3-day pass</span>
+              <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
           </div>
         </div>
       </div>

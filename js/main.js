@@ -2216,34 +2216,102 @@
     });
   }
 
-  /* ── MEMBERSHIP TABS ────────────────────────────────── */
-  const membershipTabs = qsa('.membership-tab');
-  const membershipPanels = qsa('.membership-panel');
+  /* ── MEMBERSHIP SYSTEM ─────────────────────────────── */
 
-  membershipTabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const target = tab.dataset.mtab;
+  /* Lane Toggle (Memberships / Private Coaching) */
+  const laneBtns = qsa('.ms-lane-btn');
+  const lanes = qsa('.ms-lane');
 
-      membershipTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      membershipPanels.forEach(panel => {
-        panel.classList.remove('active');
-      });
-
-      if (target === 'pt') {
-        qs('#membershipPT').classList.add('active');
+  laneBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.lane;
+      laneBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      lanes.forEach(lane => lane.classList.remove('active'));
+      if (target === 'private') {
+        const el = qs('#lanePrivate');
+        if (el) el.classList.add('active');
       } else {
-        qs('#membershipGeneral').classList.add('active');
+        const el = qs('#laneMemberships');
+        if (el) el.classList.add('active');
       }
     });
   });
 
-  /* ── MEMBERSHIP CARD HOVER REACTOR ─────────────────── */
+  /* Path Filter (All Paths / Athlete / Adult / Integrated) */
+  const pathFilterBtns = qsa('.ms-filter-btn');
   const membershipCards = qsa('.membership-card');
+
+  function updatePathAwareCopy(path) {
+    const key = (path === 'all') ? 'default' : path;
+    membershipCards.forEach(card => {
+      const desc = card.querySelector('.mc-description');
+      const bestFor = card.querySelector('.mc-best-for');
+      const bfText = card.querySelector('.mc-bf-text');
+      if (desc) {
+        const val = desc.getAttribute('data-' + key);
+        if (val) desc.textContent = val;
+      }
+      if (bestFor && bfText) {
+        const val = bestFor.getAttribute('data-' + key);
+        if (val) bfText.textContent = val.replace(/^Best for:\s*/i, '');
+      }
+    });
+  }
+
+  pathFilterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const path = btn.dataset.path;
+      pathFilterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updatePathAwareCopy(path);
+    });
+  });
+
+  /* Membership Card Hover — Glow, Depth Meter, Runway Sync */
+  const tierToLevel = { monthly: 1, quarterly: 2, semiannual: 3, yearly: 4 };
+  const tierToStage = { monthly: 'monthly', quarterly: 'quarterly', semiannual: 'semiannual', yearly: 'yearly' };
+  const dmFill = qs('.ms-dm-fill');
+  const dmLabels = qsa('.ms-dm-label');
+  const runwayStages = qsa('.ms-runway-stage');
+  const runwayEl = qs('.ms-commitment-runway');
+  const runwayPulse = qs('.ms-runway-pulse');
+
+  function setDepthMeter(level) {
+    if (dmFill) dmFill.setAttribute('data-level', level);
+    dmLabels.forEach(label => {
+      label.classList.toggle('active', parseInt(label.dataset.level) <= level);
+    });
+  }
+
+  function setRunway(tier) {
+    const stageMap = ['monthly', 'quarterly', 'semiannual', 'yearly'];
+    const tierIndex = stageMap.indexOf(tier);
+    runwayStages.forEach((stage, i) => {
+      const isLit = i <= tierIndex;
+      const isActive = stage.dataset.stage === tier;
+      stage.classList.toggle('lit', isLit);
+      stage.classList.toggle('active-stage', isActive);
+    });
+    if (runwayEl) runwayEl.classList.add('pulse-active');
+    if (runwayPulse) {
+      const pct = ((tierIndex + 1) / 4) * 100;
+      runwayPulse.style.width = pct + '%';
+    }
+  }
+
+  function resetRunway() {
+    runwayStages.forEach(stage => {
+      stage.classList.remove('lit', 'active-stage');
+    });
+    if (runwayEl) runwayEl.classList.remove('pulse-active');
+    if (runwayPulse) runwayPulse.style.width = '0%';
+  }
+
   membershipCards.forEach(card => {
     card.addEventListener('mouseenter', () => {
       const tier = card.dataset.tier;
+      const level = tierToLevel[tier] || 0;
       let glowIntensity = '0.06';
       let borderIntensity = '0.25';
 
@@ -2253,17 +2321,22 @@
 
       card.style.boxShadow = `0 12px 40px rgba(255, 85, 0, ${glowIntensity})`;
       card.style.borderColor = `rgba(255, 85, 0, ${borderIntensity})`;
+
+      setDepthMeter(level);
+      setRunway(tier);
     });
 
     card.addEventListener('mouseleave', () => {
       card.style.boxShadow = '';
       card.style.borderColor = '';
+      setDepthMeter(0);
+      resetRunway();
     });
   });
 
-  /* ── PT PACKAGE HOVER ──────────────────────────────── */
-  const ptPackages = qsa('.pt-package');
-  ptPackages.forEach(pkg => {
+  /* Private Coaching Card Hover */
+  const pcCards = qsa('.ms-pc-card');
+  pcCards.forEach(pkg => {
     pkg.addEventListener('mouseenter', () => {
       pkg.style.boxShadow = '0 12px 40px rgba(255, 85, 0, 0.1)';
     });
@@ -2272,27 +2345,27 @@
     });
   });
 
-  /* ── COMMITMENT TIMELINE ANIMATION ─────────────────── */
-  const ctStages = qsa('.ct-stage');
-  if ('IntersectionObserver' in window && ctStages.length) {
-    const ctObs = new IntersectionObserver((entries) => {
+  /* Commitment Runway Scroll Animation */
+  const runwayFills = qsa('.ms-runway-fill');
+  if ('IntersectionObserver' in window && runwayStages.length) {
+    const runwayObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const fill = entry.target.querySelector('.ct-fill');
+          const fill = entry.target.querySelector('.ms-runway-fill');
           if (fill) {
             setTimeout(() => {
               fill.style.width = getComputedStyle(fill).getPropertyValue('--fill-width');
             }, 300);
           }
-          ctObs.unobserve(entry.target);
+          runwayObs.unobserve(entry.target);
         }
       });
     }, { threshold: 0.3 });
 
-    ctStages.forEach(stage => {
-      const fill = stage.querySelector('.ct-fill');
+    runwayStages.forEach(stage => {
+      const fill = stage.querySelector('.ms-runway-fill');
       if (fill) fill.style.width = '0%';
-      ctObs.observe(stage);
+      runwayObs.observe(stage);
     });
   }
 
@@ -2932,9 +3005,9 @@
       formPath.value = path;
     }
 
-    // Switch membership tab to match
-    const matchingMembershipTab = qs(`.membership-tab[data-mtab="${path}"]`);
-    if (matchingMembershipTab) matchingMembershipTab.click();
+    // Switch membership path filter to match
+    const matchingPathFilter = qs(`.ms-filter-btn[data-path="${path}"]`);
+    if (matchingPathFilter) matchingPathFilter.click();
   }
 
   // Listen for path card CTA clicks to set path routing
