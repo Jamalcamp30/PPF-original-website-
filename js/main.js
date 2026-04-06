@@ -1772,4 +1772,257 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  /* ── COACHING COMMAND MODE — PPF Signature System ──── */
+  const commandOverlay = qs('#coachingCommandOverlay');
+  const commandText = qs('#commandText');
+
+  if (commandOverlay && commandText && !isReduced) {
+    const commandCues = [
+      { section: 'standard', commands: ['DISCIPLINE', 'STANDARD', 'NO DRIFT'] },
+      { section: 'paths', commands: ['CHOOSE', 'LOCK IN', 'COMMIT'] },
+      { section: 'oneRoom', commands: ['ONE ROOM', 'SAME STANDARD'] },
+      { section: 'proof', commands: ['PROVE IT', 'MEASURED', 'VERIFIED'] },
+      { section: 'carryover', commands: ['CARRYOVER', 'TRANSFER'] },
+      { section: 'room', commands: ['DRIVE', 'FINISH TALL', 'OWN THE REP'] },
+      { section: 'leadership', commands: ['PROTECT', 'COACH', 'LEAD'] },
+      { section: 'experience', commands: ['ASSESS', 'TRAIN', 'PLACE'] },
+      { section: 'memberships', commands: ['COMMIT', 'INVEST'] },
+    ];
+
+    const triggeredSections = new Set();
+    let commandTimeout = null;
+
+    function showCommand(text) {
+      if (commandTimeout) clearTimeout(commandTimeout);
+      commandText.textContent = text;
+      commandOverlay.classList.add('active');
+      commandTimeout = setTimeout(() => {
+        commandOverlay.classList.remove('active');
+      }, 800);
+    }
+
+    commandCues.forEach(({ section, commands }) => {
+      const el = qs('#' + section);
+      if (!el) return;
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !triggeredSections.has(section)) {
+            triggeredSections.add(section);
+            const cmd = commands[Math.floor(Math.random() * commands.length)];
+            showCommand(cmd);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      obs.observe(el);
+    });
+  }
+
+  /* ── PPF STANDARD METER — Engagement Tracker ────────── */
+  const standardMeter = qs('#ppfStandardMeter');
+  const standardFill = qs('#standardMeterFill');
+  const standardLevel = qs('#standardMeterLevel');
+
+  if (standardMeter && standardFill && standardLevel && !isReduced) {
+    const meterSections = ['hero', 'standard', 'paths', 'proof', 'room', 'leadership', 'experience', 'memberships', 'start'];
+    const meterLevels = ['PRESENCE', 'DISCIPLINE', 'STRUCTURE', 'OUTPUT', 'STANDARD'];
+    const visitedSections = new Set();
+    let meterShown = false;
+
+    function updateMeter() {
+      meterSections.forEach(id => {
+        const el = qs('#' + id);
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const viewMid = window.innerHeight * 0.5;
+        if (rect.top < viewMid && rect.bottom > viewMid) {
+          visitedSections.add(id);
+        }
+      });
+
+      const progress = Math.min(visitedSections.size / meterSections.length, 1);
+      const pct = Math.round(progress * 100);
+      standardFill.style.width = pct + '%';
+
+      const levelIdx = Math.min(Math.floor(progress * meterLevels.length), meterLevels.length - 1);
+      standardLevel.textContent = meterLevels[levelIdx];
+
+      // Show meter after first scroll
+      if (!meterShown && visitedSections.size > 1) {
+        standardMeter.classList.add('visible');
+        meterShown = true;
+      }
+
+      // Add final level class
+      if (levelIdx === meterLevels.length - 1) {
+        standardMeter.classList.add('level-5');
+      } else {
+        standardMeter.classList.remove('level-5');
+      }
+    }
+
+    registerScrollHandler(updateMeter);
+  }
+
+  /* ── ONE ROOM ENGINE — Interactive Floor Toggle ──────── */
+  const oneRoomBtns = qsa('.one-room-btn');
+  const roomStates = qsa('.room-state');
+  const roomFloorOverlay = qs('#roomFloorOverlay');
+
+  if (oneRoomBtns.length && roomStates.length) {
+    const roomColors = {
+      athlete: 'radial-gradient(ellipse at center, rgba(255, 85, 0, 0.04) 0%, transparent 70%)',
+      adult: 'radial-gradient(ellipse at center, rgba(100, 140, 255, 0.04) 0%, transparent 70%)',
+      integrated: 'radial-gradient(ellipse at center, rgba(80, 200, 120, 0.04) 0%, transparent 70%)',
+    };
+
+    oneRoomBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const room = btn.dataset.room;
+
+        // Update buttons
+        oneRoomBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Switch room states
+        roomStates.forEach(s => s.classList.remove('active'));
+        const target = qs(`[data-room-state="${room}"]`);
+        if (target) target.classList.add('active');
+
+        // Update floor overlay
+        if (roomFloorOverlay) {
+          roomFloorOverlay.style.background = roomColors[room] || 'none';
+        }
+      });
+    });
+  }
+
+  /* ── CARRYOVER VISION — Trail Node Reveal ────────────── */
+  const carryoverTrails = qsa('.carryover-trail');
+
+  if (carryoverTrails.length && 'IntersectionObserver' in window) {
+    const trailObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const trail = entry.target;
+          const nodes = qsa('.trail-node', trail);
+          const connectors = qsa('.trail-connector', trail);
+
+          nodes.forEach((node, i) => {
+            setTimeout(() => {
+              node.classList.add('revealed');
+            }, i * 200);
+          });
+
+          connectors.forEach((conn, i) => {
+            setTimeout(() => {
+              conn.classList.add('revealed');
+            }, i * 200 + 100);
+          });
+
+          trailObs.unobserve(trail);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    carryoverTrails.forEach(trail => trailObs.observe(trail));
+  }
+
+  /* ── PATH ROUTING ENGINE — Site-Wide Path Lock ──────── */
+  let activePathFilter = null;
+
+  function setActivePath(path) {
+    if (activePathFilter === path) {
+      // Deselect - show all
+      activePathFilter = null;
+      document.body.removeAttribute('data-active-path');
+      return;
+    }
+
+    activePathFilter = path;
+    document.body.setAttribute('data-active-path', path);
+
+    // Switch proof tab to match path
+    const matchingTab = qs(`.proof-tab[data-tab="${path}"]`);
+    if (matchingTab) {
+      activateProofTab(matchingTab);
+    }
+
+    // Switch One Room Engine to match path
+    const matchingRoomBtn = qs(`.one-room-btn[data-room="${path}"]`);
+    if (matchingRoomBtn) matchingRoomBtn.click();
+
+    // Pre-select form path dropdown
+    const formPath = qs('#path');
+    if (formPath) {
+      const optionValue = path === 'athlete' ? 'athlete' : path === 'adult' ? 'adult' : 'integrated';
+      formPath.value = optionValue;
+    }
+
+    // Switch membership tab to match
+    const matchingMembershipTab = qs(`.membership-tab[data-mtab="${path}"]`);
+    if (matchingMembershipTab) matchingMembershipTab.click();
+  }
+
+  // Listen for path card CTA clicks to set path routing
+  pathCards.forEach(card => {
+    const cta = qs('.path-cta', card);
+    if (cta) {
+      cta.addEventListener('click', function () {
+        const path = card.dataset.path;
+        setActivePath(path);
+      });
+    }
+
+    // Also set path on card click (beyond the CTA)
+    card.addEventListener('click', function (e) {
+      if (e.target.closest('.path-cta')) return; // Let CTA handler deal with it
+      const path = this.dataset.path;
+      setActivePath(path);
+    });
+  });
+
+  // Path selector buttons (one-room) also route
+  oneRoomBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const room = btn.dataset.room;
+      if (activePathFilter !== room) {
+        setActivePath(room);
+      }
+    });
+  });
+
+  /* ── ENHANCED SESSION RECONSTRUCTED ──────────────────── */
+  // Add coaching cue flash to instruction stage
+  const roomTrackEl = qs('#roomTrack');
+  if (roomTrackEl) {
+    const instructionStage = qs('[data-phase="instruction"]', roomTrackEl);
+    if (instructionStage) {
+      const cues = qsa('.rv-cue', instructionStage);
+      const originalGoToStage = goToStage;
+
+      // Enhanced stage transitions
+      roomStages.forEach((stage, idx) => {
+        if (idx === 2 && cues.length) { // Instruction stage
+          const obs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting && entry.target.classList.contains('active')) {
+                cues.forEach((cue, i) => {
+                  cue.style.opacity = '0';
+                  cue.style.transform = 'translateY(10px)';
+                  setTimeout(() => {
+                    cue.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    cue.style.opacity = '1';
+                    cue.style.transform = 'translateY(0)';
+                  }, 300 + i * 400);
+                });
+              }
+            });
+          }, { threshold: 0.5 });
+          obs.observe(stage);
+        }
+      });
+    }
+  }
+
 })();
