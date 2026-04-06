@@ -120,16 +120,16 @@
    */
   function playClickTick() {
     if (!soundEnabled || isReduced) return;
-    var ctx = getAudioCtx();
-    if (!ctx) return;
+    var audioContext = getAudioCtx();
+    if (!audioContext) return;
     // Resume context if suspended (autoplay policy)
-    if (ctx.state === 'suspended') {
-      ctx.resume();
+    if (audioContext.state === 'suspended') {
+      audioContext.resume();
     }
 
-    var now = ctx.currentTime;
-    var osc = ctx.createOscillator();
-    var gain = ctx.createGain();
+    var now = audioContext.currentTime;
+    var osc = audioContext.createOscillator();
+    var gain = audioContext.createGain();
 
     osc.type = 'sine';
     osc.frequency.setValueAtTime(800, now);
@@ -139,7 +139,7 @@
     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
 
     osc.connect(gain);
-    gain.connect(ctx.destination);
+    gain.connect(audioContext.destination);
     osc.start(now);
     osc.stop(now + 0.08);
   }
@@ -340,7 +340,7 @@
     var near = dist < cfg.proximity;
 
     if (near && !isTouchDevice && !isReduced) {
-      // Direction vector, normalised
+      // Direction vector, normalized
       var ndx = dist > 0 ? dx / dist : 0;
       var ndy = dist > 0 ? dy / dist : 0;
 
@@ -769,20 +769,20 @@
   }
 
   /* ═══════════════════════════════════════════════════
-     §18  INITIALISATION & PUBLIC API
+     §18  INITIALIZATION & PUBLIC API
      ═══════════════════════════════════════════════════ */
 
   /**
-   * Scan DOM for .ppf-cta elements and initialise any new ones.
+   * Scan DOM for .ppf-cta elements and initialize any new ones.
    */
   function scan() {
     var elements = qsa('.ppf-cta');
 
     for (var i = 0; i < elements.length; i++) {
       var el = elements[i];
-      // Skip already-initialised
-      if (el.hasAttribute('data-ct-init')) continue;
-      el.setAttribute('data-ct-init', '1');
+      // Skip already-initialized
+      if (el.hasAttribute('data-command-trigger-initialized')) continue;
+      el.setAttribute('data-command-trigger-initialized', '1');
 
       var inst = createInstance(el);
       instances.push(inst);
