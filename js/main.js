@@ -1311,7 +1311,7 @@
     document.addEventListener('mouseup',   () => cursorRing.classList.remove('clicking'));
 
     // Hover effect on interactive elements
-    const hoverEls = qsa('a, button, .path-card, .pillar-card, .proof-metric, .story-card, .leader-card');
+    const hoverEls = qsa('a, button, .path-card, .pillar-card, .proof-metric, .story-card, .leader-card, .ppf-cta');
     hoverEls.forEach(el => {
       el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
       el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
@@ -1811,7 +1811,7 @@
       const submitBtn = qs('[type="submit"]', this);
       if (submitBtn) {
         submitBtn.disabled = true;
-        const btnText = qs('span', submitBtn);
+        const btnText = qs('.cta-label', submitBtn) || qs('span', submitBtn);
         if (btnText) btnText.textContent = 'Sending…';
       }
 
@@ -1823,8 +1823,8 @@
         startForm.reset();
         if (submitBtn) {
           submitBtn.disabled = false;
-          const btnText = qs('span', submitBtn);
-          if (btnText) btnText.textContent = 'Claim My 3-Day Pass';
+          const btnText = qs('.cta-label', submitBtn) || qs('span', submitBtn);
+          if (btnText) btnText.textContent = 'SUBMIT APPLICATION';
         }
       }, 1000);
     });

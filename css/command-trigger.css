@@ -203,6 +203,34 @@
 }
 
 
+/* ── Ghost Variant ── */
+.cta-shell--ghost {
+  background:
+    radial-gradient(
+      ellipse at var(--glow-x, 50%) var(--glow-y, 50%),
+      rgba(255, 85, 0, 0.04) 0%,
+      transparent 70%
+    ),
+    transparent;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.cta-shell--ghost .cta-edge-runner::after {
+  background: var(--bg-base, #080808);
+}
+
+.is-hover .cta-shell--ghost {
+  border-color: rgba(255, 255, 255, 0.35);
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.is-success .cta-shell--ghost {
+  border-color: rgba(255, 85, 0, 0.35);
+  background-color: rgba(255, 85, 0, 0.04);
+}
+
+
 /* ─────────────────────────────────────────────────────
    §B  EDGE RUNNER — Layer B
    Conic-gradient sweep around the shell perimeter
@@ -1089,4 +1117,132 @@
   .cta-arrow {
     transition-duration: 0ms !important;
   }
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §Q  LIGHTWEIGHT VARIANTS
+   Nav trigger and micro CTA for small UI elements
+   ───────────────────────────────────────────────────── */
+
+/* Nav CTA — minimal trigger treatment */
+.ppf-nav-trigger {
+  position: relative;
+}
+
+.ppf-nav-trigger::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: border-color 200ms ease-out, box-shadow 200ms ease-out;
+  pointer-events: none;
+}
+
+.ppf-nav-trigger:hover::before {
+  border-color: rgba(255, 85, 0, 0.5);
+  box-shadow: 0 0 12px rgba(255, 85, 0, 0.15);
+}
+
+.ppf-nav-trigger:active::before {
+  border-color: rgba(255, 85, 0, 0.8);
+  box-shadow: 0 0 20px rgba(255, 85, 0, 0.25);
+}
+
+/* Micro CTA — subtle energy for small contact buttons */
+.ppf-micro-cta {
+  position: relative;
+  transition: color 180ms ease-out, border-color 180ms ease-out;
+}
+
+.ppf-micro-cta::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--orange, #ff5500);
+  transition: width 300ms var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.ppf-micro-cta:hover::after {
+  width: 100%;
+}
+
+.ppf-micro-cta:hover {
+  color: var(--orange, #ff5500);
+}
+
+.ppf-micro-cta:active {
+  transform: scale(0.97);
+  transition-duration: 80ms;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §R  CTA ACTION LINK RESET
+   Ensure the action element fills the shell
+   ───────────────────────────────────────────────────── */
+
+.cta-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+  z-index: 3;
+  color: var(--white, #ffffff);
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  cursor: none;
+  white-space: nowrap;
+}
+
+/* Flex layout for label + subline stack */
+.cta-action {
+  flex-wrap: wrap;
+}
+
+.cta-label {
+  width: auto;
+  flex-shrink: 0;
+}
+
+/* Hero actions container layout */
+.hero-actions {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* Ensure ppf-cta inside path cards doesn't overflow */
+.path-content .ppf-cta {
+  margin-top: 16px;
+}
+
+/* Membership/PT card CTA alignment */
+.membership-card .ppf-cta,
+.pt-package .ppf-cta {
+  margin-top: auto;
+}
+
+/* CTA arrow */
+.cta-arrow {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform 200ms var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.is-hover .cta-arrow,
+.is-charged .cta-arrow {
+  transform: translateX(4px);
+}
+
+.is-pressed .cta-arrow {
+  transform: translateX(6px) scale(0.9);
 }
