@@ -36,8 +36,7 @@
     if (!scrollRafPending) {
       scrollRafPending = true;
       requestAnimationFrame(() => {
-        const len = scrollHandlers.length;
-        for (let i = 0; i < len; i++) scrollHandlers[i]();
+        scrollHandlers.forEach(fn => fn());
         scrollRafPending = false;
       });
     }
@@ -1796,8 +1795,10 @@
       if (commandTimeout) clearTimeout(commandTimeout);
       commandText.textContent = text;
       commandOverlay.classList.add('active');
+      commandOverlay.setAttribute('aria-hidden', 'false');
       commandTimeout = setTimeout(() => {
         commandOverlay.classList.remove('active');
+        commandOverlay.setAttribute('aria-hidden', 'true');
       }, 800);
     }
 
@@ -1955,8 +1956,7 @@
     // Pre-select form path dropdown
     const formPath = qs('#path');
     if (formPath) {
-      const optionValue = path === 'athlete' ? 'athlete' : path === 'adult' ? 'adult' : 'integrated';
-      formPath.value = optionValue;
+      formPath.value = path;
     }
 
     // Switch membership tab to match
@@ -1999,7 +1999,6 @@
     const instructionStage = qs('[data-phase="instruction"]', roomTrackEl);
     if (instructionStage) {
       const cues = qsa('.rv-cue', instructionStage);
-      const originalGoToStage = goToStage;
 
       // Enhanced stage transitions
       roomStages.forEach((stage, idx) => {
