@@ -395,6 +395,22 @@
 
     // Start work timer animation
     if (index === 3) startWorkTimer();
+
+    // Update progress tracker
+    updateRoomProgress(index);
+  }
+
+  function updateRoomProgress(index) {
+    const rptStagesLocal = qsa('.rpt-stage');
+    const rptLinesLocal = qsa('.rpt-line-fill');
+    rptStagesLocal.forEach((stage, i) => {
+      stage.classList.remove('active', 'completed');
+      if (i < index) stage.classList.add('completed');
+      if (i === index) stage.classList.add('active');
+    });
+    rptLinesLocal.forEach((line, i) => {
+      line.style.width = i < index ? '100%' : '0%';
+    });
   }
 
   if (roomPrevBtn) roomPrevBtn.addEventListener('click', () => goToStage(currentStage - 1));
@@ -1011,5 +1027,411 @@
     '%cPPF Athletics — Three Paths. One Standard.',
     'color: #ff5500; font-family: system-ui; font-size: 14px; font-weight: bold;'
   );
+
+  /* ── HERO SCROLL COMPRESSION ─────────────────────── */
+  const heroSection = qs('#hero');
+  if (heroSection && !isReduced) {
+    window.addEventListener('scroll', () => {
+      const sy = window.scrollY;
+      const heroH = heroSection.offsetHeight;
+      if (sy > heroH * 0.3) {
+        heroSection.classList.add('compressed');
+      } else {
+        heroSection.classList.remove('compressed');
+      }
+    }, { passive: true });
+  }
+
+  /* ── HERO MICRO-DATA LIVE UPDATE ─────────────────── */
+  const microReaction = qs('#microReaction');
+  const microOutput = qs('#microOutput');
+  if (microReaction && microOutput && !isReduced) {
+    setInterval(() => {
+      const r = (38 + Math.random() * 8).toFixed(0);
+      microReaction.textContent = r + 'ms';
+      const o = (90 + Math.random() * 9).toFixed(0);
+      microOutput.textContent = o + '%';
+    }, 2500);
+  }
+
+  /* ── LIVE METRIC STRIP ───────────────────────────── */
+  const liveMetricStrip = qs('#liveMetricStrip');
+  const lmsTrack = qs('#lmsTrack');
+  if (liveMetricStrip && lmsTrack) {
+    // Generate marquee content dynamically (duplicated for seamless loop)
+    const metrics = [
+      '<strong>20+</strong> Years Coaching',
+      '<strong>500+</strong> Athletes Developed',
+      '<strong>NSCA</strong> Certified Coaches',
+      '<strong>85%</strong> Member Retention',
+      '<strong>&lt;12hr</strong> Response Time',
+      '<strong>3</strong> Performance Paths',
+      '<strong>95%</strong> Return-to-Play',
+    ];
+    const fragment = document.createDocumentFragment();
+    for (let rep = 0; rep < 2; rep++) {
+      metrics.forEach(m => {
+        const item = document.createElement('span');
+        item.className = 'lms-item';
+        item.innerHTML = m;
+        fragment.appendChild(item);
+        const div = document.createElement('span');
+        div.className = 'lms-divider';
+        div.textContent = '\u25C6';
+        fragment.appendChild(div);
+      });
+    }
+    lmsTrack.appendChild(fragment);
+
+    let stripShown = false;
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300 && !stripShown) {
+        liveMetricStrip.classList.add('visible');
+        stripShown = true;
+      } else if (window.scrollY <= 300 && stripShown) {
+        liveMetricStrip.classList.remove('visible');
+        stripShown = false;
+      }
+    }, { passive: true });
+  }
+
+  /* ── COACH CUE HUD ──────────────────────────────── */
+  const coachHud = qs('#coachHud');
+  const hudPhase = qs('#hudPhase');
+  const hudCue = qs('#hudCue');
+  const hudProgressFill = qs('#hudProgressFill');
+  const hudPath = qs('#hudPath');
+
+  const hudSections = [
+    { id: 'standard', phase: 'THE STANDARD', cues: ['COACHING', 'STRUCTURE', 'ENVIRONMENT', 'PROOF'], path: 'ALL PATHS' },
+    { id: 'paths', phase: 'CHOOSE YOUR PATH', cues: ['ATHLETE', 'ADULT', 'INTEGRATED'], path: 'ALL PATHS' },
+    { id: 'proof', phase: 'PROOF ENGINE', cues: ['VERIFIED', 'MEASURED', 'DOCUMENTED'], path: 'ALL PATHS' },
+    { id: 'room', phase: 'INSIDE THE ROOM', cues: ['HIPS BACK', 'DRIVE THROUGH', 'FINISH TALL'], path: 'ALL PATHS' },
+    { id: 'leadership', phase: 'LEADERSHIP', cues: ['STANDARD', 'PROTECT', 'COACH'], path: 'ALL PATHS' },
+    { id: 'experience', phase: '3-DAY EXPERIENCE', cues: ['ASSESS', 'TRAIN', 'PLACE'], path: 'ALL PATHS' },
+  ];
+
+  if (coachHud && hudPhase && hudCue && hudProgressFill && !isReduced) {
+    let currentHudSection = null;
+    let cueInterval = null;
+
+    function updateHud() {
+      const scrollMid = window.scrollY + window.innerHeight * 0.5;
+      let activeSection = null;
+
+      for (const sec of hudSections) {
+        const el = qs(`#${sec.id}`);
+        if (el) {
+          const top = el.offsetTop;
+          const bot = top + el.offsetHeight;
+          if (scrollMid >= top && scrollMid <= bot) {
+            activeSection = sec;
+            const progress = ((scrollMid - top) / (bot - top)) * 100;
+            hudProgressFill.style.width = Math.min(progress, 100) + '%';
+            break;
+          }
+        }
+      }
+
+      if (activeSection && activeSection.id !== currentHudSection) {
+        currentHudSection = activeSection.id;
+        hudPhase.textContent = activeSection.phase;
+        if (hudPath) hudPath.textContent = activeSection.path;
+        coachHud.classList.add('visible');
+
+        // Rotate cues
+        let cueIdx = 0;
+        clearInterval(cueInterval);
+        hudCue.textContent = activeSection.cues[0] || '';
+        cueInterval = setInterval(() => {
+          cueIdx = (cueIdx + 1) % activeSection.cues.length;
+          hudCue.textContent = activeSection.cues[cueIdx];
+        }, 2000);
+      } else if (!activeSection) {
+        coachHud.classList.remove('visible');
+        currentHudSection = null;
+        clearInterval(cueInterval);
+      }
+    }
+
+    window.addEventListener('scroll', updateHud, { passive: true });
+  }
+
+  /* ── SECTION TRANSITIONS — SCROLL TRIGGER ────────── */
+  const sectionTransitions = qsa('.section-transition');
+  if ('IntersectionObserver' in window) {
+    const stObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+          stObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    sectionTransitions.forEach(st => stObs.observe(st));
+  }
+
+  /* ── PATH CARDS — LANE LOCK + AMBIENT GLOW ─────── */
+  const pathsAmbient = qs('#pathsAmbient');
+
+  pathCards.forEach(card => {
+    // Ambient lighting shift
+    card.addEventListener('mouseenter', function () {
+      const path = this.dataset.path;
+      if (pathsAmbient) {
+        if (path === 'athlete') {
+          pathsAmbient.style.background = 'radial-gradient(ellipse 50% 50% at 17% 50%, rgba(255, 85, 0, 0.06) 0%, transparent 100%)';
+        } else if (path === 'adult') {
+          pathsAmbient.style.background = 'radial-gradient(ellipse 50% 50% at 50% 50%, rgba(100, 140, 255, 0.06) 0%, transparent 100%)';
+        } else if (path === 'integrated') {
+          pathsAmbient.style.background = 'radial-gradient(ellipse 50% 50% at 83% 50%, rgba(80, 200, 120, 0.06) 0%, transparent 100%)';
+        }
+      }
+    });
+
+    card.addEventListener('mouseleave', function () {
+      if (pathsAmbient) {
+        pathsAmbient.style.background = 'none';
+      }
+    });
+
+    // Lane lock on CTA click
+    const cta = qs('.path-cta', card);
+    if (cta) {
+      cta.addEventListener('click', function (e) {
+        const lockOverlay = qs('.lane-lock-overlay', card);
+        if (lockOverlay) {
+          e.preventDefault();
+          lockOverlay.classList.add('active');
+          setTimeout(() => {
+            lockOverlay.classList.remove('active');
+            // Navigate to start section
+            const target = qs('#start');
+            if (target) {
+              const top = target.getBoundingClientRect().top + window.scrollY - 72;
+              window.scrollTo({ top, behavior: 'smooth' });
+            }
+          }, 1200);
+        }
+      });
+    }
+  });
+
+  /* ── PROOF ENGINE — VERIFIED STAMPS ──────────────── */
+  const storyCardsAll = qsa('.story-card');
+  storyCardsAll.forEach(card => {
+    // Add verified stamp if not already present
+    if (!qs('.verified-stamp', card)) {
+      const stamp = document.createElement('div');
+      stamp.className = 'verified-stamp';
+      stamp.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> VERIFIED';
+      card.appendChild(stamp);
+    }
+  });
+
+  // Pulse verified stamps when they enter viewport
+  if ('IntersectionObserver' in window) {
+    const stampObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const stamp = qs('.verified-stamp', entry.target);
+          if (stamp) {
+            setTimeout(() => stamp.classList.add('pulsed'), 400);
+          }
+          stampObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    storyCardsAll.forEach(card => stampObs.observe(card));
+  }
+
+  /* ── PROOF ENGINE — CIRCULAR PROGRESS ────────────── */
+  const proofMetricEls = qsa('.proof-metric');
+  proofMetricEls.forEach(metric => {
+    const bar = qs('.proof-bar-fill', metric);
+    if (bar) {
+      const fillVal = bar.style.getPropertyValue('--fill');
+      if (fillVal) {
+        const pct = parseInt(fillVal, 10);
+        // Add circular progress indicator
+        const circle = document.createElement('div');
+        circle.className = 'proof-metric-circle';
+        const offset = 100 - pct;
+        circle.style.setProperty('--circle-offset', offset);
+        circle.innerHTML = `<svg viewBox="0 0 36 36"><circle class="circle-bg" cx="18" cy="18" r="16"/><circle class="circle-fill" cx="18" cy="18" r="16" pathLength="100"/></svg>`;
+        metric.appendChild(circle);
+      }
+    }
+  });
+
+  // Animate circles when proof section enters viewport
+  if (proofSection && 'IntersectionObserver' in window) {
+    const circleObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          qsa('.proof-metric-circle', entry.target).forEach(c => {
+            setTimeout(() => c.classList.add('animated'), 600);
+          });
+          circleObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    circleObs.observe(proofSection);
+  }
+
+  /* ── ROOM — PROGRESS TRACKER (already integrated into goToStage) ── */
+
+  /* ── LEADERSHIP — CREDENTIAL ROLL ANIMATION ─────── */
+  const leaderCardsEls = qsa('.leader-card');
+  if ('IntersectionObserver' in window) {
+    const leaderCredsObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('creds-visible');
+          }, 300);
+          leaderCredsObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    leaderCardsEls.forEach(card => leaderCredsObs.observe(card));
+  }
+
+  /* ── TRUST MARKERS — DRAW-ON EFFECT ──────────────── */
+  const trustItemsEls = qsa('.trust-item');
+  if ('IntersectionObserver' in window) {
+    const drawOnObs = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('drawn-on');
+          }, i * 150);
+          drawOnObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    trustItemsEls.forEach(item => drawOnObs.observe(item));
+  }
+
+  /* ── 3-DAY EXPERIENCE — SNAP + ROADMAP ───────────── */
+  const expDays = qsa('.experience-day');
+  const expCta = qs('.experience-cta');
+  if ('IntersectionObserver' in window && expDays.length) {
+    let allDaysSnapped = 0;
+
+    const snapObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const day = entry.target;
+          setTimeout(() => {
+            day.classList.add('snapped');
+            allDaysSnapped++;
+
+            // After all 3 days snap, draw roadmap
+            if (allDaysSnapped >= 3 && expCta) {
+              setTimeout(() => {
+                expCta.classList.add('roadmap-active');
+              }, 400);
+            }
+          }, (parseInt(day.dataset.day, 10) - 1) * 300);
+
+          snapObs.unobserve(day);
+        }
+      });
+    }, { threshold: 0.4 });
+
+    expDays.forEach(day => snapObs.observe(day));
+  }
+
+  /* ── SMART CTA — DIRECTIONAL PULL ────────────────── */
+  const smartCtas = qsa('.btn-smart-cta');
+  smartCtas.forEach(btn => {
+    btn.addEventListener('mousemove', function (e) {
+      const rect = this.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / rect.width;
+      const dy = (e.clientY - cy) / rect.height;
+      this.style.transform = `translate(${dx * 4}px, ${dy * 2}px)`;
+    });
+
+    btn.addEventListener('mouseleave', function () {
+      this.style.transform = '';
+    });
+
+    // Click burst
+    btn.addEventListener('click', function () {
+      const readyLabel = qs('.btn-cta-ready', this);
+      if (readyLabel) {
+        readyLabel.textContent = 'SENT ✓';
+        setTimeout(() => {
+          readyLabel.textContent = 'READY';
+        }, 2000);
+      }
+    });
+  });
+
+  /* ── PROGRESSIVE FOCUS MODE ──────────────────────── */
+  const focusableCards = qsa('.path-card, .proof-metric, .membership-card, .leader-card');
+  if (!isTouchDevice()) {
+    focusableCards.forEach(card => {
+      card.addEventListener('mouseenter', function () {
+        const section = this.closest('.section');
+        if (section) {
+          document.body.classList.add('focus-mode');
+          section.classList.add('focus-target');
+        }
+      });
+
+      card.addEventListener('mouseleave', function () {
+        const section = this.closest('.section');
+        if (section) {
+          document.body.classList.remove('focus-mode');
+          section.classList.remove('focus-target');
+        }
+      });
+    });
+  }
+
+  /* ── PERFORMANCE REPLAY MODE ─────────────────────── */
+  // Adds a replay trigger to re-run hero animations without page reload
+  let replayEnabled = false;
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'r' && e.altKey && e.shiftKey) {
+      e.preventDefault();
+      replayHeroAnimations();
+    }
+  });
+
+  function replayHeroAnimations() {
+    const headline = qs('.hero-headline');
+    const words = qsa('.headline-word');
+    const eyebrow = qs('.hero-eyebrow');
+    const sub = qs('.hero-sub');
+    const actions = qs('.hero-actions');
+    const metrics = qs('.hero-metrics');
+
+    // Reset
+    [eyebrow, sub, actions, metrics].forEach(el => {
+      if (el) {
+        el.style.animation = 'none';
+        void el.offsetHeight; // Force reflow
+        el.style.animation = '';
+      }
+    });
+
+    words.forEach(word => {
+      word.style.animation = 'none';
+      void word.offsetHeight;
+      word.style.animation = '';
+    });
+
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
 })();

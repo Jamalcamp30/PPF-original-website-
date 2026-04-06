@@ -16,6 +16,19 @@
   <div class="cursor-ring" id="cursorRing"></div>
   <div class="cursor-dot" id="cursorDot"></div>
 
+  <!-- COACH CUE HUD -->
+  <div class="coach-hud" id="coachHud">
+    <div class="hud-phase" id="hudPhase">—</div>
+    <div class="hud-progress-bar"><div class="hud-progress-fill" id="hudProgressFill"></div></div>
+    <div class="hud-cue" id="hudCue"></div>
+    <div class="hud-path" id="hudPath">ALL PATHS</div>
+  </div>
+
+  <!-- LIVE METRIC STRIP -->
+  <div class="live-metric-strip" id="liveMetricStrip">
+    <div class="lms-track" id="lmsTrack"></div>
+  </div>
+
   <!-- NAVIGATION -->
   <nav class="site-nav" id="siteNav">
     <a href="#hero" class="nav-logo" aria-label="PPF Athletics">
@@ -40,8 +53,29 @@
   ============================================================ -->
   <section class="hero" id="hero">
     <canvas class="hero-canvas" id="heroCanvas"></canvas>
+    <div class="hero-scanline"></div>
 
     <div class="hero-overlay"></div>
+
+    <!-- Hero micro-data HUD -->
+    <div class="hero-micro-data" id="heroMicroData">
+      <div class="micro-datum" data-micro="reaction">
+        <span class="micro-label">REACTION</span>
+        <span class="micro-value" id="microReaction">42ms</span>
+      </div>
+      <div class="micro-datum" data-micro="output">
+        <span class="micro-label">OUTPUT</span>
+        <span class="micro-value" id="microOutput">94%</span>
+      </div>
+      <div class="micro-datum" data-micro="coaching">
+        <span class="micro-label">COACHING</span>
+        <span class="micro-value" id="microCoaching">LIVE</span>
+      </div>
+      <div class="micro-datum" data-micro="structure">
+        <span class="micro-label">STRUCTURE</span>
+        <span class="micro-value" id="microStructure">ACTIVE</span>
+      </div>
+    </div>
 
     <div class="hero-content">
       <div class="hero-eyebrow reveal-up">
@@ -102,6 +136,11 @@
       <span>SCROLL</span>
     </div>
   </section>
+
+  <!-- SECTION TRANSITION — STANDARD -->
+  <div class="section-transition st-sweep" aria-hidden="true">
+    <div class="st-line"></div>
+  </div>
 
   <!-- ============================================================
        SECTION 2 — THE STANDARD
@@ -178,11 +217,17 @@
     </div>
   </section>
 
+  <!-- SECTION TRANSITION — PATHS -->
+  <div class="section-transition st-chalk" aria-hidden="true">
+    <div class="st-particles"></div>
+  </div>
+
   <!-- ============================================================
        SECTION 3 — THREE PATHS. ONE STANDARD.
   ============================================================ -->
   <section class="section paths-section" id="paths">
     <div class="paths-bg-canvas" id="pathsBg"></div>
+    <div class="paths-ambient-glow" id="pathsAmbient"></div>
 
     <div class="container">
       <div class="section-label reveal-up">CHOOSE YOUR PATH</div>
@@ -226,6 +271,7 @@
             <div class="motion-line ml-3"></div>
             <div class="motion-timer">00:00.00</div>
           </div>
+          <div class="lane-lock-overlay"><span class="lane-lock-text">PATH LOCKED</span><div class="lane-lock-ring"></div></div>
         </div>
       </div>
 
@@ -258,6 +304,7 @@
             <div class="motion-bar mb-2"></div>
             <div class="motion-bar mb-3"></div>
           </div>
+          <div class="lane-lock-overlay"><span class="lane-lock-text">PATH LOCKED</span><div class="lane-lock-ring"></div></div>
         </div>
       </div>
 
@@ -290,10 +337,16 @@
             <div class="motion-circle mc-2"></div>
             <div class="motion-circle mc-3"></div>
           </div>
+          <div class="lane-lock-overlay"><span class="lane-lock-text">PATH LOCKED</span><div class="lane-lock-ring"></div></div>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- SECTION TRANSITION — PROOF -->
+  <div class="section-transition st-timer" aria-hidden="true">
+    <div class="st-flip">00:00</div>
+  </div>
 
   <!-- ============================================================
        SECTION 4 — PROOF ENGINE
@@ -572,6 +625,18 @@
     </div>
 
     <div class="room-track" id="roomTrack">
+      <!-- Room progress tracker -->
+      <div class="room-progress-tracker" id="roomProgressTracker">
+        <div class="rpt-stage active" data-rpt="0"><span class="rpt-dot"></span><span class="rpt-label">Arrival</span></div>
+        <div class="rpt-line"><div class="rpt-line-fill" id="rptLineFill"></div></div>
+        <div class="rpt-stage" data-rpt="1"><span class="rpt-dot"></span><span class="rpt-label">Warm-Up</span></div>
+        <div class="rpt-line"><div class="rpt-line-fill"></div></div>
+        <div class="rpt-stage" data-rpt="2"><span class="rpt-dot"></span><span class="rpt-label">Instruction</span></div>
+        <div class="rpt-line"><div class="rpt-line-fill"></div></div>
+        <div class="rpt-stage" data-rpt="3"><span class="rpt-dot"></span><span class="rpt-label">Work Block</span></div>
+        <div class="rpt-line"><div class="rpt-line-fill"></div></div>
+        <div class="rpt-stage" data-rpt="4"><span class="rpt-dot"></span><span class="rpt-label">Finish</span></div>
+      </div>
       <div class="room-stage active" data-phase="arrival">
         <div class="room-phase-num">01</div>
         <div class="room-phase-label">ARRIVAL</div>
@@ -792,6 +857,7 @@
 
       <!-- 3-Day CTA -->
       <div class="experience-cta reveal-up">
+        <div class="experience-roadmap-line" id="expRoadmapLine"></div>
         <div class="exp-cta-inner">
           <div class="exp-cta-label">YOUR PATH STARTS HERE</div>
           <h3 class="exp-cta-headline">Claim Your 3-Day Experience</h3>
@@ -1087,7 +1153,8 @@
               </select>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block">
+            <button type="submit" class="btn btn-primary btn-block btn-smart-cta" data-cta-label="CLAIM">
+              <span class="btn-cta-ready">READY</span>
               <span>Claim My 3-Day Pass</span>
               <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </button>
