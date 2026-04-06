@@ -843,6 +843,53 @@
     document.head.appendChild(style);
   }
 
+  /* ── FAQ ACCORDION ──────────────────────────────────── */
+  const faqItems = qsa('.faq-item');
+  faqItems.forEach(item => {
+    const questionBtn = qs('.faq-question', item);
+    if (questionBtn) {
+      questionBtn.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+
+        // Close all other FAQ items
+        faqItems.forEach(other => {
+          if (other !== item) {
+            other.classList.remove('open');
+            const otherBtn = qs('.faq-question', other);
+            if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+          }
+        });
+
+        // Toggle current item
+        item.classList.toggle('open');
+        questionBtn.setAttribute('aria-expanded', String(!isOpen));
+      });
+    }
+  });
+
+  /* ── TRUST MARKERS ENTRANCE ─────────────────────────── */
+  const trustItems = qsa('.trust-item');
+  if ('IntersectionObserver' in window) {
+    const trustObs = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, i * 80);
+          trustObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    trustItems.forEach(item => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateY(15px)';
+      item.style.transition = 'opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+      trustObs.observe(item);
+    });
+  }
+
   /* ── INITIALIZATION LOG ──────────────────────────── */
   console.log(
     '%cPPF Athletics — Three Paths. One Standard.',
