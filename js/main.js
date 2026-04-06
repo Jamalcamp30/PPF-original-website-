@@ -1056,7 +1056,33 @@
 
   /* ── LIVE METRIC STRIP ───────────────────────────── */
   const liveMetricStrip = qs('#liveMetricStrip');
-  if (liveMetricStrip) {
+  const lmsTrack = qs('#lmsTrack');
+  if (liveMetricStrip && lmsTrack) {
+    // Generate marquee content dynamically (duplicated for seamless loop)
+    const metrics = [
+      '<strong>20+</strong> Years Coaching',
+      '<strong>500+</strong> Athletes Developed',
+      '<strong>NSCA</strong> Certified Coaches',
+      '<strong>85%</strong> Member Retention',
+      '<strong>&lt;12hr</strong> Response Time',
+      '<strong>3</strong> Performance Paths',
+      '<strong>95%</strong> Return-to-Play',
+    ];
+    const fragment = document.createDocumentFragment();
+    for (let rep = 0; rep < 2; rep++) {
+      metrics.forEach(m => {
+        const item = document.createElement('span');
+        item.className = 'lms-item';
+        item.innerHTML = m;
+        fragment.appendChild(item);
+        const div = document.createElement('span');
+        div.className = 'lms-divider';
+        div.textContent = '\u25C6';
+        fragment.appendChild(div);
+      });
+    }
+    lmsTrack.appendChild(fragment);
+
     let stripShown = false;
     window.addEventListener('scroll', () => {
       if (window.scrollY > 300 && !stripShown) {
@@ -1375,7 +1401,7 @@
   // Adds a replay trigger to re-run hero animations without page reload
   let replayEnabled = false;
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'r' && e.ctrlKey && e.shiftKey) {
+    if (e.key === 'r' && e.altKey && e.shiftKey) {
       e.preventDefault();
       replayHeroAnimations();
     }
@@ -1393,14 +1419,14 @@
     [eyebrow, sub, actions, metrics].forEach(el => {
       if (el) {
         el.style.animation = 'none';
-        el.offsetHeight; // Force reflow
+        void el.offsetHeight; // Force reflow
         el.style.animation = '';
       }
     });
 
     words.forEach(word => {
       word.style.animation = 'none';
-      word.offsetHeight;
+      void word.offsetHeight;
       word.style.animation = '';
     });
 
