@@ -111,6 +111,20 @@
     <div class="hud-path" id="hudPath">ALL PATHS</div>
   </div>
 
+  <!-- COACHING COMMAND OVERLAY — PPF Signature System -->
+  <div class="coaching-command-overlay" id="coachingCommandOverlay" aria-hidden="true">
+    <div class="command-text" id="commandText"></div>
+  </div>
+
+  <!-- PPF STANDARD METER — Brand Engagement Tracker -->
+  <div class="ppf-standard-meter" id="ppfStandardMeter" aria-hidden="true">
+    <div class="standard-meter-label">THE STANDARD</div>
+    <div class="standard-meter-bar">
+      <div class="standard-meter-fill" id="standardMeterFill"></div>
+    </div>
+    <div class="standard-meter-level" id="standardMeterLevel">PRESENCE</div>
+  </div>
+
   <!-- LIVE METRIC STRIP -->
   <div class="live-metric-strip" id="liveMetricStrip">
     <div class="lms-track" id="lmsTrack"></div>
@@ -430,6 +444,94 @@
     </div>
   </section>
 
+  <!-- ============================================================
+       ONE ROOM ENGINE — PPF Signature System
+  ============================================================ -->
+  <section class="section one-room-section" id="oneRoom">
+    <div class="container">
+      <div class="section-label reveal-up">ONE ROOM. ONE STANDARD.</div>
+      <h2 class="section-title reveal-up">
+        Same Floor.<br />
+        <span class="accent">Different Mission.</span>
+      </h2>
+      <p class="section-intro reveal-up">
+        Three paths share the same training floor, the same coaching voice, and the same uncompromising standard. Toggle between them and watch the room transform.
+      </p>
+    </div>
+
+    <div class="one-room-engine">
+      <div class="one-room-selector">
+        <button class="one-room-btn active" data-room="athlete">
+          <span class="orb-icon">⚡</span>
+          <span class="orb-label">Athlete</span>
+        </button>
+        <button class="one-room-btn" data-room="adult">
+          <span class="orb-icon">◆</span>
+          <span class="orb-label">Adult</span>
+        </button>
+        <button class="one-room-btn" data-room="integrated">
+          <span class="orb-icon">●</span>
+          <span class="orb-label">Integrated</span>
+        </button>
+      </div>
+
+      <div class="one-room-floor">
+        <div class="room-floor-grid"></div>
+        <div class="room-floor-overlay" id="roomFloorOverlay"></div>
+
+        <!-- Athlete Room State -->
+        <div class="room-state active" data-room-state="athlete">
+          <div class="room-energy-label">EXPLOSIVE POWER</div>
+          <div class="room-stat-row">
+            <div class="room-stat"><span class="rs-val">4.38s</span><span class="rs-label">40-Yard</span></div>
+            <div class="room-stat"><span class="rs-val">2847N</span><span class="rs-label">Force Output</span></div>
+            <div class="room-stat"><span class="rs-val">32.5"</span><span class="rs-label">Vertical</span></div>
+          </div>
+          <div class="room-coaching-cue">"DRIVE THROUGH THE GROUND."</div>
+          <div class="room-motion room-motion-speed">
+            <div class="rm-line rl-1"></div>
+            <div class="rm-line rl-2"></div>
+            <div class="rm-line rl-3"></div>
+          </div>
+        </div>
+
+        <!-- Adult Room State -->
+        <div class="room-state" data-room-state="adult">
+          <div class="room-energy-label">DISCIPLINED STRENGTH</div>
+          <div class="room-stat-row">
+            <div class="room-stat"><span class="rs-val">315lb</span><span class="rs-label">Deadlift</span></div>
+            <div class="room-stat"><span class="rs-val">85%</span><span class="rs-label">Retention</span></div>
+            <div class="room-stat"><span class="rs-val">12wk</span><span class="rs-label">Milestone</span></div>
+          </div>
+          <div class="room-coaching-cue">"CONTROL THE DESCENT. OWN EVERY REP."</div>
+          <div class="room-motion room-motion-bars">
+            <div class="rm-bar rb-1"></div>
+            <div class="rm-bar rb-2"></div>
+            <div class="rm-bar rb-3"></div>
+          </div>
+        </div>
+
+        <!-- Integrated Room State -->
+        <div class="room-state" data-room-state="integrated">
+          <div class="room-energy-label">PURPOSEFUL MOVEMENT</div>
+          <div class="room-stat-row">
+            <div class="room-stat"><span class="rs-val">+60%</span><span class="rs-label">Coordination</span></div>
+            <div class="room-stat"><span class="rs-val">100%</span><span class="rs-label">Trust</span></div>
+            <div class="room-stat"><span class="rs-val">+3</span><span class="rs-label">New Skills</span></div>
+          </div>
+          <div class="room-coaching-cue">"YOU BELONG HERE. EVERY REP MATTERS."</div>
+          <div class="room-motion room-motion-circles">
+            <div class="rm-circle rc-1"></div>
+            <div class="rm-circle rc-2"></div>
+            <div class="rm-circle rc-3"></div>
+          </div>
+        </div>
+
+        <div class="room-constant-label">SAME STANDARD. SAME COACHING. SAME ROOM.</div>
+      </div>
+    </div>
+  </section>
+
   <!-- SECTION TRANSITION — PROOF -->
   <div class="section-transition st-timer" aria-hidden="true">
     <div class="st-flip">00:00</div>
@@ -483,29 +585,56 @@
         </div>
         <div class="proof-stories">
           <div class="story-card">
+            <div class="proof-badge-strip">
+              <span class="proof-badge pb-combine">COMBINE</span>
+              <span class="proof-badge pb-speed">SPEED</span>
+            </div>
             <div class="story-outcome">
               <span class="outcome-badge">40-YARD: 4.78 → 4.48</span>
               <span class="outcome-duration">8-Week Combine Prep</span>
             </div>
             <div class="story-quote">"The combine prep here didn't just improve my numbers. It changed how I understand my own body under pressure. Three-tenths off my 40 in eight weeks."</div>
+            <div class="story-timeline">
+              <div class="st-step"><span class="st-week">WK 1-2</span><span class="st-action">Movement assessment + baseline</span></div>
+              <div class="st-step"><span class="st-week">WK 3-5</span><span class="st-action">Sprint mechanics rebuild</span></div>
+              <div class="st-step"><span class="st-week">WK 6-8</span><span class="st-action">Max velocity + combine simulation</span></div>
+            </div>
             <div class="story-meta"><span class="story-name">Derek Williams</span> <span class="story-role">DB — Combine Prep Athlete · Westfield HS</span></div>
             <div class="story-tag athlete-tag">ATHLETE PATH</div>
           </div>
           <div class="story-card">
+            <div class="proof-badge-strip">
+              <span class="proof-badge pb-strength">STRENGTH CYCLE</span>
+              <span class="proof-badge pb-power">POWER</span>
+            </div>
             <div class="story-outcome">
               <span class="outcome-badge">SQUAT: 285 → 365 lbs</span>
               <span class="outcome-duration">12-Week Strength Cycle</span>
             </div>
             <div class="story-quote">"Coach pushed me past every wall I thought was real. My squat jumped 80 pounds and my explosion off the line is completely different now."</div>
+            <div class="story-timeline">
+              <div class="st-step"><span class="st-week">WK 1-4</span><span class="st-action">Foundation + mobility work</span></div>
+              <div class="st-step"><span class="st-week">WK 5-8</span><span class="st-action">Progressive overload phase</span></div>
+              <div class="st-step"><span class="st-week">WK 9-12</span><span class="st-action">Peak strength + test</span></div>
+            </div>
             <div class="story-meta"><span class="story-name">Marcus Thompson</span> <span class="story-role">OL — Speed &amp; Power Program · Klein Collins HS</span></div>
             <div class="story-tag athlete-tag">ATHLETE PATH</div>
           </div>
           <div class="story-card">
+            <div class="proof-badge-strip">
+              <span class="proof-badge pb-vertical">VERTICAL</span>
+              <span class="proof-badge pb-athletic">ATHLETICISM</span>
+            </div>
             <div class="story-outcome">
               <span class="outcome-badge">VERTICAL: +4.5 inches</span>
               <span class="outcome-duration">16-Week Program</span>
             </div>
             <div class="story-quote">"PPF doesn't just train athletes. They build them. Every session had a purpose I could measure, and I saw my vertical go from 28 to 32.5 inches."</div>
+            <div class="story-timeline">
+              <div class="st-step"><span class="st-week">WK 1-6</span><span class="st-action">Plyometric foundation</span></div>
+              <div class="st-step"><span class="st-week">WK 7-12</span><span class="st-action">Power transfer development</span></div>
+              <div class="st-step"><span class="st-week">WK 13-16</span><span class="st-action">Sport-specific jump training</span></div>
+            </div>
             <div class="story-meta"><span class="story-name">Julio Rodriguez</span> <span class="story-role">WR — Performance Development · Cy-Fair HS</span></div>
             <div class="story-tag athlete-tag">ATHLETE PATH</div>
           </div>
@@ -626,6 +755,81 @@
             <div class="story-quote">"I've seen real changes in her engagement, her movement, and her joy. PPF treats her like an athlete because she is one. She now does three exercises independently."</div>
             <div class="story-meta"><span class="story-name">Sandra J.</span> <span class="story-role">Parent · Adapted Fitness Class · Daughter, Age 16</span></div>
             <div class="story-tag integrated-tag">INTEGRATED PATH</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CARRYOVER VISION — PPF Signature System
+  ============================================================ -->
+  <section class="section carryover-section" id="carryover">
+    <div class="container">
+      <div class="section-label reveal-up">CARRYOVER VISION</div>
+      <h2 class="section-title reveal-up">
+        Training Doesn't End<br />
+        <span class="accent">At The Door.</span>
+      </h2>
+      <p class="section-intro reveal-up">
+        Every rep, every cue, every session is designed to carry over into real life. Here's what the work actually becomes.
+      </p>
+
+      <div class="carryover-trails">
+        <!-- Trail 1: Speed -->
+        <div class="carryover-trail reveal-up" data-trail="speed">
+          <div class="trail-origin">
+            <div class="trail-origin-icon">⚡</div>
+            <div class="trail-origin-label">10-Yard Burst</div>
+          </div>
+          <div class="trail-path">
+            <div class="trail-node" data-step="1"><span class="tn-label">First-Step Explosion</span></div>
+            <div class="trail-connector"></div>
+            <div class="trail-node" data-step="2"><span class="tn-label">Route Release</span></div>
+            <div class="trail-connector"></div>
+            <div class="trail-node" data-step="3"><span class="tn-label">Pursuit Angle</span></div>
+            <div class="trail-connector"></div>
+            <div class="trail-node" data-step="4"><span class="tn-label">Game Transfer</span></div>
+            <div class="trail-connector"></div>
+            <div class="trail-node trail-node-final" data-step="5"><span class="tn-label">Confidence On The Field</span></div>
+          </div>
+        </div>
+
+        <!-- Trail 2: Strength -->
+        <div class="carryover-trail reveal-up" data-trail="strength">
+          <div class="trail-origin">
+            <div class="trail-origin-icon">◆</div>
+            <div class="trail-origin-label">Deadlift PR</div>
+          </div>
+          <div class="trail-path">
+            <div class="trail-node" data-step="1"><span class="tn-label">Posterior Chain Power</span></div>
+            <div class="trail-connector"></div>
+            <div class="trail-node" data-step="2"><span class="tn-label">Posture Correction</span></div>
+            <div class="trail-connector"></div>
+            <div class="trail-node" data-step="3"><span class="tn-label">Daily Energy</span></div>
+            <div class="trail-connector"></div>
+            <div class="trail-node" data-step="4"><span class="tn-label">Injury Prevention</span></div>
+            <div class="trail-connector"></div>
+            <div class="trail-node trail-node-final" data-step="5"><span class="tn-label">Life Without Limits</span></div>
+          </div>
+        </div>
+
+        <!-- Trail 3: Coordination -->
+        <div class="carryover-trail reveal-up" data-trail="coordination">
+          <div class="trail-origin">
+            <div class="trail-origin-icon">●</div>
+            <div class="trail-origin-label">Motor Skill Gain</div>
+          </div>
+          <div class="trail-path">
+            <div class="trail-node" data-step="1"><span class="tn-label">Body Awareness</span></div>
+            <div class="trail-connector"></div>
+            <div class="trail-node" data-step="2"><span class="tn-label">Task Independence</span></div>
+            <div class="trail-connector"></div>
+            <div class="trail-node" data-step="3"><span class="tn-label">Social Confidence</span></div>
+            <div class="trail-connector"></div>
+            <div class="trail-node" data-step="4"><span class="tn-label">Family Joy</span></div>
+            <div class="trail-connector"></div>
+            <div class="trail-node trail-node-final" data-step="5"><span class="tn-label">A Transformed Life</span></div>
           </div>
         </div>
       </div>
@@ -849,6 +1053,20 @@
             <div class="protects-label">WHAT RICHARD PROTECTS</div>
             <p>The coaching standard. The identity of every athlete in the room. The reason every session has a purpose beyond the clock.</p>
           </div>
+          <div class="leader-framework">
+            <div class="framework-label">HOW PERFORMANCE IS BUILT HERE</div>
+            <div class="framework-steps">
+              <span class="fw-step">Assess</span>
+              <span class="fw-arrow">→</span>
+              <span class="fw-step">Program</span>
+              <span class="fw-arrow">→</span>
+              <span class="fw-step">Coach</span>
+              <span class="fw-arrow">→</span>
+              <span class="fw-step">Measure</span>
+              <span class="fw-arrow">→</span>
+              <span class="fw-step">Evolve</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -873,6 +1091,15 @@
           <div class="leader-protects">
             <div class="protects-label">WHAT REBECCA PROTECTS</div>
             <p>The integrity of integrated programming. The families who trust PPF with the people they love most. The culture that makes every member feel they belong.</p>
+          </div>
+          <div class="leader-trust-signal">
+            <div class="trust-signal-label">WHY FAMILIES TRUST US</div>
+            <div class="trust-signal-items">
+              <span class="ts-item">✓ Background-checked staff</span>
+              <span class="ts-item">✓ Parent-welcome environment</span>
+              <span class="ts-item">✓ Transparent programming</span>
+              <span class="ts-item">✓ Individual dignity always</span>
+            </div>
           </div>
         </div>
       </div>
@@ -991,6 +1218,7 @@
               <div class="mc-price"><span class="mc-currency">$</span><span class="mc-amount">150</span><span class="mc-period">/mo</span></div>
             </div>
             <p class="mc-description">Best for new members who want to get started immediately, experience the system, and build consistency without a long commitment.</p>
+            <div class="mc-best-for"><span class="mc-bf-label">BEST FOR:</span> Explorers &amp; trial members</div>
             <ul class="mc-features">
               <li><span class="mc-check">&#10003;</span> Coach-led training access</li>
               <li><span class="mc-check">&#10003;</span> Structured programming</li>
@@ -1006,8 +1234,10 @@
             <div class="mc-header">
               <h3 class="mc-name">Quarterly</h3>
               <div class="mc-price"><span class="mc-currency">$</span><span class="mc-amount">650</span><span class="mc-period">/3 mo</span></div>
+              <div class="mc-savings">Save $100 vs. monthly</div>
             </div>
             <p class="mc-description">Best for members who want a true performance block with enough time to build rhythm, develop momentum, and see visible results.</p>
+            <div class="mc-best-for"><span class="mc-bf-label">BEST FOR:</span> Athletes in-season &amp; new adults</div>
             <ul class="mc-features">
               <li><span class="mc-check">&#10003;</span> Everything in month-to-month</li>
               <li><span class="mc-check">&#10003;</span> 90-day training arc</li>
@@ -1023,8 +1253,10 @@
             <div class="mc-header">
               <h3 class="mc-name">Semi-Annual</h3>
               <div class="mc-price"><span class="mc-currency">$</span><span class="mc-amount">875</span><span class="mc-period">/6 mo</span></div>
+              <div class="mc-savings">Save $25/mo vs. monthly</div>
             </div>
             <p class="mc-description">Best for members who want deeper accountability, stronger consistency, and a more serious development cycle.</p>
+            <div class="mc-best-for"><span class="mc-bf-label">BEST FOR:</span> Off-season athletes &amp; committed adults</div>
             <ul class="mc-features">
               <li><span class="mc-check">&#10003;</span> Everything in quarterly</li>
               <li><span class="mc-check">&#10003;</span> Long-range coaching consistency</li>
@@ -1040,8 +1272,10 @@
             <div class="mc-header">
               <h3 class="mc-name">Yearly</h3>
               <div class="mc-price"><span class="mc-currency">$</span><span class="mc-amount">1,675</span><span class="mc-period">/yr</span></div>
+              <div class="mc-savings">Best value — $139/mo effective</div>
             </div>
             <p class="mc-description">Best for people who want the full PPF experience over time: structure, accountability, coaching, and a true long-term transformation path.</p>
+            <div class="mc-best-for"><span class="mc-bf-label">BEST FOR:</span> Year-round athletes &amp; transformation seekers</div>
             <ul class="mc-features">
               <li><span class="mc-check">&#10003;</span> Full-year commitment to the standard</li>
               <li><span class="mc-check">&#10003;</span> Strongest membership value</li>

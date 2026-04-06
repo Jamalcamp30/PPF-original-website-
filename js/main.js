@@ -24,6 +24,24 @@
   let rafId = null;
   let isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ── BATCHED SCROLL SYSTEM ───────────────────────── */
+  const scrollHandlers = [];
+  let scrollRafPending = false;
+
+  function registerScrollHandler(fn) {
+    scrollHandlers.push(fn);
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!scrollRafPending) {
+      scrollRafPending = true;
+      requestAnimationFrame(() => {
+        scrollHandlers.forEach(fn => fn());
+        scrollRafPending = false;
+      });
+    }
+  }, { passive: true });
+
   /* ── PPF INTRO — PERFORMANCE SYSTEM BOOT-UP ─────── */
   (function initIntro() {
     const intro      = qs('#ppfIntro');
@@ -338,13 +356,13 @@
   const navLinks  = qs('#navLinks');
 
   if (nav) {
-    window.addEventListener('scroll', () => {
+    registerScrollHandler(() => {
       if (window.scrollY > 80) {
         nav.classList.add('scrolled');
       } else {
         nav.classList.remove('scrolled');
       }
-    }, { passive: true });
+    });
   }
 
   if (navToggle && navLinks) {
@@ -513,15 +531,21 @@
       });
     }
 
+    let heroRafId = null;
+    let heroVisible = true;
+
     function heroLoop() {
-      if (!heroCanvas) return;
+      if (!heroCanvas || !heroVisible) {
+        heroRafId = null;
+        return;
+      }
       ctx.clearRect(0, 0, W, H);
 
       const scrollFactor = clamp(window.scrollY / H, 0, 1);
       if (isReduced) {
         // Draw minimal grid only
         ctx.clearRect(0, 0, W, H);
-        requestAnimationFrame(heroLoop);
+        heroRafId = requestAnimationFrame(heroLoop);
         return;
       }
 
@@ -530,7 +554,24 @@
       drawPulseRings();
       drawParticles();
 
-      requestAnimationFrame(heroLoop);
+      heroRafId = requestAnimationFrame(heroLoop);
+    }
+
+    // Pause hero canvas RAF when section is not visible
+    const heroCanvasParent = heroCanvas.closest('section') || heroCanvas.parentElement;
+    if (heroCanvasParent && 'IntersectionObserver' in window) {
+      const heroCanvasObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          heroVisible = entry.isIntersecting;
+          if (heroVisible && !heroRafId) {
+            heroRafId = requestAnimationFrame(heroLoop);
+          } else if (!heroVisible && heroRafId) {
+            cancelAnimationFrame(heroRafId);
+            heroRafId = null;
+          }
+        });
+      }, { threshold: 0 });
+      heroCanvasObs.observe(heroCanvasParent);
     }
 
     window.addEventListener('resize', () => { resize(); }, { passive: true });
@@ -540,12 +581,12 @@
   }
 
   /* ── SCROLL VELOCITY SYSTEM ──────────────────────── */
-  window.addEventListener('scroll', () => {
+  registerScrollHandler(() => {
     const sy = window.scrollY;
     scrollVelocity = Math.abs(sy - lastScrollY);
     lastScrollY = sy;
     scrollY = sy;
-  }, { passive: true });
+  });
 
   /* ── INTERSECTION OBSERVER — REVEAL ANIMATIONS ───── */
   const revealEls = qsa('.reveal-up');
@@ -596,7 +637,7 @@
             obs.unobserve(el);
           }
         });
-      }, { threshold: 0.5 });
+      }, { threshold: 0.15, rootMargin: '0px 0px 50px 0px' });
 
       counterEls.forEach(el => obs.observe(el));
     } else {
@@ -626,6 +667,8 @@
     const activePanel = qs(`#proof${id.charAt(0).toUpperCase() + id.slice(1)}`);
     if (activePanel) {
       activePanel.classList.add('active');
+      // Reset counter values before re-animating
+      qsa('.proof-num', activePanel).forEach(el => { el.textContent = '0'; });
       // Trigger counter animations
       initCounters(activePanel);
       // Trigger bar fill animations
@@ -673,6 +716,12 @@
     roomDots.forEach((d, i)   => d.classList.toggle('active', i === index));
     currentStage = index;
 
+    // Clear work timer when leaving stage 3
+    if (index !== 3 && workTimerInterval) {
+      clearInterval(workTimerInterval);
+      workTimerInterval = null;
+    }
+
     // Start work timer animation
     if (index === 3) startWorkTimer();
 
@@ -704,8 +753,8 @@
   function startWorkTimer() {
     const timerEl = qs('#rvTimer');
     if (!timerEl) return;
+    if (workTimerInterval) return; // Guard: timer already running
     let seconds = 45;
-    clearInterval(workTimerInterval);
     workTimerInterval = setInterval(() => {
       seconds = seconds <= 0 ? 45 : seconds - 1;
       timerEl.textContent = `00:${seconds.toString().padStart(2, '0')}`;
@@ -734,6 +783,14 @@
 
     card.addEventListener('mouseleave', function () {
       this.style.zIndex = '';
+      // Clear athlete timer
+      const interval = cardTimers.get(this);
+      if (interval) {
+        clearInterval(interval);
+        cardTimers.delete(this);
+      }
+      const timerEl = qs('.motion-timer', this);
+      if (timerEl) timerEl.textContent = '00:00.00';
     });
   });
 
@@ -850,7 +907,7 @@
     });
   }
 
-  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  registerScrollHandler(updateActiveNav);
   updateActiveNav();
 
   /* ── PILLAR CARDS STAGGER ENTRANCE ──────────────── */
@@ -1051,7 +1108,7 @@
     const heroContent = qs('.hero-content');
     const heroMetrics = qs('.hero-metrics');
 
-    window.addEventListener('scroll', () => {
+    registerScrollHandler(() => {
       const sy = window.scrollY;
       if (sy < window.innerHeight) {
         if (heroContent) {
@@ -1062,7 +1119,7 @@
           heroMetrics.style.transform = `translateY(${sy * 0.05}px)`;
         }
       }
-    }, { passive: true });
+    });
   }
 
   /* ── FOOTER AMBIENT REVEAL ───────────────────────── */
@@ -1094,7 +1151,7 @@
   /* ── SECTION TRANSITION INTENSITY ───────────────── */
   // Adjust animation speed based on scroll velocity
   if (!isReduced) {
-    window.addEventListener('scroll', () => {
+    registerScrollHandler(() => {
       const velocity = clamp(scrollVelocity, 0, 30);
       const intensity = velocity / 30;
 
@@ -1102,7 +1159,7 @@
         '--scroll-intensity',
         intensity.toFixed(3)
       );
-    }, { passive: true });
+    });
   }
 
   /* ── PERFORMANCE TICKER (footer/hero supplement) ─── */
@@ -1311,7 +1368,7 @@
   /* ── HERO SCROLL COMPRESSION ─────────────────────── */
   const heroSection = qs('#hero');
   if (heroSection && !isReduced) {
-    window.addEventListener('scroll', () => {
+    registerScrollHandler(() => {
       const sy = window.scrollY;
       const heroH = heroSection.offsetHeight;
       if (sy > heroH * 0.3) {
@@ -1319,7 +1376,7 @@
       } else {
         heroSection.classList.remove('compressed');
       }
-    }, { passive: true });
+    });
   }
 
   /* ── HERO MICRO-DATA LIVE UPDATE ─────────────────── */
@@ -1364,7 +1421,7 @@
     lmsTrack.appendChild(fragment);
 
     let stripShown = false;
-    window.addEventListener('scroll', () => {
+    registerScrollHandler(() => {
       if (window.scrollY > 300 && !stripShown) {
         liveMetricStrip.classList.add('visible');
         stripShown = true;
@@ -1372,7 +1429,7 @@
         liveMetricStrip.classList.remove('visible');
         stripShown = false;
       }
-    }, { passive: true });
+    });
   }
 
   /* ── COACH CUE HUD ──────────────────────────────── */
@@ -1434,7 +1491,7 @@
       }
     }
 
-    window.addEventListener('scroll', updateHud, { passive: true });
+    registerScrollHandler(updateHud);
   }
 
   /* ── SECTION TRANSITIONS — SCROLL TRIGGER ────────── */
@@ -1712,6 +1769,259 @@
 
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  /* ── COACHING COMMAND MODE — PPF Signature System ──── */
+  const commandOverlay = qs('#coachingCommandOverlay');
+  const commandText = qs('#commandText');
+
+  if (commandOverlay && commandText && !isReduced) {
+    const commandCues = [
+      { section: 'standard', commands: ['DISCIPLINE', 'STANDARD', 'NO DRIFT'] },
+      { section: 'paths', commands: ['CHOOSE', 'LOCK IN', 'COMMIT'] },
+      { section: 'oneRoom', commands: ['ONE ROOM', 'SAME STANDARD'] },
+      { section: 'proof', commands: ['PROVE IT', 'MEASURED', 'VERIFIED'] },
+      { section: 'carryover', commands: ['CARRYOVER', 'TRANSFER'] },
+      { section: 'room', commands: ['DRIVE', 'FINISH TALL', 'OWN THE REP'] },
+      { section: 'leadership', commands: ['PROTECT', 'COACH', 'LEAD'] },
+      { section: 'experience', commands: ['ASSESS', 'TRAIN', 'PLACE'] },
+      { section: 'memberships', commands: ['COMMIT', 'INVEST'] },
+    ];
+
+    const triggeredSections = new Set();
+    let commandTimeout = null;
+
+    function showCommand(text) {
+      if (commandTimeout) clearTimeout(commandTimeout);
+      commandText.textContent = text;
+      commandOverlay.classList.add('active');
+      commandOverlay.setAttribute('aria-hidden', 'false');
+      commandTimeout = setTimeout(() => {
+        commandOverlay.classList.remove('active');
+        commandOverlay.setAttribute('aria-hidden', 'true');
+      }, 800);
+    }
+
+    commandCues.forEach(({ section, commands }) => {
+      const el = qs('#' + section);
+      if (!el) return;
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !triggeredSections.has(section)) {
+            triggeredSections.add(section);
+            const cmd = commands[Math.floor(Math.random() * commands.length)];
+            showCommand(cmd);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      obs.observe(el);
+    });
+  }
+
+  /* ── PPF STANDARD METER — Engagement Tracker ────────── */
+  const standardMeter = qs('#ppfStandardMeter');
+  const standardFill = qs('#standardMeterFill');
+  const standardLevel = qs('#standardMeterLevel');
+
+  if (standardMeter && standardFill && standardLevel && !isReduced) {
+    const meterSections = ['hero', 'standard', 'paths', 'proof', 'room', 'leadership', 'experience', 'memberships', 'start'];
+    const meterLevels = ['PRESENCE', 'DISCIPLINE', 'STRUCTURE', 'OUTPUT', 'STANDARD'];
+    const visitedSections = new Set();
+    let meterShown = false;
+
+    function updateMeter() {
+      meterSections.forEach(id => {
+        const el = qs('#' + id);
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const viewMid = window.innerHeight * 0.5;
+        if (rect.top < viewMid && rect.bottom > viewMid) {
+          visitedSections.add(id);
+        }
+      });
+
+      const progress = Math.min(visitedSections.size / meterSections.length, 1);
+      const pct = Math.round(progress * 100);
+      standardFill.style.width = pct + '%';
+
+      const levelIdx = Math.min(Math.floor(progress * meterLevels.length), meterLevels.length - 1);
+      standardLevel.textContent = meterLevels[levelIdx];
+
+      // Show meter after first scroll
+      if (!meterShown && visitedSections.size > 1) {
+        standardMeter.classList.add('visible');
+        meterShown = true;
+      }
+
+      // Add final level class
+      if (levelIdx === meterLevels.length - 1) {
+        standardMeter.classList.add('level-5');
+      } else {
+        standardMeter.classList.remove('level-5');
+      }
+    }
+
+    registerScrollHandler(updateMeter);
+  }
+
+  /* ── ONE ROOM ENGINE — Interactive Floor Toggle ──────── */
+  const oneRoomBtns = qsa('.one-room-btn');
+  const roomStates = qsa('.room-state');
+  const roomFloorOverlay = qs('#roomFloorOverlay');
+
+  if (oneRoomBtns.length && roomStates.length) {
+    const roomColors = {
+      athlete: 'radial-gradient(ellipse at center, rgba(255, 85, 0, 0.04) 0%, transparent 70%)',
+      adult: 'radial-gradient(ellipse at center, rgba(100, 140, 255, 0.04) 0%, transparent 70%)',
+      integrated: 'radial-gradient(ellipse at center, rgba(80, 200, 120, 0.04) 0%, transparent 70%)',
+    };
+
+    oneRoomBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const room = btn.dataset.room;
+
+        // Update buttons
+        oneRoomBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Switch room states
+        roomStates.forEach(s => s.classList.remove('active'));
+        const target = qs(`[data-room-state="${room}"]`);
+        if (target) target.classList.add('active');
+
+        // Update floor overlay
+        if (roomFloorOverlay) {
+          roomFloorOverlay.style.background = roomColors[room] || 'none';
+        }
+      });
+    });
+  }
+
+  /* ── CARRYOVER VISION — Trail Node Reveal ────────────── */
+  const carryoverTrails = qsa('.carryover-trail');
+
+  if (carryoverTrails.length && 'IntersectionObserver' in window) {
+    const trailObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const trail = entry.target;
+          const nodes = qsa('.trail-node', trail);
+          const connectors = qsa('.trail-connector', trail);
+
+          nodes.forEach((node, i) => {
+            setTimeout(() => {
+              node.classList.add('revealed');
+            }, i * 200);
+          });
+
+          connectors.forEach((conn, i) => {
+            setTimeout(() => {
+              conn.classList.add('revealed');
+            }, i * 200 + 100);
+          });
+
+          trailObs.unobserve(trail);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    carryoverTrails.forEach(trail => trailObs.observe(trail));
+  }
+
+  /* ── PATH ROUTING ENGINE — Site-Wide Path Lock ──────── */
+  let activePathFilter = null;
+
+  function setActivePath(path) {
+    if (activePathFilter === path) {
+      // Deselect - show all
+      activePathFilter = null;
+      document.body.removeAttribute('data-active-path');
+      return;
+    }
+
+    activePathFilter = path;
+    document.body.setAttribute('data-active-path', path);
+
+    // Switch proof tab to match path
+    const matchingTab = qs(`.proof-tab[data-tab="${path}"]`);
+    if (matchingTab) {
+      activateProofTab(matchingTab);
+    }
+
+    // Switch One Room Engine to match path
+    const matchingRoomBtn = qs(`.one-room-btn[data-room="${path}"]`);
+    if (matchingRoomBtn) matchingRoomBtn.click();
+
+    // Pre-select form path dropdown
+    const formPath = qs('#path');
+    if (formPath) {
+      formPath.value = path;
+    }
+
+    // Switch membership tab to match
+    const matchingMembershipTab = qs(`.membership-tab[data-mtab="${path}"]`);
+    if (matchingMembershipTab) matchingMembershipTab.click();
+  }
+
+  // Listen for path card CTA clicks to set path routing
+  pathCards.forEach(card => {
+    const cta = qs('.path-cta', card);
+    if (cta) {
+      cta.addEventListener('click', function () {
+        const path = card.dataset.path;
+        setActivePath(path);
+      });
+    }
+
+    // Also set path on card click (beyond the CTA)
+    card.addEventListener('click', function (e) {
+      if (e.target.closest('.path-cta')) return; // Let CTA handler deal with it
+      const path = this.dataset.path;
+      setActivePath(path);
+    });
+  });
+
+  // Path selector buttons (one-room) also route
+  oneRoomBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const room = btn.dataset.room;
+      if (activePathFilter !== room) {
+        setActivePath(room);
+      }
+    });
+  });
+
+  /* ── ENHANCED SESSION RECONSTRUCTED ──────────────────── */
+  // Add coaching cue flash to instruction stage
+  const roomTrackEl = qs('#roomTrack');
+  if (roomTrackEl) {
+    const instructionStage = qs('[data-phase="instruction"]', roomTrackEl);
+    if (instructionStage) {
+      const cues = qsa('.rv-cue', instructionStage);
+
+      // Enhanced stage transitions
+      roomStages.forEach((stage, idx) => {
+        if (idx === 2 && cues.length) { // Instruction stage
+          const obs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting && entry.target.classList.contains('active')) {
+                cues.forEach((cue, i) => {
+                  cue.style.opacity = '0';
+                  cue.style.transform = 'translateY(10px)';
+                  setTimeout(() => {
+                    cue.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                    cue.style.opacity = '1';
+                    cue.style.transform = 'translateY(0)';
+                  }, 300 + i * 400);
+                });
+              }
+            });
+          }, { threshold: 0.5 });
+          obs.observe(stage);
+        }
+      });
+    }
   }
 
 })();
