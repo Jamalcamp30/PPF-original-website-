@@ -890,6 +890,122 @@
     });
   }
 
+  /* ── MEMBERSHIP TABS ────────────────────────────────── */
+  const membershipTabs = qsa('.membership-tab');
+  const membershipPanels = qsa('.membership-panel');
+
+  membershipTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.mtab;
+
+      membershipTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      membershipPanels.forEach(panel => {
+        panel.classList.remove('active');
+      });
+
+      if (target === 'pt') {
+        qs('#membershipPT').classList.add('active');
+      } else {
+        qs('#membershipGeneral').classList.add('active');
+      }
+    });
+  });
+
+  /* ── MEMBERSHIP CARD HOVER REACTOR ─────────────────── */
+  const membershipCards = qsa('.membership-card');
+  membershipCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      const tier = card.dataset.tier;
+      let glowIntensity = '0.06';
+      let borderIntensity = '0.25';
+
+      if (tier === 'quarterly') { glowIntensity = '0.10'; borderIntensity = '0.35'; }
+      if (tier === 'semiannual') { glowIntensity = '0.12'; borderIntensity = '0.4'; }
+      if (tier === 'yearly') { glowIntensity = '0.15'; borderIntensity = '0.5'; }
+
+      card.style.boxShadow = `0 12px 40px rgba(255, 85, 0, ${glowIntensity})`;
+      card.style.borderColor = `rgba(255, 85, 0, ${borderIntensity})`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.boxShadow = '';
+      card.style.borderColor = '';
+    });
+  });
+
+  /* ── PT PACKAGE HOVER ──────────────────────────────── */
+  const ptPackages = qsa('.pt-package');
+  ptPackages.forEach(pkg => {
+    pkg.addEventListener('mouseenter', () => {
+      pkg.style.boxShadow = '0 12px 40px rgba(255, 85, 0, 0.1)';
+    });
+    pkg.addEventListener('mouseleave', () => {
+      pkg.style.boxShadow = '';
+    });
+  });
+
+  /* ── COMMITMENT TIMELINE ANIMATION ─────────────────── */
+  const ctStages = qsa('.ct-stage');
+  if ('IntersectionObserver' in window && ctStages.length) {
+    const ctObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const fill = entry.target.querySelector('.ct-fill');
+          if (fill) {
+            setTimeout(() => {
+              fill.style.width = fill.style.getPropertyValue('--fill-width');
+            }, 300);
+          }
+          ctObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    ctStages.forEach(stage => {
+      const fill = stage.querySelector('.ct-fill');
+      if (fill) fill.style.width = '0%';
+      ctObs.observe(stage);
+    });
+  }
+
+  /* ── SOCIAL CARD HOVER EFFECTS ─────────────────────── */
+  const socialCards = qsa('.social-card');
+  socialCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      const arrow = card.querySelector('.social-card-arrow');
+      if (arrow) arrow.style.transform = 'translateX(4px)';
+    });
+    card.addEventListener('mouseleave', () => {
+      const arrow = card.querySelector('.social-card-arrow');
+      if (arrow) arrow.style.transform = '';
+    });
+  });
+
+  /* ── CONTACT COMMAND CENTER ENTRANCE ───────────────── */
+  const cccCards = qsa('.ccc-location, .ccc-contact-card');
+  if ('IntersectionObserver' in window) {
+    const cccObs = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }, i * 120);
+          cccObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    cccCards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(20px)';
+      card.style.transition = 'opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)';
+      cccObs.observe(card);
+    });
+  }
+
   /* ── INITIALIZATION LOG ──────────────────────────── */
   console.log(
     '%cPPF Athletics — Three Paths. One Standard.',
