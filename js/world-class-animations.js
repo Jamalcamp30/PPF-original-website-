@@ -242,8 +242,9 @@
     }
 
     // Float-label parallax (shift opposite to mouse direction, max 8px)
-    var cx = (mouseState.x / scrollState.winH - 0.5) * 2; // -1..1
-    var cy = (mouseState.y / scrollState.winH - 0.5) * 2;
+    var winW = window.innerWidth || 1;
+    var cx = (mouseState.x / winW - 0.5) * 2;   // -1..1 horizontal
+    var cy = (mouseState.y / scrollState.winH - 0.5) * 2; // -1..1 vertical
     heroFloatLabels.forEach(function (el, i) {
       var dx = -cx * (4 + (i % 3) * 2); // max ≈ 8px
       var dy = -cy * (4 + (i % 3) * 2);
