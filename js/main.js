@@ -1311,7 +1311,7 @@
     document.addEventListener('mouseup',   () => cursorRing.classList.remove('clicking'));
 
     // Hover effect on interactive elements
-    const hoverEls = qsa('a, button, .path-card, .pillar-card, .proof-metric, .story-card, .leader-card, .ppf-cta');
+    const hoverEls = qsa('a, button, .path-card, .pillar-card, .proof-metric, .story-card, .force-panel, .ppf-cta');
     hoverEls.forEach(el => {
       el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
       el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
@@ -1937,14 +1937,14 @@
   }
 
   /* ── LEADER CARDS ENTRANCE ───────────────────────── */
-  const leaderCards = qsa('.leader-card');
+  const leaderCards = qsa('.force-panel');
   if ('IntersectionObserver' in window) {
     const leaderObs = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
           setTimeout(() => {
             entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateX(0)';
+            entry.target.style.transform = 'translateY(0)';
           }, i * 150);
           leaderObs.unobserve(entry.target);
         }
@@ -1953,7 +1953,7 @@
 
     leaderCards.forEach((card, i) => {
       card.style.opacity = '0';
-      card.style.transform = i % 2 === 0 ? 'translateX(-30px)' : 'translateX(30px)';
+      card.style.transform = 'translateY(30px)';
       card.style.transition = 'opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)';
       leaderObs.observe(card);
     });
@@ -2667,21 +2667,7 @@
   /* ── ROOM — PROGRESS TRACKER (already integrated into goToStage) ── */
 
   /* ── LEADERSHIP — CREDENTIAL ROLL ANIMATION ─────── */
-  const leaderCardsEls = qsa('.leader-card');
-  if ('IntersectionObserver' in window) {
-    const leaderCredsObs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('creds-visible');
-          }, 300);
-          leaderCredsObs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-
-    leaderCardsEls.forEach(card => leaderCredsObs.observe(card));
-  }
+  /* (Now handled by leadership cinematic init below) */
 
   /* ── TRUST MARKERS — DRAW-ON EFFECT ──────────────── */
   const trustItemsEls = qsa('.trust-item');
@@ -2759,7 +2745,7 @@
   });
 
   /* ── PROGRESSIVE FOCUS MODE ──────────────────────── */
-  const focusableCards = qsa('.path-card, .proof-metric, .membership-card, .leader-card');
+  const focusableCards = qsa('.path-card, .proof-metric, .membership-card, .force-panel');
   if (!isTouchDevice()) {
     focusableCards.forEach(card => {
       card.addEventListener('mouseenter', function () {
@@ -3069,5 +3055,258 @@
       });
     }
   }
+
+  /* =====================================================
+     LEADERSHIP — CINEMATIC AUTHORITY SYSTEM
+     ===================================================== */
+  (function initLeadership() {
+    const leadershipSection = qs('#leadership');
+    if (!leadershipSection) return;
+
+    /* ── 1. STANDARD LOCK ─────────────────────────────── */
+    const stdLock = qs('#stdLock');
+    const lockFill = qs('#lockFill');
+    let lockShown = false;
+    let lockUnlocked = false;
+    let lockHoldTimer = null;
+    let lockProgress = 0;
+
+    function showLock() {
+      if (lockShown || lockUnlocked) return;
+      lockShown = true;
+      stdLock.classList.add('active');
+
+      // Auto-unlock after 5s if user doesn't hold
+      setTimeout(function() {
+        if (!lockUnlocked) unlockLock();
+      }, 5000);
+    }
+
+    function unlockLock() {
+      if (lockUnlocked) return;
+      lockUnlocked = true;
+      stdLock.classList.add('unlocking');
+      setTimeout(function() {
+        stdLock.classList.remove('active', 'unlocking');
+        stdLock.style.display = 'none';
+      }, 800);
+    }
+
+    if (stdLock) {
+      // Hold-to-unlock on the lock screen
+      stdLock.addEventListener('mousedown', function() {
+        lockProgress = 0;
+        lockHoldTimer = setInterval(function() {
+          lockProgress += 3;
+          if (lockFill) lockFill.style.width = lockProgress + '%';
+          if (lockProgress >= 100) {
+            clearInterval(lockHoldTimer);
+            unlockLock();
+          }
+        }, 30);
+      });
+
+      stdLock.addEventListener('mouseup', function() {
+        clearInterval(lockHoldTimer);
+        lockProgress = 0;
+        if (lockFill && !lockUnlocked) lockFill.style.width = '0%';
+      });
+
+      stdLock.addEventListener('mouseleave', function() {
+        clearInterval(lockHoldTimer);
+        lockProgress = 0;
+        if (lockFill && !lockUnlocked) lockFill.style.width = '0%';
+      });
+
+      // Touch support
+      stdLock.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        lockProgress = 0;
+        lockHoldTimer = setInterval(function() {
+          lockProgress += 3;
+          if (lockFill) lockFill.style.width = lockProgress + '%';
+          if (lockProgress >= 100) {
+            clearInterval(lockHoldTimer);
+            unlockLock();
+          }
+        }, 30);
+      }, { passive: false });
+
+      stdLock.addEventListener('touchend', function() {
+        clearInterval(lockHoldTimer);
+        lockProgress = 0;
+        if (lockFill && !lockUnlocked) lockFill.style.width = '0%';
+      });
+    }
+
+    // Show lock when user scrolls to leadership
+    var lockObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          showLock();
+          lockObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.15 });
+    lockObserver.observe(leadershipSection);
+
+    /* ── 2. FORCE PANELS VISIBILITY ──────────────────── */
+    var forcePanels = qsa('.force-panel');
+    var forceObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+    forcePanels.forEach(function(p) { forceObserver.observe(p); });
+
+    // Center seam visibility
+    var seam = qs('#forcesSeam');
+    if (seam) {
+      var seamObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.5 });
+      seamObs.observe(seam);
+    }
+
+    /* ── 3. DEFENSE ITEMS — Shield Interaction ────────── */
+    qsa('.defense-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+        // Toggle scene-active for padding
+        var isActive = item.classList.contains('scene-active');
+        // Close all in same system
+        var parent = item.closest('.defense-items');
+        if (parent) {
+          parent.querySelectorAll('.defense-item').forEach(function(di) {
+            di.classList.remove('scene-active');
+          });
+        }
+        if (!isActive) {
+          item.classList.add('scene-active');
+        }
+      });
+    });
+
+    /* ── 4. VOICE OF THE STANDARD ─────────────────────── */
+    // Create voice overlay element
+    var voiceOverlay = document.createElement('div');
+    voiceOverlay.className = 'voice-overlay';
+    document.body.appendChild(voiceOverlay);
+
+    var voiceTimer = null;
+    qsa('.voice-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var quote = btn.getAttribute('data-quote');
+        if (!quote) return;
+
+        var isRichard = btn.classList.contains('richard-voice');
+
+        // Flash the button
+        btn.classList.add('playing');
+        setTimeout(function() { btn.classList.remove('playing'); }, 1500);
+
+        // Show overlay
+        voiceOverlay.textContent = '\u201C' + quote + '\u201D';
+        voiceOverlay.className = 'voice-overlay active ' + (isRichard ? 'richard-style' : 'rebecca-style');
+
+        clearTimeout(voiceTimer);
+        voiceTimer = setTimeout(function() {
+          voiceOverlay.classList.remove('active');
+        }, 3000);
+
+        // Trigger visual reaction on force panel
+        var panel = btn.closest('.force-panel');
+        if (panel) {
+          panel.style.boxShadow = isRichard
+            ? '0 0 40px rgba(255, 85, 0, 0.2)'
+            : '0 0 40px rgba(180, 140, 255, 0.15)';
+          setTimeout(function() { panel.style.boxShadow = ''; }, 1500);
+        }
+      });
+    });
+
+    /* ── 5. RIPPLE MAP ────────────────────────────────── */
+    qsa('.ripple-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var leader = btn.getAttribute('data-leader');
+        // Toggle buttons
+        qsa('.ripple-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+
+        // Toggle nodes
+        qsa('.ripple-nodes').forEach(function(n) { n.classList.remove('active'); });
+        var targetNodes = qs('.' + leader + '-nodes');
+        if (targetNodes) targetNodes.classList.add('active');
+
+        // Toggle pathway
+        qsa('.ripple-pathway').forEach(function(p) { p.classList.remove('active'); });
+        var targetPath = qs('.' + leader + '-pathway');
+        if (targetPath) targetPath.classList.add('active');
+
+        // Pulse rings
+        qsa('.ripple-ring').forEach(function(ring) {
+          ring.classList.remove('pulse');
+          void ring.offsetWidth; // reflow
+          ring.classList.add('pulse');
+        });
+      });
+    });
+
+    /* ── 6. SESSION THROUGH THEIR EYES ─────────────── */
+    qsa('.eyes-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var view = btn.getAttribute('data-view');
+        // Toggle buttons
+        qsa('.eyes-btn').forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        // Toggle views
+        qsa('.eyes-view').forEach(function(v) { v.classList.remove('active'); });
+        var targetView = qs('#' + view + 'View');
+        if (targetView) targetView.classList.add('active');
+      });
+    });
+
+    /* ── 8. CREDENTIAL PROOF TILES ────────────────────── */
+    qsa('.proof-tile').forEach(function(tile) {
+      var meaning = tile.getAttribute('data-meaning');
+      var impact = tile.getAttribute('data-impact');
+      var meaningEl = tile.querySelector('.tile-panel-meaning');
+      var impactEl = tile.querySelector('.tile-panel-impact');
+      if (meaningEl && meaning) meaningEl.textContent = meaning;
+      if (impactEl && impact) impactEl.textContent = impact;
+    });
+
+    /* ── 9. THE STANDARD NEVER RESTS ──────────────────── */
+    var neverRests = qs('#neverRests');
+    if (neverRests) {
+      var nrTriggered = false;
+      var nrObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting && !nrTriggered) {
+            nrTriggered = true;
+            neverRests.classList.add('active');
+
+            // After cue words appear, collapse them and show final
+            setTimeout(function() {
+              qsa('.nr-cue').forEach(function(cue) {
+                cue.classList.add('collapse');
+              });
+              setTimeout(function() {
+                var nrFinal = qs('.nr-final');
+                if (nrFinal) nrFinal.classList.add('show');
+              }, 600);
+            }, 3000);
+          }
+        });
+      }, { threshold: 0.3 });
+      nrObserver.observe(neverRests);
+    }
+
+  })();
 
 })();
