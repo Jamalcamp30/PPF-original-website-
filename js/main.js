@@ -598,8 +598,18 @@
           ctx.fillStyle = '#ff5500';
           ctx.font = '600 ' + logoPieces.athleticsSize + 'px "Bebas Neue", Impact, sans-serif';
           ctx.textAlign = 'center';
-          ctx.letterSpacing = '0.3em';
-          ctx.fillText('ATHLETICS', logoPieces.cx, logoPieces.athleticsY);
+          // Draw ATHLETICS with manual letter spacing
+          var athText = 'ATHLETICS';
+          var athSpacing = logoPieces.athleticsSize * 0.35;
+          var totalW = 0;
+          for (var ai = 0; ai < athText.length; ai++) {
+            totalW += ctx.measureText(athText[ai]).width + (ai < athText.length - 1 ? athSpacing : 0);
+          }
+          var athX = logoPieces.cx - totalW / 2;
+          for (var aj = 0; aj < athText.length; aj++) {
+            ctx.fillText(athText[aj], athX, logoPieces.athleticsY);
+            athX += ctx.measureText(athText[aj]).width + athSpacing;
+          }
         }
 
         // Alignment anchor dots at logo corners
