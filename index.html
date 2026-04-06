@@ -13,11 +13,28 @@
 <body>
 
   <!-- ============================================================
-       PPF INTRO — THE LINEUP: PERFORMANCE OS BOOT SEQUENCE
+       PPF INTRO — THE STANDARD ACTIVATES
+       Ultimate opening: 9 concepts fused into one iconic sequence
   ============================================================ -->
   <div class="ppf-intro" id="ppfIntro" aria-live="polite" role="status">
-    <!-- Full-screen canvas for field lines, chalk particles, logo assembly -->
+    <!-- Full-screen canvas for all animation layers -->
     <canvas class="intro-canvas" id="introCanvas" aria-hidden="true"></canvas>
+
+    <!-- Test Window slit — narrow gate that widens on impact -->
+    <div class="intro-test-window" id="introTestWindow" aria-hidden="true">
+      <div class="test-window-slit"></div>
+    </div>
+
+    <!-- Room flash fragments — training room textures that pulse through the slit -->
+    <div class="intro-room-flashes" id="introRoomFlashes" aria-hidden="true">
+      <div class="room-flash" data-flash="knurl"><span>▓▓▓▓▓▓▓▓</span></div>
+      <div class="room-flash" data-flash="lane"><span>━━━━━━━━</span></div>
+      <div class="room-flash" data-flash="chalk"><span>◌ ◌ ◌</span></div>
+      <div class="room-flash" data-flash="time"><span>04.32</span></div>
+    </div>
+
+    <!-- Edge forge overlay — heat shimmer + pressure compression -->
+    <div class="intro-edge-forge" id="introEdgeForge" aria-hidden="true"></div>
 
     <!-- Readiness scan line -->
     <div class="intro-scan-line" id="introScanLine" aria-hidden="true"></div>
@@ -30,11 +47,19 @@
       <div class="metric-plate" data-pos="br"><span class="plate-label">POWER</span><span class="plate-value">TRACKING</span></div>
     </div>
 
-    <!-- Coaching command -->
+    <!-- Profile stamp -->
+    <div class="intro-profile-stamp" id="introProfileStamp" aria-hidden="true">
+      PPF PERFORMANCE PROFILE: LIVE
+    </div>
+
+    <!-- Coaching command — positioned below logo, never covering it -->
     <div class="intro-command" id="introCommand" aria-hidden="true">
       <div class="command-main">LOCK IN.</div>
-      <div class="command-sub">BUILD THE EDGE.</div>
+      <div class="command-sub">THE STANDARD IS LIVE.</div>
     </div>
+
+    <!-- Ascent layer — rising through system -->
+    <div class="intro-ascent" id="introAscent" aria-hidden="true"></div>
 
     <!-- Skip button -->
     <button class="intro-skip" id="introSkip" aria-label="Skip intro animation">SKIP ›</button>

@@ -4128,7 +4128,11 @@ body.focus-mode .focus-target {
    ===================================================== */
 
 /* Overlay container */
-/* ── PPF INTRO — THE LINEUP ──────────────────────── */
+/* =====================================================
+   PPF INTRO — THE STANDARD ACTIVATES
+   Ultimate opening: 9 concepts fused into one iconic sequence
+   ===================================================== */
+
 .ppf-intro {
   position: fixed;
   inset: 0;
@@ -4139,8 +4143,8 @@ body.focus-mode .focus-target {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ppf-intro.dismissed {
@@ -4153,7 +4157,7 @@ body.intro-active {
   overflow: hidden;
 }
 
-/* Full-screen canvas for field lines + chalk + logo assembly */
+/* Full-screen canvas — all animation layers */
 .intro-canvas {
   position: absolute;
   inset: 0;
@@ -4162,7 +4166,151 @@ body.intro-active {
   z-index: 1;
 }
 
-/* Readiness scan line */
+/* ── TEST WINDOW SLIT (The Test Window concept) ── */
+.intro-test-window {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.test-window-slit {
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 20%,
+    rgba(255, 255, 255, 0.08) 45%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.08) 55%,
+    rgba(255, 255, 255, 0.03) 80%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 30px rgba(255, 255, 255, 0.05),
+    0 0 80px rgba(255, 85, 0, 0.03);
+  transition: width 0.08s ease;
+}
+
+.ppf-intro.phase-slit .intro-test-window {
+  opacity: 1;
+}
+
+.ppf-intro.phase-slit .test-window-slit {
+  animation: slitPulse 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes slitPulse {
+  0%   { width: 3px; box-shadow: 0 0 30px rgba(255, 255, 255, 0.05); }
+  100% { width: 5px; box-shadow: 0 0 50px rgba(255, 255, 255, 0.08), 0 0 100px rgba(255, 85, 0, 0.04); }
+}
+
+/* Slit EXPLODES open on impact */
+.ppf-intro.phase-explode .test-window-slit {
+  animation: slitExplode 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slitExplode {
+  0%   { width: 5px; opacity: 1; }
+  40%  { width: 200vw; opacity: 0.8; }
+  100% { width: 300vw; opacity: 0; }
+}
+
+.ppf-intro.phase-explode .intro-test-window {
+  transition: opacity 0.3s ease 0.25s;
+  opacity: 0;
+}
+
+/* ── ROOM FLASHES (The Room concept) ── */
+.intro-room-flashes {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.room-flash {
+  position: absolute;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0);
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.ppf-intro.phase-room .intro-room-flashes {
+  opacity: 1;
+}
+
+.ppf-intro.phase-room .room-flash[data-flash="knurl"] {
+  animation: roomFlashPulse 0.12s ease-out 0s 1 forwards;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.06);
+}
+
+.ppf-intro.phase-room .room-flash[data-flash="lane"] {
+  animation: roomFlashPulse 0.12s ease-out 0.12s 1 forwards;
+  color: rgba(255, 255, 255, 0.08);
+}
+
+.ppf-intro.phase-room .room-flash[data-flash="chalk"] {
+  animation: roomFlashPulse 0.12s ease-out 0.24s 1 forwards;
+  color: rgba(255, 255, 255, 0.1);
+}
+
+.ppf-intro.phase-room .room-flash[data-flash="time"] {
+  animation: roomFlashPulse 0.15s ease-out 0.36s 1 forwards;
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.12);
+}
+
+@keyframes roomFlashPulse {
+  0%   { opacity: 0; transform: scale(0.9); }
+  30%  { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 0; transform: scale(1); }
+}
+
+/* ── EDGE FORGE OVERLAY (The Edge Forge concept) ── */
+.intro-edge-forge {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 42%,
+    rgba(255, 85, 0, 0.04) 0%,
+    transparent 60%
+  );
+  mix-blend-mode: screen;
+}
+
+.ppf-intro.phase-forge .intro-edge-forge {
+  animation: forgeGlow 0.8s ease-out forwards;
+}
+
+@keyframes forgeGlow {
+  0%   { opacity: 0; }
+  30%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ── READINESS SCAN LINE ── */
 .intro-scan-line {
   position: absolute;
   top: 0;
@@ -4173,30 +4321,29 @@ body.intro-active {
     90deg,
     transparent 0%,
     rgba(255, 85, 0, 0.05) 15%,
-    rgba(255, 85, 0, 0.35) 45%,
-    rgba(255, 255, 255, 0.7) 50%,
-    rgba(255, 85, 0, 0.35) 55%,
+    rgba(255, 85, 0, 0.4) 45%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 85, 0, 0.4) 55%,
     rgba(255, 85, 0, 0.05) 85%,
     transparent 100%
   );
-  box-shadow: 0 0 20px rgba(255, 85, 0, 0.2), 0 0 60px rgba(255, 85, 0, 0.08);
-  z-index: 5;
+  box-shadow: 0 0 20px rgba(255, 85, 0, 0.25), 0 0 60px rgba(255, 85, 0, 0.1);
+  z-index: 6;
   opacity: 0;
   pointer-events: none;
-  transform: translateY(0);
 }
 
 .ppf-intro.phase-scan .intro-scan-line {
   opacity: 1;
-  animation: introScanSweep 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: introScanSweep 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes introScanSweep {
-  0%   { top: 30%; }
-  100% { top: 70%; }
+  0%   { top: 25%; }
+  100% { top: 65%; }
 }
 
-/* Metric plates — transparent performance checkpoints */
+/* ── METRIC PLATES (Readiness Architecture) ── */
 .intro-metric-plates {
   position: absolute;
   inset: 0;
@@ -4210,13 +4357,13 @@ body.intro-active {
   flex-direction: column;
   gap: 2px;
   padding: 8px 14px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 2px;
   backdrop-filter: blur(2px);
   opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: translateY(8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .metric-plate .plate-label {
@@ -4246,14 +4393,39 @@ body.intro-active {
   transform: translateY(0);
 }
 .ppf-intro.phase-metrics .metric-plate[data-pos="tl"] { transition-delay: 0.0s; }
-.ppf-intro.phase-metrics .metric-plate[data-pos="tr"] { transition-delay: 0.08s; }
-.ppf-intro.phase-metrics .metric-plate[data-pos="bl"] { transition-delay: 0.16s; }
-.ppf-intro.phase-metrics .metric-plate[data-pos="br"] { transition-delay: 0.24s; }
+.ppf-intro.phase-metrics .metric-plate[data-pos="tr"] { transition-delay: 0.06s; }
+.ppf-intro.phase-metrics .metric-plate[data-pos="bl"] { transition-delay: 0.12s; }
+.ppf-intro.phase-metrics .metric-plate[data-pos="br"] { transition-delay: 0.18s; }
 
-/* Coaching command */
+/* ── PROFILE STAMP (Profile Build concept) ── */
+.intro-profile-stamp {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255, 85, 0, 0);
+  text-shadow: 0 0 15px rgba(255, 85, 0, 0.2);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease, color 0.3s ease;
+  white-space: nowrap;
+}
+
+.ppf-intro.phase-profile .intro-profile-stamp {
+  opacity: 1;
+  color: rgba(255, 85, 0, 0.45);
+}
+
+/* ── COACHING COMMAND — below logo, never covering it ── */
 .intro-command {
   position: absolute;
-  bottom: 26%;
+  bottom: 16%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 12;
@@ -4264,24 +4436,27 @@ body.intro-active {
 
 .intro-command .command-main {
   font-family: var(--font-display);
-  font-size: clamp(36px, 7vw, 80px);
-  letter-spacing: 0.1em;
+  font-size: clamp(44px, 9vw, 110px);
+  letter-spacing: 0.18em;
   color: #fff;
-  text-shadow: 0 0 40px rgba(255, 85, 0, 0.25);
-  transform: scale(1.2);
+  text-shadow:
+    0 0 60px rgba(255, 85, 0, 0.35),
+    0 0 120px rgba(255, 85, 0, 0.12),
+    0 2px 30px rgba(0, 0, 0, 0.8);
+  transform: scale(1.4) translateY(12px);
   opacity: 0;
-  transition: opacity 0.2s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.12s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .intro-command .command-sub {
   font-family: var(--font-display);
-  font-size: clamp(14px, 2.5vw, 28px);
-  letter-spacing: 0.3em;
-  color: rgba(255, 85, 0, 0.7);
-  margin-top: 4px;
+  font-size: clamp(12px, 2.2vw, 24px);
+  letter-spacing: 0.4em;
+  color: rgba(255, 85, 0, 0.65);
+  margin-top: 8px;
   opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.3s ease 0.2s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+  transform: translateY(14px);
+  transition: opacity 0.3s ease 0.12s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
 }
 
 .ppf-intro.phase-command .intro-command {
@@ -4290,7 +4465,7 @@ body.intro-active {
 
 .ppf-intro.phase-command .intro-command .command-main {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1) translateY(0);
 }
 
 .ppf-intro.phase-command .intro-command .command-sub {
@@ -4298,28 +4473,109 @@ body.intro-active {
   transform: translateY(0);
 }
 
-/* Impact shake */
+/* ── PALM STRIKE FLASH ── */
+.ppf-intro.phase-palmstrike::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 55% 45% at 50% 40%,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.08) 35%,
+    transparent 65%
+  );
+  z-index: 3;
+  pointer-events: none;
+  animation: palmFlash 0.18s ease-out forwards;
+}
+
+@keyframes palmFlash {
+  0%   { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ── ASCENT LAYER (The PPF Ascent concept) ── */
+.intro-ascent {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(
+    0deg,
+    rgba(255, 85, 0, 0.06) 0%,
+    transparent 30%,
+    transparent 70%,
+    rgba(255, 255, 255, 0.02) 100%
+  );
+}
+
+.ppf-intro.phase-ascent .intro-ascent {
+  opacity: 1;
+  animation: ascentRise 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes ascentRise {
+  0%   { transform: translateY(40px); opacity: 0; }
+  30%  { opacity: 1; }
+  100% { transform: translateY(-20px); opacity: 0; }
+}
+
+/* ── IMPACT SHAKE — violent final ── */
 .ppf-intro.phase-impact {
-  animation: introImpactShake 0.3s ease-out;
+  animation: introImpactShake 0.4s ease-out;
 }
 
 @keyframes introImpactShake {
   0%, 100% { transform: translate(0, 0); }
-  15%      { transform: translate(-2px, 1px); }
-  35%      { transform: translate(3px, -2px); }
-  55%      { transform: translate(-1px, 2px); }
-  75%      { transform: translate(2px, -1px); }
+  8%       { transform: translate(-5px, 3px); }
+  20%      { transform: translate(6px, -4px); }
+  32%      { transform: translate(-4px, 3px); }
+  44%      { transform: translate(5px, -3px); }
+  56%      { transform: translate(-3px, 2px); }
+  68%      { transform: translate(2px, -1px); }
+  80%      { transform: translate(-1px, 1px); }
 }
 
-/* Skip button */
+/* ── FOOT STRIKE SHAKE ── */
+.ppf-intro.phase-footstrike {
+  animation: footStrikeShake 0.2s ease-out;
+}
+
+@keyframes footStrikeShake {
+  0%, 100% { transform: translate(0, 0); }
+  15%      { transform: translate(-3px, 2px); }
+  40%      { transform: translate(4px, -3px); }
+  65%      { transform: translate(-2px, 1px); }
+}
+
+/* ── PALM STRIKE SHAKE ── */
+.ppf-intro.phase-palmstrike {
+  animation: palmShake 0.15s ease-out;
+}
+
+@keyframes palmShake {
+  0%, 100% { transform: translate(0, 0); }
+  25%      { transform: translate(-2px, 1px); }
+  50%      { transform: translate(3px, -2px); }
+  75%      { transform: translate(-1px, 1px); }
+}
+
+/* ── HERO CONVERSION ── */
+.ppf-intro.phase-convert {
+  background: transparent;
+  transition: background 1s ease;
+}
+
+/* ── SKIP BUTTON ── */
 .intro-skip {
   position: absolute;
   bottom: 32px;
   right: 32px;
   z-index: 20;
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.25);
   font-family: var(--font-body);
   font-size: 10px;
   font-weight: 600;
@@ -4335,14 +4591,14 @@ body.intro-active {
   border-color: rgba(255, 85, 0, 0.5);
 }
 
-/* Prefers reduced motion */
+/* ── REDUCED MOTION ── */
 @media (prefers-reduced-motion: reduce) {
   .ppf-intro {
     display: none !important;
   }
 }
 
-/* Mobile adjustments */
+/* ── MOBILE ADJUSTMENTS ── */
 @media (max-width: 600px) {
   .metric-plate[data-pos="tl"] { top: 16%; left: 5%; }
   .metric-plate[data-pos="tr"] { top: 16%; right: 5%; }
@@ -4352,7 +4608,9 @@ body.intro-active {
   .metric-plate .plate-value { font-size: 13px; }
   .metric-plate .plate-label { font-size: 7px; }
 
-  .intro-command { bottom: 32%; }
+  .intro-command { bottom: 28%; }
+  .intro-command .command-main { font-size: clamp(32px, 8vw, 60px); }
+  .intro-profile-stamp { font-size: 7px; letter-spacing: 0.3em; }
 
   .intro-skip {
     bottom: 16px;
