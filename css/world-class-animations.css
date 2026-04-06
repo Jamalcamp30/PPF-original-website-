@@ -1,0 +1,1853 @@
+/* ============================================================================
+   PPF ATHLETICS — WORLD-CLASS ANIMATIONS
+   Broadcast-level, elite, structured motion system
+   ============================================================================
+   Dependencies: Expects CSS custom properties from style.css
+   JS Integration: Several animations use CSS custom properties set by JS
+   ============================================================================ */
+
+
+/* ============================================================================
+   0. KEYFRAMES — All animations prefixed with ppf-
+   ============================================================================ */
+
+/* --- Hero --- */
+@keyframes ppf-grid-drift {
+  0%   { transform: translate(0, 0); }
+  50%  { transform: translate(-12px, -8px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes ppf-metric-float {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.35; }
+  25%  { transform: translate(4px, -6px) scale(1.01); opacity: 0.5; }
+  50%  { transform: translate(-2px, -10px) scale(1); opacity: 0.35; }
+  75%  { transform: translate(-5px, -4px) scale(0.99); opacity: 0.45; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.35; }
+}
+
+@keyframes ppf-stagger-reveal {
+  0%   { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* --- Path --- */
+@keyframes ppf-lane-scan {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+@keyframes ppf-lane-lock-confirm {
+  0%   { transform: scale(1); border-color: var(--gray-700); }
+  30%  { transform: scale(0.995); border-color: var(--orange); }
+  60%  { transform: scale(1.003); }
+  100% { transform: scale(1); border-color: var(--orange); }
+}
+
+@keyframes ppf-identity-tag-in {
+  0%   { transform: translateY(6px); opacity: 0; clip-path: inset(0 100% 0 0); }
+  100% { transform: translateY(0); opacity: 1; clip-path: inset(0 0 0 0); }
+}
+
+/* --- Pillar --- */
+@keyframes ppf-pillar-lift {
+  0%   { transform: translateY(60px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes ppf-impact-slam {
+  0%   { transform: translateY(-14px) scale(1.04); opacity: 0; }
+  60%  { transform: translateY(2px) scale(0.99); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes ppf-pulse-wave {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+@keyframes ppf-grid-shift {
+  0%   { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+
+@keyframes ppf-depth-glow {
+  0%   { opacity: 0.03; transform: scale(1); }
+  50%  { opacity: 0.07; transform: scale(1.05); }
+  100% { opacity: 0.03; transform: scale(1); }
+}
+
+@keyframes ppf-seal-draw {
+  0%   { stroke-dashoffset: 600; opacity: 0; }
+  20%  { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+
+/* --- Proof --- */
+@keyframes ppf-sprint-count {
+  0%   { transform: translateY(0); }
+  20%  { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes ppf-rail-fill {
+  0%   { transform: scaleX(0); }
+  70%  { transform: scaleX(1.02); }
+  85%  { transform: scaleX(0.98); }
+  100% { transform: scaleX(1); }
+}
+
+@keyframes ppf-profile-enter {
+  0%   { transform: translateX(-40px) scale(0.92); opacity: 0; }
+  70%  { transform: translateX(4px) scale(1.01); opacity: 1; }
+  100% { transform: translateX(0) scale(1); opacity: 1; }
+}
+
+@keyframes ppf-stamp-land {
+  0%   { transform: scale(1.6) rotate(-8deg); opacity: 0; }
+  40%  { transform: scale(0.95) rotate(1deg); opacity: 1; }
+  60%  { transform: scale(1.02) rotate(-0.5deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes ppf-circle-draw {
+  0%   { stroke-dashoffset: var(--ppf-circumference, 283); }
+  100% { stroke-dashoffset: var(--ppf-target-offset, 0); }
+}
+
+/* --- Session / Room --- */
+@keyframes ppf-phase-line-draw {
+  0%   { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+
+@keyframes ppf-coach-cue {
+  0%   { transform: translateX(-20px); opacity: 0; }
+  12%  { transform: translateX(0); opacity: 1; }
+  75%  { transform: translateX(0); opacity: 1; }
+  100% { transform: translateX(10px); opacity: 0; }
+}
+
+@keyframes ppf-lights-rise {
+  0%   { opacity: 0; background-position: 50% 100%; }
+  100% { opacity: 0.06; background-position: 50% 30%; }
+}
+
+@keyframes ppf-activation-trace {
+  0%   { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
+@keyframes ppf-effort-pulse {
+  0%   { opacity: 0.02; }
+  50%  { opacity: 0.08; }
+  100% { opacity: 0.02; }
+}
+
+@keyframes ppf-system-cool {
+  0%   { opacity: 0.06; filter: brightness(1.1); }
+  100% { opacity: 0.02; filter: brightness(0.8); }
+}
+
+@keyframes ppf-session-stamp {
+  0%   { transform: scale(2) rotate(-12deg); opacity: 0; filter: blur(2px); }
+  50%  { transform: scale(0.96) rotate(2deg); opacity: 1; filter: blur(0); }
+  70%  { transform: scale(1.01) rotate(-0.5deg); }
+  100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+/* --- Leadership --- */
+@keyframes ppf-credential-roll {
+  0%   { transform: translateY(12px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes ppf-orbit-float {
+  0%   { transform: rotate(0deg) translateX(var(--orbit-radius, 60px)) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(var(--orbit-radius, 60px)) rotate(-360deg); }
+}
+
+@keyframes ppf-quote-trace {
+  0%   { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+@keyframes ppf-name-carve {
+  0%   { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+
+/* --- Morph Transitions --- */
+@keyframes ppf-morph-clip {
+  0%   { clip-path: inset(0 100% 0 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes ppf-morph-sweep {
+  0%   { mask-position: -100% 0; }
+  100% { mask-position: 100% 0; }
+}
+
+/* --- Experience --- */
+@keyframes ppf-gate-power-on {
+  0%   { background-position: 50% 100%; opacity: 0; }
+  50%  { opacity: 0.6; }
+  100% { background-position: 50% 0%; opacity: 0; }
+}
+
+@keyframes ppf-gate-light-sweep {
+  0%   { transform: translateY(100%); opacity: 0; }
+  30%  { opacity: 1; }
+  100% { transform: translateY(-100%); opacity: 0; }
+}
+
+@keyframes ppf-roadmap-extend {
+  0%   { transform: scaleX(0); opacity: 0.3; }
+  60%  { opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0.8; }
+}
+
+@keyframes ppf-snap-lock {
+  0%   { transform: translateY(-8px) scale(1.05); opacity: 0; }
+  60%  { transform: translateY(1px) scale(0.98); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* --- Membership --- */
+@keyframes ppf-month-hover {
+  0%   { transform: translateY(0); }
+  30%  { transform: translateY(-3px); }
+  60%  { transform: translateY(-1px); }
+  100% { transform: translateY(-2px); }
+}
+
+@keyframes ppf-quarterly-hover {
+  0%   { transform: translateY(0) scale(1); }
+  50%  { transform: translateY(-2px) scale(1.002); }
+  100% { transform: translateY(-2px) scale(1.003); }
+}
+
+@keyframes ppf-semi-hover {
+  0%   { transform: translateY(0) scale(1); }
+  100% { transform: translateY(-4px) scale(1.005); }
+}
+
+@keyframes ppf-yearly-hover {
+  0%   { box-shadow: 0 0 0 1px var(--orange-dim); }
+  50%  { box-shadow: 0 0 0 2px var(--orange); }
+  100% { box-shadow: 0 0 0 2px var(--orange); }
+}
+
+/* --- Footer --- */
+@keyframes ppf-logo-resolve {
+  0%   { stroke-dashoffset: 200; fill-opacity: 0; }
+  70%  { stroke-dashoffset: 0; fill-opacity: 0; }
+  100% { stroke-dashoffset: 0; fill-opacity: 1; }
+}
+
+@keyframes ppf-perpetual-scan {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes ppf-closing-fade {
+  0%   { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* --- HUD --- */
+@keyframes ppf-hud-flash {
+  0%   { background-color: rgba(255, 85, 0, 0.12); }
+  100% { background-color: transparent; }
+}
+
+/* --- Global --- */
+@keyframes ppf-effort-compress {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(0.99, 0.985); }
+  65%  { transform: scale(1.005); }
+  100% { transform: scale(1); }
+}
+
+
+/* ============================================================================
+   1. HERO COMMAND-CENTER ENHANCEMENT
+   ============================================================================ */
+
+/* Performance grid overlay */
+.hero-grid-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: ppf-grid-drift 30s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hero-grid-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 85, 0, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 85, 0, 0.02) 1px, transparent 1px);
+  background-size: 120px 120px;
+  opacity: 0.5;
+}
+
+/* Floating micro data labels */
+.hero-metric-float {
+  position: absolute;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  pointer-events: none;
+  z-index: 2;
+  animation: ppf-metric-float 12s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.hero-metric-float:nth-child(2) { animation-delay: -3s; animation-duration: 14s; }
+.hero-metric-float:nth-child(3) { animation-delay: -6s; animation-duration: 16s; }
+.hero-metric-float:nth-child(4) { animation-delay: -9s; animation-duration: 11s; }
+.hero-metric-float:nth-child(5) { animation-delay: -1.5s; animation-duration: 13s; }
+
+/* Staggered headline reveal */
+.hero-title .stagger-block {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.hero-title .stagger-block > * {
+  display: inline-block;
+  transform: translateY(100%);
+  opacity: 0;
+  animation: ppf-stagger-reveal 0.7s var(--ease-out-expo) forwards;
+}
+
+.hero-title .stagger-block:nth-child(1) > * { animation-delay: 0ms; }
+.hero-title .stagger-block:nth-child(2) > * { animation-delay: 80ms; }
+.hero-title .stagger-block:nth-child(3) > * { animation-delay: 160ms; }
+.hero-title .stagger-block:nth-child(4) > * { animation-delay: 240ms; }
+.hero-title .stagger-block:nth-child(5) > * { animation-delay: 320ms; }
+.hero-title .stagger-block:nth-child(6) > * { animation-delay: 400ms; }
+.hero-title .stagger-block:nth-child(7) > * { animation-delay: 480ms; }
+.hero-title .stagger-block:nth-child(8) > * { animation-delay: 560ms; }
+
+/* Hero scroll compression — --hero-scroll set by JS (0–1) */
+#hero {
+  --hero-scroll: 0;
+}
+
+#hero .hero-content {
+  transform:
+    translateY(calc(var(--hero-scroll) * -40px))
+    scale(calc(1 - var(--hero-scroll) * 0.04));
+  opacity: calc(1 - var(--hero-scroll) * 0.6);
+  transition: none;
+  will-change: transform, opacity;
+}
+
+
+/* ============================================================================
+   2. PATH LANE-DETECTION SYSTEM
+   ============================================================================ */
+
+/* Scan beam effect */
+.path-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.path-card.lane-scanning::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--orange) 30%,
+    var(--white) 50%,
+    var(--orange) 70%,
+    transparent 100%
+  );
+  z-index: 10;
+  animation: ppf-lane-scan 1.2s var(--ease-out-expo) forwards;
+  will-change: transform;
+}
+
+/* Lane locked state */
+.path-card.lane-locked {
+  animation: ppf-lane-lock-confirm 400ms var(--ease-spring) forwards;
+  border-color: var(--orange) !important;
+}
+
+.path-card.lane-locked::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid var(--orange);
+  opacity: 0.3;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Path-specific hover: Athlete — sharp, fast */
+.path-card[data-path="athlete"] {
+  transition: transform 150ms var(--ease-out-expo),
+              box-shadow 150ms var(--ease-out-expo),
+              border-color 150ms var(--ease-out-expo);
+}
+
+.path-card[data-path="athlete"]:hover {
+  transform: scale(1.008);
+  border-color: rgba(255, 85, 0, 0.4);
+}
+
+/* Path-specific hover: Adult — grounded, heavy */
+.path-card[data-path="adult"] {
+  transition: transform 300ms var(--ease-out-expo),
+              box-shadow 300ms var(--ease-out-expo),
+              border-color 300ms var(--ease-out-expo);
+}
+
+.path-card[data-path="adult"]:hover {
+  transform: translateY(2px) scale(1);
+  border-color: rgba(255, 85, 0, 0.3);
+}
+
+/* Path-specific hover: Integrated — smooth, warm */
+.path-card[data-path="integrated"] {
+  transition: transform 250ms var(--ease-out-expo),
+              box-shadow 250ms var(--ease-out-expo),
+              border-color 250ms var(--ease-out-expo);
+}
+
+.path-card[data-path="integrated"]:hover {
+  transform: translateX(3px);
+  border-color: rgba(255, 85, 0, 0.35);
+}
+
+/* Path identity tag */
+.path-identity-tag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  padding: 4px 10px;
+  border: 1px solid rgba(255, 85, 0, 0.2);
+  background: rgba(255, 85, 0, 0.06);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.path-card:hover .path-identity-tag {
+  animation: ppf-identity-tag-in 300ms var(--ease-out-expo) forwards;
+}
+
+/* Path ambient glow — --path-glow-x, --path-glow-y set by JS */
+#paths {
+  --path-glow-x: 50%;
+  --path-glow-y: 50%;
+}
+
+.path-card:hover ~ .paths-ambient-glow,
+.path-card:hover .paths-ambient-glow {
+  opacity: 1;
+}
+
+.paths-ambient-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    600px circle at var(--path-glow-x) var(--path-glow-y),
+    rgba(255, 85, 0, 0.04) 0%,
+    transparent 70%
+  );
+  transition: opacity 600ms var(--ease-out-expo);
+  z-index: 0;
+}
+
+
+/* ============================================================================
+   3. STANDARD SECTION POWER CHAMBER
+   ============================================================================ */
+
+/* Progressive focus: hovered card dims siblings */
+#standard .pillar-card {
+  transition: opacity 400ms var(--ease-out-expo),
+              transform 400ms var(--ease-out-expo),
+              filter 400ms var(--ease-out-expo);
+}
+
+#standard:has(.pillar-card:hover) .pillar-card:not(:hover) {
+  opacity: 0.4;
+  filter: saturate(0.6);
+}
+
+/* Pillar lift on scroll entry */
+.pillar-lift {
+  opacity: 0;
+  transform: translateY(60px);
+  animation: ppf-pillar-lift 0.8s var(--ease-out-expo) forwards;
+  animation-play-state: paused;
+}
+
+.pillar-lift.in-view {
+  animation-play-state: running;
+}
+
+.pillar-lift:nth-child(1) { animation-delay: 0ms; }
+.pillar-lift:nth-child(2) { animation-delay: 100ms; }
+.pillar-lift:nth-child(3) { animation-delay: 200ms; }
+.pillar-lift:nth-child(4) { animation-delay: 300ms; }
+
+/* Impact phrase slam */
+.pillar-impact-phrase {
+  opacity: 0;
+  transform: translateY(-14px) scale(1.04);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+}
+
+.pillar-card:hover .pillar-impact-phrase {
+  animation: ppf-impact-slam 120ms var(--ease-spring) forwards;
+}
+
+/* Pillar background patterns */
+.pillar-pattern {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  border-radius: inherit;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* Coaching: pulse wave */
+.pillar-card[data-pillar="coaching"] .pillar-pattern {
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 85, 0, 0.08) 25%,
+    transparent 50%
+  );
+  background-size: 200% 100%;
+  animation: ppf-pulse-wave 6s linear infinite;
+}
+
+/* Structure: alignment grid */
+.pillar-card[data-pillar="structure"] .pillar-pattern {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+  animation: ppf-grid-shift 20s linear infinite;
+  opacity: 0.03;
+}
+
+/* Environment: depth glow */
+.pillar-card[data-pillar="environment"] .pillar-pattern {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 85, 0, 0.1) 0%,
+    transparent 60%
+  );
+  animation: ppf-depth-glow 4s ease-in-out infinite;
+}
+
+/* Proof: tracking marks */
+.pillar-card[data-pillar="proof"] .pillar-pattern {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 8px,
+      rgba(255, 255, 255, 0.08) 8px,
+      rgba(255, 255, 255, 0.08) 9px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 18px,
+      rgba(255, 85, 0, 0.06) 18px,
+      rgba(255, 85, 0, 0.06) 19px
+    );
+  opacity: 0.5;
+}
+
+/* Complete seal — line draw SVG animation */
+.pillar-complete-seal {
+  opacity: 0;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.pillar-complete-seal.revealed {
+  opacity: 1;
+}
+
+.pillar-complete-seal svg {
+  stroke: var(--orange);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+}
+
+.pillar-complete-seal.revealed svg {
+  animation: ppf-seal-draw 1.8s var(--ease-out-expo) forwards;
+}
+
+.pillar-complete-seal .seal-text {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--orange);
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-out-expo) 1.4s;
+}
+
+.pillar-complete-seal.revealed .seal-text {
+  opacity: 1;
+}
+
+
+/* ============================================================================
+   4. PROOF ENGINE THEATER
+   ============================================================================ */
+
+/* Sprint counter acceleration */
+.proof-metric.sprint-counter {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+  will-change: contents;
+}
+
+.proof-metric.sprint-counter.counting {
+  animation: ppf-sprint-count 100ms steps(1) infinite;
+}
+
+/* Animated metric rail */
+.proof-rail {
+  position: relative;
+  height: 4px;
+  background: var(--gray-700);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.proof-rail::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--ppf-rail-value, 0%);
+  background: linear-gradient(90deg, var(--orange-dim), var(--orange));
+  border-radius: 2px;
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
+}
+
+.proof-rail.filling::after {
+  animation: ppf-rail-fill 1s var(--ease-spring) forwards;
+}
+
+/* Testimonial profile enter */
+.proof-testimonial-profile {
+  transform: translateX(-40px) scale(0.92);
+  opacity: 0;
+}
+
+.proof-testimonial-profile.in-view {
+  animation: ppf-profile-enter 600ms var(--ease-out-expo) forwards;
+}
+
+.proof-testimonial-profile:nth-child(2).in-view { animation-delay: 120ms; }
+.proof-testimonial-profile:nth-child(3).in-view { animation-delay: 240ms; }
+
+/* Verified outcome stamp */
+.proof-stamp {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(0.75rem, 1.2vw, 1rem);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  border: 2px solid var(--orange);
+  padding: 6px 16px;
+  opacity: 0;
+  transform: scale(1.6) rotate(-8deg);
+}
+
+.proof-stamp.stamped {
+  animation: ppf-stamp-land 500ms var(--ease-spring) forwards;
+}
+
+/* Path label stamp */
+.proof-path-label {
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gray-300);
+  opacity: 0;
+  transform: scale(1.1);
+  transition: opacity 200ms var(--ease-out-expo),
+              transform 200ms var(--ease-out-expo);
+}
+
+.proof-path-label.stamped {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Circular progress indicator */
+.proof-circle-progress {
+  --ppf-circumference: 283;
+  --ppf-target-offset: 0;
+}
+
+.proof-circle-progress circle.track {
+  fill: none;
+  stroke: var(--gray-700);
+  stroke-width: 3;
+}
+
+.proof-circle-progress circle.fill {
+  fill: none;
+  stroke: var(--orange);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: var(--ppf-circumference);
+  stroke-dashoffset: var(--ppf-circumference);
+  transform: rotate(-90deg);
+  transform-origin: center;
+  transition: none;
+}
+
+.proof-circle-progress.animating circle.fill {
+  animation: ppf-circle-draw 1.4s var(--ease-out-expo) forwards;
+}
+
+
+/* ============================================================================
+   5. SESSION RECONSTRUCTION SIMULATION
+   ============================================================================ */
+
+/* Phase tracker */
+.session-phase-tracker {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-left: 24px;
+}
+
+.session-phase-tracker::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--gray-700);
+}
+
+.session-phase-tracker .phase-line {
+  position: absolute;
+  left: 6px;
+  top: 0;
+  width: 1px;
+  height: var(--ppf-phase-progress, 0%);
+  background: var(--orange);
+  transform-origin: top center;
+  animation: ppf-phase-line-draw 0.6s var(--ease-out-expo) forwards;
+  will-change: height;
+}
+
+.session-phase-tracker .phase-label {
+  position: relative;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  padding: 12px 0;
+  transition: color 400ms var(--ease-out-expo);
+}
+
+.session-phase-tracker .phase-label.active {
+  color: var(--orange);
+}
+
+.session-phase-tracker .phase-label::before {
+  content: '';
+  position: absolute;
+  left: -21px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1.5px solid var(--gray-500);
+  background: var(--bg-base);
+  transition: border-color 300ms, background-color 300ms;
+}
+
+.session-phase-tracker .phase-label.active::before {
+  border-color: var(--orange);
+  background: var(--orange);
+}
+
+.session-phase-tracker .phase-label.complete::before {
+  border-color: var(--orange);
+  background: var(--orange);
+}
+
+/* Coach cue overlay */
+.coach-cue-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 20;
+}
+
+.coach-cue-overlay .cue-word {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0;
+  white-space: nowrap;
+  text-shadow: 0 0 40px rgba(255, 85, 0, 0.3);
+}
+
+.coach-cue-overlay .cue-word.active {
+  animation: ppf-coach-cue 2.5s var(--ease-out-expo) forwards;
+}
+
+/* Session ambient backgrounds per phase */
+.session-ambient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 1s var(--ease-out-expo);
+}
+
+.session-ambient.active {
+  opacity: 1;
+}
+
+/* Arrival: lights rising */
+.session-ambient[data-phase="arrival"] {
+  background: linear-gradient(
+    to top,
+    rgba(255, 85, 0, 0.03) 0%,
+    transparent 60%
+  );
+  animation: ppf-lights-rise 3s var(--ease-out-expo) forwards;
+}
+
+/* Warm-up: activation paths */
+.session-ambient[data-phase="warmup"] {
+  background: repeating-linear-gradient(
+    45deg,
+    transparent 0%,
+    transparent 48%,
+    rgba(255, 85, 0, 0.02) 50%,
+    transparent 52%
+  );
+  background-size: 30px 30px;
+  animation: ppf-activation-trace 8s linear infinite;
+}
+
+/* Work: effort pulse */
+.session-ambient[data-phase="work"] {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 85, 0, 0.06) 0%,
+    transparent 50%
+  );
+  animation: ppf-effort-pulse 2s ease-in-out infinite;
+}
+
+/* Finish: cooling down */
+.session-ambient[data-phase="finish"] {
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 85, 0, 0.03) 0%,
+    transparent 60%
+  );
+  animation: ppf-system-cool 4s var(--ease-out-expo) forwards;
+}
+
+/* Session complete stamp */
+.session-complete-stamp {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--orange);
+  border: 2px solid var(--orange);
+  padding: 10px 28px;
+  display: inline-block;
+  opacity: 0;
+}
+
+.session-complete-stamp.revealed {
+  animation: ppf-session-stamp 600ms var(--ease-spring) forwards;
+}
+
+
+/* ============================================================================
+   6. LEADERSHIP GUARDIAN REVEAL
+   ============================================================================ */
+
+/* Grayscale → color */
+.leader-card {
+  overflow: hidden;
+}
+
+.leader-card img,
+.leader-card .leader-photo {
+  filter: grayscale(1);
+  transition: filter 600ms var(--ease-out-expo);
+  will-change: filter;
+}
+
+.leader-card:hover img,
+.leader-card:hover .leader-photo {
+  filter: grayscale(0);
+}
+
+/* Credentials roll */
+.leader-credentials {
+  overflow: hidden;
+}
+
+.leader-credentials > * {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.leader-card:hover .leader-credentials > *,
+.leader-credentials.in-view > * {
+  animation: ppf-credential-roll 0.4s var(--ease-out-expo) forwards;
+}
+
+.leader-credentials > *:nth-child(1) { animation-delay: 0ms; }
+.leader-credentials > *:nth-child(2) { animation-delay: 80ms; }
+.leader-credentials > *:nth-child(3) { animation-delay: 160ms; }
+.leader-credentials > *:nth-child(4) { animation-delay: 240ms; }
+.leader-credentials > *:nth-child(5) { animation-delay: 320ms; }
+.leader-credentials > *:nth-child(6) { animation-delay: 400ms; }
+
+/* Values orbit */
+.leader-values-orbit {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.leader-values-orbit .orbit-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 85, 0, 0.5);
+  white-space: nowrap;
+  animation: ppf-orbit-float 20s linear infinite;
+  will-change: transform;
+}
+
+.leader-values-orbit .orbit-value:nth-child(1) { --orbit-radius: 70px; animation-delay: 0s; }
+.leader-values-orbit .orbit-value:nth-child(2) { --orbit-radius: 85px; animation-delay: -5s; }
+.leader-values-orbit .orbit-value:nth-child(3) { --orbit-radius: 65px; animation-delay: -10s; }
+.leader-values-orbit .orbit-value:nth-child(4) { --orbit-radius: 90px; animation-delay: -15s; }
+
+.leader-card:hover .leader-values-orbit .orbit-value {
+  color: rgba(255, 85, 0, 0.7);
+}
+
+/* Quote trace underline */
+.leader-quote-trace {
+  position: relative;
+  display: inline;
+}
+
+.leader-quote-trace::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.8s var(--ease-out-expo);
+}
+
+.leader-card:hover .leader-quote-trace::after,
+.leader-quote-trace.traced::after {
+  animation: ppf-quote-trace 0.8s var(--ease-out-expo) forwards;
+}
+
+/* Name carve — moving light mask */
+.leader-name-carve {
+  clip-path: inset(0 100% 0 0);
+}
+
+.leader-card:hover .leader-name-carve,
+.leader-name-carve.revealed {
+  animation: ppf-name-carve 0.6s var(--ease-out-expo) forwards;
+}
+
+
+/* ============================================================================
+   7. CARRYOVER MORPH TRANSITIONS
+   ============================================================================ */
+
+.section-morph {
+  position: relative;
+  width: 100%;
+  height: 80px;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* Lane-to-grid morph */
+.morph-lane-to-grid {
+  position: relative;
+}
+
+.morph-lane-to-grid::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 18%,
+    rgba(255, 255, 255, 0.04) 18%,
+    rgba(255, 255, 255, 0.04) 18.5%
+  );
+  clip-path: inset(0 100% 0 0);
+}
+
+.morph-lane-to-grid::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+  clip-path: inset(0 0 0 100%);
+}
+
+.morph-lane-to-grid.in-view::before {
+  animation: ppf-morph-clip 600ms var(--ease-out-expo) forwards;
+}
+
+.morph-lane-to-grid.in-view::after {
+  animation: ppf-morph-clip 600ms var(--ease-out-expo) 300ms forwards;
+}
+
+/* Knurling-to-data morph */
+.morph-knurl-to-data {
+  position: relative;
+}
+
+.morph-knurl-to-data::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 3px,
+    rgba(255, 255, 255, 0.03) 3px,
+    rgba(255, 255, 255, 0.03) 4px
+  ),
+  repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 3px,
+    rgba(255, 255, 255, 0.03) 3px,
+    rgba(255, 255, 255, 0.03) 4px
+  );
+  clip-path: inset(0 100% 0 0);
+}
+
+.morph-knurl-to-data::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 6px,
+    rgba(255, 85, 0, 0.03) 6px,
+    rgba(255, 85, 0, 0.03) 7px
+  );
+  clip-path: inset(0 0 0 100%);
+}
+
+.morph-knurl-to-data.in-view::before {
+  animation: ppf-morph-clip 600ms var(--ease-out-expo) forwards;
+}
+
+.morph-knurl-to-data.in-view::after {
+  animation: ppf-morph-clip 600ms var(--ease-out-expo) 300ms forwards;
+}
+
+/* Rep-to-steps morph */
+.morph-rep-to-steps {
+  position: relative;
+}
+
+.morph-rep-to-steps::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 30px,
+    rgba(255, 255, 255, 0.04) 30px,
+    rgba(255, 255, 255, 0.04) 32px
+  );
+  clip-path: inset(0 100% 0 0);
+}
+
+.morph-rep-to-steps::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 12px,
+    rgba(255, 85, 0, 0.04) 12px,
+    rgba(255, 85, 0, 0.04) 14px,
+    transparent 14px,
+    transparent 18px
+  );
+  clip-path: inset(0 0 0 100%);
+}
+
+.morph-rep-to-steps.in-view::before {
+  animation: ppf-morph-clip 600ms var(--ease-out-expo) forwards;
+}
+
+.morph-rep-to-steps.in-view::after {
+  animation: ppf-morph-clip 600ms var(--ease-out-expo) 300ms forwards;
+}
+
+
+/* ============================================================================
+   8. 3-DAY EXPERIENCE INTAKE CEREMONY
+   ============================================================================ */
+
+/* Experience gates */
+.exp-gate {
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s var(--ease-out-expo),
+              transform 0.6s var(--ease-out-expo);
+}
+
+.exp-gate.powered-on {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.exp-gate:nth-child(1).powered-on { transition-delay: 0ms; }
+.exp-gate:nth-child(2).powered-on { transition-delay: 200ms; }
+.exp-gate:nth-child(3).powered-on { transition-delay: 400ms; }
+
+/* Gate light sweep (bottom → top) */
+.exp-gate-light {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+}
+
+.exp-gate-light::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(
+    to top,
+    rgba(255, 85, 0, 0.12) 0%,
+    transparent 100%
+  );
+  animation: ppf-gate-light-sweep 1.2s var(--ease-out-expo) forwards;
+  will-change: transform;
+}
+
+.exp-gate.powered-on .exp-gate-light {
+  opacity: 1;
+}
+
+/* Gate border power-on — gradient sweep upward */
+.exp-gate::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid transparent;
+  background: linear-gradient(to top, var(--orange), transparent 60%) border-box;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) padding-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.8s var(--ease-out-expo);
+}
+
+.exp-gate.powered-on::after {
+  opacity: 0.5;
+}
+
+/* Roadmap extending line */
+.exp-roadmap-extend {
+  position: relative;
+  height: 2px;
+  background: var(--gray-700);
+  margin-top: 2rem;
+  overflow: hidden;
+}
+
+.exp-roadmap-extend::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--orange), rgba(255, 85, 0, 0.3));
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+.exp-roadmap-extend.extending::after {
+  animation: ppf-roadmap-extend 1.4s var(--ease-out-expo) forwards;
+}
+
+/* Day label mechanical snap */
+.exp-day-label {
+  font-family: var(--font-display);
+  font-size: clamp(0.8rem, 1.5vw, 1.1rem);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0;
+  transform: translateY(-8px) scale(1.05);
+}
+
+.exp-day-label.locked {
+  animation: ppf-snap-lock 350ms var(--ease-spring) forwards;
+}
+
+.exp-day-label:nth-child(1).locked { animation-delay: 0ms; }
+.exp-day-label:nth-child(2).locked { animation-delay: 150ms; }
+.exp-day-label:nth-child(3).locked { animation-delay: 300ms; }
+
+
+/* ============================================================================
+   9. MEMBERSHIP COMMITMENT LADDER
+   ============================================================================ */
+
+/* Progressive elevation by tier */
+.membership-card {
+  position: relative;
+  transition: transform 400ms var(--ease-out-expo),
+              box-shadow 400ms var(--ease-out-expo);
+}
+
+.membership-card:nth-child(1) { transform: translateY(0); }
+.membership-card:nth-child(2) { transform: translateY(-4px); }
+.membership-card:nth-child(3) { transform: translateY(-8px); }
+.membership-card:nth-child(4) { transform: translateY(-12px); }
+
+/* Identity tag on hover */
+.membership-identity-tag {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  padding: 3px 10px;
+  border: 1px solid rgba(255, 85, 0, 0.3);
+  background: var(--bg-base);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 5;
+  transition: opacity 200ms var(--ease-out-expo),
+              transform 200ms var(--ease-out-expo);
+}
+
+.membership-card:hover .membership-identity-tag {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Commitment-level hover motion */
+/* Month: light, bouncy */
+.membership-card:nth-child(1):hover {
+  animation: ppf-month-hover 400ms var(--ease-spring) forwards;
+}
+
+/* Quarterly: structured */
+.membership-card:nth-child(2):hover {
+  animation: ppf-quarterly-hover 500ms var(--ease-out-expo) forwards;
+}
+
+/* Semi-annual: developmental growth */
+.membership-card:nth-child(3):hover {
+  animation: ppf-semi-hover 600ms var(--ease-out-expo) forwards;
+}
+
+/* Yearly: locked elite */
+.membership-card:nth-child(4):hover {
+  animation: ppf-yearly-hover 300ms var(--ease-out-expo) forwards;
+}
+
+/* Commitment glow — progressive intensity */
+.commitment-glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms var(--ease-out-expo);
+  z-index: -1;
+}
+
+.membership-card:nth-child(1) .commitment-glow {
+  box-shadow: 0 0 20px rgba(255, 85, 0, 0.05);
+}
+
+.membership-card:nth-child(2) .commitment-glow {
+  box-shadow: 0 0 30px rgba(255, 85, 0, 0.08);
+}
+
+.membership-card:nth-child(3) .commitment-glow {
+  box-shadow: 0 0 40px rgba(255, 85, 0, 0.12);
+}
+
+.membership-card:nth-child(4) .commitment-glow {
+  box-shadow: 0 0 50px rgba(255, 85, 0, 0.18);
+}
+
+.membership-card:hover .commitment-glow {
+  opacity: 1;
+}
+
+
+/* ============================================================================
+   10. FOOTER CLOSING STATEMENT
+   ============================================================================ */
+
+/* Darkening approach */
+.footer-darken {
+  position: relative;
+}
+
+.footer-darken::before {
+  content: '';
+  position: absolute;
+  top: -120px;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4));
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Logo resolve — outline → solid */
+.footer-logo-resolve {
+  opacity: 0.3;
+  transition: opacity 1.2s var(--ease-out-expo);
+}
+
+.footer-logo-resolve svg {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  fill-opacity: 0;
+}
+
+.footer-logo-resolve.in-view {
+  opacity: 1;
+}
+
+.footer-logo-resolve.in-view svg {
+  animation: ppf-logo-resolve 2s var(--ease-out-expo) forwards;
+}
+
+/* Perpetual subtle motion */
+.footer-perpetual {
+  position: relative;
+  overflow: hidden;
+}
+
+.footer-perpetual::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--orange), transparent);
+  animation: ppf-perpetual-scan 6s linear infinite;
+  will-change: transform;
+}
+
+/* Closing text — slow authority */
+.footer-closing-text {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.footer-closing-text.in-view {
+  animation: ppf-closing-fade 3s var(--ease-out-expo) forwards;
+}
+
+/* Contact precision stagger */
+.footer-contact-precision > * {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+.footer-contact-precision.in-view > * {
+  animation: ppf-closing-fade 0.6s var(--ease-out-expo) forwards;
+}
+
+.footer-contact-precision.in-view > *:nth-child(1) { animation-delay: 0ms; }
+.footer-contact-precision.in-view > *:nth-child(2) { animation-delay: 100ms; }
+.footer-contact-precision.in-view > *:nth-child(3) { animation-delay: 200ms; }
+.footer-contact-precision.in-view > *:nth-child(4) { animation-delay: 300ms; }
+.footer-contact-precision.in-view > *:nth-child(5) { animation-delay: 400ms; }
+.footer-contact-precision.in-view > *:nth-child(6) { animation-delay: 500ms; }
+
+
+/* ============================================================================
+   11. FLOATING HUD SYSTEM
+   ============================================================================ */
+
+/* Section-aware HUD accent */
+.coach-hud {
+  --hud-accent: var(--orange);
+  transition: border-color 400ms var(--ease-out-expo),
+              box-shadow 400ms var(--ease-out-expo);
+}
+
+.coach-hud[data-section="hero"]       { --hud-accent: var(--white); }
+.coach-hud[data-section="standard"]   { --hud-accent: var(--orange); }
+.coach-hud[data-section="paths"]      { --hud-accent: #ff6a1a; }
+.coach-hud[data-section="proof"]      { --hud-accent: #00cc88; }
+.coach-hud[data-section="room"]       { --hud-accent: var(--orange); }
+.coach-hud[data-section="leadership"] { --hud-accent: #ff8844; }
+.coach-hud[data-section="experience"] { --hud-accent: #ff5500; }
+.coach-hud[data-section="memberships"]{ --hud-accent: #ffaa00; }
+.coach-hud[data-section="start"]      { --hud-accent: var(--orange); }
+
+.coach-hud .hud-progress-bar {
+  background: var(--hud-accent);
+}
+
+/* Mode indicator */
+.hud-mode-indicator {
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--hud-accent);
+  transition: color 400ms var(--ease-out-expo);
+}
+
+/* Content change flash */
+.hud-update-flash {
+  animation: ppf-hud-flash 300ms var(--ease-out-expo);
+}
+
+/* Engagement indicator */
+.hud-engagement {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.hud-engagement .engagement-bar {
+  width: 3px;
+  height: 10px;
+  background: var(--gray-700);
+  border-radius: 1px;
+  transition: background-color 300ms var(--ease-out-expo),
+              height 300ms var(--ease-out-expo);
+}
+
+.hud-engagement .engagement-bar.active {
+  background: var(--hud-accent);
+}
+
+.hud-engagement .engagement-bar:nth-child(1) { height: 6px; }
+.hud-engagement .engagement-bar:nth-child(2) { height: 8px; }
+.hud-engagement .engagement-bar:nth-child(3) { height: 10px; }
+.hud-engagement .engagement-bar:nth-child(4) { height: 12px; }
+.hud-engagement .engagement-bar:nth-child(5) { height: 14px; }
+
+
+/* ============================================================================
+   12. PROGRESSIVE FOCUS MODE
+   ============================================================================ */
+
+/* Focus dimming — applied by JS to siblings */
+.focus-dimmed {
+  opacity: 0.4 !important;
+  filter: blur(1px) !important;
+  transition: opacity 400ms var(--ease-out-expo),
+              filter 400ms var(--ease-out-expo) !important;
+  pointer-events: none;
+}
+
+/* CSS-only progressive focus for containers that support :has() */
+.ppf-focus-container:has(.ppf-focus-target:hover) .ppf-focus-target:not(:hover) {
+  opacity: 0.4;
+  filter: blur(1px);
+  transition: opacity 400ms var(--ease-out-expo),
+              filter 400ms var(--ease-out-expo);
+}
+
+.ppf-focus-container .ppf-focus-target {
+  transition: opacity 400ms var(--ease-out-expo),
+              filter 400ms var(--ease-out-expo);
+}
+
+
+/* ============================================================================
+   13. EFFORT COMPRESSION MICRO-INTERACTION
+   ============================================================================ */
+
+.effort-compress {
+  will-change: transform;
+}
+
+.effort-compress:active {
+  animation: ppf-effort-compress 280ms var(--ease-spring);
+}
+
+/* Apply to key card types */
+.path-card.effort-compress:active,
+.membership-card.effort-compress:active,
+.pillar-card.effort-compress:active,
+.leader-card.effort-compress:active {
+  animation: ppf-effort-compress 280ms var(--ease-spring);
+}
+
+
+/* ============================================================================
+   14. MOBILE ADAPTATIONS
+   ============================================================================ */
+
+@media (max-width: 768px) {
+  /* Reduce parallax and float intensity */
+  .hero-metric-float {
+    animation-duration: 20s;
+    opacity: 0.25;
+  }
+
+  .hero-grid-overlay {
+    background-size: 80px 80px;
+    opacity: 0.5;
+  }
+
+  /* Path cards: simplify hover for touch */
+  .path-card[data-path="athlete"]:hover,
+  .path-card[data-path="adult"]:hover,
+  .path-card[data-path="integrated"]:hover {
+    transform: none;
+  }
+
+  /* Reduce morph transition heights */
+  .section-morph {
+    height: 50px;
+  }
+
+  /* Simplify pillar focus: no blur */
+  #standard:has(.pillar-card:hover) .pillar-card:not(:hover) {
+    opacity: 0.6;
+    filter: none;
+  }
+
+  /* Membership ladder: reduce elevation */
+  .membership-card:nth-child(2) { transform: translateY(-2px); }
+  .membership-card:nth-child(3) { transform: translateY(-4px); }
+  .membership-card:nth-child(4) { transform: translateY(-6px); }
+
+  /* Disable orbit on small screens */
+  .leader-values-orbit {
+    display: none;
+  }
+
+  /* Reduce coach cue size */
+  .coach-cue-overlay .cue-word {
+    font-size: clamp(1rem, 3vw, 1.8rem);
+  }
+
+  /* Focus mode: skip blur on mobile */
+  .focus-dimmed {
+    filter: none !important;
+    opacity: 0.5 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-metric-float {
+    display: none;
+  }
+
+  .path-identity-tag {
+    font-size: 7px;
+    padding: 3px 6px;
+  }
+
+  .membership-identity-tag {
+    font-size: 7px;
+  }
+
+  .session-phase-tracker {
+    padding-left: 18px;
+  }
+}
+
+
+/* ============================================================================
+   15. PREFERS-REDUCED-MOTION — Accessibility
+   ============================================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Kill all continuous and decorative animations */
+  .hero-grid-overlay,
+  .hero-metric-float,
+  .pillar-pattern,
+  .leader-values-orbit .orbit-value,
+  .footer-perpetual::after {
+    animation: none !important;
+  }
+
+  /* Reduce entry animations to simple fades */
+  .hero-title .stagger-block > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .pillar-lift,
+  .pillar-lift.in-view {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .proof-testimonial-profile,
+  .proof-testimonial-profile.in-view {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .exp-gate {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .exp-day-label,
+  .exp-day-label.locked {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Simplify hover effects */
+  .path-card.lane-scanning::before {
+    animation: none !important;
+  }
+
+  .path-card.lane-locked {
+    animation: none !important;
+    border-color: var(--orange) !important;
+  }
+
+  .proof-stamp.stamped {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .session-complete-stamp.revealed {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .coach-cue-overlay .cue-word.active {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .leader-name-carve,
+  .leader-name-carve.revealed {
+    animation: none !important;
+    clip-path: none !important;
+  }
+
+  .leader-card img,
+  .leader-card .leader-photo {
+    filter: none !important;
+  }
+
+  /* Simplify morph transitions */
+  .morph-lane-to-grid.in-view::before,
+  .morph-lane-to-grid.in-view::after,
+  .morph-knurl-to-data.in-view::before,
+  .morph-knurl-to-data.in-view::after,
+  .morph-rep-to-steps.in-view::before,
+  .morph-rep-to-steps.in-view::after {
+    animation: none !important;
+    clip-path: none !important;
+  }
+
+  /* Disable compression micro-interaction */
+  .effort-compress:active {
+    animation: none !important;
+  }
+
+  /* Disable focus blur */
+  .focus-dimmed {
+    filter: none !important;
+  }
+
+  .ppf-focus-container:has(.ppf-focus-target:hover) .ppf-focus-target:not(:hover) {
+    filter: none;
+  }
+
+  /* Simple transitions instead of animations */
+  .footer-closing-text.in-view {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: opacity 0.3s ease !important;
+  }
+
+  .footer-contact-precision.in-view > * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Reduce HUD flash */
+  .hud-update-flash {
+    animation: none !important;
+  }
+
+  /* Proof rail: instant fill */
+  .proof-rail.filling::after {
+    animation: none !important;
+    transform: scaleX(1) !important;
+  }
+
+  /* Circle progress: instant */
+  .proof-circle-progress.animating circle.fill {
+    animation: none !important;
+    stroke-dashoffset: var(--ppf-target-offset, 0) !important;
+  }
+
+  /* Session phase: instant line */
+  .session-phase-tracker .phase-line {
+    animation: none !important;
+  }
+
+  /* Seal draw: instant */
+  .pillar-complete-seal.revealed svg {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  /* Footer logo: instant */
+  .footer-logo-resolve.in-view svg {
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+    fill-opacity: 1 !important;
+  }
+
+  /* Roadmap: instant */
+  .exp-roadmap-extend.extending::after {
+    animation: none !important;
+    transform: scaleX(1) !important;
+  }
+
+  /* Hero scroll: instant */
+  #hero .hero-content {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
