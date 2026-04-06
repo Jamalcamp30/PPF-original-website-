@@ -3076,7 +3076,7 @@
       lockShown = true;
       stdLock.classList.add('active');
 
-      // Auto-unlock after 4s if user doesn't hold
+      // Auto-unlock after 5s if user doesn't hold
       setTimeout(function() {
         if (!lockUnlocked) unlockLock();
       }, 5000);
