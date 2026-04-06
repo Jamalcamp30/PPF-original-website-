@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/command-trigger.css" />
+  <link rel="stylesheet" href="css/world-class-animations.css" />
 </head>
 <body>
 
@@ -111,7 +113,7 @@
       <li><a href="#memberships" class="nav-link">Memberships</a></li>
       <li><a href="#proof" class="nav-link">Proof</a></li>
       <li><a href="#leadership" class="nav-link">Leadership</a></li>
-      <li><a href="#start" class="nav-link nav-cta">Start Here</a></li>
+      <li><a href="#start" class="nav-link nav-cta ppf-nav-trigger">Start Here</a></li>
     </ul>
   </nav>
 
@@ -164,13 +166,39 @@
       </p>
 
       <div class="hero-actions reveal-up">
-        <a href="#start" class="btn btn-primary">
-          <span>Start Your Assessment</span>
-          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-        <a href="#paths" class="btn btn-ghost">
-          <span>Explore Your Path</span>
-        </a>
+        <div class="ppf-cta is-rest" data-cta-tier="1" data-section="hero">
+          <span class="cta-pre-label" data-rest-text="NEXT STEP AVAILABLE" data-active-text="GO NOW">NEXT STEP AVAILABLE</span>
+          <div class="cta-shell">
+            <div class="cta-corner cta-corner--tl"></div>
+            <div class="cta-corner cta-corner--tr"></div>
+            <div class="cta-corner cta-corner--bl"></div>
+            <div class="cta-corner cta-corner--br"></div>
+            <div class="cta-edge-runner"></div>
+            <div class="cta-scanner"></div>
+            <div class="cta-burst"></div>
+            <a href="#start" class="cta-action">
+              <span class="cta-label" data-confirm-text="ASSESSMENT STARTED">CLAIM YOUR SPOT</span>
+              <span class="cta-subline">Direct performance inquiry</span>
+              <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="ppf-cta is-rest" data-cta-tier="2" data-section="hero">
+          <span class="cta-pre-label" data-rest-text="PPF LIVE" data-active-text="INITIATE">PPF LIVE</span>
+          <div class="cta-shell cta-shell--ghost">
+            <div class="cta-corner cta-corner--tl"></div>
+            <div class="cta-corner cta-corner--tr"></div>
+            <div class="cta-corner cta-corner--bl"></div>
+            <div class="cta-corner cta-corner--br"></div>
+            <div class="cta-edge-runner"></div>
+            <div class="cta-scanner"></div>
+            <div class="cta-burst"></div>
+            <a href="#paths" class="cta-action">
+              <span class="cta-label">ENTER THE SYSTEM</span>
+              <span class="cta-subline">See how the build works</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -327,10 +355,23 @@
               <div class="path-hl-item"><span class="hl-dot"></span>Position-specific training</div>
               <div class="path-hl-item"><span class="hl-dot"></span>Film + metrics tracking</div>
             </div>
-            <a href="#start" class="path-cta">
-              <span>Start Athlete Assessment</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
+            <div class="ppf-cta is-rest" data-cta-tier="2" data-section="paths">
+              <span class="cta-pre-label" data-rest-text="PATH AVAILABLE" data-active-text="LOCK IN">PATH AVAILABLE</span>
+              <div class="cta-shell">
+                <div class="cta-corner cta-corner--tl"></div>
+                <div class="cta-corner cta-corner--tr"></div>
+                <div class="cta-corner cta-corner--bl"></div>
+                <div class="cta-corner cta-corner--br"></div>
+                <div class="cta-edge-runner"></div>
+                <div class="cta-scanner"></div>
+                <div class="cta-burst"></div>
+                <a href="#start" class="cta-action">
+                  <span class="cta-label" data-confirm-text="ASSESSMENT LOCKED">START ATHLETE ASSESSMENT</span>
+                  <span class="cta-subline">Speed, power, output evaluation</span>
+                  <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
           </div>
           <div class="path-motion-layer path-motion-athlete">
             <div class="motion-line ml-1"></div>
@@ -361,10 +402,23 @@
               <div class="path-hl-item"><span class="hl-dot"></span>Progressive strength programs</div>
               <div class="path-hl-item"><span class="hl-dot"></span>Nutrition + lifestyle guidance</div>
             </div>
-            <a href="#start" class="path-cta">
-              <span>Start Adult Assessment</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
+            <div class="ppf-cta is-rest" data-cta-tier="2" data-section="paths">
+              <span class="cta-pre-label" data-rest-text="PATH AVAILABLE" data-active-text="LOCK IN">PATH AVAILABLE</span>
+              <div class="cta-shell">
+                <div class="cta-corner cta-corner--tl"></div>
+                <div class="cta-corner cta-corner--tr"></div>
+                <div class="cta-corner cta-corner--bl"></div>
+                <div class="cta-corner cta-corner--br"></div>
+                <div class="cta-edge-runner"></div>
+                <div class="cta-scanner"></div>
+                <div class="cta-burst"></div>
+                <a href="#start" class="cta-action">
+                  <span class="cta-label" data-confirm-text="ASSESSMENT LOCKED">START ADULT ASSESSMENT</span>
+                  <span class="cta-subline">Strength, structure, accountability</span>
+                  <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
           </div>
           <div class="path-motion-layer path-motion-adult">
             <div class="motion-bar mb-1"></div>
@@ -394,10 +448,23 @@
               <div class="path-hl-item"><span class="hl-dot"></span>Day program + respite</div>
               <div class="path-hl-item"><span class="hl-dot"></span>Family trust first</div>
             </div>
-            <a href="#start" class="path-cta">
-              <span>Start Integrated Assessment</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
+            <div class="ppf-cta is-rest" data-cta-tier="2" data-section="paths">
+              <span class="cta-pre-label" data-rest-text="PATH AVAILABLE" data-active-text="LOCK IN">PATH AVAILABLE</span>
+              <div class="cta-shell">
+                <div class="cta-corner cta-corner--tl"></div>
+                <div class="cta-corner cta-corner--tr"></div>
+                <div class="cta-corner cta-corner--bl"></div>
+                <div class="cta-corner cta-corner--br"></div>
+                <div class="cta-edge-runner"></div>
+                <div class="cta-scanner"></div>
+                <div class="cta-burst"></div>
+                <a href="#start" class="cta-action">
+                  <span class="cta-label" data-confirm-text="ASSESSMENT LOCKED">START INTEGRATED ASSESSMENT</span>
+                  <span class="cta-subline">Adaptive, purposeful, personal</span>
+                  <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
           </div>
           <div class="path-motion-layer path-motion-integrated">
             <div class="motion-circle mc-1"></div>
@@ -409,6 +476,12 @@
       </div>
     </div>
   </section>
+
+  <!-- SECTION MORPH — Paths to One Room -->
+  <div class="section-morph morph-lane-to-grid" aria-hidden="true">
+    <div class="morph-layer morph-from"></div>
+    <div class="morph-layer morph-to"></div>
+  </div>
 
   <!-- ============================================================
        ONE ROOM ENGINE — PPF Signature System
@@ -1142,10 +1215,23 @@
           <div class="exp-cta-label">YOUR PATH STARTS HERE</div>
           <h3 class="exp-cta-headline">Claim Your 3-Day Experience</h3>
           <p class="exp-cta-sub">Three days. Expert coaching. Zero obligation. Start here.</p>
-          <a href="#start" class="btn btn-primary btn-large">
-            <span>Claim Your 3-Day Pass</span>
-            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
+          <div class="ppf-cta is-rest" data-cta-tier="1" data-section="experience">
+            <span class="cta-pre-label" data-rest-text="EVALUATION READY" data-active-text="START NOW">EVALUATION READY</span>
+            <div class="cta-shell">
+              <div class="cta-corner cta-corner--tl"></div>
+              <div class="cta-corner cta-corner--tr"></div>
+              <div class="cta-corner cta-corner--bl"></div>
+              <div class="cta-corner cta-corner--br"></div>
+              <div class="cta-edge-runner"></div>
+              <div class="cta-scanner"></div>
+              <div class="cta-burst"></div>
+              <a href="#start" class="cta-action">
+                <span class="cta-label" data-confirm-text="PASS CLAIMED">CLAIM YOUR 3-DAY PASS</span>
+                <span class="cta-subline">Assessment pathway opens</span>
+                <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1192,7 +1278,23 @@
               <li><span class="mc-check">&#10003;</span> Path placement support</li>
               <li><span class="mc-check">&#10003;</span> Monthly flexibility</li>
             </ul>
-            <a href="#start" class="btn btn-ghost btn-block mc-cta"><span>Get Started</span></a>
+            <div class="ppf-cta is-rest" data-cta-tier="3" data-section="memberships">
+              <span class="cta-pre-label" data-rest-text="ENTRY LEVEL" data-active-text="START">ENTRY LEVEL</span>
+              <div class="cta-shell cta-shell--ghost">
+                <div class="cta-corner cta-corner--tl"></div>
+                <div class="cta-corner cta-corner--tr"></div>
+                <div class="cta-corner cta-corner--bl"></div>
+                <div class="cta-corner cta-corner--br"></div>
+                <div class="cta-edge-runner"></div>
+                <div class="cta-scanner"></div>
+                <div class="cta-burst"></div>
+                <a href="#start" class="cta-action">
+                  <span class="cta-label" data-confirm-text="STARTED">GET STARTED</span>
+                  <span class="cta-subline">Month-to-month flexibility</span>
+                  <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
           </div>
 
           <div class="membership-card reveal-up" data-tier="quarterly">
@@ -1211,7 +1313,23 @@
               <li><span class="mc-check">&#10003;</span> Stronger commitment pricing</li>
               <li><span class="mc-check">&#10003;</span> Ideal for athletes and adults ready for a real block</li>
             </ul>
-            <a href="#start" class="btn btn-primary btn-block mc-cta"><span>Commit to a Quarter</span></a>
+            <div class="ppf-cta is-rest" data-cta-tier="2" data-section="memberships">
+              <span class="cta-pre-label" data-rest-text="MOMENTUM" data-active-text="COMMIT">MOMENTUM</span>
+              <div class="cta-shell">
+                <div class="cta-corner cta-corner--tl"></div>
+                <div class="cta-corner cta-corner--tr"></div>
+                <div class="cta-corner cta-corner--bl"></div>
+                <div class="cta-corner cta-corner--br"></div>
+                <div class="cta-edge-runner"></div>
+                <div class="cta-scanner"></div>
+                <div class="cta-burst"></div>
+                <a href="#start" class="cta-action">
+                  <span class="cta-label" data-confirm-text="COMMITTED">COMMIT TO A QUARTER</span>
+                  <span class="cta-subline">90 days of structured growth</span>
+                  <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
           </div>
 
           <div class="membership-card reveal-up" data-tier="semiannual">
@@ -1230,7 +1348,23 @@
               <li><span class="mc-check">&#10003;</span> Milestone tracking emphasis</li>
               <li><span class="mc-check">&#10003;</span> Better value for committed members</li>
             </ul>
-            <a href="#start" class="btn btn-ghost btn-block mc-cta"><span>Commit to Six Months</span></a>
+            <div class="ppf-cta is-rest" data-cta-tier="3" data-section="memberships">
+              <span class="cta-pre-label" data-rest-text="DEVELOPMENT" data-active-text="COMMIT">DEVELOPMENT</span>
+              <div class="cta-shell cta-shell--ghost">
+                <div class="cta-corner cta-corner--tl"></div>
+                <div class="cta-corner cta-corner--tr"></div>
+                <div class="cta-corner cta-corner--bl"></div>
+                <div class="cta-corner cta-corner--br"></div>
+                <div class="cta-edge-runner"></div>
+                <div class="cta-scanner"></div>
+                <div class="cta-burst"></div>
+                <a href="#start" class="cta-action">
+                  <span class="cta-label" data-confirm-text="COMMITTED">COMMIT TO SIX MONTHS</span>
+                  <span class="cta-subline">Deep performance development</span>
+                  <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
           </div>
 
           <div class="membership-card reveal-up" data-tier="yearly">
@@ -1249,7 +1383,23 @@
               <li><span class="mc-check">&#10003;</span> Long-range progression focus</li>
               <li><span class="mc-check">&#10003;</span> Best for serious members who want results to stack</li>
             </ul>
-            <a href="#start" class="btn btn-ghost btn-block mc-cta"><span>Commit to the Year</span></a>
+            <div class="ppf-cta is-rest" data-cta-tier="3" data-section="memberships">
+              <span class="cta-pre-label" data-rest-text="TRANSFORMATION" data-active-text="LOCK IN">TRANSFORMATION</span>
+              <div class="cta-shell cta-shell--ghost">
+                <div class="cta-corner cta-corner--tl"></div>
+                <div class="cta-corner cta-corner--tr"></div>
+                <div class="cta-corner cta-corner--bl"></div>
+                <div class="cta-corner cta-corner--br"></div>
+                <div class="cta-edge-runner"></div>
+                <div class="cta-scanner"></div>
+                <div class="cta-burst"></div>
+                <a href="#start" class="cta-action">
+                  <span class="cta-label" data-confirm-text="LOCKED IN">COMMIT TO THE YEAR</span>
+                  <span class="cta-subline">Full transformation commitment</span>
+                  <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -1335,26 +1485,90 @@
               <div class="pt-pkg-name">Single Session</div>
               <div class="pt-pkg-price"><span class="pt-currency">$</span>65</div>
               <div class="pt-pkg-desc">Try the experience</div>
-              <a href="#start" class="btn btn-ghost btn-block pt-cta"><span>Book a Session</span></a>
+              <div class="ppf-cta is-rest" data-cta-tier="3" data-section="memberships">
+                <span class="cta-pre-label" data-rest-text="SESSION OPEN" data-active-text="BOOK">SESSION OPEN</span>
+                <div class="cta-shell cta-shell--ghost">
+                  <div class="cta-corner cta-corner--tl"></div>
+                  <div class="cta-corner cta-corner--tr"></div>
+                  <div class="cta-corner cta-corner--bl"></div>
+                  <div class="cta-corner cta-corner--br"></div>
+                  <div class="cta-edge-runner"></div>
+                  <div class="cta-scanner"></div>
+                  <div class="cta-burst"></div>
+                  <a href="#start" class="cta-action">
+                    <span class="cta-label" data-confirm-text="SESSION BOOKED">BOOK A SESSION</span>
+                    <span class="cta-subline">One-on-one coach access</span>
+                    <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
             </div>
             <div class="pt-package reveal-up" data-pkg="five">
               <div class="pt-pkg-name">5 Sessions</div>
               <div class="pt-pkg-price"><span class="pt-currency">$</span>325</div>
               <div class="pt-pkg-desc">Build a foundation</div>
-              <a href="#start" class="btn btn-ghost btn-block pt-cta"><span>Book 5 Sessions</span></a>
+              <div class="ppf-cta is-rest" data-cta-tier="3" data-section="memberships">
+                <span class="cta-pre-label" data-rest-text="PACKAGE READY" data-active-text="BOOK">PACKAGE READY</span>
+                <div class="cta-shell cta-shell--ghost">
+                  <div class="cta-corner cta-corner--tl"></div>
+                  <div class="cta-corner cta-corner--tr"></div>
+                  <div class="cta-corner cta-corner--bl"></div>
+                  <div class="cta-corner cta-corner--br"></div>
+                  <div class="cta-edge-runner"></div>
+                  <div class="cta-scanner"></div>
+                  <div class="cta-burst"></div>
+                  <a href="#start" class="cta-action">
+                    <span class="cta-label" data-confirm-text="SESSIONS BOOKED">BOOK 5 SESSIONS</span>
+                    <span class="cta-subline">Consistent coaching block</span>
+                    <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
             </div>
             <div class="pt-package reveal-up" data-pkg="ten">
               <div class="pt-pkg-tag">BEST VALUE</div>
               <div class="pt-pkg-name">10 Sessions</div>
               <div class="pt-pkg-price"><span class="pt-currency">$</span>650</div>
               <div class="pt-pkg-desc">Create real momentum</div>
-              <a href="#start" class="btn btn-primary btn-block pt-cta"><span>Book 10 Sessions</span></a>
+              <div class="ppf-cta is-rest" data-cta-tier="2" data-section="memberships">
+                <span class="cta-pre-label" data-rest-text="BEST VALUE" data-active-text="CLAIM">BEST VALUE</span>
+                <div class="cta-shell">
+                  <div class="cta-corner cta-corner--tl"></div>
+                  <div class="cta-corner cta-corner--tr"></div>
+                  <div class="cta-corner cta-corner--bl"></div>
+                  <div class="cta-corner cta-corner--br"></div>
+                  <div class="cta-edge-runner"></div>
+                  <div class="cta-scanner"></div>
+                  <div class="cta-burst"></div>
+                  <a href="#start" class="cta-action">
+                    <span class="cta-label" data-confirm-text="SESSIONS CLAIMED">BOOK 10 SESSIONS</span>
+                    <span class="cta-subline">Maximum value training</span>
+                    <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
             </div>
             <div class="pt-package reveal-up" data-pkg="twenty">
               <div class="pt-pkg-name">20 Sessions</div>
               <div class="pt-pkg-price"><span class="pt-currency">$</span>1,150</div>
               <div class="pt-pkg-desc">Full transformation commitment</div>
-              <a href="#start" class="btn btn-ghost btn-block pt-cta"><span>Book 20 Sessions</span></a>
+              <div class="ppf-cta is-rest" data-cta-tier="3" data-section="memberships">
+                <span class="cta-pre-label" data-rest-text="ELITE PACKAGE" data-active-text="LOCK IN">ELITE PACKAGE</span>
+                <div class="cta-shell cta-shell--ghost">
+                  <div class="cta-corner cta-corner--tl"></div>
+                  <div class="cta-corner cta-corner--tr"></div>
+                  <div class="cta-corner cta-corner--bl"></div>
+                  <div class="cta-corner cta-corner--br"></div>
+                  <div class="cta-edge-runner"></div>
+                  <div class="cta-scanner"></div>
+                  <div class="cta-burst"></div>
+                  <a href="#start" class="cta-action">
+                    <span class="cta-label" data-confirm-text="SESSIONS LOCKED">BOOK 20 SESSIONS</span>
+                    <span class="cta-subline">Premium transformation package</span>
+                    <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1440,11 +1654,23 @@
               </select>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-block btn-smart-cta" data-cta-label="CLAIM">
-              <span class="btn-cta-ready">READY</span>
-              <span>Claim My 3-Day Pass</span>
-              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
+            <div class="ppf-cta is-rest" data-cta-tier="1" data-section="start">
+              <span class="cta-pre-label" data-rest-text="READY TO MOVE" data-active-text="LOCK IN">READY TO MOVE</span>
+              <div class="cta-shell">
+                <div class="cta-corner cta-corner--tl"></div>
+                <div class="cta-corner cta-corner--tr"></div>
+                <div class="cta-corner cta-corner--bl"></div>
+                <div class="cta-corner cta-corner--br"></div>
+                <div class="cta-edge-runner"></div>
+                <div class="cta-scanner"></div>
+                <div class="cta-burst"></div>
+                <button type="submit" class="cta-action" data-cta-label="CLAIM">
+                  <span class="cta-label" data-confirm-text="APPLICATION RECEIVED">SUBMIT APPLICATION</span>
+                  <span class="cta-subline">Coach review begins after submission</span>
+                  <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+            </div>
 
             <div class="form-success" id="formSuccess">
               <svg viewBox="0 0 24 24" fill="none" stroke="#FF5500" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
@@ -1700,10 +1926,23 @@
               <div class="ccc-hour-row"><span class="ccc-day">Saturday</span><span class="ccc-time">8:30 A.M. – 11:00 A.M.</span></div>
               <div class="ccc-hour-row"><span class="ccc-day">Sunday</span><span class="ccc-time">Closed</span></div>
             </div>
-            <a href="https://www.google.com/maps/search/?api=1&query=7721+Majors+Rd+Cumming+GA+30041" target="_blank" rel="noopener noreferrer" class="ccc-directions-btn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Get Directions</span>
-            </a>
+            <div class="ppf-cta is-rest" data-cta-tier="3" data-section="contact">
+              <span class="cta-pre-label" data-rest-text="LOCATION" data-active-text="NAVIGATE">LOCATION</span>
+              <div class="cta-shell cta-shell--ghost">
+                <div class="cta-corner cta-corner--tl"></div>
+                <div class="cta-corner cta-corner--tr"></div>
+                <div class="cta-corner cta-corner--bl"></div>
+                <div class="cta-corner cta-corner--br"></div>
+                <div class="cta-edge-runner"></div>
+                <div class="cta-scanner"></div>
+                <div class="cta-burst"></div>
+                <a href="https://www.google.com/maps/search/?api=1&query=7721+Majors+Rd+Cumming+GA+30041" target="_blank" rel="noopener noreferrer" class="cta-action">
+                  <span class="cta-label">GET DIRECTIONS</span>
+                  <span class="cta-subline">7721 Majors Rd, Cumming</span>
+                  <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+            </div>
           </div>
 
           <!-- Rebecca Card -->
@@ -1711,11 +1950,11 @@
             <div class="ccc-card-label">DIRECTOR OF INTEGRATED FITNESS</div>
             <div class="ccc-contact-name">Rebecca Camp</div>
             <div class="ccc-contact-actions">
-              <a href="tel:+16789389668" class="ccc-action-btn">
+              <a href="tel:+16789389668" class="ccc-action-btn ppf-micro-cta">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.23h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.27 6.27l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.95 16.5z"/></svg>
                 <span>678-938-9668</span>
               </a>
-              <a href="mailto:rebecca@ppfathletics.com" class="ccc-action-btn">
+              <a href="mailto:rebecca@ppfathletics.com" class="ccc-action-btn ppf-micro-cta">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                 <span>rebecca@ppfathletics.com</span>
               </a>
@@ -1727,11 +1966,11 @@
             <div class="ccc-card-label">FOUNDER &amp; HEAD PERFORMANCE COACH</div>
             <div class="ccc-contact-name">Richard Camp</div>
             <div class="ccc-contact-actions">
-              <a href="tel:+16789103080" class="ccc-action-btn">
+              <a href="tel:+16789103080" class="ccc-action-btn ppf-micro-cta">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.23h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.27 6.27l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.95 16.5z"/></svg>
                 <span>678-910-3080</span>
               </a>
-              <a href="mailto:richard@ppfathletics.com" class="ccc-action-btn">
+              <a href="mailto:richard@ppfathletics.com" class="ccc-action-btn ppf-micro-cta">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                 <span>richard@ppfathletics.com</span>
               </a>
@@ -1800,5 +2039,7 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/command-trigger.js"></script>
+  <script src="js/world-class-animations.js"></script>
 </body>
 </html>

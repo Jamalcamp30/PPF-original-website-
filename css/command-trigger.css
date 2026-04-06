@@ -1,0 +1,1248 @@
+/* =====================================================
+   PPF COMMAND TRIGGER SYSTEM
+   World-Class CTA Animation Engine
+   
+   Layers:
+     A — CTA Shell (container, background, glow)
+     B — Edge Runner (conic-gradient sweep)
+     C — Corner Brackets (L-shaped tactical corners)
+     D — Main Label (primary text)
+     E — Pre-Label (status text above shell)
+     F — Subline (secondary text beneath label)
+     + Scanner, Burst, Shimmer, Directional Glow
+
+   States: .is-rest → .is-near → .is-hover → .is-charged → .is-pressed → .is-success
+
+   Tier Variants:
+     [data-cta-tier="1"] — Hero / major CTAs
+     [data-cta-tier="2"] — Section CTAs
+     [data-cta-tier="3"] — Utility CTAs
+
+   Relies on CSS custom properties defined in style.css:
+     --orange, --orange-dim, --orange-glow,
+     --white, --gray-100, --gray-300, --gray-500,
+     --font-display, --font-body,
+     --ease-out-expo, --ease-spring
+   ===================================================== */
+
+
+/* ─────────────────────────────────────────────────────
+   §0  KEYFRAME ANIMATIONS
+   ───────────────────────────────────────────────────── */
+
+/* 1. Edge Runner — continuous conic-gradient rotation */
+@keyframes ctaEdgeRun {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* 2. Edge Snap — rapid single-loop on click */
+@keyframes ctaEdgeSnap {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* 3. Scanner Sweep — horizontal line left-to-right */
+@keyframes ctaScanSweep {
+  0%   { transform: translateX(-100%); opacity: 0; }
+  10%  { opacity: 0.15; }
+  90%  { opacity: 0.15; }
+  100% { transform: translateX(100%); opacity: 0; }
+}
+
+/* 4. Burst Expand — ring expansion on click */
+@keyframes ctaBurstExpand {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+    border-width: 2px;
+  }
+  60% {
+    opacity: 0.5;
+    border-width: 1.5px;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+    border-width: 0.5px;
+  }
+}
+
+/* 5. Impact Flash — radial flash at click point */
+@keyframes ctaFlash {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* 6. Ambient Shimmer — subtle top-edge highlight sweep */
+@keyframes ctaShimmer {
+  0%   { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
+/* 7. Charge Pulse — sustained hover energy throb */
+@keyframes ctaPulse {
+  0%, 100% { box-shadow: 0 0 12px rgba(255, 85, 0, 0.08); }
+  50%      { box-shadow: 0 0 20px rgba(255, 85, 0, 0.14); }
+}
+
+/* 8. Pre-Label Cycle — subtle vertical micro-motion */
+@keyframes ctaPreLabelCycle {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50%      { transform: translateY(-1px); opacity: 0.65; }
+}
+
+/* 9. Mobile idle sweep — partial edge runner flash */
+@keyframes ctaMobileIdleSweep {
+  0%   { transform: rotate(0deg); opacity: 0; }
+  5%   { opacity: 0.6; }
+  25%  { opacity: 0.6; }
+  35%  { opacity: 0; }
+  100% { transform: rotate(120deg); opacity: 0; }
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §1  CTA WRAPPER (.ppf-cta)
+   ───────────────────────────────────────────────────── */
+
+.ppf-cta {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  contain: layout style;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §A  CTA SHELL — Layer A
+   Primary container: background, border, glow, pull
+   ───────────────────────────────────────────────────── */
+
+.cta-shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  padding: 0 36px;
+  border-radius: 14px;
+  overflow: hidden;
+
+  /* Dark charcoal with compressed-energy gradient */
+  background:
+    radial-gradient(
+      ellipse at var(--glow-x, 50%) var(--glow-y, 50%),
+      rgba(255, 85, 0, 0.08) 0%,
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.03) 0%,
+      #111111 8%,
+      #0f0f0f 92%,
+      rgba(255, 255, 255, 0.015) 100%
+    );
+  background-color: #111111;
+
+  /* Warm-tinted low-opacity border */
+  border: 1px solid rgba(255, 85, 0, 0.12);
+
+  /* Directional pull via JS custom properties */
+  transform: translate(var(--pull-x, 0), var(--pull-y, 0));
+
+  transition:
+    transform 200ms var(--ease-out-expo),
+    box-shadow 260ms var(--ease-out-expo),
+    background 300ms var(--ease-out-expo),
+    border-color 220ms ease-out;
+
+  will-change: transform;
+  z-index: 1;
+}
+
+/* Ambient shimmer pseudo-element — top edge highlight at rest */
+.cta-shell::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    transparent 100%
+  );
+  animation: ctaShimmer 1400ms var(--ease-out-expo) both;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Re-trigger shimmer every ~6s via a wrapping animation on opacity */
+@keyframes ctaShimmerLoop {
+  0%, 76% { opacity: 0; }
+  77%     { opacity: 1; }
+  100%    { opacity: 1; }
+}
+
+.cta-shell::before {
+  animation:
+    ctaShimmer 1400ms var(--ease-out-expo) both,
+    ctaShimmerLoop 6s ease infinite;
+}
+
+
+/* ── Ghost Variant ── */
+.cta-shell--ghost {
+  background:
+    radial-gradient(
+      ellipse at var(--glow-x, 50%) var(--glow-y, 50%),
+      rgba(255, 85, 0, 0.04) 0%,
+      transparent 70%
+    ),
+    transparent;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.cta-shell--ghost .cta-edge-runner::after {
+  background: var(--bg-base, #080808);
+}
+
+.is-hover .cta-shell--ghost {
+  border-color: rgba(255, 255, 255, 0.35);
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.is-success .cta-shell--ghost {
+  border-color: rgba(255, 85, 0, 0.35);
+  background-color: rgba(255, 85, 0, 0.04);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §B  EDGE RUNNER — Layer B
+   Conic-gradient sweep around the shell perimeter
+   ───────────────────────────────────────────────────── */
+
+.cta-edge-runner {
+  position: absolute;
+  inset: -1px;
+  border-radius: 14px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 180ms ease-out, filter 200ms ease-out;
+
+  /* Conic sweep gradient — bright orange-white energy line */
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 340deg,
+    rgba(255, 85, 0, 0.9) 350deg,
+    rgba(255, 200, 140, 1) 355deg,
+    rgba(255, 85, 0, 0.9) 358deg,
+    transparent 360deg
+  );
+}
+
+/* Mask inner region to only show the 2px edge */
+.cta-edge-runner::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 12px;
+  background: #111111;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §C  CORNER BRACKETS — Layer C
+   Tactical L-shaped brackets at each corner
+   ───────────────────────────────────────────────────── */
+
+.cta-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  z-index: 4;
+  transition:
+    top 160ms ease-out,
+    right 160ms ease-out,
+    bottom 160ms ease-out,
+    left 160ms ease-out,
+    opacity 160ms ease-out;
+}
+
+/* Horizontal arm */
+.cta-corner::before {
+  content: '';
+  position: absolute;
+  background: rgba(255, 85, 0, 0.4);
+  transition: background-color 160ms ease-out;
+}
+
+/* Vertical arm */
+.cta-corner::after {
+  content: '';
+  position: absolute;
+  background: rgba(255, 85, 0, 0.4);
+  transition: background-color 160ms ease-out;
+}
+
+/* ── Top-Left ── */
+.cta-corner--tl {
+  top: -4px;
+  left: -4px;
+}
+.cta-corner--tl::before {
+  top: 0; left: 0;
+  width: 10px; height: 1.5px;
+}
+.cta-corner--tl::after {
+  top: 0; left: 0;
+  width: 1.5px; height: 10px;
+}
+
+/* ── Top-Right ── */
+.cta-corner--tr {
+  top: -4px;
+  right: -4px;
+}
+.cta-corner--tr::before {
+  top: 0; right: 0;
+  width: 10px; height: 1.5px;
+}
+.cta-corner--tr::after {
+  top: 0; right: 0;
+  width: 1.5px; height: 10px;
+}
+
+/* ── Bottom-Left ── */
+.cta-corner--bl {
+  bottom: -4px;
+  left: -4px;
+}
+.cta-corner--bl::before {
+  bottom: 0; left: 0;
+  width: 10px; height: 1.5px;
+}
+.cta-corner--bl::after {
+  bottom: 0; left: 0;
+  width: 1.5px; height: 10px;
+}
+
+/* ── Bottom-Right ── */
+.cta-corner--br {
+  bottom: -4px;
+  right: -4px;
+}
+.cta-corner--br::before {
+  bottom: 0; right: 0;
+  width: 10px; height: 1.5px;
+}
+.cta-corner--br::after {
+  bottom: 0; right: 0;
+  width: 1.5px; height: 10px;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §D  MAIN LABEL — Layer D
+   Primary CTA text
+   ───────────────────────────────────────────────────── */
+
+.cta-label {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--white);
+  line-height: 1;
+  position: relative;
+  z-index: 3;
+  transition:
+    letter-spacing 180ms var(--ease-out-expo),
+    transform 180ms var(--ease-out-expo),
+    color 200ms ease-out;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §E  PRE-LABEL — Layer E
+   Status text positioned above the shell
+   ───────────────────────────────────────────────────── */
+
+.cta-pre-label {
+  display: block;
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--orange);
+  opacity: 0.5;
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 3;
+  transition:
+    opacity 200ms ease-out,
+    transform 180ms var(--ease-out-expo);
+  animation: ctaPreLabelCycle 4s ease-in-out infinite;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §F  SUBLINE — Layer F
+   Secondary descriptor, hidden at rest
+   ───────────────────────────────────────────────────── */
+
+.cta-subline {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--gray-300);
+  line-height: 1;
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  white-space: nowrap;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 3;
+  transition:
+    opacity 140ms ease-out,
+    transform 140ms var(--ease-out-expo),
+    max-height 140ms ease-out;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §G  CTA ARROW
+   Directional indicator within the action
+   ───────────────────────────────────────────────────── */
+
+.cta-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 3;
+}
+
+.cta-arrow {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  stroke: var(--white);
+  opacity: 0.6;
+  transition:
+    transform 180ms var(--ease-out-expo),
+    opacity 160ms ease-out;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §H  SCANNER EFFECT
+   Horizontal sweep line during charged state
+   ───────────────────────────────────────────────────── */
+
+.cta-scanner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 40%,
+    rgba(255, 255, 255, 0.15) 60%,
+    transparent 100%
+  );
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+  transform: translateX(-100%);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §I  CLICK BURST
+   Expanding ring + flash on press
+   ───────────────────────────────────────────────────── */
+
+.cta-burst {
+  position: absolute;
+  top: var(--burst-y, 50%);
+  left: var(--burst-x, 50%);
+  width: 120%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 140, 60, 0.7);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 6;
+}
+
+/* Impact flash at click point */
+.cta-burst::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 200, 140, 0.7) 0%,
+    rgba(255, 85, 0, 0.3) 40%,
+    transparent 70%
+  );
+  transform: translate(-50%, -50%) scale(0.3);
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §1  STATE: .is-rest (default / armed)
+   The idle-but-ready state
+   ───────────────────────────────────────────────────── */
+
+.ppf-cta.is-rest .cta-shell {
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.4),
+    0 0 0 0 rgba(255, 85, 0, 0);
+}
+
+.ppf-cta.is-rest .cta-edge-runner {
+  opacity: 0;
+}
+
+.ppf-cta.is-rest .cta-pre-label {
+  opacity: 0.5;
+}
+
+.ppf-cta.is-rest .cta-arrow {
+  opacity: 0.6;
+  transform: translateX(0);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §2  STATE: .is-near (~120px proximity)
+   Awakened but not yet engaged
+   ───────────────────────────────────────────────────── */
+
+.ppf-cta.is-near .cta-shell {
+  border-color: rgba(255, 85, 0, 0.2);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.5),
+    0 0 16px rgba(255, 85, 0, 0.04);
+
+  /* Directional glow intensifies */
+  background:
+    radial-gradient(
+      ellipse at var(--glow-x, 50%) var(--glow-y, 50%),
+      rgba(255, 85, 0, 0.2) 0%,
+      transparent 70%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.03) 0%,
+      #111111 8%,
+      #0f0f0f 92%,
+      rgba(255, 255, 255, 0.015) 100%
+    );
+  background-color: #111111;
+}
+
+.ppf-cta.is-near .cta-pre-label {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+.ppf-cta.is-near .cta-arrow {
+  opacity: 0.75;
+  transform: translateX(1px);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §3  STATE: .is-hover (direct hover)
+   Full engagement — edge runner active
+   ───────────────────────────────────────────────────── */
+
+.ppf-cta.is-hover .cta-shell {
+  border-color: rgba(255, 85, 0, 0.35);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.6),
+    0 0 24px rgba(255, 85, 0, 0.08);
+
+  /* Directional glow at hover intensity */
+  background:
+    radial-gradient(
+      ellipse at var(--glow-x, 50%) var(--glow-y, 50%),
+      rgba(255, 85, 0, 0.35) 0%,
+      transparent 65%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04) 0%,
+      #121212 8%,
+      #101010 92%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+  background-color: #111111;
+}
+
+/* Edge runner activates */
+.ppf-cta.is-hover .cta-edge-runner {
+  opacity: 1;
+  animation: ctaEdgeRun 1100ms linear infinite;
+}
+
+/* Corners tighten inward 2px */
+.ppf-cta.is-hover .cta-corner--tl { top: -2px; left: -2px; }
+.ppf-cta.is-hover .cta-corner--tr { top: -2px; right: -2px; }
+.ppf-cta.is-hover .cta-corner--bl { bottom: -2px; left: -2px; }
+.ppf-cta.is-hover .cta-corner--br { bottom: -2px; right: -2px; }
+
+/* Corner brightness increases */
+.ppf-cta.is-hover .cta-corner::before,
+.ppf-cta.is-hover .cta-corner::after {
+  background: rgba(255, 85, 0, 0.8);
+}
+
+/* Label tracking widens */
+.ppf-cta.is-hover .cta-label {
+  letter-spacing: 0.16em;
+}
+
+/* Pre-label fully visible */
+.ppf-cta.is-hover .cta-pre-label {
+  opacity: 1;
+  transform: translateY(-1px);
+  animation: none;
+}
+
+/* Subline fades in + slides up */
+.ppf-cta.is-hover .cta-subline {
+  opacity: 1;
+  max-height: 20px;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+/* Arrow nudges right */
+.ppf-cta.is-hover .cta-arrow {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §4  STATE: .is-charged (800ms sustained hover)
+   Maximum potential energy — loaded, ready to fire
+   ───────────────────────────────────────────────────── */
+
+.ppf-cta.is-charged .cta-shell {
+  border-color: rgba(255, 85, 0, 0.45);
+  animation: ctaPulse 1600ms ease-in-out infinite;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(255, 85, 0, 0.12);
+
+  background:
+    radial-gradient(
+      ellipse at var(--glow-x, 50%) var(--glow-y, 50%),
+      rgba(255, 85, 0, 0.35) 0%,
+      transparent 65%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04) 0%,
+      #121212 8%,
+      #101010 92%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+  background-color: #111111;
+}
+
+/* Edge runner brighter */
+.ppf-cta.is-charged .cta-edge-runner {
+  opacity: 1;
+  filter: brightness(1.1);
+  animation: ctaEdgeRun 1100ms linear infinite;
+}
+
+/* Corners tighten another 1px */
+.ppf-cta.is-charged .cta-corner--tl { top: -1px; left: -1px; }
+.ppf-cta.is-charged .cta-corner--tr { top: -1px; right: -1px; }
+.ppf-cta.is-charged .cta-corner--bl { bottom: -1px; left: -1px; }
+.ppf-cta.is-charged .cta-corner--br { bottom: -1px; right: -1px; }
+
+.ppf-cta.is-charged .cta-corner::before,
+.ppf-cta.is-charged .cta-corner::after {
+  background: rgba(255, 85, 0, 0.9);
+}
+
+/* Label rises 1px */
+.ppf-cta.is-charged .cta-label {
+  letter-spacing: 0.16em;
+  transform: translateY(-1px);
+}
+
+/* Scanner sweeps once */
+.ppf-cta.is-charged .cta-scanner {
+  animation: ctaScanSweep 450ms var(--ease-out-expo) forwards;
+}
+
+/* Subline stays visible */
+.ppf-cta.is-charged .cta-subline {
+  opacity: 1;
+  max-height: 20px;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+/* Pre-label fully visible */
+.ppf-cta.is-charged .cta-pre-label {
+  opacity: 1;
+  animation: none;
+}
+
+/* Arrow at full */
+.ppf-cta.is-charged .cta-arrow {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §5  STATE: .is-pressed (click / tap active)
+   Ignition — compressed burst
+   ───────────────────────────────────────────────────── */
+
+.ppf-cta.is-pressed .cta-shell {
+  transform: translate(var(--pull-x, 0), var(--pull-y, 0)) scale(0.985);
+  border-color: rgba(255, 85, 0, 0.6);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.7),
+    0 0 36px rgba(255, 85, 0, 0.18);
+}
+
+/* Edge runner snaps through one rapid loop */
+.ppf-cta.is-pressed .cta-edge-runner {
+  opacity: 1;
+  animation: ctaEdgeSnap 250ms linear forwards;
+  filter: brightness(1.15);
+}
+
+/* Corners snap inward hard */
+.ppf-cta.is-pressed .cta-corner--tl { top: 2px; left: 2px; }
+.ppf-cta.is-pressed .cta-corner--tr { top: 2px; right: 2px; }
+.ppf-cta.is-pressed .cta-corner--bl { bottom: 2px; left: 2px; }
+.ppf-cta.is-pressed .cta-corner--br { bottom: 2px; right: 2px; }
+
+.ppf-cta.is-pressed .cta-corner::before,
+.ppf-cta.is-pressed .cta-corner::after {
+  background: rgba(255, 85, 0, 1);
+}
+
+/* Label compresses briefly */
+.ppf-cta.is-pressed .cta-label {
+  transform: scale(0.97);
+  letter-spacing: 0.14em;
+}
+
+/* Burst ring expands */
+.ppf-cta.is-pressed .cta-burst {
+  animation: ctaBurstExpand 320ms var(--ease-out-expo) forwards;
+}
+
+/* Impact flash */
+.ppf-cta.is-pressed .cta-burst::before {
+  animation: ctaFlash 90ms ease-out forwards;
+}
+
+/* Arrow compresses with label */
+.ppf-cta.is-pressed .cta-arrow {
+  transform: translateX(1px) scale(0.92);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §6  STATE: .is-success (post-action confirmation)
+   Stabilized, locked, confirmed
+   ───────────────────────────────────────────────────── */
+
+.ppf-cta.is-success .cta-shell {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 85, 0, 0.06) 0%,
+      #141210 8%,
+      #12100e 92%,
+      rgba(255, 85, 0, 0.03) 100%
+    );
+  background-color: #131110;
+  border-color: rgba(255, 140, 80, 0.5);
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.5),
+    0 0 18px rgba(255, 85, 0, 0.06);
+  transition:
+    background 300ms ease-out,
+    border-color 300ms ease-out,
+    box-shadow 300ms ease-out;
+}
+
+/* Edge runner stops, border stabilizes */
+.ppf-cta.is-success .cta-edge-runner {
+  opacity: 0.5;
+  animation: none;
+  /* Static warm border ring instead of sweep */
+  background: conic-gradient(
+    from 0deg,
+    rgba(255, 85, 0, 0.3) 0deg,
+    rgba(255, 140, 80, 0.3) 180deg,
+    rgba(255, 85, 0, 0.3) 360deg
+  );
+  transition: opacity 300ms ease-out, background 300ms ease-out;
+}
+
+/* Corners lock in place */
+.ppf-cta.is-success .cta-corner--tl { top: 0; left: 0; }
+.ppf-cta.is-success .cta-corner--tr { top: 0; right: 0; }
+.ppf-cta.is-success .cta-corner--bl { bottom: 0; left: 0; }
+.ppf-cta.is-success .cta-corner--br { bottom: 0; right: 0; }
+
+.ppf-cta.is-success .cta-corner::before,
+.ppf-cta.is-success .cta-corner::after {
+  background: rgba(255, 140, 80, 0.6);
+}
+
+/* Label — white with slight orange warmth */
+.ppf-cta.is-success .cta-label {
+  color: rgba(255, 235, 220, 1);
+  transform: translateY(0);
+  letter-spacing: 0.14em;
+}
+
+/* Pre-label stabilizes */
+.ppf-cta.is-success .cta-pre-label {
+  opacity: 0.9;
+  animation: none;
+}
+
+/* Arrow rests */
+.ppf-cta.is-success .cta-arrow {
+  opacity: 0.8;
+  transform: translateX(0);
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §T  TIER VARIANTS
+   Size, intensity, and effect scaling by tier
+   ───────────────────────────────────────────────────── */
+
+/* ── Tier 1: Hero / Major CTAs ──────────────────────── */
+/* Defaults are tier 1 — maximum intensity, all effects */
+[data-cta-tier="1"] .cta-shell {
+  height: 60px;
+  padding: 0 36px;
+}
+
+[data-cta-tier="1"] .cta-label {
+  font-size: 14px;
+}
+
+/* ── Tier 2: Section CTAs ───────────────────────────── */
+[data-cta-tier="2"] .cta-shell {
+  height: 54px;
+  padding: 0 32px;
+}
+
+[data-cta-tier="2"] .cta-label {
+  font-size: 13px;
+}
+
+/* Moderate glow intensity */
+[data-cta-tier="2"].is-hover .cta-shell {
+  box-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.5),
+    0 0 18px rgba(255, 85, 0, 0.06);
+}
+
+[data-cta-tier="2"].is-charged .cta-shell {
+  box-shadow:
+    0 3px 16px rgba(0, 0, 0, 0.5),
+    0 0 22px rgba(255, 85, 0, 0.09);
+}
+
+[data-cta-tier="2"] .cta-edge-runner {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 345deg,
+    rgba(255, 85, 0, 0.7) 352deg,
+    rgba(255, 180, 120, 0.9) 356deg,
+    rgba(255, 85, 0, 0.7) 358deg,
+    transparent 360deg
+  );
+}
+
+[data-cta-tier="2"] .cta-arrow {
+  width: 14px;
+  height: 14px;
+}
+
+[data-cta-tier="2"] .cta-pre-label {
+  font-size: 7px;
+}
+
+[data-cta-tier="2"] .cta-subline {
+  font-size: 8px;
+}
+
+/* ── Tier 3: Utility CTAs ───────────────────────────── */
+[data-cta-tier="3"] .cta-shell {
+  height: 48px;
+  padding: 0 28px;
+  border-radius: 12px;
+}
+
+[data-cta-tier="3"] .cta-label {
+  font-size: 12px;
+}
+
+/* Restrained glow */
+[data-cta-tier="3"].is-hover .cta-shell {
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    0 0 12px rgba(255, 85, 0, 0.04);
+}
+
+[data-cta-tier="3"].is-charged .cta-shell {
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.4),
+    0 0 14px rgba(255, 85, 0, 0.06);
+}
+
+/* Softer tracer for utility tier */
+[data-cta-tier="3"] .cta-edge-runner {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 350deg,
+    rgba(255, 85, 0, 0.5) 355deg,
+    rgba(255, 160, 100, 0.7) 357deg,
+    rgba(255, 85, 0, 0.5) 359deg,
+    transparent 360deg
+  );
+}
+
+[data-cta-tier="3"] .cta-edge-runner::after {
+  border-radius: 10px;
+}
+
+[data-cta-tier="3"] .cta-corner {
+  width: 8px;
+  height: 8px;
+}
+
+[data-cta-tier="3"] .cta-corner::before { width: 8px; }
+[data-cta-tier="3"] .cta-corner--tl::after,
+[data-cta-tier="3"] .cta-corner--tr::after,
+[data-cta-tier="3"] .cta-corner--bl::after,
+[data-cta-tier="3"] .cta-corner--br::after {
+  height: 8px;
+}
+
+[data-cta-tier="3"] .cta-arrow {
+  width: 13px;
+  height: 13px;
+}
+
+[data-cta-tier="3"] .cta-pre-label {
+  font-size: 7px;
+  letter-spacing: 0.25em;
+}
+
+[data-cta-tier="3"] .cta-subline {
+  font-size: 8px;
+}
+
+/* Suppress charge pulse on utility tier */
+[data-cta-tier="3"].is-charged .cta-shell {
+  animation: none;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §M  MOBILE ADAPTATIONS
+   Touch devices / narrow viewports
+   ───────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+
+  /* Remove cursor-dependent effects via higher specificity */
+  .ppf-cta .cta-shell {
+    --pull-x: 0;
+    --pull-y: 0;
+    --glow-x: 50%;
+    --glow-y: 50%;
+  }
+
+  /* Override directional pull for all states on mobile */
+  .ppf-cta.is-rest .cta-shell,
+  .ppf-cta.is-near .cta-shell,
+  .ppf-cta.is-hover .cta-shell,
+  .ppf-cta.is-charged .cta-shell,
+  .ppf-cta.is-success .cta-shell {
+    transform: none;
+  }
+
+  /* Scale down tier sizes */
+  [data-cta-tier="1"] .cta-shell { height: 54px; padding: 0 28px; }
+  [data-cta-tier="2"] .cta-shell { height: 48px; padding: 0 24px; }
+  [data-cta-tier="3"] .cta-shell { height: 44px; padding: 0 20px; }
+
+  [data-cta-tier="1"] .cta-label { font-size: 13px; }
+  [data-cta-tier="2"] .cta-label { font-size: 12px; }
+  [data-cta-tier="3"] .cta-label { font-size: 11px; }
+
+  /* Idle energy pulse — subtle partial edge sweep every ~5s */
+  .ppf-cta.is-rest .cta-edge-runner {
+    opacity: 0;
+    animation: ctaMobileIdleSweep 5s ease-in-out infinite;
+  }
+
+  /* Viewport entry animation: rise + tracer on .is-viewport */
+  .ppf-cta.is-viewport .cta-shell {
+    transform: translateY(0);
+    opacity: 1;
+    transition: transform 500ms var(--ease-out-expo), opacity 400ms ease-out;
+  }
+
+  /* Initial state before viewport entry */
+  .ppf-cta:not(.is-viewport) .cta-shell {
+    transform: translateY(8px);
+    opacity: 0.8;
+  }
+
+  /* Viewport entry tracer — one sweep */
+  .ppf-cta.is-viewport .cta-edge-runner {
+    animation: ctaEdgeRun 900ms linear 1;
+    opacity: 0.7;
+  }
+
+  /* Tap triggers same compression as pressed state — already handled by .is-pressed */
+
+  /* Reduce shimmer frequency on mobile */
+  .cta-shell::before {
+    animation:
+      ctaShimmer 1400ms var(--ease-out-expo) both,
+      ctaShimmerLoop 8s ease infinite;
+  }
+
+  /* Smaller burst on mobile */
+  .cta-burst {
+    width: 100%;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §P  PERFORMANCE
+   Will-change and containment hints
+   ───────────────────────────────────────────────────── */
+
+/* Only promote layers that actually animate */
+.ppf-cta.is-hover .cta-edge-runner,
+.ppf-cta.is-charged .cta-edge-runner,
+.ppf-cta.is-pressed .cta-edge-runner {
+  will-change: transform;
+}
+
+.ppf-cta.is-pressed .cta-burst {
+  will-change: transform, opacity;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .cta-edge-runner,
+  .cta-scanner,
+  .cta-burst,
+  .cta-burst::before,
+  .cta-shell::before {
+    animation: none !important;
+    transition-duration: 0ms !important;
+  }
+
+  .cta-corner {
+    transition-duration: 0ms !important;
+  }
+
+  .cta-label,
+  .cta-pre-label,
+  .cta-subline,
+  .cta-arrow {
+    transition-duration: 0ms !important;
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §Q  LIGHTWEIGHT VARIANTS
+   Nav trigger and micro CTA for small UI elements
+   ───────────────────────────────────────────────────── */
+
+/* Nav CTA — minimal trigger treatment */
+.ppf-nav-trigger {
+  position: relative;
+}
+
+.ppf-nav-trigger::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: border-color 200ms ease-out, box-shadow 200ms ease-out;
+  pointer-events: none;
+}
+
+.ppf-nav-trigger:hover::before {
+  border-color: rgba(255, 85, 0, 0.5);
+  box-shadow: 0 0 12px rgba(255, 85, 0, 0.15);
+}
+
+.ppf-nav-trigger:active::before {
+  border-color: rgba(255, 85, 0, 0.8);
+  box-shadow: 0 0 20px rgba(255, 85, 0, 0.25);
+}
+
+/* Micro CTA — subtle energy for small contact buttons */
+.ppf-micro-cta {
+  position: relative;
+  transition: color 180ms ease-out, border-color 180ms ease-out;
+}
+
+.ppf-micro-cta::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--orange, #ff5500);
+  transition: width 300ms var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.ppf-micro-cta:hover::after {
+  width: 100%;
+}
+
+.ppf-micro-cta:hover {
+  color: var(--orange, #ff5500);
+}
+
+.ppf-micro-cta:active {
+  transform: scale(0.97);
+  transition-duration: 80ms;
+}
+
+
+/* ─────────────────────────────────────────────────────
+   §R  CTA ACTION LINK RESET
+   Ensure the action element fills the shell
+   ───────────────────────────────────────────────────── */
+
+.cta-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+  z-index: 3;
+  color: var(--white, #ffffff);
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  cursor: none;
+  white-space: nowrap;
+}
+
+/* Flex layout for label + subline stack */
+.cta-action {
+  flex-wrap: wrap;
+}
+
+.cta-label {
+  width: auto;
+  flex-shrink: 0;
+}
+
+/* Hero actions container layout */
+.hero-actions {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* Ensure ppf-cta inside path cards doesn't overflow */
+.path-content .ppf-cta {
+  margin-top: 16px;
+}
+
+/* Membership/PT card CTA alignment */
+.membership-card .ppf-cta,
+.pt-package .ppf-cta {
+  margin-top: auto;
+}
+
+/* CTA arrow */
+.cta-arrow {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform 200ms var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.is-hover .cta-arrow,
+.is-charged .cta-arrow {
+  transform: translateX(4px);
+}
+
+.is-pressed .cta-arrow {
+  transform: translateX(6px) scale(0.9);
+}
