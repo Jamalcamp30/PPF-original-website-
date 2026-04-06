@@ -18,6 +18,8 @@
   let dotX = 0, dotY = 0;
   let scrollY = window.scrollY;
   let lastScrollY = scrollY;
+  let workTimerInterval = null;
+  const cardTimers = new WeakMap();
   let scrollVelocity = 0;
   let rafId = null;
   let isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -160,9 +162,11 @@
         ctx.fillStyle = `rgba(255, 85, 0, ${a})`;
         ctx.fill();
 
-        // Connection lines to nearby particles
-        particles.forEach(other => {
+        // Connection lines to nearby particles (forward-only to avoid O(n²) duplication)
+        for (let j = particles.indexOf(p) + 1; j < particles.length; j++) {
+          const other = particles[j];
           const dx = p.x - other.x;
+          if (Math.abs(dx) > 100) continue;
           const dy = p.y - other.y;
           const d  = Math.sqrt(dx * dx + dy * dy);
           if (d < 100) {
@@ -173,7 +177,7 @@
             ctx.lineTo(other.x, other.y);
             ctx.stroke();
           }
-        });
+        }
       });
     }
 
@@ -405,8 +409,8 @@
     const timerEl = qs('#rvTimer');
     if (!timerEl) return;
     let seconds = 45;
-    clearInterval(window._workTimerInterval);
-    window._workTimerInterval = setInterval(() => {
+    clearInterval(workTimerInterval);
+    workTimerInterval = setInterval(() => {
       seconds = seconds <= 0 ? 45 : seconds - 1;
       timerEl.textContent = `00:${seconds.toString().padStart(2, '0')}`;
     }, 1000);
@@ -441,8 +445,8 @@
     const timerEl = qs('.motion-timer', card);
     if (!timerEl) return;
     let ms = 0;
-    clearInterval(card._timerInterval);
-    card._timerInterval = setInterval(() => {
+    clearInterval(cardTimers.get(card));
+    const interval = setInterval(() => {
       ms += 10;
       const s   = Math.floor(ms / 1000) % 60;
       const m   = Math.floor(ms / 60000);
@@ -450,6 +454,7 @@
       timerEl.textContent =
         `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}.${Math.floor(msD / 10).toString().padStart(2, '0')}`;
     }, 10);
+    cardTimers.set(card, interval);
   }
 
   /* ── FORM SUBMISSION ─────────────────────────────── */

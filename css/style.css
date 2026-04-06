@@ -57,6 +57,14 @@ body {
   cursor: none;
 }
 
+/* Restore default cursor for users who prefer reduced motion or forced colors */
+@media (prefers-reduced-motion: reduce), (forced-colors: active), (hover: none) {
+  body { cursor: auto; }
+  button { cursor: pointer; }
+  a { cursor: pointer; }
+  .cursor-ring, .cursor-dot { display: none !important; }
+}
+
 img, svg { display: block; max-width: 100%; }
 
 a {
