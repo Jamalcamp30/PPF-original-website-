@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PPF Athletics — Three Paths. One Standard.</title>
+  <meta name="description" content="PPF Athletics brings athlete development, adult performance, and integrated fitness under one disciplined coaching standard. Built for performance. Proven in every room." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- NAVIGATION -->
+  <nav class="site-nav" id="siteNav">
+    <a href="#" class="nav-logo" aria-label="PPF Athletics">
+      <span class="logo-mark">PPF</span>
+      <span class="logo-tag">ATHLETICS</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#standard" class="nav-link">The Standard</a></li>
+      <li><a href="#paths" class="nav-link">Paths</a></li>
+      <li><a href="#proof" class="nav-link">Proof</a></li>
+      <li><a href="#leadership" class="nav-link">Leadership</a></li>
+      <li><a href="#start" class="nav-link nav-cta">Start Here</a></li>
+    </ul>
+  </nav>
+
+  <!-- ============================================================
+       SECTION 1 — HERO: IMPACT SEQUENCE
+  ============================================================ -->
+  <section class="hero" id="hero">
+    <canvas class="hero-canvas" id="heroCanvas"></canvas>
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow reveal-up">
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow-text">Est. 20+ Years of Excellence</span>
+        <span class="eyebrow-line"></span>
+      </div>
+
+      <h1 class="hero-headline">
+        <span class="headline-word" data-word="BUILT">BUILT</span>
+        <span class="headline-word" data-word="FOR">FOR</span>
+        <br />
+        <span class="headline-word accent" data-word="PERFORMANCE">PERFORMANCE</span>
+      </h1>
+
+      <p class="hero-sub reveal-up">
+        Athlete development. Adult performance. Integrated fitness.<br />
+        <strong>One coaching standard. One environment built to move people forward.</strong>
+      </p>
+
+      <div class="hero-actions reveal-up">
+        <a href="#start" class="btn btn-primary">
+          <span>Start Your Assessment</span>
+          <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#paths" class="btn btn-ghost">
+          <span>Explore Your Path</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Hero metrics strip -->
+    <div class="hero-metrics reveal-up">
+      <div class="metric-item">
+        <span class="metric-num" data-target="20">0</span><span class="metric-unit">+</span>
+        <span class="metric-label">Years Coaching</span>
+      </div>
+      <div class="metric-divider"></div>
+      <div class="metric-item">
+        <span class="metric-num" data-target="3">0</span>
+        <span class="metric-label">Performance Paths</span>
+      </div>
+      <div class="metric-divider"></div>
+      <div class="metric-item">
+        <span class="metric-num" data-target="1">0</span>
+        <span class="metric-label">Coaching Standard</span>
+      </div>
+      <div class="metric-divider"></div>
+      <div class="metric-item">
+        <span class="metric-num" data-target="3">0</span>
+        <span class="metric-label">Day Free Experience</span>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>SCROLL</span>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2 — THE STANDARD
+  ============================================================ -->
+  <section class="section standard-section" id="standard">
+    <div class="container">
+      <div class="section-label reveal-up">THE PPF STANDARD</div>
+      <h2 class="section-title reveal-up">
+        Every Path.<br />
+        <span class="accent">One Methodology.</span>
+      </h2>
+      <p class="section-intro reveal-up">
+        We do not run classes. We run systems. Every session at PPF is built around four non-negotiable pillars that drive every athlete, every adult, every integrated member forward.
+      </p>
+
+      <div class="pillars-grid">
+        <div class="pillar-card reveal-up" data-pillar="coaching">
+          <div class="pillar-number">01</div>
+          <div class="pillar-icon">
+            <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="30" cy="18" r="8" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M10 50c0-11.046 8.954-20 20-20s20 8.954 20 20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M38 28l6 4-6 4" stroke="#FF5500" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <h3 class="pillar-title">Coaching</h3>
+          <p class="pillar-desc">Every session led by certified coaches who cue with precision, correct in real time, and hold the standard regardless of who is in the room.</p>
+          <div class="pillar-line"></div>
+        </div>
+
+        <div class="pillar-card reveal-up" data-pillar="structure">
+          <div class="pillar-number">02</div>
+          <div class="pillar-icon">
+            <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="8" y="8" width="20" height="20" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="32" y="8" width="20" height="20" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="8" y="32" width="20" height="20" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="32" y="32" width="20" height="20" stroke="#FF5500" stroke-width="1.5"/>
+            </svg>
+          </div>
+          <h3 class="pillar-title">Structure</h3>
+          <p class="pillar-desc">Programming is periodized, progressive, and purposeful. No random workouts. Every block is designed around measured outcomes and deliberate progression.</p>
+          <div class="pillar-line"></div>
+        </div>
+
+        <div class="pillar-card reveal-up" data-pillar="environment">
+          <div class="pillar-number">03</div>
+          <div class="pillar-icon">
+            <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="30,5 55,50 5,50" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <line x1="30" y1="20" x2="30" y2="38" stroke="#FF5500" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="30" cy="43" r="2" fill="#FF5500"/>
+            </svg>
+          </div>
+          <h3 class="pillar-title">Environment</h3>
+          <p class="pillar-desc">A facility built for serious training with a culture of discipline, respect, and accountability. The room does not accept mediocrity in any lane.</p>
+          <div class="pillar-line"></div>
+        </div>
+
+        <div class="pillar-card reveal-up" data-pillar="proof">
+          <div class="pillar-number">04</div>
+          <div class="pillar-icon">
+            <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polyline points="8,44 22,28 34,36 52,16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="52" cy="16" r="4" fill="#FF5500"/>
+              <line x1="8" y1="50" x2="52" y2="50" stroke="currentColor" stroke-width="1" opacity="0.3"/>
+            </svg>
+          </div>
+          <h3 class="pillar-title">Proof</h3>
+          <p class="pillar-desc">Outcomes are measured, documented, and built upon. Progress is not assumed. It is demonstrated through data, milestones, and coach-verified results.</p>
+          <div class="pillar-line"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 3 — THREE PATHS. ONE STANDARD.
+  ============================================================ -->
+  <section class="section paths-section" id="paths">
+    <div class="paths-bg-canvas" id="pathsBg"></div>
+
+    <div class="container">
+      <div class="section-label reveal-up">CHOOSE YOUR PATH</div>
+      <h2 class="section-title reveal-up">
+        Three Paths.<br />
+        <span class="accent">One Standard.</span>
+      </h2>
+      <p class="section-intro reveal-up">
+        PPF is not a place with classes. PPF is a performance standard with three entry points. Which path was built for you?
+      </p>
+    </div>
+
+    <div class="paths-selector" id="pathsSelector">
+      <!-- ATHLETE PATH -->
+      <div class="path-card" data-path="athlete" id="pathAthlete">
+        <div class="path-card-inner">
+          <div class="path-bg-anim path-bg-athlete"></div>
+          <div class="path-content">
+            <div class="path-tag">PATH 01</div>
+            <h3 class="path-title">Athlete<br /><span>Performance</span></h3>
+            <div class="path-descriptor">
+              <span class="path-badge">SPEED</span>
+              <span class="path-badge">POWER</span>
+              <span class="path-badge">COMBINE PREP</span>
+            </div>
+            <p class="path-desc">Elite training for competitive athletes. Speed, strength, power development, combine preparation, and sport-specific programming coached to the highest standard.</p>
+            <div class="path-highlights">
+              <div class="path-hl-item"><span class="hl-dot"></span>Combine prep + testing</div>
+              <div class="path-hl-item"><span class="hl-dot"></span>Speed & agility systems</div>
+              <div class="path-hl-item"><span class="hl-dot"></span>Position-specific training</div>
+              <div class="path-hl-item"><span class="hl-dot"></span>Film + metrics tracking</div>
+            </div>
+            <a href="#start" class="path-cta">
+              <span>Start Athlete Assessment</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="path-motion-layer path-motion-athlete">
+            <div class="motion-line ml-1"></div>
+            <div class="motion-line ml-2"></div>
+            <div class="motion-line ml-3"></div>
+            <div class="motion-timer">00:00.00</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADULT PATH -->
+      <div class="path-card" data-path="adult" id="pathAdult">
+        <div class="path-card-inner">
+          <div class="path-bg-anim path-bg-adult"></div>
+          <div class="path-content">
+            <div class="path-tag">PATH 02</div>
+            <h3 class="path-title">Adult<br /><span>Performance</span></h3>
+            <div class="path-descriptor">
+              <span class="path-badge">STRENGTH</span>
+              <span class="path-badge">STRUCTURE</span>
+              <span class="path-badge">ACCOUNTABILITY</span>
+            </div>
+            <p class="path-desc">Serious strength and performance programming for adults who want more than cardio. Coached, progressive, and built for results that last.</p>
+            <div class="path-highlights">
+              <div class="path-hl-item"><span class="hl-dot"></span>Coached group classes</div>
+              <div class="path-hl-item"><span class="hl-dot"></span>1:1 personal training</div>
+              <div class="path-hl-item"><span class="hl-dot"></span>Progressive strength programs</div>
+              <div class="path-hl-item"><span class="hl-dot"></span>Nutrition + lifestyle guidance</div>
+            </div>
+            <a href="#start" class="path-cta">
+              <span>Start Adult Assessment</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="path-motion-layer path-motion-adult">
+            <div class="motion-bar mb-1"></div>
+            <div class="motion-bar mb-2"></div>
+            <div class="motion-bar mb-3"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTEGRATED PATH -->
+      <div class="path-card" data-path="integrated" id="pathIntegrated">
+        <div class="path-card-inner">
+          <div class="path-bg-anim path-bg-integrated"></div>
+          <div class="path-content">
+            <div class="path-tag">PATH 03</div>
+            <h3 class="path-title">Integrated<br /><span>Fitness</span></h3>
+            <div class="path-descriptor">
+              <span class="path-badge">ADAPTIVE</span>
+              <span class="path-badge">PURPOSEFUL</span>
+              <span class="path-badge">PERSONAL</span>
+            </div>
+            <p class="path-desc">Adaptive and inclusive fitness programming built with purpose, dignity, and care. Every session designed around what each person needs to thrive and grow.</p>
+            <div class="path-highlights">
+              <div class="path-hl-item"><span class="hl-dot"></span>Adapted fitness classes</div>
+              <div class="path-hl-item"><span class="hl-dot"></span>1:1 specialized training</div>
+              <div class="path-hl-item"><span class="hl-dot"></span>Day program + respite</div>
+              <div class="path-hl-item"><span class="hl-dot"></span>Family trust first</div>
+            </div>
+            <a href="#start" class="path-cta">
+              <span>Start Integrated Assessment</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+          <div class="path-motion-layer path-motion-integrated">
+            <div class="motion-circle mc-1"></div>
+            <div class="motion-circle mc-2"></div>
+            <div class="motion-circle mc-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 4 — PROOF ENGINE
+  ============================================================ -->
+  <section class="section proof-section" id="proof">
+    <div class="proof-grid-bg"></div>
+    <div class="container">
+      <div class="section-label reveal-up">PROOF ENGINE</div>
+      <h2 class="section-title reveal-up">
+        Results Are<br />
+        <span class="accent">The Standard.</span>
+      </h2>
+
+      <div class="proof-tabs reveal-up">
+        <button class="proof-tab active" data-tab="athlete">Athlete Proof</button>
+        <button class="proof-tab" data-tab="adult">Adult Proof</button>
+        <button class="proof-tab" data-tab="integrated">Integrated Impact</button>
+      </div>
+
+      <!-- ATHLETE PROOF -->
+      <div class="proof-panel active" id="proofAthlete">
+        <div class="proof-metrics-grid">
+          <div class="proof-metric">
+            <div class="proof-num" data-target="500">0</div>
+            <div class="proof-unit">+</div>
+            <div class="proof-label">Athletes Trained</div>
+            <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 92%"></div></div>
+          </div>
+          <div class="proof-metric">
+            <div class="proof-num" data-target="20">0</div>
+            <div class="proof-unit">+</div>
+            <div class="proof-label">Years Developing Athletes</div>
+            <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 100%"></div></div>
+          </div>
+          <div class="proof-metric">
+            <div class="proof-num" data-target="40">0</div>
+            <div class="proof-unit">ms</div>
+            <div class="proof-label">Avg Reaction Improvement</div>
+            <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 78%"></div></div>
+          </div>
+          <div class="proof-metric">
+            <div class="proof-num" data-target="95">0</div>
+            <div class="proof-unit">%</div>
+            <div class="proof-label">Return-to-Play Success</div>
+            <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 95%"></div></div>
+          </div>
+        </div>
+        <div class="proof-stories">
+          <div class="story-card">
+            <div class="story-quote">"The combine prep here didn't just improve my numbers. It changed how I understand my own body under pressure."</div>
+            <div class="story-meta"><span class="story-name">D. Williams</span> <span class="story-role">Combine Prep Athlete</span></div>
+            <div class="story-tag athlete-tag">ATHLETE PATH</div>
+          </div>
+          <div class="story-card">
+            <div class="story-quote">"Coach pushed me past every wall I thought was real. My 40 time dropped by three-tenths in eight weeks."</div>
+            <div class="story-meta"><span class="story-name">M. Thompson</span> <span class="story-role">Speed & Agility Program</span></div>
+            <div class="story-tag athlete-tag">ATHLETE PATH</div>
+          </div>
+          <div class="story-card">
+            <div class="story-quote">"PPF doesn't just train athletes. They build them. Every session had a purpose I could measure."</div>
+            <div class="story-meta"><span class="story-name">J. Rodriguez</span> <span class="story-role">Performance Development</span></div>
+            <div class="story-tag athlete-tag">ATHLETE PATH</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADULT PROOF -->
+      <div class="proof-panel" id="proofAdult">
+        <div class="proof-metrics-grid">
+          <div class="proof-metric">
+            <div class="proof-num" data-target="85">0</div>
+            <div class="proof-unit">%</div>
+            <div class="proof-label">Member Retention Rate</div>
+            <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 85%"></div></div>
+          </div>
+          <div class="proof-metric">
+            <div class="proof-num" data-target="12">0</div>
+            <div class="proof-unit">wk</div>
+            <div class="proof-label">Avg Time to First Major Milestone</div>
+            <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 70%"></div></div>
+          </div>
+          <div class="proof-metric">
+            <div class="proof-num" data-target="200">0</div>
+            <div class="proof-unit">+</div>
+            <div class="proof-label">Adults Transformed</div>
+            <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 88%"></div></div>
+          </div>
+          <div class="proof-metric">
+            <div class="proof-num" data-target="5">0</div>
+            <div class="proof-unit">x</div>
+            <div class="proof-label">Avg Strength Gain Multiplier</div>
+            <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 82%"></div></div>
+          </div>
+        </div>
+        <div class="proof-stories">
+          <div class="story-card">
+            <div class="story-quote">"I've tried every gym in this area. None of them coached like this. The accountability here is unlike anything else."</div>
+            <div class="story-meta"><span class="story-name">T. Harrison</span> <span class="story-role">Adult Performance Member</span></div>
+            <div class="story-tag adult-tag">ADULT PATH</div>
+          </div>
+          <div class="story-card">
+            <div class="story-quote">"I'm 47 years old and stronger than I was at 30. The structured programming made all the difference."</div>
+            <div class="story-meta"><span class="story-name">L. Patel</span> <span class="story-role">Strength Program</span></div>
+            <div class="story-tag adult-tag">ADULT PATH</div>
+          </div>
+          <div class="story-card">
+            <div class="story-quote">"Real coaching changes everything. I didn't need a gym — I needed a system. PPF gave me that."</div>
+            <div class="story-meta"><span class="story-name">K. Moore</span> <span class="story-role">1:1 Personal Training</span></div>
+            <div class="story-tag adult-tag">ADULT PATH</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTEGRATED PROOF -->
+      <div class="proof-panel" id="proofIntegrated">
+        <div class="proof-metrics-grid">
+          <div class="proof-metric">
+            <div class="proof-num" data-target="100">0</div>
+            <div class="proof-unit">%</div>
+            <div class="proof-label">Family Trust Rating</div>
+            <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 100%"></div></div>
+          </div>
+          <div class="proof-metric">
+            <div class="proof-num" data-target="3">0</div>
+            <div class="proof-unit">x</div>
+            <div class="proof-label">Programs Offered</div>
+            <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 75%"></div></div>
+          </div>
+          <div class="proof-metric">
+            <div class="proof-num" data-target="90">0</div>
+            <div class="proof-unit">%</div>
+            <div class="proof-label">Confidence Improvement Reported</div>
+            <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 90%"></div></div>
+          </div>
+          <div class="proof-metric">
+            <div class="proof-num" data-target="50">0</div>
+            <div class="proof-unit">+</div>
+            <div class="proof-label">Integrated Members Served</div>
+            <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 65%"></div></div>
+          </div>
+        </div>
+        <div class="proof-stories">
+          <div class="story-card">
+            <div class="story-quote">"My son lights up on the days he trains at PPF. He is more confident, more coordinated, and genuinely proud of himself."</div>
+            <div class="story-meta"><span class="story-name">Parent of M.A.</span> <span class="story-role">Integrated Fitness Program</span></div>
+            <div class="story-tag integrated-tag">INTEGRATED PATH</div>
+          </div>
+          <div class="story-card">
+            <div class="story-quote">"This is not an afterthought program. It's thoughtfully designed, beautifully coached, and deeply personal."</div>
+            <div class="story-meta"><span class="story-name">Guardian of T.B.</span> <span class="story-role">Day Program Member</span></div>
+            <div class="story-tag integrated-tag">INTEGRATED PATH</div>
+          </div>
+          <div class="story-card">
+            <div class="story-quote">"I've seen real changes in her engagement, her movement, and her joy. PPF treats her like an athlete because she is one."</div>
+            <div class="story-meta"><span class="story-name">Parent of S.J.</span> <span class="story-role">Adapted Fitness Class</span></div>
+            <div class="story-tag integrated-tag">INTEGRATED PATH</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5 — INSIDE THE ROOM (SESSION SIMULATOR)
+  ============================================================ -->
+  <section class="section room-section" id="room">
+    <div class="container">
+      <div class="section-label reveal-up">INSIDE THE ROOM</div>
+      <h2 class="section-title reveal-up">
+        A Session.<br />
+        <span class="accent">Reconstructed.</span>
+      </h2>
+      <p class="section-intro reveal-up">This is what training inside PPF actually feels like.</p>
+    </div>
+
+    <div class="room-track" id="roomTrack">
+      <div class="room-stage active" data-phase="arrival">
+        <div class="room-phase-num">01</div>
+        <div class="room-phase-label">ARRIVAL</div>
+        <h3 class="room-phase-title">Doors Open</h3>
+        <p class="room-phase-desc">You walk in and the environment does the rest. No scrolling on your phone. No wasted minutes. The floor is set and coaches are already tracking movement.</p>
+        <div class="room-visual rv-arrival">
+          <div class="rv-grid"></div>
+          <div class="rv-pulse"></div>
+        </div>
+      </div>
+
+      <div class="room-stage" data-phase="warmup">
+        <div class="room-phase-num">02</div>
+        <div class="room-phase-label">WARM-UP</div>
+        <h3 class="room-phase-title">Movement Activation</h3>
+        <p class="room-phase-desc">Not stretching. Not jogging in circles. A coach-led neural activation sequence designed to fire every system you are about to use at maximum output.</p>
+        <div class="room-visual rv-warmup">
+          <div class="rv-wave w1"></div>
+          <div class="rv-wave w2"></div>
+          <div class="rv-wave w3"></div>
+        </div>
+      </div>
+
+      <div class="room-stage" data-phase="instruction">
+        <div class="room-phase-num">03</div>
+        <div class="room-phase-label">INSTRUCTION</div>
+        <h3 class="room-phase-title">Coach Cues</h3>
+        <p class="room-phase-desc">The work block does not start until everyone understands intent. Cues are precise. Expectations are clear. Coaches walk the floor from the first rep.</p>
+        <div class="room-visual rv-instruction">
+          <div class="rv-line"></div>
+          <div class="rv-cue">HIPS BACK</div>
+          <div class="rv-cue delayed">DRIVE THROUGH</div>
+          <div class="rv-cue delayed-2">FINISH TALL</div>
+        </div>
+      </div>
+
+      <div class="room-stage" data-phase="work">
+        <div class="room-phase-num">04</div>
+        <div class="room-phase-label">WORK BLOCK</div>
+        <h3 class="room-phase-title">Maximum Output</h3>
+        <p class="room-phase-desc">This is when PPF separates itself. The energy in the room climbs. Every rep is coached. Every set has a purpose. Nobody phones it in because the standard does not allow it.</p>
+        <div class="room-visual rv-work">
+          <div class="rv-bar-container">
+            <div class="rv-energy-bar" style="--energy: 95%"></div>
+            <div class="rv-energy-label">OUTPUT</div>
+          </div>
+          <div class="rv-counter" id="rvTimer">00:45</div>
+        </div>
+      </div>
+
+      <div class="room-stage" data-phase="finish">
+        <div class="room-phase-num">05</div>
+        <div class="room-phase-label">FINISH</div>
+        <h3 class="room-phase-title">The Close</h3>
+        <p class="room-phase-desc">Every session ends with intention. The coach closes out the work, acknowledges who pushed hardest, and sets the frame for what comes next. Culture is not an accident here.</p>
+        <div class="room-visual rv-finish">
+          <div class="rv-check">
+            <svg viewBox="0 0 60 60" fill="none">
+              <circle cx="30" cy="30" r="28" stroke="#FF5500" stroke-width="1.5" class="check-circle"/>
+              <polyline points="16,30 26,40 44,22" stroke="#FF5500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-mark"/>
+            </svg>
+          </div>
+          <div class="rv-finish-label">SESSION COMPLETE</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation dots -->
+    <div class="room-nav" id="roomNav">
+      <button class="room-dot active" data-index="0" aria-label="Arrival"></button>
+      <button class="room-dot" data-index="1" aria-label="Warm-up"></button>
+      <button class="room-dot" data-index="2" aria-label="Instruction"></button>
+      <button class="room-dot" data-index="3" aria-label="Work Block"></button>
+      <button class="room-dot" data-index="4" aria-label="Finish"></button>
+    </div>
+
+    <div class="room-controls">
+      <button class="room-btn" id="roomPrev" aria-label="Previous">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <button class="room-btn" id="roomNext" aria-label="Next">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 6 — LEADERSHIP SETS THE STANDARD
+  ============================================================ -->
+  <section class="section leadership-section" id="leadership">
+    <div class="container">
+      <div class="section-label reveal-up">LEADERSHIP</div>
+      <h2 class="section-title reveal-up">
+        Leadership Sets<br />
+        <span class="accent">The Standard.</span>
+      </h2>
+      <p class="section-intro reveal-up">
+        The PPF standard exists because of the people who protect it every single day. These are not instructors filling time slots. These are coaches who built this system and will defend it.
+      </p>
+    </div>
+
+    <div class="leaders-grid">
+      <div class="leader-card reveal-up">
+        <div class="leader-portrait">
+          <div class="leader-portrait-bg lp-1">
+            <div class="leader-initial">R</div>
+          </div>
+          <div class="leader-portrait-overlay"></div>
+        </div>
+        <div class="leader-info">
+          <div class="leader-role">FOUNDER &amp; HEAD PERFORMANCE COACH</div>
+          <h3 class="leader-name">Richard</h3>
+          <blockquote class="leader-quote">
+            "We are not in the fitness business. We are in the transformation business. Every athlete, every adult, every integrated member deserves coaching that actually changes their life."
+          </blockquote>
+          <div class="leader-protects">
+            <div class="protects-label">WHAT RICHARD PROTECTS</div>
+            <p>The coaching standard. The identity of every athlete in the room. The reason every session has a purpose beyond the clock.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="leader-card reveal-up">
+        <div class="leader-portrait">
+          <div class="leader-portrait-bg lp-2">
+            <div class="leader-initial">R</div>
+          </div>
+          <div class="leader-portrait-overlay"></div>
+        </div>
+        <div class="leader-info">
+          <div class="leader-role">DIRECTOR OF INTEGRATED FITNESS</div>
+          <h3 class="leader-name">Rebecca</h3>
+          <blockquote class="leader-quote">
+            "Every person who walks into our integrated program deserves to be treated as an athlete. The dignity of the process is the product. I will never compromise that."
+          </blockquote>
+          <div class="leader-protects">
+            <div class="protects-label">WHAT REBECCA PROTECTS</div>
+            <p>The integrity of integrated programming. The families who trust PPF with the people they love most. The culture that makes every member feel they belong.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 7 — 3-DAY PPF EXPERIENCE
+  ============================================================ -->
+  <section class="section experience-section" id="experience">
+    <div class="container">
+      <div class="section-label reveal-up">THE OFFER</div>
+      <h2 class="section-title reveal-up">
+        3 Sessions.<br />
+        <span class="accent">1 Clear Starting Point.</span>
+      </h2>
+      <p class="section-intro reveal-up">
+        This is not a free trial. This is a structured three-day onboarding experience designed to show you exactly how PPF works and where you belong inside it.
+      </p>
+
+      <div class="experience-days">
+        <div class="experience-day reveal-up" data-day="1">
+          <div class="day-number">
+            <span class="day-label">DAY</span>
+            <span class="day-num">01</span>
+          </div>
+          <div class="day-content">
+            <div class="day-tag">ASSESS</div>
+            <h3 class="day-title">Movement Evaluation</h3>
+            <p class="day-desc">A coach-led assessment of how you move, where your strengths are, and what your starting point looks like inside the PPF system. No assumptions. Real data.</p>
+            <div class="day-deliverable">
+              <span class="deliverable-label">OUTCOME:</span> Movement profile + path recommendation
+            </div>
+          </div>
+          <div class="day-connector"></div>
+        </div>
+
+        <div class="experience-day reveal-up" data-day="2">
+          <div class="day-number">
+            <span class="day-label">DAY</span>
+            <span class="day-num">02</span>
+          </div>
+          <div class="day-content">
+            <div class="day-tag">TRAIN</div>
+            <h3 class="day-title">Coached Session</h3>
+            <p class="day-desc">A full coached session in your recommended lane. You experience the standard in real time — the energy, the coaching, the expectation, and what your path actually feels like.</p>
+            <div class="day-deliverable">
+              <span class="deliverable-label">OUTCOME:</span> First session performance baseline
+            </div>
+          </div>
+          <div class="day-connector"></div>
+        </div>
+
+        <div class="experience-day reveal-up" data-day="3">
+          <div class="day-number">
+            <span class="day-label">DAY</span>
+            <span class="day-num">03</span>
+          </div>
+          <div class="day-content">
+            <div class="day-tag">PLACE</div>
+            <h3 class="day-title">Path Assignment</h3>
+            <p class="day-desc">Your third day confirms your lane, locks your programming, and outlines what the next 90 days inside PPF should look like. You leave with a plan, not a pamphlet.</p>
+            <div class="day-deliverable">
+              <span class="deliverable-label">OUTCOME:</span> 90-day roadmap + membership options
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-Day CTA -->
+      <div class="experience-cta reveal-up">
+        <div class="exp-cta-inner">
+          <div class="exp-cta-label">YOUR PATH STARTS HERE</div>
+          <h3 class="exp-cta-headline">Claim Your 3-Day Experience</h3>
+          <p class="exp-cta-sub">Three days. Expert coaching. Zero obligation. Start here.</p>
+          <a href="#start" class="btn btn-primary btn-large">
+            <span>Claim Your 3-Day Pass</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 8 — START HERE (CONVERSION)
+  ============================================================ -->
+  <section class="section start-section" id="start">
+    <div class="start-bg-canvas" id="startCanvas"></div>
+    <div class="container">
+      <div class="section-label reveal-up">START HERE</div>
+      <h2 class="section-title reveal-up">
+        Your First Move<br />
+        <span class="accent">Starts Now.</span>
+      </h2>
+
+      <div class="start-grid">
+        <div class="start-form-wrap reveal-up">
+          <form class="start-form" id="startForm" novalidate>
+            <div class="form-header">
+              <span class="form-label">CLAIM YOUR 3-DAY EXPERIENCE</span>
+              <p class="form-sub">Fill this out. A PPF coach will contact you within 24 hours.</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-field-label" for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Your first name" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-field-label" for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Your last name" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-field-label" for="email">Email</label>
+              <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-field-label" for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" class="form-input" placeholder="(000) 000-0000" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-field-label" for="path">Your Path</label>
+              <select id="path" name="path" class="form-input form-select">
+                <option value="">Choose your path</option>
+                <option value="athlete">Athlete Performance</option>
+                <option value="adult">Adult Performance</option>
+                <option value="integrated">Integrated Fitness</option>
+                <option value="unsure">Not sure yet</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">
+              <span>Claim My 3-Day Pass</span>
+              <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+
+            <div class="form-success" id="formSuccess">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FF5500" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>You're in. A PPF coach will be in touch within 24 hours.</span>
+            </div>
+          </form>
+        </div>
+
+        <div class="start-options reveal-up">
+          <div class="start-option">
+            <div class="start-opt-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div class="start-opt-content">
+              <div class="start-opt-title">Schedule a Consultation</div>
+              <div class="start-opt-desc">Book a 30-minute sit-down with a PPF coach to map your path before you commit to anything.</div>
+              <a href="#start" class="start-opt-link">Book a Session <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            </div>
+          </div>
+
+          <div class="start-option">
+            <div class="start-opt-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.23h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.27 6.27l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.95 16.5z"/></svg>
+            </div>
+            <div class="start-opt-content">
+              <div class="start-opt-title">Call or Text Us</div>
+              <div class="start-opt-desc">Prefer to talk first? Reach our team directly and get your questions answered by a real coach.</div>
+              <a href="tel:+1-800-PPF-ATHL" class="start-opt-link">Contact the Team <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            </div>
+          </div>
+
+          <div class="start-option">
+            <div class="start-opt-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="start-opt-content">
+              <div class="start-opt-title">View the Schedule</div>
+              <div class="start-opt-desc">See what is happening on the floor this week across all three paths. Find the class or session that fits your life.</div>
+              <a href="#standard" class="start-opt-link">View Schedule <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER — COMMAND PANEL
+  ============================================================ -->
+  <footer class="site-footer" id="footer">
+    <div class="footer-ambient"></div>
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <span class="logo-mark">PPF</span>
+            <span class="logo-tag">ATHLETICS</span>
+          </div>
+          <p class="footer-brand-line">Three Paths. One Standard.</p>
+          <p class="footer-brand-sub">Built for performance. Proven in every room.</p>
+        </div>
+
+        <div class="footer-nav-group">
+          <div class="footer-nav-col">
+            <div class="footer-nav-title">Experience</div>
+            <ul class="footer-nav-list">
+              <li><a href="#standard">The Standard</a></li>
+              <li><a href="#paths">Athlete Path</a></li>
+              <li><a href="#paths">Adult Path</a></li>
+              <li><a href="#paths">Integrated Path</a></li>
+            </ul>
+          </div>
+          <div class="footer-nav-col">
+            <div class="footer-nav-title">Company</div>
+            <ul class="footer-nav-list">
+              <li><a href="#proof">Proof</a></li>
+              <li><a href="#leadership">Leadership</a></li>
+              <li><a href="#room">Inside the Room</a></li>
+              <li><a href="#experience">3-Day Experience</a></li>
+            </ul>
+          </div>
+          <div class="footer-nav-col">
+            <div class="footer-nav-title">Get Started</div>
+            <ul class="footer-nav-list">
+              <li><a href="#start">3-Day Pass</a></li>
+              <li><a href="#start">Book Consultation</a></li>
+              <li><a href="#start">Contact Team</a></li>
+              <li><a href="#start">View Schedule</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-contact-strip">
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>PPF Athletics — Your City, Your State</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.23h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.27 6.27l.96-.96a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.95 16.5z"/></svg>
+          <span>ppfathletics.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Mon–Fri: 5:30am–8pm &nbsp;|&nbsp; Sat–Sun: 7am–2pm</span>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-copy">© 2024 PPF Athletics. All rights reserved.</div>
+        <div class="footer-close-line">Built for people who want more from coaching.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
