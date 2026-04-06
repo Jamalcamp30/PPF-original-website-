@@ -3355,6 +3355,774 @@ button {
   to   { transform: translateY(0); opacity: 1; }
 }
 
+@keyframes scanlineMove {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 4px; }
+}
+
+@keyframes lmsScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes laneLockPulse {
+  0%   { transform: scale(0); opacity: 1; }
+  60%  { transform: scale(1.2); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+@keyframes verifiedPulse {
+  0%   { transform: scale(0.8); opacity: 0; }
+  50%  { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes hudSlideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes hudSlideOut {
+  from { transform: translateX(0); opacity: 1; }
+  to   { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes microDataFlicker {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0.3; }
+}
+
+@keyframes stSweep {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes roadmapDraw {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+@keyframes ctaEdgeGlow {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes footerLogoReveal {
+  0%   { opacity: 0; letter-spacing: 0.3em; }
+  100% { opacity: 1; letter-spacing: 0.1em; }
+}
+
+@keyframes footerPulse {
+  0%, 100% { opacity: 0.3; width: 40px; }
+  50%      { opacity: 0.7; width: 60px; }
+}
+
+@keyframes drawOn {
+  from { stroke-dashoffset: 200; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* =====================================================
+   HERO — SCANLINE OVERLAY
+   ===================================================== */
+.hero-scanline {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(255, 85, 0, 0.015) 2px,
+    rgba(255, 85, 0, 0.015) 4px
+  );
+  animation: scanlineMove 0.15s linear infinite;
+}
+
+/* Hero scroll compression */
+.hero {
+  transition: min-height 0.4s var(--ease-out-expo);
+}
+
+.hero.compressed {
+  min-height: 0;
+}
+
+/* =====================================================
+   HERO — MICRO-DATA HUD
+   ===================================================== */
+.hero-micro-data {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  opacity: 0;
+  animation: fadeSlideUp 0.8s var(--ease-out-expo) 1.8s forwards;
+}
+
+.micro-datum {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  animation: microDataFlicker 4s ease-in-out infinite;
+}
+
+.micro-datum:nth-child(2) { animation-delay: 1s; }
+.micro-datum:nth-child(3) { animation-delay: 2s; }
+.micro-datum:nth-child(4) { animation-delay: 3s; }
+
+.micro-label {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: rgba(255, 85, 0, 0.5);
+  text-transform: uppercase;
+}
+
+.micro-value {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.05em;
+}
+
+/* =====================================================
+   LIVE METRIC STRIP
+   ===================================================== */
+.live-metric-strip {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  background: rgba(8, 8, 8, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(255, 85, 0, 0.15);
+  overflow: hidden;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.5s var(--ease-out-expo), transform 0.5s var(--ease-out-expo);
+}
+
+.live-metric-strip.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.lms-track {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  white-space: nowrap;
+  animation: lmsScroll 30s linear infinite;
+  padding-right: 24px;
+}
+
+.lms-item {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray-300);
+}
+
+.lms-item strong {
+  color: var(--orange);
+  font-weight: 700;
+}
+
+.lms-divider {
+  color: rgba(255, 85, 0, 0.3);
+  font-size: 6px;
+}
+
+/* =====================================================
+   COACH CUE HUD
+   ===================================================== */
+.coach-hud {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%) translateX(100%);
+  z-index: 800;
+  background: rgba(14, 14, 14, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 85, 0, 0.2);
+  border-right: 3px solid var(--orange);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 140px;
+  opacity: 0;
+  transition: transform 0.5s var(--ease-out-expo), opacity 0.5s var(--ease-out-expo);
+  pointer-events: none;
+}
+
+.coach-hud.visible {
+  transform: translateY(-50%) translateX(0);
+  opacity: 1;
+}
+
+.hud-phase {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--orange);
+}
+
+.hud-progress-bar {
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.hud-progress-fill {
+  height: 100%;
+  background: var(--orange);
+  width: 0%;
+  transition: width 0.6s var(--ease-out-expo);
+}
+
+.hud-cue {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--white);
+  letter-spacing: 0.05em;
+  min-height: 18px;
+}
+
+.hud-path {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: var(--gray-500);
+  text-transform: uppercase;
+}
+
+/* =====================================================
+   SECTION TRANSITIONS
+   ===================================================== */
+.section-transition {
+  position: relative;
+  height: 3px;
+  overflow: hidden;
+}
+
+.st-sweep .st-line {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, var(--orange), transparent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 1s var(--ease-out-expo);
+}
+
+.st-sweep.animated .st-line {
+  transform: scaleX(1);
+}
+
+.st-chalk {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.st-chalk .st-particles {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 85, 0, 0.06) 20%,
+    rgba(255, 85, 0, 0.15) 50%,
+    rgba(255, 85, 0, 0.06) 80%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.st-chalk.animated .st-particles {
+  opacity: 1;
+}
+
+.st-timer {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.st-timer .st-flip {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: rgba(255, 85, 0, 0.2);
+  letter-spacing: 0.2em;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.st-timer.animated .st-flip {
+  opacity: 1;
+}
+
+/* =====================================================
+   LANE LOCK OVERLAY
+   ===================================================== */
+.lane-lock-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: rgba(8, 8, 8, 0.9);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.lane-lock-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lane-lock-text {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--orange);
+  letter-spacing: 0.15em;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease 0.2s, transform 0.3s var(--ease-spring) 0.2s;
+}
+
+.lane-lock-overlay.active .lane-lock-text {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.lane-lock-ring {
+  width: 80px;
+  height: 80px;
+  border: 2px solid var(--orange);
+  border-radius: 50%;
+  animation: none;
+}
+
+.lane-lock-overlay.active .lane-lock-ring {
+  animation: laneLockPulse 0.8s var(--ease-out-expo) forwards;
+}
+
+/* Path ambient glow */
+.paths-ambient-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  transition: background 0.6s ease;
+}
+
+/* =====================================================
+   PROOF ENGINE ENHANCEMENTS — VERIFIED STAMPS
+   ===================================================== */
+.story-card {
+  position: relative;
+}
+
+.verified-stamp {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  border: 1px solid rgba(255, 85, 0, 0.3);
+  padding: 3px 8px;
+  background: rgba(255, 85, 0, 0.06);
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.verified-stamp.pulsed {
+  animation: verifiedPulse 0.6s var(--ease-spring) forwards;
+}
+
+.verified-stamp svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* Circular progress indicators */
+.proof-metric-circle {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+}
+
+.proof-metric-circle svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.proof-metric-circle .circle-bg {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.05);
+  stroke-width: 2;
+}
+
+.proof-metric-circle .circle-fill {
+  fill: none;
+  stroke: var(--orange);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 1.5s var(--ease-out-expo);
+}
+
+.proof-metric-circle.animated .circle-fill {
+  stroke-dashoffset: var(--circle-offset, 0);
+}
+
+/* Split-time transition styling */
+.outcome-badge {
+  position: relative;
+}
+
+/* =====================================================
+   ROOM PROGRESS TRACKER
+   ===================================================== */
+.room-progress-tracker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  max-width: var(--container-w);
+  margin: 0 auto 40px;
+  padding: 0 40px;
+}
+
+.rpt-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.rpt-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.rpt-stage.active .rpt-dot {
+  background: var(--orange);
+  border-color: var(--orange);
+  box-shadow: 0 0 12px rgba(255, 85, 0, 0.4);
+}
+
+.rpt-stage.completed .rpt-dot {
+  background: var(--orange);
+  border-color: var(--orange);
+}
+
+.rpt-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  transition: color 0.4s ease;
+}
+
+.rpt-stage.active .rpt-label {
+  color: var(--orange);
+}
+
+.rpt-stage.completed .rpt-label {
+  color: var(--gray-300);
+}
+
+.rpt-line {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  position: relative;
+  min-width: 40px;
+}
+
+.rpt-line-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--orange);
+  transition: width 0.6s var(--ease-out-expo);
+}
+
+/* =====================================================
+   EXPERIENCE ROADMAP LINE
+   ===================================================== */
+.experience-roadmap-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--orange), var(--orange), transparent);
+  transition: width 1.2s var(--ease-out-expo);
+  z-index: 1;
+}
+
+.experience-cta.roadmap-active .experience-roadmap-line {
+  width: 80%;
+}
+
+/* Experience day snap animation */
+.experience-day.snapped {
+  background: rgba(255, 85, 0, 0.03);
+  border-left: 2px solid var(--orange);
+}
+
+/* =====================================================
+   SMART CTA MOTION
+   ===================================================== */
+.btn-smart-cta {
+  position: relative;
+  overflow: visible;
+}
+
+.btn-smart-cta::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border: 1px solid transparent;
+  pointer-events: none;
+  transition: border-color 0.3s ease;
+}
+
+.btn-smart-cta:hover::after {
+  border-color: rgba(255, 85, 0, 0.4);
+  background: linear-gradient(90deg, transparent, rgba(255, 85, 0, 0.15), transparent);
+  background-size: 300% 100%;
+  animation: ctaEdgeGlow 2s linear infinite;
+}
+
+.btn-cta-ready {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  color: var(--orange);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.btn-smart-cta:hover .btn-cta-ready {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-2px);
+}
+
+/* =====================================================
+   LEADERSHIP MOTION ENHANCEMENTS
+   ===================================================== */
+.leader-portrait-bg {
+  filter: grayscale(0.6) brightness(0.8);
+  transition: transform var(--transition-slow), filter 0.6s ease;
+}
+
+.leader-card:hover .leader-portrait-bg {
+  transform: scale(1.05);
+  filter: grayscale(0) brightness(1);
+}
+
+.leader-credentials .credential-badge {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.leader-card.creds-visible .credential-badge:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+.leader-card.creds-visible .credential-badge:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.2s; }
+.leader-card.creds-visible .credential-badge:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+.leader-card.creds-visible .credential-badge:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.4s; }
+
+.leader-quote {
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+}
+
+.leader-card.creds-visible .leader-quote {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.leader-protects {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.5s ease 0.5s, max-height 0.5s ease 0.5s;
+}
+
+.leader-card.creds-visible .leader-protects {
+  opacity: 1;
+  max-height: 200px;
+}
+
+/* =====================================================
+   TRUST MARKERS — DRAW-ON EFFECT
+   ===================================================== */
+.trust-item .trust-icon svg path,
+.trust-item .trust-icon svg circle,
+.trust-item .trust-icon svg rect,
+.trust-item .trust-icon svg polyline,
+.trust-item .trust-icon svg polygon {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  transition: stroke-dashoffset 1.2s ease;
+}
+
+.trust-item.drawn-on .trust-icon svg path,
+.trust-item.drawn-on .trust-icon svg circle,
+.trust-item.drawn-on .trust-icon svg rect,
+.trust-item.drawn-on .trust-icon svg polyline,
+.trust-item.drawn-on .trust-icon svg polygon {
+  stroke-dashoffset: 0;
+}
+
+/* =====================================================
+   FOOTER CLOSING SEQUENCE
+   ===================================================== */
+.footer-signature .sig-ppf {
+  opacity: 0;
+  transition: opacity 1s ease, letter-spacing 1s ease;
+  letter-spacing: 0.3em;
+}
+
+.site-footer.visible .footer-signature .sig-ppf {
+  opacity: 1;
+  letter-spacing: 0.1em;
+}
+
+.footer-signature .sig-tagline {
+  opacity: 0;
+  transition: opacity 1s ease 0.5s;
+}
+
+.site-footer.visible .footer-signature .sig-tagline {
+  opacity: 1;
+}
+
+.footer-sig-line {
+  position: relative;
+}
+
+.site-footer.visible .footer-sig-line::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 2px;
+  background: var(--orange);
+  animation: footerPulse 3s ease-in-out infinite;
+}
+
+/* Footer social buttons restrained precision */
+.footer-nav-list a {
+  position: relative;
+}
+
+.site-footer.visible .footer-nav-list a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--orange);
+  transition: width 0.3s ease;
+}
+
+.site-footer.visible .footer-nav-list a:hover::after {
+  width: 100%;
+}
+
+/* =====================================================
+   PROGRESSIVE FOCUS MODE
+   ===================================================== */
+body.focus-mode .section:not(.focus-target) {
+  filter: brightness(0.7);
+  transition: filter 0.4s ease;
+}
+
+body.focus-mode .focus-target {
+  filter: brightness(1);
+  transition: filter 0.4s ease;
+}
+
+/* =====================================================
+   PATH-SPECIFIC HOVER MOTION LANGUAGE
+   ===================================================== */
+/* Athlete = sharper, faster transitions */
+.path-card[data-path="athlete"]:hover {
+  transition-duration: 0.15s;
+}
+
+.path-card[data-path="athlete"]:hover .path-card-inner {
+  transform: translateY(-4px);
+  transition: transform 0.15s var(--ease-out-expo);
+}
+
+/* Adult = heavier, more grounded */
+.path-card[data-path="adult"]:hover .path-card-inner {
+  transform: translateY(-2px);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Integrated = smoother, supportive */
+.path-card[data-path="integrated"]:hover .path-card-inner {
+  transform: translateY(-3px);
+  transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
 /* =====================================================
    RESPONSIVE — TABLET
    ===================================================== */
@@ -3373,6 +4141,9 @@ button {
   .social-strip { grid-template-columns: repeat(2, 1fr); }
   .ccc-grid { grid-template-columns: 1fr; }
   .ct-bar { grid-template-columns: repeat(2, 1fr); }
+
+  .hero-micro-data { display: none; }
+  .coach-hud { display: none; }
 }
 
 @media (max-width: 900px) {
@@ -3458,6 +4229,8 @@ button {
   .room-stage .room-visual { grid-column: 1; grid-row: 4; height: 240px; margin-top: 24px; }
   .room-stage .room-phase-num { display: none; }
 
+  .room-progress-tracker { display: none; }
+
   .leaders-grid { grid-template-columns: 1fr; }
 
   .leader-card {
@@ -3525,6 +4298,9 @@ button {
   }
 
   .scroll-indicator { display: none; }
+
+  .live-metric-strip { height: 28px; }
+  .lms-item { font-size: 9px; }
 
   .footer-nav-group { grid-template-columns: 1fr; }
 
