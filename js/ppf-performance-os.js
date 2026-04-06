@@ -27,23 +27,37 @@
 
   var isTouchDevice = 'ontouchstart' in win || navigator.maxTouchPoints > 0;
 
-  // Throttle helper — limits fn to once per `ms` using rAF when ms===0
+  // Throttle helper — limits fn to once per `ms`
   function throttle(fn, ms) {
     var last = 0;
     var timer = null;
     return function () {
+      var self = this;
+      var args = arguments;
       var now = Date.now();
       if (now - last >= ms) {
         last = now;
-        fn.apply(this, arguments);
+        fn.apply(self, args);
       } else if (!timer) {
         timer = setTimeout(function () {
           last = Date.now();
           timer = null;
-          fn.apply(this, arguments);
+          fn.apply(self, args);
         }, ms - (now - last));
       }
     };
+  }
+
+  // Ensure an element has position:relative for absolute children
+  function ensureRelative(element) {
+    if (element && !element.style.position) element.style.position = 'relative';
+  }
+
+  // Escape text for safe insertion (prevent XSS)
+  function escText(str) {
+    var d = doc.createElement('span');
+    d.textContent = str || '';
+    return d.innerHTML;
   }
 
   // Simple element builder
@@ -307,7 +321,7 @@
 
       var readout = el('div', 'pos-force-readout',
         readouts[Math.floor(Math.random() * readouts.length)]);
-      card.style.position = card.style.position || 'relative';
+      ensureRelative(card);
       card.appendChild(readout);
     }, true); // use capture for delegation
 
@@ -352,7 +366,7 @@
         var p = el('div', 'pos-residue-particle');
         p.style.left = (10 + Math.random() * 80) + '%';
         p.style.bottom = '0';
-        section.style.position = section.style.position || 'relative';
+        ensureRelative(section);
         section.appendChild(p);
         // Self-remove after 3s
         (function (particle) {
@@ -623,7 +637,7 @@
         statusChip.className = 'pos-passport-status pos-passport-status--pending';
       }
 
-      // Confirm panel
+      // Confirm panel — build with textContent to prevent XSS
       if (currentStep === stepNames.length - 1) {
         confirmPanel.style.display = '';
         var pathEl = qs('#path');
@@ -631,15 +645,37 @@
         var lnEl = qs('#lastName');
         var emEl = qs('#email');
         var phEl = qs('#phone');
-        confirmPanel.innerHTML =
-          '<div style="font-size:9px;letter-spacing:2px;text-transform:uppercase;' +
-          'color:rgba(255,255,255,0.4);margin-bottom:10px;">REVIEW YOUR APPLICATION</div>' +
-          '<div style="color:rgba(255,255,255,0.8);font-size:13px;line-height:1.8;">' +
-          '<strong>Path:</strong> ' + (pathEl ? (pathEl.options[pathEl.selectedIndex] || {}).text || '—' : '—') + '<br>' +
-          '<strong>Name:</strong> ' + (fnEl ? fnEl.value : '') + ' ' + (lnEl ? lnEl.value : '') + '<br>' +
-          '<strong>Email:</strong> ' + (emEl ? emEl.value : '') + '<br>' +
-          '<strong>Phone:</strong> ' + (phEl ? phEl.value : '—') +
-          '</div>';
+
+        var pathText = '—';
+        if (pathEl && pathEl.selectedIndex >= 0 && pathEl.options[pathEl.selectedIndex]) {
+          pathText = pathEl.options[pathEl.selectedIndex].text || '—';
+        }
+
+        // Build safely with DOM methods
+        confirmPanel.textContent = '';
+
+        var reviewLabel = el('div', '', 'REVIEW YOUR APPLICATION');
+        reviewLabel.style.cssText = 'font-size:9px;letter-spacing:2px;text-transform:uppercase;' +
+          'color:rgba(255,255,255,0.4);margin-bottom:10px;';
+        confirmPanel.appendChild(reviewLabel);
+
+        var reviewBody = el('div');
+        reviewBody.style.cssText = 'color:rgba(255,255,255,0.8);font-size:13px;line-height:2.2;';
+
+        var fields = [
+          ['Path', pathText],
+          ['Name', (fnEl ? fnEl.value : '') + ' ' + (lnEl ? lnEl.value : '')],
+          ['Email', emEl ? emEl.value : ''],
+          ['Phone', phEl ? phEl.value || '—' : '—']
+        ];
+        fields.forEach(function (pair) {
+          var row = el('div');
+          var bold = el('strong', '', pair[0] + ': ');
+          row.appendChild(bold);
+          row.appendChild(doc.createTextNode(pair[1]));
+          reviewBody.appendChild(row);
+        });
+        confirmPanel.appendChild(reviewBody);
       } else {
         confirmPanel.style.display = 'none';
       }
@@ -694,7 +730,7 @@
       var label = tierLabels[tier];
       if (label) {
         var stageLabel = el('div', 'pos-ladder-stage-label', label);
-        card.style.position = card.style.position || 'relative';
+        ensureRelative(card);
         card.appendChild(stageLabel);
       }
     });
@@ -706,15 +742,15 @@
     function updateLadder() {
       var rect = membershipsSection.getBoundingClientRect();
       var vh = win.innerHeight;
-      var progress_pct = 0;
+      var progressPct = 0;
 
       if (rect.top < vh && rect.bottom > 0) {
         var visibleTop = Math.max(0, -rect.top);
         var totalHeight = rect.height;
-        progress_pct = Math.min(1, visibleTop / (totalHeight - vh));
+        progressPct = Math.min(1, visibleTop / (totalHeight - vh));
       }
 
-      progress.style.setProperty('--pos-ladder-h', (progress_pct * 100) + '%');
+      progress.style.setProperty('--pos-ladder-h', (progressPct * 100) + '%');
       progress.style.height = grid.offsetHeight + 'px';
       var after = progress.querySelector('.pos-ladder-fill-el');
       if (!after) {
@@ -726,7 +762,7 @@
           'transition:height 0.3s ease;';
         progress.appendChild(after);
       }
-      after.style.height = (progress_pct * 100) + '%';
+      after.style.height = (progressPct * 100) + '%';
     }
 
     win.addEventListener('scroll', throttle(updateLadder, 50), { passive: true });
@@ -763,7 +799,7 @@
           connectors.forEach(function (conn, i) {
             conn.style.transition = 'none';
             conn.style.width = '0';
-            conn.offsetHeight; // force reflow
+            void conn.offsetHeight; // force reflow before applying transition
             conn.style.transition = 'width 0.6s cubic-bezier(0.16,1,0.3,1) ' + (i * 0.15) + 's';
             conn.style.width = '';
           });
@@ -925,7 +961,7 @@
       statusEl.style.cssText =
         'position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);' +
         'transition:opacity 0.4s ease;white-space:nowrap;';
-      microData.style.position = microData.style.position || 'relative';
+      ensureRelative(microData);
       microData.appendChild(statusEl);
 
       setInterval(function () {
