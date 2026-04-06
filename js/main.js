@@ -42,14 +42,13 @@
     }
   }, { passive: true });
 
-  /* ── PPF INTRO — PERFORMANCE SYSTEM BOOT-UP ─────── */
+  /* ── PPF INTRO — THE LINEUP: PERFORMANCE OS ─────── */
   (function initIntro() {
-    const intro      = qs('#ppfIntro');
-    const skipBtn    = qs('#introSkip');
-    const gridCanvas = qs('#introGridCanvas');
+    var intro    = qs('#ppfIntro');
+    var skipBtn  = qs('#introSkip');
+    var canvas   = qs('#introCanvas');
 
     if (!intro || isReduced) {
-      // Skip intro entirely for reduced motion
       if (intro) intro.remove();
       document.body.classList.remove('intro-active');
       return;
@@ -57,269 +56,644 @@
 
     document.body.classList.add('intro-active');
 
-    let introDismissed = false;
-    let introTimers = [];
-    let gridRafId = null;
-    function resizeGrid() {} // placeholder, overridden below if canvas exists
+    var introDismissed = false;
+    var introTimers = [];
+    var canvasRafId = null;
+    var ctx = canvas ? canvas.getContext('2d') : null;
+    var W = 0, H = 0;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-    /* Schedule a function at a delay; track for cleanup */
+    /* Schedule a function; track for cleanup */
     function schedule(fn, ms) {
-      const id = setTimeout(fn, ms);
+      var id = setTimeout(fn, ms);
       introTimers.push(id);
       return id;
     }
 
-    /* Dismiss intro and hand off to site */
+    /* Dismiss intro and hand off to hero */
     function dismissIntro() {
       if (introDismissed) return;
       introDismissed = true;
       introTimers.forEach(clearTimeout);
       introTimers = [];
-
-      // Clean up canvas animation and resize listener
-      if (gridRafId) cancelAnimationFrame(gridRafId);
-      window.removeEventListener('resize', resizeGrid);
+      if (canvasRafId) cancelAnimationFrame(canvasRafId);
+      window.removeEventListener('resize', resizeCanvas);
       document.removeEventListener('keydown', onKeySkip);
 
       intro.classList.add('dismissed');
       document.body.classList.remove('intro-active');
-
-      // Remove from DOM after transition
       setTimeout(function () { intro.remove(); }, 700);
     }
 
-    /* Skip button */
-    if (skipBtn) {
-      skipBtn.addEventListener('click', dismissIntro);
-    }
-
-    /* Keyboard skip (Escape or Enter) */
+    if (skipBtn) skipBtn.addEventListener('click', dismissIntro);
     function onKeySkip(e) {
-      if (e.key === 'Escape' || e.key === 'Enter') {
-        dismissIntro();
-      }
+      if (e.key === 'Escape' || e.key === 'Enter') dismissIntro();
     }
     document.addEventListener('keydown', onKeySkip);
 
-    /* ── Sensor grid canvas ── */
-    if (gridCanvas) {
-      var gridCtx = gridCanvas.getContext('2d');
-      var gridWidth, gridHeight;
+    /* ── Canvas sizing ── */
+    function resizeCanvas() {
+      if (!canvas) return;
+      W = canvas.offsetWidth;
+      H = canvas.offsetHeight;
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
 
-      resizeGrid = function () {
-        gridWidth = gridCanvas.width  = gridCanvas.offsetWidth;
-        gridHeight = gridCanvas.height = gridCanvas.offsetHeight;
-      };
+    /* ── Particle system: chalk dust ── */
+    var particles = [];
+    var MAX_PARTICLES = 220;
 
-      function drawIntroGrid() {
-        if (introDismissed) return;
-        gridCtx.clearRect(0, 0, gridWidth, gridHeight);
-
-        var spacing = 50;
-        var time = performance.now() * 0.001;
-
-        // Horizontal sensor lines
-        for (var y = 0; y < gridHeight; y += spacing) {
-          var pulse = 0.02 + 0.015 * Math.sin(time * 2 + y * 0.01);
-          gridCtx.beginPath();
-          gridCtx.strokeStyle = 'rgba(255, 85, 0, ' + pulse + ')';
-          gridCtx.lineWidth = 0.5;
-          gridCtx.moveTo(0, y);
-          gridCtx.lineTo(gridWidth, y);
-          gridCtx.stroke();
-        }
-
-        // Vertical calibration marks
-        for (var x = 0; x < gridWidth; x += spacing) {
-          var pulse2 = 0.015 + 0.01 * Math.sin(time * 1.5 + x * 0.02);
-          gridCtx.beginPath();
-          gridCtx.strokeStyle = 'rgba(255, 85, 0, ' + pulse2 + ')';
-          gridCtx.lineWidth = 0.5;
-          gridCtx.moveTo(x, 0);
-          gridCtx.lineTo(x, gridHeight);
-          gridCtx.stroke();
-        }
-
-        // Center crosshair
-        var cx = gridWidth / 2, cy = gridHeight / 2;
-        var crossAlpha = 0.06 + 0.03 * Math.sin(time * 3);
-        gridCtx.strokeStyle = 'rgba(255, 85, 0, ' + crossAlpha + ')';
-        gridCtx.lineWidth = 1;
-        gridCtx.beginPath();
-        gridCtx.moveTo(cx - 30, cy);
-        gridCtx.lineTo(cx + 30, cy);
-        gridCtx.stroke();
-        gridCtx.beginPath();
-        gridCtx.moveTo(cx, cy - 30);
-        gridCtx.lineTo(cx, cy + 30);
-        gridCtx.stroke();
-
-        gridRafId = requestAnimationFrame(drawIntroGrid);
+    function spawnChalk(cx, cy, count, spread, burst) {
+      for (var i = 0; i < count; i++) {
+        var angle = Math.random() * Math.PI * 2;
+        var speed = (burst ? 2 : 0.3) + Math.random() * (burst ? 5 : 1.5);
+        var size  = 0.5 + Math.random() * 2.5;
+        particles.push({
+          x: cx + (Math.random() - 0.5) * spread,
+          y: cy + (Math.random() - 0.5) * spread * 0.3,
+          vx: Math.cos(angle) * speed * (burst ? 1 : 0.3),
+          vy: Math.sin(angle) * speed * 0.4 - (burst ? 1.5 : 0.3),
+          size: size,
+          life: 1,
+          decay: 0.008 + Math.random() * 0.015,
+          alpha: 0.3 + Math.random() * 0.5
+        });
       }
-
-      resizeGrid();
-      window.addEventListener('resize', resizeGrid);
-      drawIntroGrid();
+      if (particles.length > MAX_PARTICLES) particles.splice(0, particles.length - MAX_PARTICLES);
     }
 
-    /* ── Web Audio — synthesized intro sounds ── */
-    var introAudioCtx = null;
+    /* ── Field markings state ── */
+    var fieldLine = { progress: 0, active: false, y: 0 };
+    var hashMarks = [];
+    var yardMarkers = [];
+    var timingTicks = [];
+    var measureArcs = [];
+    var knurlLines = [];
+    var speedTrails = [];
+
+    function buildFieldElements() {
+      var midY = H * 0.5;
+      fieldLine.y = midY;
+
+      // Hash marks (short perpendicular ticks along the field line)
+      for (var i = 0; i < 18; i++) {
+        hashMarks.push({
+          x: W * 0.08 + (W * 0.84) * (i / 17),
+          y: midY,
+          len: 8 + Math.random() * 16,
+          alpha: 0,
+          targetAlpha: 0.15 + Math.random() * 0.25
+        });
+      }
+
+      // Yard markers
+      for (var j = 0; j < 6; j++) {
+        yardMarkers.push({
+          x: W * 0.15 + (W * 0.7) * (j / 5),
+          y: midY + 24 + Math.random() * 10,
+          text: String((j + 1) * 10),
+          alpha: 0,
+          targetAlpha: 0.12 + Math.random() * 0.1
+        });
+      }
+
+      // Split timing ticks (horizontal dashes above the line)
+      for (var k = 0; k < 12; k++) {
+        timingTicks.push({
+          x: W * 0.1 + Math.random() * W * 0.8,
+          y: midY - 14 - Math.random() * 30,
+          w: 6 + Math.random() * 18,
+          alpha: 0,
+          targetAlpha: 0.08 + Math.random() * 0.12
+        });
+      }
+
+      // Measurement arcs
+      for (var m = 0; m < 3; m++) {
+        measureArcs.push({
+          x: W * 0.3 + (W * 0.4) * (m / 2),
+          y: midY,
+          radius: 30 + Math.random() * 40,
+          startAngle: -Math.PI * 0.3,
+          endAngle: Math.PI * 0.3,
+          alpha: 0,
+          targetAlpha: 0.06 + Math.random() * 0.06
+        });
+      }
+
+      // Barbell knurl texture (subtle vertical hatching near center)
+      var knurlCx = W * 0.5;
+      for (var n = 0; n < 20; n++) {
+        knurlLines.push({
+          x: knurlCx - 60 + n * 6,
+          y: midY + 40 + Math.random() * 20,
+          h: 4 + Math.random() * 8,
+          alpha: 0,
+          targetAlpha: 0.04 + Math.random() * 0.04
+        });
+      }
+
+      // Speed trails (ghostly horizontal streaks)
+      for (var s = 0; s < 5; s++) {
+        speedTrails.push({
+          x: W * 0.05 + Math.random() * W * 0.3,
+          y: midY - 50 + Math.random() * 100,
+          w: 40 + Math.random() * 120,
+          alpha: 0,
+          targetAlpha: 0.03 + Math.random() * 0.04
+        });
+      }
+    }
+
+    /* ── Logo geometry pieces (PPF assembled from field lines) ── */
+    var logoPieces = [];
+    var logoAssembled = false;
+    var logoAlpha = 0;
+
+    function buildLogoPieces() {
+      var cx = W * 0.5;
+      var cy = H * 0.5;
+      var scale = Math.min(W, H) * 0.0014;
+      if (scale < 0.5) scale = 0.5;
+
+      // Each piece: {rects: [{x,y,w,h}], color, offsetX, offsetY, assembled}
+      // The logo is PPF with bars — built from hash marks sliding into position
+
+      var s = scale;
+      var baseX = cx - 110 * s;
+      var baseY = cy - 50 * s;
+
+      // Orange bars left
+      var barData = [
+        { x: -82, y: 5, w: 7, h: 60 },
+        { x: -70, y: -10, w: 7, h: 80 },
+        { x: -58, y: -20, w: 7, h: 100 },
+        { x: -46, y: -10, w: 7, h: 80 }
+      ];
+      // Orange bars right
+      var barDataR = [
+        { x: 152, y: -10, w: 7, h: 80 },
+        { x: 164, y: -20, w: 7, h: 100 },
+        { x: 176, y: -10, w: 7, h: 80 },
+        { x: 188, y: 5, w: 7, h: 60 }
+      ];
+
+      // P1 rects
+      var p1 = [
+        { x: 0, y: -20, w: 10, h: 100 },
+        { x: 10, y: -20, w: 28, h: 10 },
+        { x: 38, y: -20, w: 10, h: 50 },
+        { x: 10, y: 20, w: 28, h: 10 }
+      ];
+      // P2 rects
+      var p2 = [
+        { x: 56, y: -20, w: 10, h: 100 },
+        { x: 66, y: -20, w: 28, h: 10 },
+        { x: 94, y: -20, w: 10, h: 50 },
+        { x: 66, y: 20, w: 28, h: 10 }
+      ];
+      // F rects
+      var fLetter = [
+        { x: 112, y: -20, w: 10, h: 100 },
+        { x: 122, y: -20, w: 38, h: 10 },
+        { x: 122, y: 20, w: 28, h: 10 }
+      ];
+
+      function addPieces(rects, color, scatterRange) {
+        rects.forEach(function (r) {
+          var scatter = scatterRange || 300;
+          logoPieces.push({
+            fx: cx + r.x * s,
+            fy: cy + r.y * s,
+            fw: r.w * s,
+            fh: r.h * s,
+            // Start scattered (coming from field geometry)
+            x: cx + r.x * s + (Math.random() - 0.5) * scatter,
+            y: cy + r.y * s + (Math.random() - 0.5) * scatter * 0.5,
+            w: r.w * s,
+            h: r.h * s,
+            color: color,
+            progress: 0
+          });
+        });
+      }
+
+      addPieces(barData, '#ff5500', 250);
+      addPieces(barDataR, '#ff5500', 250);
+      addPieces(p1, '#ffffff', 350);
+      addPieces(p2, '#ffffff', 350);
+      addPieces(fLetter, '#ffffff', 350);
+
+      // ATHLETICS text position for rendering
+      logoPieces.athleticsY = cy + 65 * s;
+      logoPieces.athleticsSize = Math.max(10, 18 * s);
+      logoPieces.cx = cx;
+    }
+
+    /* ── Athlete stance silhouette (ghost) ── */
+    var athleteGhost = { alpha: 0, x: 0, y: 0 };
+
+    function drawAthleteSilhouette(a) {
+      if (a <= 0.01) return;
+      ctx.save();
+      ctx.globalAlpha = a * 0.12;
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 1.2;
+      ctx.lineCap = 'round';
+
+      var gx = athleteGhost.x;
+      var gy = athleteGhost.y;
+      var s = Math.min(W, H) * 0.001;
+      if (s < 0.4) s = 0.4;
+
+      // Simplified ready-stance silhouette (sprinter in set position)
+      ctx.beginPath();
+      // Head
+      ctx.arc(gx, gy - 70 * s, 8 * s, 0, Math.PI * 2);
+      ctx.stroke();
+      // Torso (angled forward)
+      ctx.beginPath();
+      ctx.moveTo(gx, gy - 62 * s);
+      ctx.lineTo(gx + 15 * s, gy - 20 * s);
+      ctx.stroke();
+      // Front arm (down to block)
+      ctx.beginPath();
+      ctx.moveTo(gx + 5 * s, gy - 45 * s);
+      ctx.lineTo(gx + 25 * s, gy - 10 * s);
+      ctx.stroke();
+      // Back arm
+      ctx.beginPath();
+      ctx.moveTo(gx + 5 * s, gy - 45 * s);
+      ctx.lineTo(gx - 20 * s, gy - 30 * s);
+      ctx.stroke();
+      // Front leg (bent, foot on line)
+      ctx.beginPath();
+      ctx.moveTo(gx + 15 * s, gy - 20 * s);
+      ctx.lineTo(gx + 5 * s, gy + 10 * s);
+      ctx.lineTo(gx + 20 * s, gy + 15 * s);
+      ctx.stroke();
+      // Back leg (extended)
+      ctx.beginPath();
+      ctx.moveTo(gx + 15 * s, gy - 20 * s);
+      ctx.lineTo(gx - 25 * s, gy + 20 * s);
+      ctx.lineTo(gx - 35 * s, gy + 15 * s);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    /* ── Animation phases (driven by timestamp) ── */
+    var startTime = 0;
+    var phase = 0; // 0=black, 1=fieldLine, 2=chalk, 3=logo, 4=scan+metrics, 5=command, 6=impact, 7=heroDismiss
+    var athleticsAlpha = 0;
+
+    // Web Audio for immersive sound
+    var audioCtx = null;
     function getAudioCtx() {
-      if (!introAudioCtx) {
-        introAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (!audioCtx) {
+        try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+        catch (e) { /* fail silently */ }
       }
-      return introAudioCtx;
+      return audioCtx;
     }
 
-    function playIntroSound(type) {
+    function playSound(type) {
       try {
-        var audioCtx = getAudioCtx();
+        var ac = getAudioCtx();
+        if (!ac) return;
+        var now = ac.currentTime;
 
-        if (type === 'hum') {
-          // Low-frequency sub hum
-          var osc = audioCtx.createOscillator();
-          var gain = audioCtx.createGain();
-          osc.type = 'sine';
-          osc.frequency.setValueAtTime(55, audioCtx.currentTime);
-          osc.frequency.linearRampToValueAtTime(80, audioCtx.currentTime + 1.5);
-          gain.gain.setValueAtTime(0, audioCtx.currentTime);
-          gain.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 0.5);
-          gain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 1.5);
-          gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 2.5);
-          osc.connect(gain);
-          gain.connect(audioCtx.destination);
-          osc.start();
-          osc.stop(audioCtx.currentTime + 2.5);
-        }
-
-        if (type === 'snap') {
-          // Metallic lock/snap sound
-          var bufferSize = audioCtx.sampleRate * 0.15;
-          var buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-          var data = buffer.getChannelData(0);
-          for (var i = 0; i < bufferSize; i++) {
-            data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.02));
+        if (type === 'chalk') {
+          // Sharp burst — like hand clap + starting gun
+          var bufLen = ac.sampleRate * 0.12;
+          var buf = ac.createBuffer(1, bufLen, ac.sampleRate);
+          var d = buf.getChannelData(0);
+          for (var i = 0; i < bufLen; i++) {
+            d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ac.sampleRate * 0.015));
           }
-          var noise = audioCtx.createBufferSource();
-          noise.buffer = buffer;
-
-          var filter = audioCtx.createBiquadFilter();
-          filter.type = 'bandpass';
-          filter.frequency.value = 3500;
-          filter.Q.value = 5;
-
-          var snapGain = audioCtx.createGain();
-          snapGain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-          snapGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
-
-          noise.connect(filter);
-          filter.connect(snapGain);
-          snapGain.connect(audioCtx.destination);
-          noise.start();
+          var src = ac.createBufferSource();
+          src.buffer = buf;
+          var filt = ac.createBiquadFilter();
+          filt.type = 'highpass';
+          filt.frequency.value = 2000;
+          var g = ac.createGain();
+          g.gain.setValueAtTime(0.12, now);
+          g.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+          src.connect(filt);
+          filt.connect(g);
+          g.connect(ac.destination);
+          src.start();
         }
 
-        if (type === 'hit') {
-          // Final branded impact hit
-          var osc2 = audioCtx.createOscillator();
-          var osc3 = audioCtx.createOscillator();
-          var hitGain = audioCtx.createGain();
+        if (type === 'lock') {
+          // Metallic snap for logo lock
+          var bufLen2 = ac.sampleRate * 0.08;
+          var buf2 = ac.createBuffer(1, bufLen2, ac.sampleRate);
+          var d2 = buf2.getChannelData(0);
+          for (var j = 0; j < bufLen2; j++) {
+            d2[j] = (Math.random() * 2 - 1) * Math.exp(-j / (ac.sampleRate * 0.01));
+          }
+          var src2 = ac.createBufferSource();
+          src2.buffer = buf2;
+          var bp = ac.createBiquadFilter();
+          bp.type = 'bandpass';
+          bp.frequency.value = 4000;
+          bp.Q.value = 8;
+          var g2 = ac.createGain();
+          g2.gain.setValueAtTime(0.1, now);
+          g2.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+          src2.connect(bp);
+          bp.connect(g2);
+          g2.connect(ac.destination);
+          src2.start();
+        }
 
-          osc2.type = 'sine';
-          osc2.frequency.setValueAtTime(100, audioCtx.currentTime);
-          osc2.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.3);
-
-          osc3.type = 'square';
-          osc3.frequency.setValueAtTime(200, audioCtx.currentTime);
-          osc3.frequency.exponentialRampToValueAtTime(60, audioCtx.currentTime + 0.2);
-
-          hitGain.gain.setValueAtTime(0.12, audioCtx.currentTime);
-          hitGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
-
-          osc2.connect(hitGain);
-          osc3.connect(hitGain);
-          hitGain.connect(audioCtx.destination);
+        if (type === 'impact') {
+          // Deep thump — foot strike / loaded bar
+          var osc = ac.createOscillator();
+          var osc2 = ac.createOscillator();
+          var gI = ac.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(80, now);
+          osc.frequency.exponentialRampToValueAtTime(30, now + 0.35);
+          osc2.type = 'triangle';
+          osc2.frequency.setValueAtTime(160, now);
+          osc2.frequency.exponentialRampToValueAtTime(50, now + 0.25);
+          gI.gain.setValueAtTime(0.15, now);
+          gI.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+          osc.connect(gI);
+          osc2.connect(gI);
+          gI.connect(ac.destination);
+          osc.start();
           osc2.start();
-          osc3.start();
-          osc2.stop(audioCtx.currentTime + 0.5);
-          osc3.stop(audioCtx.currentTime + 0.5);
+          osc.stop(now + 0.5);
+          osc2.stop(now + 0.5);
         }
-
-        if (type === 'rise') {
-          // Subtle frequency rise (bars building)
-          var oscR = audioCtx.createOscillator();
-          var rGain = audioCtx.createGain();
-          oscR.type = 'sawtooth';
-          oscR.frequency.setValueAtTime(40, audioCtx.currentTime);
-          oscR.frequency.linearRampToValueAtTime(120, audioCtx.currentTime + 0.6);
-          rGain.gain.setValueAtTime(0, audioCtx.currentTime);
-          rGain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.1);
-          rGain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.4);
-          rGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.7);
-          oscR.connect(rGain);
-          rGain.connect(audioCtx.destination);
-          oscR.start();
-          oscR.stop(audioCtx.currentTime + 0.8);
-        }
-      } catch (e) {
-        // Web Audio not supported — fail silently
-      }
+      } catch (e) { /* Web Audio unsupported */ }
     }
 
-    /* ── Animation Sequence ── */
-    // Phase 0 (0.0s): Black screen, subtle orange pulse
-    schedule(function () {
-      intro.classList.add('phase-scanlines');
-      playIntroSound('hum');
-    }, 100);
+    /* ── Main render loop ── */
+    function render(timestamp) {
+      if (introDismissed) return;
 
-    // Phase 1 (0.6s): Orange bars rise like measured output
-    schedule(function () {
-      intro.classList.add('phase-bars');
-      playIntroSound('rise');
-    }, 600);
+      if (!startTime) {
+        startTime = timestamp;
+        buildFieldElements();
+        buildLogoPieces();
+        athleteGhost.x = W * 0.5 + 40;
+        athleteGhost.y = H * 0.5 + 10;
+      }
 
-    // Phase 2 (1.0s): Data readouts flicker around logo
-    schedule(function () {
-      intro.classList.add('phase-data');
-    }, 1000);
+      var elapsed = (timestamp - startTime) / 1000; // seconds
 
-    // Phase 3 (1.3s): White structural letters snap in
-    schedule(function () {
-      intro.classList.add('phase-letters');
-      playIntroSound('snap');
-    }, 1300);
+      ctx.clearRect(0, 0, W, H);
 
-    // Phase 4 (1.7s): Coach voice "LOCK IN!" + impact ring
-    schedule(function () {
-      intro.classList.add('phase-voice');
-      playIntroSound('hit');
-    }, 1700);
+      // ── Phase 0: Black screen tension (0.0–0.4s) ──
+      // Just black. Nothing drawn.
 
-    // Phase 5 (2.2s): ATHLETICS text + micro band
-    schedule(function () {
-      intro.classList.add('phase-athletics');
-      intro.classList.add('phase-micro');
-    }, 2200);
+      // ── Phase 1: Field line paints on (0.4–1.1s) ──
+      if (elapsed >= 0.4 && phase < 1) phase = 1;
+      if (phase >= 1) {
+        var lineProgress = clamp((elapsed - 0.4) / 0.7, 0, 1);
+        // Ease out
+        lineProgress = 1 - Math.pow(1 - lineProgress, 3);
+        fieldLine.progress = lineProgress;
 
-    // Phase 6 (2.6s): Shadow sweep light beam
-    schedule(function () {
-      intro.classList.add('phase-sweep');
-    }, 2600);
+        // Draw the field line — slightly imperfect (wobbly)
+        ctx.save();
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+        ctx.lineWidth = 2;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        var startX = W * 0.03;
+        var endX = startX + (W * 0.94) * lineProgress;
+        var baseY = fieldLine.y;
+        ctx.moveTo(startX, baseY);
+        // Add slight imperfection
+        var segments = Math.max(4, Math.floor((endX - startX) / 30));
+        for (var si = 1; si <= segments; si++) {
+          var sx = startX + (endX - startX) * (si / segments);
+          var sy = baseY + (Math.sin(si * 2.7) * 0.8);
+          ctx.lineTo(sx, sy);
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
 
-    // Phase 7 (3.2s): Final logo glow
-    schedule(function () {
-      intro.classList.add('phase-glow');
-    }, 3200);
+      // ── Phase 2: Chalk burst + marker fragments (1.1–1.8s) ──
+      if (elapsed >= 1.1 && phase < 2) {
+        phase = 2;
+        playSound('chalk');
+        // Burst chalk particles from the field line
+        spawnChalk(W * 0.5, fieldLine.y, 140, W * 0.7, true);
+      }
+      if (phase >= 2) {
+        var fragProgress = clamp((elapsed - 1.1) / 0.7, 0, 1);
+        fragProgress = 1 - Math.pow(1 - fragProgress, 2);
 
-    // Phase 8 (4.2s): Dismiss — hand off to hero
-    schedule(function () {
-      dismissIntro();
-    }, 4200);
+        // Hash marks
+        ctx.save();
+        hashMarks.forEach(function (h) {
+          h.alpha = h.targetAlpha * fragProgress;
+          ctx.strokeStyle = 'rgba(255, 255, 255, ' + h.alpha + ')';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(h.x, h.y - h.len / 2);
+          ctx.lineTo(h.x, h.y + h.len / 2);
+          ctx.stroke();
+        });
 
-    // Safety: force dismiss after 6 seconds max
-    schedule(function () {
-      dismissIntro();
-    }, 6000);
+        // Yard markers
+        ctx.font = '600 10px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        yardMarkers.forEach(function (ym) {
+          ym.alpha = ym.targetAlpha * fragProgress;
+          ctx.fillStyle = 'rgba(255, 255, 255, ' + ym.alpha + ')';
+          ctx.fillText(ym.text, ym.x, ym.y);
+        });
+
+        // Timing ticks
+        timingTicks.forEach(function (t) {
+          t.alpha = t.targetAlpha * fragProgress;
+          ctx.strokeStyle = 'rgba(255, 255, 255, ' + t.alpha + ')';
+          ctx.lineWidth = 0.5;
+          ctx.beginPath();
+          ctx.moveTo(t.x, t.y);
+          ctx.lineTo(t.x + t.w, t.y);
+          ctx.stroke();
+        });
+
+        // Measurement arcs
+        measureArcs.forEach(function (a) {
+          a.alpha = a.targetAlpha * fragProgress;
+          ctx.strokeStyle = 'rgba(255, 255, 255, ' + a.alpha + ')';
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.arc(a.x, a.y, a.radius, a.startAngle, a.endAngle);
+          ctx.stroke();
+        });
+
+        // Knurl texture
+        knurlLines.forEach(function (kl) {
+          kl.alpha = kl.targetAlpha * fragProgress;
+          ctx.strokeStyle = 'rgba(255, 255, 255, ' + kl.alpha + ')';
+          ctx.lineWidth = 0.4;
+          ctx.beginPath();
+          ctx.moveTo(kl.x, kl.y);
+          ctx.lineTo(kl.x, kl.y + kl.h);
+          ctx.stroke();
+        });
+
+        // Speed trails
+        speedTrails.forEach(function (st) {
+          st.alpha = st.targetAlpha * fragProgress;
+          ctx.strokeStyle = 'rgba(255, 255, 255, ' + st.alpha + ')';
+          ctx.lineWidth = 0.6;
+          ctx.beginPath();
+          ctx.moveTo(st.x, st.y);
+          ctx.lineTo(st.x + st.w, st.y);
+          ctx.stroke();
+        });
+        ctx.restore();
+
+        // Athlete ghost silhouette — appears inside chalk, fades quickly
+        if (elapsed >= 1.3 && elapsed < 2.0) {
+          var ghostT = (elapsed - 1.3) / 0.7;
+          athleteGhost.alpha = ghostT < 0.4 ? ghostT / 0.4 : Math.max(0, 1 - (ghostT - 0.4) / 0.6);
+          drawAthleteSilhouette(athleteGhost.alpha);
+        }
+      }
+
+      // ── Phase 3: Logo assembles from field geometry (1.8–2.5s) ──
+      if (elapsed >= 1.8 && phase < 3) {
+        phase = 3;
+        playSound('lock');
+        logoAssembled = true;
+      }
+      if (phase >= 3 && logoPieces.length) {
+        var logoT = clamp((elapsed - 1.8) / 0.7, 0, 1);
+        // Spring ease
+        var eased = 1 - Math.pow(1 - logoT, 3);
+        logoAlpha = eased;
+
+        ctx.save();
+        logoPieces.forEach(function (p) {
+          if (typeof p === 'function' || p.fx === undefined) return;
+          p.progress = eased;
+          var curX = p.x + (p.fx - p.x) * eased;
+          var curY = p.y + (p.fy - p.y) * eased;
+          ctx.globalAlpha = eased;
+          ctx.fillStyle = p.color;
+          ctx.fillRect(curX, curY, p.fw, p.fh);
+        });
+
+        // ATHLETICS text
+        athleticsAlpha = clamp((elapsed - 2.1) / 0.4, 0, 1);
+        if (athleticsAlpha > 0) {
+          ctx.globalAlpha = athleticsAlpha;
+          ctx.fillStyle = '#ff5500';
+          ctx.font = '600 ' + logoPieces.athleticsSize + 'px "Bebas Neue", Impact, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.letterSpacing = '0.3em';
+          ctx.fillText('ATHLETICS', logoPieces.cx, logoPieces.athleticsY);
+        }
+
+        // Alignment anchor dots at logo corners
+        if (eased > 0.6) {
+          var dotAlpha = (eased - 0.6) / 0.4;
+          ctx.fillStyle = 'rgba(255, 85, 0, ' + (dotAlpha * 0.5) + ')';
+          var bx = logoPieces[0] ? logoPieces[0].fx : 0;
+          var by = logoPieces[0] ? logoPieces[0].fy : 0;
+          var lastP = logoPieces[logoPieces.length - 1];
+          if (lastP && lastP.fx !== undefined) {
+            var ex = lastP.fx + lastP.fw;
+            var ey = lastP.fy + lastP.fh;
+            ctx.beginPath(); ctx.arc(bx - 3, by - 3, 2, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(ex + 3, by - 3, 2, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(bx - 3, ey + 3, 2, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(ex + 3, ey + 3, 2, 0, Math.PI * 2); ctx.fill();
+          }
+        }
+
+        ctx.restore();
+      }
+
+      // ── Phase 4: Readiness scan + metrics boot (2.5–3.1s) ──
+      if (elapsed >= 2.5 && phase < 4) {
+        phase = 4;
+        intro.classList.add('phase-scan');
+        intro.classList.add('phase-metrics');
+      }
+
+      // ── Phase 5: Coaching command (3.1–3.8s) ──
+      if (elapsed >= 3.1 && phase < 5) {
+        phase = 5;
+        intro.classList.add('phase-command');
+      }
+
+      // ── Phase 6: Impact ripple + hero conversion (3.8–4.5s) ──
+      if (elapsed >= 3.8 && phase < 6) {
+        phase = 6;
+        playSound('impact');
+        intro.classList.add('phase-impact');
+
+        // Chalk lifts upward, ground shock
+        spawnChalk(W * 0.5, fieldLine.y, 60, W * 0.5, false);
+
+        // Fade everything down and outward
+        schedule(dismissIntro, 700);
+      }
+
+      // Fade out field elements during phase 6 transition
+      if (phase >= 6) {
+        var fadeOut = clamp((elapsed - 3.8) / 0.7, 0, 1);
+        ctx.save();
+        ctx.globalAlpha = 1 - fadeOut;
+        // Re-draw field line fading
+        if (fieldLine.progress > 0) {
+          ctx.strokeStyle = 'rgba(255, 255, 255, ' + (0.7 * (1 - fadeOut)) + ')';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(W * 0.03, fieldLine.y);
+          ctx.lineTo(W * 0.03 + W * 0.94, fieldLine.y);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+
+      // ── Render chalk particles (always) ──
+      ctx.save();
+      for (var pi = particles.length - 1; pi >= 0; pi--) {
+        var p = particles[pi];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy -= 0.02; // float upward
+        p.vx *= 0.98;
+        p.life -= p.decay;
+        if (p.life <= 0) {
+          particles.splice(pi, 1);
+          continue;
+        }
+        ctx.globalAlpha = p.alpha * p.life;
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      canvasRafId = requestAnimationFrame(render);
+    }
+
+    // Kick off
+    canvasRafId = requestAnimationFrame(render);
+
+    // Safety: force dismiss after 6s max
+    schedule(dismissIntro, 6000);
   })();
 
   /* ── CUSTOM CURSOR ───────────────────────────────── */
