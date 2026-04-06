@@ -24,6 +24,25 @@
   let rafId = null;
   let isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ── BATCHED SCROLL SYSTEM ───────────────────────── */
+  const scrollHandlers = [];
+  let scrollRafPending = false;
+
+  function registerScrollHandler(fn) {
+    scrollHandlers.push(fn);
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!scrollRafPending) {
+      scrollRafPending = true;
+      requestAnimationFrame(() => {
+        const len = scrollHandlers.length;
+        for (let i = 0; i < len; i++) scrollHandlers[i]();
+        scrollRafPending = false;
+      });
+    }
+  }, { passive: true });
+
   /* ── PPF INTRO — PERFORMANCE SYSTEM BOOT-UP ─────── */
   (function initIntro() {
     const intro      = qs('#ppfIntro');
@@ -338,13 +357,13 @@
   const navLinks  = qs('#navLinks');
 
   if (nav) {
-    window.addEventListener('scroll', () => {
+    registerScrollHandler(() => {
       if (window.scrollY > 80) {
         nav.classList.add('scrolled');
       } else {
         nav.classList.remove('scrolled');
       }
-    }, { passive: true });
+    });
   }
 
   if (navToggle && navLinks) {
@@ -513,15 +532,21 @@
       });
     }
 
+    let heroRafId = null;
+    let heroVisible = true;
+
     function heroLoop() {
-      if (!heroCanvas) return;
+      if (!heroCanvas || !heroVisible) {
+        heroRafId = null;
+        return;
+      }
       ctx.clearRect(0, 0, W, H);
 
       const scrollFactor = clamp(window.scrollY / H, 0, 1);
       if (isReduced) {
         // Draw minimal grid only
         ctx.clearRect(0, 0, W, H);
-        requestAnimationFrame(heroLoop);
+        heroRafId = requestAnimationFrame(heroLoop);
         return;
       }
 
@@ -530,7 +555,24 @@
       drawPulseRings();
       drawParticles();
 
-      requestAnimationFrame(heroLoop);
+      heroRafId = requestAnimationFrame(heroLoop);
+    }
+
+    // Pause hero canvas RAF when section is not visible
+    const heroCanvasParent = heroCanvas.closest('section') || heroCanvas.parentElement;
+    if (heroCanvasParent && 'IntersectionObserver' in window) {
+      const heroCanvasObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          heroVisible = entry.isIntersecting;
+          if (heroVisible && !heroRafId) {
+            heroRafId = requestAnimationFrame(heroLoop);
+          } else if (!heroVisible && heroRafId) {
+            cancelAnimationFrame(heroRafId);
+            heroRafId = null;
+          }
+        });
+      }, { threshold: 0 });
+      heroCanvasObs.observe(heroCanvasParent);
     }
 
     window.addEventListener('resize', () => { resize(); }, { passive: true });
@@ -540,12 +582,12 @@
   }
 
   /* ── SCROLL VELOCITY SYSTEM ──────────────────────── */
-  window.addEventListener('scroll', () => {
+  registerScrollHandler(() => {
     const sy = window.scrollY;
     scrollVelocity = Math.abs(sy - lastScrollY);
     lastScrollY = sy;
     scrollY = sy;
-  }, { passive: true });
+  });
 
   /* ── INTERSECTION OBSERVER — REVEAL ANIMATIONS ───── */
   const revealEls = qsa('.reveal-up');
@@ -596,7 +638,7 @@
             obs.unobserve(el);
           }
         });
-      }, { threshold: 0.5 });
+      }, { threshold: 0.15, rootMargin: '0px 0px 50px 0px' });
 
       counterEls.forEach(el => obs.observe(el));
     } else {
@@ -626,6 +668,8 @@
     const activePanel = qs(`#proof${id.charAt(0).toUpperCase() + id.slice(1)}`);
     if (activePanel) {
       activePanel.classList.add('active');
+      // Reset counter values before re-animating
+      qsa('.proof-num', activePanel).forEach(el => { el.textContent = '0'; });
       // Trigger counter animations
       initCounters(activePanel);
       // Trigger bar fill animations
@@ -673,6 +717,12 @@
     roomDots.forEach((d, i)   => d.classList.toggle('active', i === index));
     currentStage = index;
 
+    // Clear work timer when leaving stage 3
+    if (index !== 3 && workTimerInterval) {
+      clearInterval(workTimerInterval);
+      workTimerInterval = null;
+    }
+
     // Start work timer animation
     if (index === 3) startWorkTimer();
 
@@ -704,8 +754,8 @@
   function startWorkTimer() {
     const timerEl = qs('#rvTimer');
     if (!timerEl) return;
+    if (workTimerInterval) return; // Guard: timer already running
     let seconds = 45;
-    clearInterval(workTimerInterval);
     workTimerInterval = setInterval(() => {
       seconds = seconds <= 0 ? 45 : seconds - 1;
       timerEl.textContent = `00:${seconds.toString().padStart(2, '0')}`;
@@ -734,6 +784,14 @@
 
     card.addEventListener('mouseleave', function () {
       this.style.zIndex = '';
+      // Clear athlete timer
+      const interval = cardTimers.get(this);
+      if (interval) {
+        clearInterval(interval);
+        cardTimers.delete(this);
+      }
+      const timerEl = qs('.motion-timer', this);
+      if (timerEl) timerEl.textContent = '00:00.00';
     });
   });
 
@@ -850,7 +908,7 @@
     });
   }
 
-  window.addEventListener('scroll', updateActiveNav, { passive: true });
+  registerScrollHandler(updateActiveNav);
   updateActiveNav();
 
   /* ── PILLAR CARDS STAGGER ENTRANCE ──────────────── */
@@ -1051,7 +1109,7 @@
     const heroContent = qs('.hero-content');
     const heroMetrics = qs('.hero-metrics');
 
-    window.addEventListener('scroll', () => {
+    registerScrollHandler(() => {
       const sy = window.scrollY;
       if (sy < window.innerHeight) {
         if (heroContent) {
@@ -1062,7 +1120,7 @@
           heroMetrics.style.transform = `translateY(${sy * 0.05}px)`;
         }
       }
-    }, { passive: true });
+    });
   }
 
   /* ── FOOTER AMBIENT REVEAL ───────────────────────── */
@@ -1094,7 +1152,7 @@
   /* ── SECTION TRANSITION INTENSITY ───────────────── */
   // Adjust animation speed based on scroll velocity
   if (!isReduced) {
-    window.addEventListener('scroll', () => {
+    registerScrollHandler(() => {
       const velocity = clamp(scrollVelocity, 0, 30);
       const intensity = velocity / 30;
 
@@ -1102,7 +1160,7 @@
         '--scroll-intensity',
         intensity.toFixed(3)
       );
-    }, { passive: true });
+    });
   }
 
   /* ── PERFORMANCE TICKER (footer/hero supplement) ─── */
@@ -1311,7 +1369,7 @@
   /* ── HERO SCROLL COMPRESSION ─────────────────────── */
   const heroSection = qs('#hero');
   if (heroSection && !isReduced) {
-    window.addEventListener('scroll', () => {
+    registerScrollHandler(() => {
       const sy = window.scrollY;
       const heroH = heroSection.offsetHeight;
       if (sy > heroH * 0.3) {
@@ -1319,7 +1377,7 @@
       } else {
         heroSection.classList.remove('compressed');
       }
-    }, { passive: true });
+    });
   }
 
   /* ── HERO MICRO-DATA LIVE UPDATE ─────────────────── */
@@ -1364,7 +1422,7 @@
     lmsTrack.appendChild(fragment);
 
     let stripShown = false;
-    window.addEventListener('scroll', () => {
+    registerScrollHandler(() => {
       if (window.scrollY > 300 && !stripShown) {
         liveMetricStrip.classList.add('visible');
         stripShown = true;
@@ -1372,7 +1430,7 @@
         liveMetricStrip.classList.remove('visible');
         stripShown = false;
       }
-    }, { passive: true });
+    });
   }
 
   /* ── COACH CUE HUD ──────────────────────────────── */
@@ -1434,7 +1492,7 @@
       }
     }
 
-    window.addEventListener('scroll', updateHud, { passive: true });
+    registerScrollHandler(updateHud);
   }
 
   /* ── SECTION TRANSITIONS — SCROLL TRIGGER ────────── */
