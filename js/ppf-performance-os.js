@@ -53,13 +53,6 @@
     if (element && !element.style.position) element.style.position = 'relative';
   }
 
-  // Escape text for safe insertion (prevent XSS)
-  function escText(str) {
-    var d = doc.createElement('span');
-    d.textContent = str || '';
-    return d.innerHTML;
-  }
-
   // Simple element builder
   function el(tag, cls, text) {
     var e = doc.createElement(tag);
