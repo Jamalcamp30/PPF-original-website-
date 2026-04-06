@@ -1,0 +1,1237 @@
+/* ============================================================
+   PPF PERFORMANCE OPERATING SYSTEM — CSS Layer
+   A living performance system overlay for PPF Athletics.
+   All classes namespaced with `pos-` to avoid collisions.
+   Relies on custom properties defined in style.css :root.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   0. KEYFRAME ANIMATIONS
+   ------------------------------------------------------------ */
+
+@keyframes pos-pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(0.85); }
+}
+
+@keyframes pos-dust-float {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.06; }
+  50%  { transform: translate(4px, -6px) scale(1.1); opacity: 0.03; }
+  100% { transform: translate(-2px, 2px) scale(0.95); opacity: 0.06; }
+}
+
+@keyframes pos-dna-flicker {
+  0%, 100% { border-color: var(--orange); }
+  20%      { border-color: rgba(255, 85, 0, 0.4); }
+  40%      { border-color: var(--orange); }
+  60%      { border-color: rgba(255, 85, 0, 0.55); }
+  80%      { border-color: var(--orange); }
+}
+
+@keyframes pos-ignition-flash {
+  0%   { opacity: 0; }
+  10%  { opacity: 0.03; }
+  40%  { opacity: 0.03; }
+  100% { opacity: 0; }
+}
+
+@keyframes pos-tag-glow {
+  0%, 100% { box-shadow: 0 0 0 rgba(255, 85, 0, 0); }
+  50%      { box-shadow: 0 0 6px rgba(255, 85, 0, 0.12); }
+}
+
+@keyframes pos-stamp-in {
+  0%   { opacity: 0; transform: scale(0.7); }
+  60%  { opacity: 1; transform: scale(1.04); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pos-timing-sweep {
+  0%   { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pos-ladder-fill {
+  0%   { height: 0; }
+  100% { height: var(--pos-ladder-h, 100%); }
+}
+
+@keyframes pos-convert-draw {
+  0%   { stroke-dashoffset: var(--pos-line-length, 300); }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes pos-silence-breathe {
+  0%, 100% { opacity: 0.97; }
+  50%      { opacity: 1; }
+}
+
+@keyframes pos-force-settle {
+  0%   { box-shadow: 0 8px 24px rgba(255, 85, 0, 0.08); }
+  60%  { box-shadow: 0 4px 16px rgba(255, 85, 0, 0.12); }
+  100% { box-shadow: 0 2px 10px rgba(255, 85, 0, 0.06); }
+}
+
+@keyframes pos-fade-up {
+  0%   { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pos-slide-up-fade {
+  0%   { opacity: 0; transform: translateY(12px); }
+  30%  { opacity: 1; transform: translateY(0); }
+  70%  { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-6px); }
+}
+
+@keyframes pos-step-draw {
+  0%   { width: 0; }
+  100% { width: 100%; }
+}
+
+@keyframes pos-ring-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 85, 0, 0.3); }
+  50%      { box-shadow: 0 0 0 6px rgba(255, 85, 0, 0); }
+}
+
+@keyframes pos-corner-flash {
+  0%   { opacity: 0; }
+  20%  { opacity: 0.6; }
+  100% { opacity: 0; }
+}
+
+@keyframes pos-digit-slide {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-100%); }
+}
+
+
+/* ============================================================
+   1. READINESS PULSE GRID
+   ============================================================ */
+
+.pos-pulse-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.pos-pulse-grid canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ============================================================
+   2. "THE STANDARD NEVER SLEEPS" LIVE LABEL
+   ============================================================ */
+
+.pos-live-label {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  background: rgba(8, 8, 8, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  animation: pos-fade-up 0.6s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)) both;
+  animation-delay: 1.2s;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  user-select: none;
+}
+
+.pos-live-label::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--orange);
+  animation: pos-pulse-dot 2.4s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+
+/* ============================================================
+   3. PERFORMANCE WEATHER / ATMOSPHERIC MOOD LAYER
+   ============================================================ */
+
+.pos-weather {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  --pos-pressure: 0.5;
+  --pos-intensity: 0.04;
+  --pos-warmth: 0.5;
+  background:
+    radial-gradient(
+      ellipse at calc(30% + calc(var(--pos-pressure) * 40%)) calc(40% + calc(var(--pos-warmth) * 20%)),
+      rgba(255, 85, 0, var(--pos-intensity)) 0%,
+      transparent 70%
+    );
+  opacity: 1;
+  transition: background 1.8s ease;
+  will-change: background;
+}
+
+
+/* ============================================================
+   4. FORCE PLATE HOVER PHYSICS
+   ============================================================ */
+
+.story-card,
+.membership-card,
+.pillar-card,
+.leader-card,
+.path-card {
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+}
+
+.pos-force-loaded {
+  transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 0.25s cubic-bezier(0.23, 1, 0.32, 1) !important;
+  animation: pos-force-settle 0.4s ease forwards;
+}
+
+.story-card.pos-force-loaded,
+.membership-card.pos-force-loaded,
+.pillar-card.pos-force-loaded,
+.leader-card.pos-force-loaded,
+.path-card.pos-force-loaded {
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    0 0 1px rgba(255, 85, 0, 0.15),
+    0 12px 24px -8px rgba(255, 85, 0, 0.06);
+}
+
+/* Bottom border glow on hover */
+.story-card.pos-force-loaded::after,
+.membership-card.pos-force-loaded::after,
+.pillar-card.pos-force-loaded::after,
+.leader-card.pos-force-loaded::after,
+.path-card.pos-force-loaded::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 85, 0, 0.25),
+    transparent
+  );
+  opacity: 1;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+/* Force readout — subtle data display on hover */
+.pos-force-readout {
+  position: absolute;
+  bottom: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.pos-force-loaded .pos-force-readout {
+  opacity: 1;
+}
+
+
+/* ============================================================
+   5. SESSION RESIDUE
+   ============================================================ */
+
+.pos-residue {
+  position: relative;
+}
+
+.pos-residue::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 85, 0, 0.08) 30%,
+    rgba(255, 85, 0, 0.08) 70%,
+    transparent 100%
+  );
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.pos-residue-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 85, 0, 0.35);
+  opacity: 0.05;
+  pointer-events: none;
+  animation: pos-dust-float 8s ease-in-out infinite;
+}
+
+.pos-residue-particle:nth-child(odd) {
+  animation-duration: 11s;
+  animation-direction: reverse;
+}
+
+.pos-residue-particle:nth-child(3n) {
+  animation-duration: 14s;
+  animation-delay: -3s;
+}
+
+
+/* ============================================================
+   6. STANDARD IGNITION SEQUENCE
+   ============================================================ */
+
+.pos-ignition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 8999;
+  background: var(--orange);
+  opacity: 0;
+  pointer-events: none;
+  animation: none;
+}
+
+body.pos-ignition-active .pos-ignition-overlay {
+  animation: pos-ignition-flash 0.5s ease-out forwards;
+}
+
+.pos-ignition-status {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9001;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--orange);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+body.pos-ignition-active .pos-ignition-status {
+  animation: pos-slide-up-fade 1.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)) forwards;
+}
+
+
+/* ============================================================
+   7. PATH DNA SIGNATURES
+   ============================================================ */
+
+/* — Athlete DNA: sharp, fast, saturated — */
+[data-path="athlete"],
+.pos-dna-athlete {
+  --pos-dna-speed: 0.12s;
+  --pos-dna-accent: #ff6a1a;
+  transition-duration: var(--pos-dna-speed);
+}
+
+[data-path="athlete"] .path-card-inner,
+.pos-dna-athlete .path-card-inner {
+  transition: border-color var(--pos-dna-speed) ease,
+              transform var(--pos-dna-speed) ease;
+}
+
+.pos-dna-athlete.pos-dna-active {
+  animation: pos-dna-flicker 1.6s ease infinite;
+}
+
+/* — Adult DNA: controlled, steady, cooler undertone — */
+[data-path="adult"],
+.pos-dna-adult {
+  --pos-dna-speed: 0.3s;
+  --pos-dna-accent: #e05a10;
+  transition-duration: var(--pos-dna-speed);
+}
+
+[data-path="adult"] .path-card-inner,
+.pos-dna-adult .path-card-inner {
+  border-bottom: 2px solid transparent;
+  transition: border-bottom-color var(--pos-dna-speed) ease,
+              transform var(--pos-dna-speed) ease;
+}
+
+[data-path="adult"]:hover .path-card-inner,
+.pos-dna-adult:hover .path-card-inner {
+  border-bottom-color: var(--pos-dna-accent);
+}
+
+/* — Integrated DNA: warm, soft, rounded — */
+[data-path="integrated"],
+.pos-dna-integrated {
+  --pos-dna-speed: 0.4s;
+  --pos-dna-accent: #ff7733;
+  transition-duration: var(--pos-dna-speed);
+}
+
+[data-path="integrated"] .path-card-inner,
+.pos-dna-integrated .path-card-inner {
+  border-radius: calc(var(--card-radius, 8px) + 2px);
+  transition: all var(--pos-dna-speed) ease;
+}
+
+.pos-dna-integrated .pos-tag,
+.pos-dna-integrated .outcome-badge {
+  opacity: 0.85;
+  transition: opacity var(--pos-dna-speed) ease;
+}
+
+
+/* ============================================================
+   8. PROOF REPLAY MODE
+   ============================================================ */
+
+.story-card.pos-replay-active .story-outcome .outcome-badge {
+  transition: all 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.story-card.pos-replay-active .outcome-badge .pos-replay-arrow {
+  display: inline-block;
+  margin: 0 4px;
+  opacity: 0.7;
+  animation: pos-pulse-dot 0.8s ease-in-out infinite;
+}
+
+.pos-verified-stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 85, 0, 0.7);
+  border: 1px solid rgba(255, 85, 0, 0.3);
+  background: rgba(255, 85, 0, 0.05);
+  padding: 3px 8px;
+  border-radius: 2px;
+  opacity: 0;
+  transform: scale(0.7);
+}
+
+.pos-replay-active .pos-verified-stamp {
+  animation: pos-stamp-in 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)) forwards;
+  animation-delay: 0.8s;
+}
+
+/* Timeline step replay */
+.pos-replay-active .st-step {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.pos-replay-active .st-step.pos-step-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Sequential stagger — JS adds inline --pos-step-i */
+.pos-replay-active .st-step {
+  transition-delay: calc(var(--pos-step-i, 0) * 0.3s);
+}
+
+/* Connecting lines between steps */
+.pos-replay-active .st-step::before {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 100%;
+  width: 1px;
+  height: 0;
+  background: rgba(255, 85, 0, 0.2);
+  transition: height 0.3s ease;
+  transition-delay: calc(var(--pos-step-i, 0) * 0.3s + 0.15s);
+}
+
+.pos-replay-active .st-step.pos-step-visible::before {
+  height: 12px;
+}
+
+.pos-replay-active .st-step:last-child::before {
+  display: none;
+}
+
+
+/* ============================================================
+   9. ASSESSMENT PASSPORT
+   ============================================================ */
+
+.pos-passport-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 48px;
+  position: relative;
+}
+
+.pos-passport-step {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  position: relative;
+  z-index: 2;
+  transition: all 0.35s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  flex-shrink: 0;
+}
+
+.pos-passport-step.is-active {
+  border-color: var(--orange);
+  background: var(--orange);
+  color: var(--white, #ffffff);
+  animation: pos-ring-pulse 2s ease infinite;
+}
+
+.pos-passport-step.is-complete {
+  border-color: var(--orange);
+  background: var(--orange);
+  color: var(--white, #ffffff);
+}
+
+.pos-passport-step.is-complete::after {
+  content: '✓';
+  font-size: 12px;
+  line-height: 1;
+}
+
+.pos-passport-step.is-future {
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.pos-passport-line {
+  width: 48px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.pos-passport-line::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.pos-passport-line.is-complete::after {
+  transform: scaleX(1);
+}
+
+/* Form panels */
+.pos-passport-panel {
+  display: none;
+  opacity: 0;
+  transform: translateX(24px);
+  transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.pos-passport-panel.is-active {
+  display: block;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.pos-passport-panel.is-exiting-left {
+  display: block;
+  opacity: 0;
+  transform: translateX(-24px);
+}
+
+.pos-passport-panel.is-entering-right {
+  display: block;
+  opacity: 0;
+  transform: translateX(24px);
+}
+
+/* Status chips */
+.pos-passport-status {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-top: 8px;
+  white-space: nowrap;
+}
+
+.pos-passport-status--identified {
+  color: var(--orange);
+  background: rgba(255, 85, 0, 0.08);
+  border: 1px solid rgba(255, 85, 0, 0.2);
+}
+
+.pos-passport-status--pending {
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pos-passport-status--unlocked {
+  color: #50c878;
+  background: rgba(80, 200, 120, 0.06);
+  border: 1px solid rgba(80, 200, 120, 0.2);
+}
+
+
+/* ============================================================
+   10. COMMITMENT LADDER
+   ============================================================ */
+
+.pos-ladder {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  padding-left: 48px;
+}
+
+.pos-ladder-progress {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.pos-ladder-progress::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0;
+  background: linear-gradient(
+    to top,
+    rgba(255, 85, 0, 0.15),
+    var(--orange)
+  );
+  animation: pos-ladder-fill 1.2s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)) forwards;
+  animation-play-state: paused;
+}
+
+.pos-ladder.pos-in-view .pos-ladder-progress::after {
+  animation-play-state: running;
+}
+
+.pos-ladder-rung {
+  position: relative;
+  padding: 24px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  background: var(--bg-card, #1a1a1a);
+  margin-bottom: 16px;
+  transition: all 0.4s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.pos-ladder-rung::before {
+  content: '';
+  position: absolute;
+  left: -33px;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  background: var(--bg-base, #080808);
+  transform: translateY(-50%);
+  transition: border-color 0.3s ease, background 0.3s ease;
+  z-index: 2;
+}
+
+.pos-ladder-rung.is-active {
+  border-color: rgba(255, 85, 0, 0.2);
+}
+
+.pos-ladder-rung.is-active::before {
+  border-color: var(--orange);
+  background: var(--orange);
+}
+
+.pos-ladder-rung.is-compact .pos-ladder-rung-details {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+}
+
+.pos-ladder-rung.is-active .pos-ladder-rung-details {
+  max-height: 600px;
+  opacity: 1;
+}
+
+.pos-ladder-stage-label {
+  position: absolute;
+  left: -48px;
+  top: 8px;
+  font-family: var(--font-body);
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.25);
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+  white-space: nowrap;
+}
+
+
+/* ============================================================
+   11. CARRYOVER CONVERSION MAP
+   ============================================================ */
+
+.pos-convert-map {
+  position: relative;
+}
+
+.pos-convert-input,
+.pos-convert-output {
+  position: relative;
+}
+
+.pos-convert-input::after {
+  content: '';
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 85, 0, 0.3);
+  background: rgba(255, 85, 0, 0.1);
+  transform: translateY(-50%);
+}
+
+.pos-convert-output::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--orange);
+  transform: translateY(-50%);
+  opacity: 0.4;
+}
+
+.pos-convert-line {
+  fill: none;
+  stroke: url(#pos-convert-gradient);
+  stroke-width: 1.5;
+  stroke-dasharray: var(--pos-line-length, 300);
+  stroke-dashoffset: var(--pos-line-length, 300);
+  transition: stroke-dashoffset 0s;
+}
+
+.pos-convert-active .pos-convert-line {
+  animation: pos-convert-draw 1.2s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1)) forwards;
+}
+
+.pos-convert-active .pos-convert-input::after,
+.pos-convert-active .pos-convert-output::before {
+  opacity: 0.8;
+  transition: opacity 0.5s ease 0.6s;
+}
+
+
+/* ============================================================
+   12. LEADERSHIP COMMAND DOSSIER
+   ============================================================ */
+
+.pos-dossier {
+  position: relative;
+}
+
+.pos-dossier-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 12px;
+  border-left: 2px solid var(--orange);
+  margin-bottom: 20px;
+}
+
+.pos-dossier-header span {
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.pos-dossier-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 85, 0, 0.12),
+    rgba(255, 255, 255, 0.04),
+    transparent
+  );
+  margin: 16px 0;
+}
+
+.pos-dossier-refusal {
+  padding: 12px 16px;
+  border-left: 2px solid rgba(200, 50, 30, 0.4);
+  background: rgba(200, 50, 30, 0.03);
+  margin-top: 16px;
+}
+
+.pos-dossier-refusal p {
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+.pos-dossier-refusal .pos-dossier-refusal-label {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(200, 80, 60, 0.7);
+  margin-bottom: 6px;
+}
+
+
+/* ============================================================
+   13. AMBIENT SYSTEM TAGS
+   ============================================================ */
+
+.pos-tag {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255, 85, 0, 0.6);
+  border: 1px solid rgba(255, 85, 0, 0.2);
+  background: rgba(255, 85, 0, 0.03);
+  padding: 2px 8px;
+  border-radius: 2px;
+  line-height: 1.4;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Live — pulsing dot before text */
+.pos-tag--live::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--orange);
+  margin-right: 6px;
+  vertical-align: middle;
+  animation: pos-pulse-dot 2s ease-in-out infinite;
+}
+
+/* Locked — solid, brighter */
+.pos-tag--locked {
+  border-color: rgba(255, 85, 0, 0.4);
+  color: rgba(255, 85, 0, 0.8);
+}
+
+/* Verified — checkmark */
+.pos-tag--verified::before {
+  content: '✓ ';
+  font-size: 9px;
+}
+
+/* Active — gentle glow */
+.pos-tag--active {
+  animation: pos-tag-glow 3s ease-in-out infinite;
+}
+
+/* Armed — slightly more aggressive pulse */
+.pos-tag--armed {
+  animation: pos-tag-glow 1.5s ease-in-out infinite;
+  border-color: rgba(255, 85, 0, 0.35);
+}
+
+
+/* ============================================================
+   14. MOTION SILENCE
+   ============================================================ */
+
+.pos-silence,
+.pos-silence * {
+  transition-duration: 0.8s !important;
+  animation-duration: 0.8s !important;
+}
+
+.pos-silence-hold {
+  opacity: 0.97;
+  transition: opacity 0.4s ease;
+}
+
+.pos-silence-reveal {
+  opacity: 0;
+  transform: scale(0.995);
+  transition: opacity 0.45s ease, transform 0.45s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.pos-silence-reveal.is-revealed {
+  opacity: 1;
+  transform: scale(1.01);
+  animation: pos-silence-breathe 0.5s ease forwards;
+}
+
+.pos-silence-reveal.is-revealed-settled {
+  transform: scale(1);
+  transition: transform 0.3s ease;
+}
+
+
+/* ============================================================
+   15. GENERAL AMBIENT ENHANCEMENTS
+   ============================================================ */
+
+/* Orange timing beam on section boundaries */
+.section {
+  position: relative;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 85, 0, 0.12) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  opacity: 0.06;
+  animation: pos-timing-sweep 20s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Card lock animation */
+.pos-card-locked {
+  position: relative;
+}
+
+.pos-card-locked::before,
+.pos-card-locked::after {
+  position: absolute;
+  font-family: var(--font-body);
+  pointer-events: none;
+}
+
+/* Corner bracket flash */
+.pos-card-locked::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid rgba(255, 85, 0, 0.25);
+  border-radius: inherit;
+  animation: pos-corner-flash 0.8s ease-out forwards;
+  pointer-events: none;
+}
+
+.pos-card-locked::after {
+  content: 'LOCKED';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: rgba(255, 85, 0, 0.5);
+  animation: pos-corner-flash 0.8s ease-out forwards;
+  pointer-events: none;
+}
+
+/* Metric digit roll container */
+.pos-digit-roll {
+  display: inline-block;
+  overflow: hidden;
+  height: 1.2em;
+  vertical-align: bottom;
+  line-height: 1.2;
+}
+
+.pos-digit-roll-inner {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.6s var(--ease-out-expo, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.pos-digit-roll-inner span {
+  display: block;
+  height: 1.2em;
+  line-height: 1.2;
+}
+
+
+/* ============================================================
+   RESPONSIVE: TABLET (below 900px)
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+  /* Hide live label on tablet and below */
+  .pos-live-label {
+    display: none;
+  }
+
+  /* Simplify force plate — remove 3D tilt, keep basic hover */
+  .pos-force-loaded {
+    transform: none !important;
+  }
+
+  .pos-force-readout {
+    display: none;
+  }
+
+  /* Stack passport steps vertically */
+  .pos-passport-steps {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .pos-passport-line {
+    width: 1px;
+    height: 24px;
+  }
+
+  .pos-passport-line::after {
+    transform: scaleY(0);
+    transform-origin: top;
+  }
+
+  .pos-passport-line.is-complete::after {
+    transform: scaleY(1);
+  }
+
+  /* Ladder: reduce left padding */
+  .pos-ladder {
+    padding-left: 32px;
+  }
+
+  .pos-ladder-stage-label {
+    left: -36px;
+    font-size: 6px;
+  }
+}
+
+
+/* ============================================================
+   RESPONSIVE: MOBILE (below 600px)
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+  /* Reduce all animation intensities */
+  .pos-weather {
+    --pos-intensity: 0.02;
+  }
+
+  .pos-residue::after {
+    opacity: 0.02;
+  }
+
+  .pos-residue-particle {
+    opacity: 0.025;
+  }
+
+  .section::before {
+    opacity: 0.03;
+    animation-duration: 40s;
+  }
+
+  /* Hide system tags on mobile */
+  .pos-tag {
+    display: none;
+  }
+
+  /* Simplify ladder to basic cards */
+  .pos-ladder {
+    padding-left: 0;
+  }
+
+  .pos-ladder-progress {
+    display: none;
+  }
+
+  .pos-ladder-rung::before {
+    display: none;
+  }
+
+  .pos-ladder-stage-label {
+    position: static;
+    writing-mode: horizontal-tb;
+    transform: none;
+    margin-bottom: 4px;
+  }
+
+  /* Compact passport steps */
+  .pos-passport-step {
+    width: 24px;
+    height: 24px;
+    font-size: 9px;
+  }
+
+  .pos-passport-line {
+    height: 16px;
+  }
+
+  /* Reduce force plate shadow intensity */
+  .story-card.pos-force-loaded,
+  .membership-card.pos-force-loaded,
+  .pillar-card.pos-force-loaded,
+  .leader-card.pos-force-loaded,
+  .path-card.pos-force-loaded {
+    box-shadow:
+      0 1px 4px rgba(0, 0, 0, 0.2),
+      0 0 1px rgba(255, 85, 0, 0.08);
+  }
+
+  /* Simpler ignition */
+  .pos-ignition-status {
+    font-size: 8px;
+    letter-spacing: 3px;
+  }
+}
+
+
+/* ============================================================
+   ACCESSIBILITY: REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .pos-live-label {
+    animation: none;
+    opacity: 1;
+  }
+
+  .pos-live-label::before {
+    animation: none;
+    opacity: 1;
+  }
+
+  .pos-weather {
+    transition: none;
+  }
+
+  .pos-residue-particle {
+    animation: none;
+  }
+
+  .section::before {
+    animation: none;
+    background-position: center;
+  }
+
+  .pos-silence,
+  .pos-silence * {
+    transition-duration: 0.01ms !important;
+  }
+
+  .pos-ignition-overlay {
+    display: none;
+  }
+
+  .pos-passport-panel {
+    transform: none;
+  }
+
+  .pos-silence-reveal {
+    transform: none;
+    opacity: 1;
+  }
+
+  .pos-ladder-progress::after {
+    animation: none;
+    height: 100%;
+  }
+
+  .pos-convert-active .pos-convert-line {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
