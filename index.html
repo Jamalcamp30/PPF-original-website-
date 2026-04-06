@@ -13,86 +13,27 @@
 <body>
 
   <!-- ============================================================
-       PPF INTRO — PERFORMANCE SYSTEM BOOT-UP
+       PPF INTRO — THE LINEUP: PERFORMANCE OS BOOT SEQUENCE
   ============================================================ -->
   <div class="ppf-intro" id="ppfIntro" aria-live="polite" role="status">
-    <!-- Scan-line grid overlay -->
-    <div class="intro-scanlines" aria-hidden="true"></div>
+    <!-- Full-screen canvas for field lines, chalk particles, logo assembly -->
+    <canvas class="intro-canvas" id="introCanvas" aria-hidden="true"></canvas>
 
-    <!-- Background sensor grid (canvas) -->
-    <canvas class="intro-grid-canvas" id="introGridCanvas" aria-hidden="true"></canvas>
+    <!-- Readiness scan line -->
+    <div class="intro-scan-line" id="introScanLine" aria-hidden="true"></div>
 
-    <!-- Shadow sweep light beam -->
-    <div class="intro-light-sweep" id="introLightSweep" aria-hidden="true"></div>
-
-    <!-- Performance data readouts (flicker around logo) -->
-    <div class="intro-data-readouts" id="introDataReadouts" aria-hidden="true">
-      <span class="intro-readout" data-pos="tl">SPEED <em>4.38s</em></span>
-      <span class="intro-readout" data-pos="tr">FORCE <em>2847N</em></span>
-      <span class="intro-readout" data-pos="bl">OUTPUT <em>94.2%</em></span>
-      <span class="intro-readout" data-pos="br">READINESS <em>ELITE</em></span>
-      <span class="intro-readout" data-pos="ml">VELOCITY <em>9.8 m/s</em></span>
-      <span class="intro-readout" data-pos="mr">STANDARD <em>SET</em></span>
+    <!-- Metric plates (transparent performance checkpoints) -->
+    <div class="intro-metric-plates" id="introMetricPlates" aria-hidden="true">
+      <div class="metric-plate" data-pos="tl"><span class="plate-label">READINESS</span><span class="plate-value">LIVE</span></div>
+      <div class="metric-plate" data-pos="tr"><span class="plate-label">OUTPUT</span><span class="plate-value">BUILDING</span></div>
+      <div class="metric-plate" data-pos="bl"><span class="plate-label">SPEED</span><span class="plate-value">ARMED</span></div>
+      <div class="metric-plate" data-pos="br"><span class="plate-label">POWER</span><span class="plate-value">TRACKING</span></div>
     </div>
 
-    <!-- SVG Logo — PPF ATHLETICS -->
-    <div class="intro-logo-wrap" id="introLogoWrap">
-      <svg class="intro-logo-svg" id="introLogoSvg" viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" aria-label="PPF Athletics logo">
-        <!-- Orange bars (left group - barbell/rack) -->
-        <rect class="intro-bar ib-1" x="18" y="55" width="10" height="100" rx="1" fill="#ff5500"/>
-        <rect class="intro-bar ib-2" x="34" y="35" width="10" height="140" rx="1" fill="#ff5500"/>
-        <rect class="intro-bar ib-3" x="50" y="20" width="10" height="170" rx="1" fill="#ff5500"/>
-        <rect class="intro-bar ib-4" x="66" y="35" width="10" height="140" rx="1" fill="#ff5500"/>
-
-        <!-- White P (first) -->
-        <g class="intro-letter intro-letter-p1">
-          <rect x="90" y="20" width="14" height="170" fill="#ffffff"/>
-          <rect x="104" y="20" width="40" height="14" fill="#ffffff"/>
-          <rect x="144" y="20" width="14" height="80" fill="#ffffff"/>
-          <rect x="104" y="86" width="40" height="14" fill="#ffffff"/>
-        </g>
-
-        <!-- White P (second) -->
-        <g class="intro-letter intro-letter-p2">
-          <rect x="172" y="20" width="14" height="170" fill="#ffffff"/>
-          <rect x="186" y="20" width="40" height="14" fill="#ffffff"/>
-          <rect x="226" y="20" width="14" height="80" fill="#ffffff"/>
-          <rect x="186" y="86" width="40" height="14" fill="#ffffff"/>
-        </g>
-
-        <!-- White F -->
-        <g class="intro-letter intro-letter-f">
-          <rect x="254" y="20" width="14" height="170" fill="#ffffff"/>
-          <rect x="268" y="20" width="60" height="14" fill="#ffffff"/>
-          <rect x="268" y="86" width="45" height="14" fill="#ffffff"/>
-        </g>
-
-        <!-- Orange bars (right group) -->
-        <rect class="intro-bar ib-5" x="340" y="35" width="10" height="140" rx="1" fill="#ff5500"/>
-        <rect class="intro-bar ib-6" x="356" y="20" width="10" height="170" rx="1" fill="#ff5500"/>
-        <rect class="intro-bar ib-7" x="372" y="35" width="10" height="140" rx="1" fill="#ff5500"/>
-        <rect class="intro-bar ib-8" x="388" y="55" width="10" height="100" rx="1" fill="#ff5500"/>
-
-        <!-- ATHLETICS text -->
-        <text class="intro-athletics-text" x="200" y="212" text-anchor="middle"
-              font-family="'Bebas Neue', 'Impact', sans-serif" font-size="30"
-              letter-spacing="0.35em" fill="#ff5500">ATHLETICS</text>
-      </svg>
-
-      <!-- Impact pulse ring -->
-      <div class="intro-impact-ring" id="introImpactRing" aria-hidden="true"></div>
-    </div>
-
-    <!-- Coaching voice text -->
-    <div class="intro-voice-text" id="introVoiceText" aria-hidden="true">LOCK IN.</div>
-
-    <!-- Micro-text band -->
-    <div class="intro-micro-band" id="introMicroBand" aria-hidden="true">
-      <span>SPEED</span>
-      <span>POWER</span>
-      <span>OUTPUT</span>
-      <span>READINESS</span>
-      <span>STANDARD</span>
+    <!-- Coaching command -->
+    <div class="intro-command" id="introCommand" aria-hidden="true">
+      <div class="command-main">LOCK IN.</div>
+      <div class="command-sub">BUILD THE EDGE.</div>
     </div>
 
     <!-- Skip button -->
