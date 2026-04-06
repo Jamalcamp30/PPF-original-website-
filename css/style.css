@@ -4124,6 +4124,404 @@ body.focus-mode .focus-target {
 }
 
 /* =====================================================
+   PPF INTRO — PERFORMANCE SYSTEM BOOT-UP
+   ===================================================== */
+
+/* Overlay container */
+.ppf-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.ppf-intro.dismissed {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Lock body scroll during intro */
+body.intro-active {
+  overflow: hidden;
+}
+
+/* Scanline overlay */
+.intro-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(255, 85, 0, 0.02) 2px,
+    rgba(255, 85, 0, 0.02) 4px
+  );
+  opacity: 0;
+  z-index: 1;
+}
+
+/* Sensor grid canvas (behind logo) */
+.intro-grid-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0;
+}
+
+/* Shadow reveal light sweep */
+.intro-light-sweep {
+  position: absolute;
+  top: 0;
+  left: -120px;
+  width: 120px;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 85, 0, 0.04) 30%,
+    rgba(255, 85, 0, 0.12) 50%,
+    rgba(255, 85, 0, 0.04) 70%,
+    transparent 100%
+  );
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Logo wrapper */
+.intro-logo-wrap {
+  position: relative;
+  z-index: 10;
+  width: min(80vw, 420px);
+  opacity: 0;
+}
+
+.intro-logo-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 0 0 transparent);
+  transition: filter 0.3s ease;
+}
+
+/* Orange bars — start invisible and scaled down */
+.intro-bar {
+  opacity: 0;
+  transform-origin: center bottom;
+  transform: scaleY(0);
+}
+
+/* Letter groups — hidden initially */
+.intro-letter {
+  opacity: 0;
+  transform: translateY(4px);
+}
+
+/* ATHLETICS text */
+.intro-athletics-text {
+  opacity: 0;
+}
+
+/* Impact pulse ring */
+.intro-impact-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 85, 0, 0.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9;
+}
+
+/* Data readouts */
+.intro-data-readouts {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.intro-readout {
+  position: absolute;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 85, 0, 0.4);
+  opacity: 0;
+  white-space: nowrap;
+}
+
+.intro-readout em {
+  font-style: normal;
+  color: rgba(255, 255, 255, 0.5);
+  margin-left: 6px;
+  font-weight: 400;
+}
+
+.intro-readout[data-pos="tl"] { top: 22%; left: 12%; }
+.intro-readout[data-pos="tr"] { top: 22%; right: 12%; }
+.intro-readout[data-pos="bl"] { bottom: 28%; left: 12%; }
+.intro-readout[data-pos="br"] { bottom: 28%; right: 12%; }
+.intro-readout[data-pos="ml"] { top: 50%; left: 8%; transform: translateY(-50%); }
+.intro-readout[data-pos="mr"] { top: 50%; right: 8%; transform: translateY(-50%); }
+
+/* Coaching voice text */
+.intro-voice-text {
+  position: absolute;
+  bottom: 28%;
+  left: 50%;
+  transform: translateX(-50%) scale(0.85);
+  z-index: 12;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 6vw, 72px);
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-transform: uppercase;
+  opacity: 0;
+  white-space: nowrap;
+  text-shadow: 0 0 40px rgba(255, 85, 0, 0.3);
+  pointer-events: none;
+}
+
+/* Micro-text band */
+.intro-micro-band {
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 11;
+  display: flex;
+  gap: 32px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.intro-micro-band span {
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255, 85, 0, 0.35);
+}
+
+/* Skip button */
+.intro-skip {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  z-index: 20;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.35);
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.intro-skip:hover {
+  color: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 85, 0, 0.5);
+}
+
+/* ── INTRO ANIMATION KEYFRAMES ── */
+
+@keyframes introBarRise {
+  0%   { opacity: 0; transform: scaleY(0); }
+  40%  { opacity: 1; }
+  100% { opacity: 1; transform: scaleY(1); }
+}
+
+@keyframes introLetterSnap {
+  0%   { opacity: 0; transform: translateY(6px); }
+  60%  { opacity: 1; transform: translateY(-1px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes introAthleticsReveal {
+  0%   { opacity: 0; letter-spacing: 0.8em; }
+  100% { opacity: 1; letter-spacing: 0.35em; }
+}
+
+@keyframes introImpactPulse {
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(12); opacity: 0; }
+}
+
+@keyframes introLightSweep {
+  0%   { left: -120px; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { left: calc(100% + 120px); opacity: 0; }
+}
+
+@keyframes introVoiceSlam {
+  0%   { opacity: 0; transform: translateX(-50%) scale(1.3); }
+  30%  { opacity: 1; transform: translateX(-50%) scale(0.97); }
+  50%  { transform: translateX(-50%) scale(1.02); }
+  100% { opacity: 1; transform: translateX(-50%) scale(1); }
+}
+
+@keyframes introReadoutFlicker {
+  0%, 10%  { opacity: 0; }
+  15%      { opacity: 0.7; }
+  20%      { opacity: 0.2; }
+  30%, 80% { opacity: 0.6; }
+  85%      { opacity: 0.3; }
+  90%      { opacity: 0.7; }
+  100%     { opacity: 0; }
+}
+
+@keyframes introMicroBandReveal {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes introLogoGlow {
+  0%   { filter: drop-shadow(0 0 0 transparent); }
+  50%  { filter: drop-shadow(0 0 20px rgba(255, 85, 0, 0.25)); }
+  100% { filter: drop-shadow(0 0 8px rgba(255, 85, 0, 0.1)); }
+}
+
+@keyframes introScreenShake {
+  0%, 100% { transform: translate(0, 0); }
+  10%      { transform: translate(-2px, 1px); }
+  30%      { transform: translate(2px, -1px); }
+  50%      { transform: translate(-1px, 2px); }
+  70%      { transform: translate(1px, -1px); }
+}
+
+/* ── INTRO ACTIVE STATES (applied via JS) ── */
+
+.ppf-intro.phase-scanlines .intro-scanlines {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.ppf-intro.phase-scanlines .intro-grid-canvas {
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+.ppf-intro.phase-bars .intro-logo-wrap {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+.ppf-intro.phase-bars .intro-bar {
+  animation: introBarRise 0.5s var(--ease-out-expo) forwards;
+}
+.ppf-intro.phase-bars .ib-1 { animation-delay: 0.00s; }
+.ppf-intro.phase-bars .ib-2 { animation-delay: 0.06s; }
+.ppf-intro.phase-bars .ib-3 { animation-delay: 0.12s; }
+.ppf-intro.phase-bars .ib-4 { animation-delay: 0.18s; }
+.ppf-intro.phase-bars .ib-5 { animation-delay: 0.24s; }
+.ppf-intro.phase-bars .ib-6 { animation-delay: 0.30s; }
+.ppf-intro.phase-bars .ib-7 { animation-delay: 0.36s; }
+.ppf-intro.phase-bars .ib-8 { animation-delay: 0.42s; }
+
+.ppf-intro.phase-letters .intro-letter {
+  animation: introLetterSnap 0.35s var(--ease-out-expo) forwards;
+}
+.ppf-intro.phase-letters .intro-letter-p1 { animation-delay: 0.00s; }
+.ppf-intro.phase-letters .intro-letter-p2 { animation-delay: 0.08s; }
+.ppf-intro.phase-letters .intro-letter-f  { animation-delay: 0.16s; }
+
+.ppf-intro.phase-voice .intro-voice-text {
+  animation: introVoiceSlam 0.4s var(--ease-out-expo) forwards;
+}
+
+.ppf-intro.phase-voice .intro-impact-ring {
+  animation: introImpactPulse 0.8s ease-out forwards;
+}
+
+.ppf-intro.phase-voice .intro-logo-svg {
+  animation: introScreenShake 0.25s ease-out;
+}
+
+.ppf-intro.phase-sweep .intro-light-sweep {
+  animation: introLightSweep 1.2s ease-in-out forwards;
+}
+
+.ppf-intro.phase-data .intro-readout {
+  animation: introReadoutFlicker 1.8s ease forwards;
+}
+.ppf-intro.phase-data .intro-readout[data-pos="tl"] { animation-delay: 0.0s; }
+.ppf-intro.phase-data .intro-readout[data-pos="tr"] { animation-delay: 0.15s; }
+.ppf-intro.phase-data .intro-readout[data-pos="ml"] { animation-delay: 0.3s; }
+.ppf-intro.phase-data .intro-readout[data-pos="mr"] { animation-delay: 0.45s; }
+.ppf-intro.phase-data .intro-readout[data-pos="bl"] { animation-delay: 0.6s; }
+.ppf-intro.phase-data .intro-readout[data-pos="br"] { animation-delay: 0.75s; }
+
+.ppf-intro.phase-athletics .intro-athletics-text {
+  animation: introAthleticsReveal 0.5s var(--ease-out-expo) forwards;
+}
+
+.ppf-intro.phase-micro .intro-micro-band {
+  animation: introMicroBandReveal 0.5s var(--ease-out-expo) forwards;
+}
+
+.ppf-intro.phase-glow .intro-logo-svg {
+  animation: introLogoGlow 0.6s ease forwards;
+}
+
+/* Prefers reduced motion: skip animations entirely */
+@media (prefers-reduced-motion: reduce) {
+  .ppf-intro {
+    display: none !important;
+  }
+}
+
+/* Mobile adjustments for intro */
+@media (max-width: 600px) {
+  .intro-readout { font-size: 7px; }
+  .intro-readout[data-pos="tl"] { top: 18%; left: 6%; }
+  .intro-readout[data-pos="tr"] { top: 18%; right: 6%; }
+  .intro-readout[data-pos="bl"] { bottom: 32%; left: 6%; }
+  .intro-readout[data-pos="br"] { bottom: 32%; right: 6%; }
+  .intro-readout[data-pos="ml"] { display: none; }
+  .intro-readout[data-pos="mr"] { display: none; }
+
+  .intro-voice-text { bottom: 32%; }
+
+  .intro-micro-band {
+    gap: 16px;
+    bottom: 22%;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 90vw;
+  }
+
+  .intro-skip {
+    bottom: 16px;
+    right: 16px;
+    font-size: 9px;
+    padding: 6px 14px;
+  }
+}
+
+/* =====================================================
    RESPONSIVE — TABLET
    ===================================================== */
 @media (max-width: 1100px) {
