@@ -41,6 +41,8 @@
 
     let introDismissed = false;
     let introTimers = [];
+    let gridRafId = null;
+    function resizeGrid() {} // placeholder, overridden below if canvas exists
 
     /* Schedule a function at a delay; track for cleanup */
     function schedule(fn, ms) {
@@ -55,6 +57,11 @@
       introDismissed = true;
       introTimers.forEach(clearTimeout);
       introTimers = [];
+
+      // Clean up canvas animation and resize listener
+      if (gridRafId) cancelAnimationFrame(gridRafId);
+      window.removeEventListener('resize', resizeGrid);
+      document.removeEventListener('keydown', onKeySkip);
 
       intro.classList.add('dismissed');
       document.body.classList.remove('intro-active');
@@ -72,64 +79,62 @@
     function onKeySkip(e) {
       if (e.key === 'Escape' || e.key === 'Enter') {
         dismissIntro();
-        document.removeEventListener('keydown', onKeySkip);
       }
     }
     document.addEventListener('keydown', onKeySkip);
 
     /* ── Sensor grid canvas ── */
     if (gridCanvas) {
-      var gCtx = gridCanvas.getContext('2d');
-      var gW, gH;
-      var gridRafId;
+      var gridCtx = gridCanvas.getContext('2d');
+      var gridWidth, gridHeight;
 
-      function resizeGrid() {
-        gW = gridCanvas.width  = gridCanvas.offsetWidth;
-        gH = gridCanvas.height = gridCanvas.offsetHeight;
-      }
+      resizeGrid = function () {
+        gridWidth = gridCanvas.width  = gridCanvas.offsetWidth;
+        gridHeight = gridCanvas.height = gridCanvas.offsetHeight;
+      };
 
       function drawIntroGrid() {
         if (introDismissed) return;
-        gCtx.clearRect(0, 0, gW, gH);
+        gridCtx.clearRect(0, 0, gridWidth, gridHeight);
 
         var spacing = 50;
         var time = performance.now() * 0.001;
 
         // Horizontal sensor lines
-        for (var y = 0; y < gH; y += spacing) {
+        for (var y = 0; y < gridHeight; y += spacing) {
           var pulse = 0.02 + 0.015 * Math.sin(time * 2 + y * 0.01);
-          gCtx.beginPath();
-          gCtx.strokeStyle = 'rgba(255, 85, 0, ' + pulse + ')';
-          gCtx.lineWidth = 0.5;
-          gCtx.moveTo(0, y);
-          gCtx.lineTo(gW, y);
-          gCtx.stroke();
+          gridCtx.beginPath();
+          gridCtx.strokeStyle = 'rgba(255, 85, 0, ' + pulse + ')';
+          gridCtx.lineWidth = 0.5;
+          gridCtx.moveTo(0, y);
+          gridCtx.lineTo(gridWidth, y);
+          gridCtx.stroke();
         }
 
         // Vertical calibration marks
-        for (var x = 0; x < gW; x += spacing) {
+        for (var x = 0; x < gridWidth; x += spacing) {
           var pulse2 = 0.015 + 0.01 * Math.sin(time * 1.5 + x * 0.02);
-          gCtx.beginPath();
-          gCtx.strokeStyle = 'rgba(255, 85, 0, ' + pulse2 + ')';
-          gCtx.lineWidth = 0.5;
-          gCtx.moveTo(x, 0);
-          gCtx.lineTo(x, gH);
-          gCtx.stroke();
+          gridCtx.beginPath();
+          gridCtx.strokeStyle = 'rgba(255, 85, 0, ' + pulse2 + ')';
+          gridCtx.lineWidth = 0.5;
+          gridCtx.moveTo(x, 0);
+          gridCtx.lineTo(x, gridHeight);
+          gridCtx.stroke();
         }
 
         // Center crosshair
-        var cx = gW / 2, cy = gH / 2;
+        var cx = gridWidth / 2, cy = gridHeight / 2;
         var crossAlpha = 0.06 + 0.03 * Math.sin(time * 3);
-        gCtx.strokeStyle = 'rgba(255, 85, 0, ' + crossAlpha + ')';
-        gCtx.lineWidth = 1;
-        gCtx.beginPath();
-        gCtx.moveTo(cx - 30, cy);
-        gCtx.lineTo(cx + 30, cy);
-        gCtx.stroke();
-        gCtx.beginPath();
-        gCtx.moveTo(cx, cy - 30);
-        gCtx.lineTo(cx, cy + 30);
-        gCtx.stroke();
+        gridCtx.strokeStyle = 'rgba(255, 85, 0, ' + crossAlpha + ')';
+        gridCtx.lineWidth = 1;
+        gridCtx.beginPath();
+        gridCtx.moveTo(cx - 30, cy);
+        gridCtx.lineTo(cx + 30, cy);
+        gridCtx.stroke();
+        gridCtx.beginPath();
+        gridCtx.moveTo(cx, cy - 30);
+        gridCtx.lineTo(cx, cy + 30);
+        gridCtx.stroke();
 
         gridRafId = requestAnimationFrame(drawIntroGrid);
       }
@@ -140,9 +145,17 @@
     }
 
     /* ── Web Audio — synthesized intro sounds ── */
+    var introAudioCtx = null;
+    function getAudioCtx() {
+      if (!introAudioCtx) {
+        introAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      return introAudioCtx;
+    }
+
     function playIntroSound(type) {
       try {
-        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        var audioCtx = getAudioCtx();
 
         if (type === 'hum') {
           // Low-frequency sub hum
