@@ -24,6 +24,273 @@
   let rafId = null;
   let isReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ── PPF INTRO — PERFORMANCE SYSTEM BOOT-UP ─────── */
+  (function initIntro() {
+    const intro      = qs('#ppfIntro');
+    const skipBtn    = qs('#introSkip');
+    const gridCanvas = qs('#introGridCanvas');
+
+    if (!intro || isReduced) {
+      // Skip intro entirely for reduced motion
+      if (intro) intro.remove();
+      document.body.classList.remove('intro-active');
+      return;
+    }
+
+    document.body.classList.add('intro-active');
+
+    let introDismissed = false;
+    let introTimers = [];
+
+    /* Schedule a function at a delay; track for cleanup */
+    function schedule(fn, ms) {
+      const id = setTimeout(fn, ms);
+      introTimers.push(id);
+      return id;
+    }
+
+    /* Dismiss intro and hand off to site */
+    function dismissIntro() {
+      if (introDismissed) return;
+      introDismissed = true;
+      introTimers.forEach(clearTimeout);
+      introTimers = [];
+
+      intro.classList.add('dismissed');
+      document.body.classList.remove('intro-active');
+
+      // Remove from DOM after transition
+      setTimeout(function () { intro.remove(); }, 700);
+    }
+
+    /* Skip button */
+    if (skipBtn) {
+      skipBtn.addEventListener('click', dismissIntro);
+    }
+
+    /* Keyboard skip (Escape or Enter) */
+    function onKeySkip(e) {
+      if (e.key === 'Escape' || e.key === 'Enter') {
+        dismissIntro();
+        document.removeEventListener('keydown', onKeySkip);
+      }
+    }
+    document.addEventListener('keydown', onKeySkip);
+
+    /* ── Sensor grid canvas ── */
+    if (gridCanvas) {
+      var gCtx = gridCanvas.getContext('2d');
+      var gW, gH;
+      var gridRafId;
+
+      function resizeGrid() {
+        gW = gridCanvas.width  = gridCanvas.offsetWidth;
+        gH = gridCanvas.height = gridCanvas.offsetHeight;
+      }
+
+      function drawIntroGrid() {
+        if (introDismissed) return;
+        gCtx.clearRect(0, 0, gW, gH);
+
+        var spacing = 50;
+        var time = performance.now() * 0.001;
+
+        // Horizontal sensor lines
+        for (var y = 0; y < gH; y += spacing) {
+          var pulse = 0.02 + 0.015 * Math.sin(time * 2 + y * 0.01);
+          gCtx.beginPath();
+          gCtx.strokeStyle = 'rgba(255, 85, 0, ' + pulse + ')';
+          gCtx.lineWidth = 0.5;
+          gCtx.moveTo(0, y);
+          gCtx.lineTo(gW, y);
+          gCtx.stroke();
+        }
+
+        // Vertical calibration marks
+        for (var x = 0; x < gW; x += spacing) {
+          var pulse2 = 0.015 + 0.01 * Math.sin(time * 1.5 + x * 0.02);
+          gCtx.beginPath();
+          gCtx.strokeStyle = 'rgba(255, 85, 0, ' + pulse2 + ')';
+          gCtx.lineWidth = 0.5;
+          gCtx.moveTo(x, 0);
+          gCtx.lineTo(x, gH);
+          gCtx.stroke();
+        }
+
+        // Center crosshair
+        var cx = gW / 2, cy = gH / 2;
+        var crossAlpha = 0.06 + 0.03 * Math.sin(time * 3);
+        gCtx.strokeStyle = 'rgba(255, 85, 0, ' + crossAlpha + ')';
+        gCtx.lineWidth = 1;
+        gCtx.beginPath();
+        gCtx.moveTo(cx - 30, cy);
+        gCtx.lineTo(cx + 30, cy);
+        gCtx.stroke();
+        gCtx.beginPath();
+        gCtx.moveTo(cx, cy - 30);
+        gCtx.lineTo(cx, cy + 30);
+        gCtx.stroke();
+
+        gridRafId = requestAnimationFrame(drawIntroGrid);
+      }
+
+      resizeGrid();
+      window.addEventListener('resize', resizeGrid);
+      drawIntroGrid();
+    }
+
+    /* ── Web Audio — synthesized intro sounds ── */
+    function playIntroSound(type) {
+      try {
+        var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        if (type === 'hum') {
+          // Low-frequency sub hum
+          var osc = audioCtx.createOscillator();
+          var gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(55, audioCtx.currentTime);
+          osc.frequency.linearRampToValueAtTime(80, audioCtx.currentTime + 1.5);
+          gain.gain.setValueAtTime(0, audioCtx.currentTime);
+          gain.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 0.5);
+          gain.gain.linearRampToValueAtTime(0.04, audioCtx.currentTime + 1.5);
+          gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 2.5);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start();
+          osc.stop(audioCtx.currentTime + 2.5);
+        }
+
+        if (type === 'snap') {
+          // Metallic lock/snap sound
+          var bufferSize = audioCtx.sampleRate * 0.15;
+          var buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+          var data = buffer.getChannelData(0);
+          for (var i = 0; i < bufferSize; i++) {
+            data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.02));
+          }
+          var noise = audioCtx.createBufferSource();
+          noise.buffer = buffer;
+
+          var filter = audioCtx.createBiquadFilter();
+          filter.type = 'bandpass';
+          filter.frequency.value = 3500;
+          filter.Q.value = 5;
+
+          var snapGain = audioCtx.createGain();
+          snapGain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+          snapGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
+
+          noise.connect(filter);
+          filter.connect(snapGain);
+          snapGain.connect(audioCtx.destination);
+          noise.start();
+        }
+
+        if (type === 'hit') {
+          // Final branded impact hit
+          var osc2 = audioCtx.createOscillator();
+          var osc3 = audioCtx.createOscillator();
+          var hitGain = audioCtx.createGain();
+
+          osc2.type = 'sine';
+          osc2.frequency.setValueAtTime(100, audioCtx.currentTime);
+          osc2.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.3);
+
+          osc3.type = 'square';
+          osc3.frequency.setValueAtTime(200, audioCtx.currentTime);
+          osc3.frequency.exponentialRampToValueAtTime(60, audioCtx.currentTime + 0.2);
+
+          hitGain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+          hitGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.4);
+
+          osc2.connect(hitGain);
+          osc3.connect(hitGain);
+          hitGain.connect(audioCtx.destination);
+          osc2.start();
+          osc3.start();
+          osc2.stop(audioCtx.currentTime + 0.5);
+          osc3.stop(audioCtx.currentTime + 0.5);
+        }
+
+        if (type === 'rise') {
+          // Subtle frequency rise (bars building)
+          var oscR = audioCtx.createOscillator();
+          var rGain = audioCtx.createGain();
+          oscR.type = 'sawtooth';
+          oscR.frequency.setValueAtTime(40, audioCtx.currentTime);
+          oscR.frequency.linearRampToValueAtTime(120, audioCtx.currentTime + 0.6);
+          rGain.gain.setValueAtTime(0, audioCtx.currentTime);
+          rGain.gain.linearRampToValueAtTime(0.03, audioCtx.currentTime + 0.1);
+          rGain.gain.linearRampToValueAtTime(0.05, audioCtx.currentTime + 0.4);
+          rGain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.7);
+          oscR.connect(rGain);
+          rGain.connect(audioCtx.destination);
+          oscR.start();
+          oscR.stop(audioCtx.currentTime + 0.8);
+        }
+      } catch (e) {
+        // Web Audio not supported — fail silently
+      }
+    }
+
+    /* ── Animation Sequence ── */
+    // Phase 0 (0.0s): Black screen, subtle orange pulse
+    schedule(function () {
+      intro.classList.add('phase-scanlines');
+      playIntroSound('hum');
+    }, 100);
+
+    // Phase 1 (0.6s): Orange bars rise like measured output
+    schedule(function () {
+      intro.classList.add('phase-bars');
+      playIntroSound('rise');
+    }, 600);
+
+    // Phase 2 (1.0s): Data readouts flicker around logo
+    schedule(function () {
+      intro.classList.add('phase-data');
+    }, 1000);
+
+    // Phase 3 (1.3s): White structural letters snap in
+    schedule(function () {
+      intro.classList.add('phase-letters');
+      playIntroSound('snap');
+    }, 1300);
+
+    // Phase 4 (1.7s): Coach voice "LOCK IN!" + impact ring
+    schedule(function () {
+      intro.classList.add('phase-voice');
+      playIntroSound('hit');
+    }, 1700);
+
+    // Phase 5 (2.2s): ATHLETICS text + micro band
+    schedule(function () {
+      intro.classList.add('phase-athletics');
+      intro.classList.add('phase-micro');
+    }, 2200);
+
+    // Phase 6 (2.6s): Shadow sweep light beam
+    schedule(function () {
+      intro.classList.add('phase-sweep');
+    }, 2600);
+
+    // Phase 7 (3.2s): Final logo glow
+    schedule(function () {
+      intro.classList.add('phase-glow');
+    }, 3200);
+
+    // Phase 8 (4.2s): Dismiss — hand off to hero
+    schedule(function () {
+      dismissIntro();
+    }, 4200);
+
+    // Safety: force dismiss after 6 seconds max
+    schedule(function () {
+      dismissIntro();
+    }, 6000);
+  })();
+
   /* ── CUSTOM CURSOR ───────────────────────────────── */
   const cursorRing = qs('#cursorRing');
   const cursorDot  = qs('#cursorDot');
