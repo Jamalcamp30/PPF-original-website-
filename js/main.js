@@ -3613,6 +3613,16 @@
       quiz.style.display = 'none';
       result.style.display = 'block';
       generatePathCard();
+
+      // Dispatch event so other systems (Standard Score) can react
+      document.dispatchEvent(new CustomEvent('passport:complete', {
+        detail: {
+          who: answers.who,
+          goal: answers.goal,
+          level: answers.level,
+          schedule: answers.schedule
+        }
+      }));
     }
   });
 
