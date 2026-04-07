@@ -146,8 +146,8 @@
 .pos-live-label {
   position: fixed;
   bottom: 24px;
-  right: 24px;
-  z-index: 9000;
+  left: 24px;
+  z-index: 900;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -166,6 +166,7 @@
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   user-select: none;
+  pointer-events: none;
 }
 
 .pos-live-label::before {
