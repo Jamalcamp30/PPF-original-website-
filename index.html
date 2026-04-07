@@ -34,6 +34,7 @@
   <link rel="stylesheet" href="css/ppf-ground-response.css" />
   <link rel="stylesheet" href="css/ppf-bar-tension.css" />
   <link rel="stylesheet" href="css/ppf-rail.css" />
+  <link rel="stylesheet" href="css/ppf-command-layer.css" />
 
   <!-- Structured Data: SportsActivityLocation -->
   <script type="application/ld+json">
@@ -271,6 +272,34 @@
   </nav>
 
   <!-- ============================================================
+       DECISION-MAKER MODE — Quick Portal Strip
+  ============================================================ -->
+  <div class="dm-strip" id="decisionMaker">
+    <div class="dm-inner">
+      <span class="dm-label">I AM HERE FOR</span>
+      <a href="#paths" class="dm-btn" data-dm="athlete">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        Athletes
+      </a>
+      <span class="dm-divider"></span>
+      <a href="#paths" class="dm-btn" data-dm="adult">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        Adults
+      </a>
+      <span class="dm-divider"></span>
+      <a href="#familyDashboard" class="dm-btn" data-dm="family">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Families
+      </a>
+      <span class="dm-divider"></span>
+      <a href="#trust" class="dm-btn" data-dm="parent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Parents
+      </a>
+    </div>
+  </div>
+
+  <!-- ============================================================
        SECTION 1 — HERO: IMPACT SEQUENCE
   ============================================================ -->
   <section class="hero" id="hero">
@@ -358,22 +387,22 @@
     <!-- Hero metrics strip -->
     <div class="hero-metrics reveal-up">
       <div class="metric-item">
-        <span class="metric-num" data-target="20">0</span><span class="metric-unit">+</span>
+        <span class="metric-num" data-target="20">20</span><span class="metric-unit">+</span>
         <span class="metric-label">Years Coaching</span>
       </div>
       <div class="metric-divider"></div>
       <div class="metric-item">
-        <span class="metric-num" data-target="3">0</span>
+        <span class="metric-num" data-target="3">3</span>
         <span class="metric-label">Performance Paths</span>
       </div>
       <div class="metric-divider"></div>
       <div class="metric-item">
-        <span class="metric-num" data-target="1">0</span>
+        <span class="metric-num" data-target="1">1</span>
         <span class="metric-label">Coaching Standard</span>
       </div>
       <div class="metric-divider"></div>
       <div class="metric-item">
-        <span class="metric-num" data-target="3">0</span>
+        <span class="metric-num" data-target="3">3</span>
         <span class="metric-label">Day Free Experience</span>
       </div>
     </div>
@@ -519,6 +548,62 @@
   <div class="section-transition st-sweep" aria-hidden="true">
     <div class="st-line"></div>
   </div>
+
+  <!-- ============================================================
+       READINESS FINGERPRINT — Personalized Entry Experience
+  ============================================================ -->
+  <section class="rf-section section" id="readinessFingerprint">
+    <div class="container">
+      <div class="cl-section-label reveal-up">YOUR READINESS FINGERPRINT</div>
+      <h2 class="cl-section-title reveal-up">
+        Where Are You<br />
+        <span class="accent">Right Now?</span>
+      </h2>
+      <p class="cl-section-intro reveal-up">Four honest inputs. One fingerprint. PPF adapts to your state — not the other way around.</p>
+
+      <div class="rf-grid">
+        <div class="rf-sliders">
+          <div class="rf-slider-group">
+            <div class="rf-slider-header">
+              <span class="rf-slider-label">ENERGY</span>
+              <span class="rf-slider-value">5</span>
+            </div>
+            <input type="range" class="rf-slider" min="1" max="10" value="5" data-dim="energy" />
+          </div>
+          <div class="rf-slider-group">
+            <div class="rf-slider-header">
+              <span class="rf-slider-label">CONFIDENCE</span>
+              <span class="rf-slider-value">5</span>
+            </div>
+            <input type="range" class="rf-slider" min="1" max="10" value="5" data-dim="confidence" />
+          </div>
+          <div class="rf-slider-group">
+            <div class="rf-slider-header">
+              <span class="rf-slider-label">SORENESS</span>
+              <span class="rf-slider-value">5</span>
+            </div>
+            <input type="range" class="rf-slider" min="1" max="10" value="5" data-dim="soreness" />
+          </div>
+          <div class="rf-slider-group">
+            <div class="rf-slider-header">
+              <span class="rf-slider-label">CONSISTENCY</span>
+              <span class="rf-slider-value">5</span>
+            </div>
+            <input type="range" class="rf-slider" min="1" max="10" value="5" data-dim="consistency" />
+          </div>
+        </div>
+
+        <div class="rf-viz">
+          <canvas class="rf-canvas"></canvas>
+          <div class="rf-insight">
+            <div class="rf-insight-label">PPF READS YOUR STATE</div>
+            <p class="rf-insight-text">Adjust the sliders. Your fingerprint will map your readiness and recommend your path.</p>
+          </div>
+          <a href="#paths" class="rf-path-cta">FIND YOUR PATH</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ============================================================
        SECTION 2 — THE STANDARD
@@ -1738,6 +1823,32 @@
           </div>
         </div>
       </div>
+
+      <!-- PASSPORT-TO-PLAN ENGINE — 90-Day Roadmap Output -->
+      <div class="p2p-plan" id="passportPlan">
+        <div class="p2p-header">
+          <div class="p2p-title">YOUR 90-DAY PPF PLAN</div>
+          <button class="p2p-download">↓ Download Plan</button>
+        </div>
+        <div class="p2p-timeline">
+          <div class="p2p-block" data-p2p="week1">
+            <div class="p2p-block-label">WEEK 1</div>
+            <div class="p2p-block-value">Complete your Performance Passport to unlock your personalized 90-day plan.</div>
+          </div>
+          <div class="p2p-block" data-p2p="day30">
+            <div class="p2p-block-label">DAY 30 MILESTONE</div>
+            <div class="p2p-block-value">—</div>
+          </div>
+          <div class="p2p-block" data-p2p="day60">
+            <div class="p2p-block-label">DAY 60 MILESTONE</div>
+            <div class="p2p-block-value">—</div>
+          </div>
+          <div class="p2p-block" data-p2p="day90">
+            <div class="p2p-block-label">DAY 90 TARGET</div>
+            <div class="p2p-block-value">—</div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1879,6 +1990,35 @@
           </div>
         </div>
       </div>
+
+      <!-- Carryover 2.0: Animated Translation Chain -->
+      <div class="cmap-chain">
+        <div class="cmap-chain-step">
+          <div class="cmap-chain-num">01</div>
+          <div class="cmap-chain-label">PPF TRAINS</div>
+          <div class="cmap-chain-text">Select a result above to see the full translation chain</div>
+        </div>
+        <div class="cmap-chain-step">
+          <div class="cmap-chain-num">02</div>
+          <div class="cmap-chain-label">CUE THAT MATTERS</div>
+          <div class="cmap-chain-text">—</div>
+        </div>
+        <div class="cmap-chain-step">
+          <div class="cmap-chain-num">03</div>
+          <div class="cmap-chain-label">WEEKLY WORK</div>
+          <div class="cmap-chain-text">—</div>
+        </div>
+        <div class="cmap-chain-step">
+          <div class="cmap-chain-num">04</div>
+          <div class="cmap-chain-label">MILESTONE</div>
+          <div class="cmap-chain-text">—</div>
+        </div>
+        <div class="cmap-chain-step">
+          <div class="cmap-chain-num">05</div>
+          <div class="cmap-chain-label">LIFE CARRYOVER</div>
+          <div class="cmap-chain-text">—</div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1960,6 +2100,14 @@
       </h2>
       <p class="section-intro reveal-up">Integrated Fitness is not a side offering. It is a protected system built on communication, transparency, and dignity. Here is exactly what families can expect.</p>
 
+      <!-- Family Trust Mode Toggle -->
+      <div class="ftm-toggle">
+        <button class="ftm-btn active" data-ftm-view="athlete">Athlete View</button>
+        <button class="ftm-btn" data-ftm-view="family">Family View</button>
+      </div>
+
+      <!-- Athlete View (existing accordion) -->
+      <div class="ftm-view active" data-ftm="athlete">
       <div class="ftd-cards">
         <div class="ftd-card" data-ftd="0">
           <button class="ftd-card-header" aria-expanded="false">
@@ -2012,6 +2160,44 @@
           </div>
         </div>
       </div>
+      </div><!-- end athlete view -->
+
+      <!-- Family View -->
+      <div class="ftm-view" data-ftm="family">
+        <div class="ftm-family-grid">
+          <div class="ftm-family-card">
+            <div class="ftm-family-card-icon">🛡️</div>
+            <div class="ftm-family-card-title">Safety First, Always</div>
+            <div class="ftm-family-card-text">Every session is supervised by certified, background-checked coaches. Safety is not a policy — it is the non-negotiable foundation of every interaction, every movement, every moment in the room.</div>
+          </div>
+          <div class="ftm-family-card">
+            <div class="ftm-family-card-icon">💬</div>
+            <div class="ftm-family-card-title">Open Communication</div>
+            <div class="ftm-family-card-text">Parents receive regular updates after sessions. Rebecca and the coaching team are always accessible. You will never wonder what happened — we will tell you, honestly and clearly.</div>
+          </div>
+          <div class="ftm-family-card">
+            <div class="ftm-family-card-icon">👁️</div>
+            <div class="ftm-family-card-title">Session Visibility</div>
+            <div class="ftm-family-card-text">You are welcome to observe any session. We do not coach behind closed doors. What you see is exactly what your child experiences — patient, structured, and purposeful coaching.</div>
+          </div>
+          <div class="ftm-family-card">
+            <div class="ftm-family-card-icon">🌱</div>
+            <div class="ftm-family-card-title">Dignity-Centered Progress</div>
+            <div class="ftm-family-card-text">Progress is measured by confidence, comfort, and growing independence — not arbitrary performance metrics. Every milestone is celebrated in the context of your child's unique journey.</div>
+          </div>
+          <div class="ftm-family-card">
+            <div class="ftm-family-card-icon">📋</div>
+            <div class="ftm-family-card-title">What Parents Can Expect</div>
+            <div class="ftm-family-card-text">Week 1 debrief, monthly milestone reviews, direct coach contact at any time, and a clear plan that respects your family's pace and priorities.</div>
+          </div>
+          <div class="ftm-family-card">
+            <div class="ftm-family-card-icon">📞</div>
+            <div class="ftm-family-card-title">Contact Rebecca Directly</div>
+            <div class="ftm-family-card-text">Rebecca leads the Integrated Fitness path with over 20 years of specialized experience. Families can reach her directly to discuss needs, concerns, or next steps. Call: (678) 938-9668.</div>
+          </div>
+        </div>
+      </div><!-- end family view -->
+
     </div>
   </section>
 
@@ -2124,6 +2310,241 @@
       <button class="room-btn" id="roomNext" aria-label="Next">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SESSION X-RAY — Interactive Coaching Breakdown
+  ============================================================ -->
+  <section class="xray-section section" id="sessionXray">
+    <div class="container">
+      <div class="cl-section-label reveal-up">SESSION X-RAY</div>
+      <h2 class="cl-section-title reveal-up">
+        Don't Just Watch the Work.<br />
+        <span class="accent">Inspect It.</span>
+      </h2>
+      <p class="cl-section-intro reveal-up">Tap a hotspot to see what PPF coaches actually correct — the invisible details that separate training from transformation.</p>
+
+      <div class="xray-grid">
+        <!-- Sprint Start X-Ray -->
+        <div class="xray-card" data-xray="sprint">
+          <div class="xray-card-visual">
+            <svg viewBox="0 0 120 120" fill="none" stroke="rgba(255,85,0,0.4)" stroke-width="1.5">
+              <circle cx="45" cy="25" r="8"/>
+              <line x1="45" y1="33" x2="45" y2="60"/>
+              <line x1="45" y1="60" x2="30" y2="85"/>
+              <line x1="45" y1="60" x2="65" y2="80"/>
+              <line x1="45" y1="42" x2="28" y2="50"/>
+              <line x1="45" y1="42" x2="65" y2="38"/>
+            </svg>
+            <div class="xray-hotspot" style="top: 20%; left: 35%;" data-tip="hip">
+              <div class="xray-tooltip">
+                <div class="xray-tooltip-label">HIP EXTENSION</div>
+                <div class="xray-tooltip-text">Full triple extension starts at the hip. PPF cue: "Push the ground behind you."</div>
+              </div>
+            </div>
+            <div class="xray-hotspot" style="top: 55%; left: 55%;" data-tip="knee">
+              <div class="xray-tooltip">
+                <div class="xray-tooltip-label">KNEE DRIVE</div>
+                <div class="xray-tooltip-text">Aggressive knee punch sets stride frequency. PPF cue: "Knee up and through — don't swing."</div>
+              </div>
+            </div>
+            <div class="xray-hotspot" style="top: 30%; left: 60%;" data-tip="arm">
+              <div class="xray-tooltip">
+                <div class="xray-tooltip-label">ARM ACTION</div>
+                <div class="xray-tooltip-text">Arms drive the legs. PPF cue: "Cheek to cheek — pocket to jaw."</div>
+              </div>
+            </div>
+          </div>
+          <div class="xray-card-info">
+            <div class="xray-card-tag">ATHLETE PATH</div>
+            <div class="xray-card-title">Sprint Start X-Ray</div>
+            <div class="xray-card-desc">The first 10 yards decide everything. Here is what PPF coaches see and correct.</div>
+          </div>
+          <div class="xray-detail">
+            <div class="xray-detail-inner">
+              <div class="xray-detail-block">
+                <div class="xray-detail-label">COMMON MISTAKE</div>
+                <div class="xray-detail-value">Standing up too early, losing forward lean and ground contact time</div>
+              </div>
+              <div class="xray-detail-block">
+                <div class="xray-detail-label">PPF CORRECTION</div>
+                <div class="xray-detail-value">Patient acceleration — maintain shin angle for 6-8 steps before transitioning upright</div>
+              </div>
+              <div class="xray-detail-block">
+                <div class="xray-detail-label">CARRYOVER</div>
+                <div class="xray-detail-value">Faster 10-yard split, better first-step quickness in game situations</div>
+              </div>
+              <div class="xray-detail-block">
+                <div class="xray-detail-label">MILESTONE</div>
+                <div class="xray-detail-value">10-yard split improvement within first 8 weeks of Athlete Path</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deadlift Setup X-Ray -->
+        <div class="xray-card" data-xray="deadlift">
+          <div class="xray-card-visual">
+            <svg viewBox="0 0 120 120" fill="none" stroke="rgba(106,143,255,0.4)" stroke-width="1.5">
+              <circle cx="60" cy="30" r="8"/>
+              <line x1="60" y1="38" x2="60" y2="65"/>
+              <line x1="60" y1="65" x2="45" y2="95"/>
+              <line x1="60" y1="65" x2="75" y2="95"/>
+              <line x1="60" y1="50" x2="40" y2="68"/>
+              <line x1="60" y1="50" x2="80" y2="68"/>
+              <line x1="30" y1="90" x2="90" y2="90"/>
+            </svg>
+            <div class="xray-hotspot" style="top: 35%; left: 50%;" data-tip="brace">
+              <div class="xray-tooltip">
+                <div class="xray-tooltip-label">BRACE PATTERN</div>
+                <div class="xray-tooltip-text">360° core brace before every pull. PPF cue: "Big breath, belt tight, lats locked."</div>
+              </div>
+            </div>
+            <div class="xray-hotspot" style="top: 55%; left: 40%;" data-tip="hinge">
+              <div class="xray-tooltip">
+                <div class="xray-tooltip-label">HIP HINGE</div>
+                <div class="xray-tooltip-text">Hips load the hamstrings. PPF cue: "Push hips back like closing a car door."</div>
+              </div>
+            </div>
+            <div class="xray-hotspot" style="top: 75%; left: 60%;" data-tip="floor">
+              <div class="xray-tooltip">
+                <div class="xray-tooltip-label">FLOOR PRESSURE</div>
+                <div class="xray-tooltip-text">Push the floor away, don't pull the bar up. PPF cue: "Leg press the earth."</div>
+              </div>
+            </div>
+          </div>
+          <div class="xray-card-info">
+            <div class="xray-card-tag" style="color: #6a8fff;">ADULT PATH</div>
+            <div class="xray-card-title">Deadlift Setup X-Ray</div>
+            <div class="xray-card-desc">The setup is the lift. Here is how PPF builds bulletproof pulling mechanics.</div>
+          </div>
+          <div class="xray-detail">
+            <div class="xray-detail-inner">
+              <div class="xray-detail-block">
+                <div class="xray-detail-label">COMMON MISTAKE</div>
+                <div class="xray-detail-value">Rounding the lower back, hips shooting up first, losing tension at the bottom</div>
+              </div>
+              <div class="xray-detail-block">
+                <div class="xray-detail-label">PPF CORRECTION</div>
+                <div class="xray-detail-value">Wedge into the bar — build tension before the pull starts, not during it</div>
+              </div>
+              <div class="xray-detail-block">
+                <div class="xray-detail-label">CARRYOVER</div>
+                <div class="xray-detail-value">Safer back, stronger pull, confident lifting at any load</div>
+              </div>
+              <div class="xray-detail-block">
+                <div class="xray-detail-label">MILESTONE</div>
+                <div class="xray-detail-value">Deadlift progression toward 2x bodyweight — form-verified</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Landing Mechanics X-Ray -->
+        <div class="xray-card" data-xray="landing">
+          <div class="xray-card-visual">
+            <svg viewBox="0 0 120 120" fill="none" stroke="rgba(255,85,0,0.4)" stroke-width="1.5">
+              <circle cx="60" cy="20" r="8"/>
+              <line x1="60" y1="28" x2="60" y2="55"/>
+              <line x1="60" y1="55" x2="48" y2="85"/>
+              <line x1="60" y1="55" x2="72" y2="85"/>
+              <line x1="60" y1="38" x2="42" y2="48"/>
+              <line x1="60" y1="38" x2="78" y2="48"/>
+              <path d="M40 100 L80 100" stroke-dasharray="4"/>
+            </svg>
+            <div class="xray-hotspot" style="top: 45%; left: 48%;" data-tip="knee-track">
+              <div class="xray-tooltip">
+                <div class="xray-tooltip-label">KNEE TRACKING</div>
+                <div class="xray-tooltip-text">Knees track over toes, never collapsing inward. PPF cue: "Spread the floor with your feet."</div>
+              </div>
+            </div>
+            <div class="xray-hotspot" style="top: 70%; left: 55%;" data-tip="absorb">
+              <div class="xray-tooltip">
+                <div class="xray-tooltip-label">FORCE ABSORPTION</div>
+                <div class="xray-tooltip-text">Soft landing through full foot, not on toes. PPF cue: "Absorb — don't fight the ground."</div>
+              </div>
+            </div>
+          </div>
+          <div class="xray-card-info">
+            <div class="xray-card-tag">ATHLETE PATH</div>
+            <div class="xray-card-title">Landing Mechanics X-Ray</div>
+            <div class="xray-card-desc">The ability to decelerate safely is the most undertrained skill in youth athletics.</div>
+          </div>
+          <div class="xray-detail">
+            <div class="xray-detail-inner">
+              <div class="xray-detail-block">
+                <div class="xray-detail-label">COMMON MISTAKE</div>
+                <div class="xray-detail-value">Stiff landing with knees locked, valgus collapse, no hip absorption</div>
+              </div>
+              <div class="xray-detail-block">
+                <div class="xray-detail-label">PPF CORRECTION</div>
+                <div class="xray-detail-value">Progressive landing protocol from low box to depth drops with form checkpoints</div>
+              </div>
+              <div class="xray-detail-block">
+                <div class="xray-detail-label">CARRYOVER</div>
+                <div class="xray-detail-value">Fewer knee/ankle injuries, better cutting ability, safer plyometric development</div>
+              </div>
+              <div class="xray-detail-block">
+                <div class="xray-detail-label">MILESTONE</div>
+                <div class="xray-detail-value">Clean bilateral and unilateral landing at progressively increasing heights</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Integrated Movement X-Ray -->
+        <div class="xray-card" data-xray="integrated">
+          <div class="xray-card-visual">
+            <svg viewBox="0 0 120 120" fill="none" stroke="rgba(80,200,120,0.4)" stroke-width="1.5">
+              <circle cx="60" cy="30" r="8"/>
+              <line x1="60" y1="38" x2="60" y2="65"/>
+              <line x1="60" y1="65" x2="50" y2="90"/>
+              <line x1="60" y1="65" x2="70" y2="90"/>
+              <line x1="60" y1="48" x2="44" y2="58"/>
+              <line x1="60" y1="48" x2="76" y2="58"/>
+              <circle cx="60" cy="60" r="25" stroke-dasharray="4"/>
+            </svg>
+            <div class="xray-hotspot" style="top: 30%; left: 45%;" data-tip="awareness">
+              <div class="xray-tooltip">
+                <div class="xray-tooltip-label">SPATIAL AWARENESS</div>
+                <div class="xray-tooltip-text">Understanding body position in space. PPF cue: "Feel where you are — you're safe here."</div>
+              </div>
+            </div>
+            <div class="xray-hotspot" style="top: 60%; left: 55%;" data-tip="balance">
+              <div class="xray-tooltip">
+                <div class="xray-tooltip-label">BALANCE FOUNDATION</div>
+                <div class="xray-tooltip-text">Progressive balance from static to dynamic. PPF cue: "Roots down, tall through the crown."</div>
+              </div>
+            </div>
+          </div>
+          <div class="xray-card-info">
+            <div class="xray-card-tag" style="color: #50c878;">INTEGRATED PATH</div>
+            <div class="xray-card-title">Movement Confidence X-Ray</div>
+            <div class="xray-card-desc">Independence starts with body trust. Here is how PPF coaches build movement confidence step by step.</div>
+          </div>
+          <div class="xray-detail">
+            <div class="xray-detail-inner">
+              <div class="xray-detail-block">
+                <div class="xray-detail-label">COMMON CHALLENGE</div>
+                <div class="xray-detail-value">Hesitation in new movement patterns, fear of unfamiliar positions, low body confidence</div>
+              </div>
+              <div class="xray-detail-block">
+                <div class="xray-detail-label">PPF APPROACH</div>
+                <div class="xray-detail-value">Patient progression through trust, repetition, and coach-supported exploration</div>
+              </div>
+              <div class="xray-detail-block">
+                <div class="xray-detail-label">CARRYOVER</div>
+                <div class="xray-detail-value">Greater independence in daily movement, increased confidence in group settings</div>
+              </div>
+              <div class="xray-detail-block">
+                <div class="xray-detail-label">MILESTONE</div>
+                <div class="xray-detail-value">Unassisted completion of movement sequences with growing independence markers</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -3183,6 +3604,322 @@
           <div class="bench-metric"><div class="bench-metric-label">Session Streak</div><div class="bench-metric-target">Active</div><div class="bench-metric-bar"><div class="bench-metric-fill" style="--fill: 90%; --color: #50c878;"></div></div></div>
         </div>
       </div>
+      </div>
+
+      <!-- BENCHMARK LADDER — Interactive Tier Progression -->
+      <div class="bench-ladder">
+        <div class="bench-ladder-row header">
+          <div class="bench-ladder-header-cell" style="text-align:left;">METRIC</div>
+          <div class="bench-ladder-header-cell">PROGRESSION</div>
+          <div class="bench-ladder-header-cell">CURRENT</div>
+          <div class="bench-ladder-header-cell">STRONG</div>
+          <div class="bench-ladder-header-cell">ELITE</div>
+        </div>
+        <div class="bench-ladder-row">
+          <div class="bench-ladder-metric">40-Yard Dash</div>
+          <div class="bench-ladder-bar">
+            <div class="bench-ladder-fill" data-width="62" style="background: linear-gradient(90deg, #ff5500, #ffaa00); width: 0;"></div>
+            <div class="bench-ladder-marker" data-pos="62" style="left: 0;"></div>
+          </div>
+          <div class="bench-ladder-tier current">4.85s</div>
+          <div class="bench-ladder-tier strong">4.60s</div>
+          <div class="bench-ladder-tier elite">4.40s</div>
+        </div>
+        <div class="bench-ladder-row">
+          <div class="bench-ladder-metric">Vertical Leap</div>
+          <div class="bench-ladder-bar">
+            <div class="bench-ladder-fill" data-width="55" style="background: linear-gradient(90deg, #ff5500, #ffaa00); width: 0;"></div>
+            <div class="bench-ladder-marker" data-pos="55" style="left: 0;"></div>
+          </div>
+          <div class="bench-ladder-tier current">26"</div>
+          <div class="bench-ladder-tier strong">30"</div>
+          <div class="bench-ladder-tier elite">35"+</div>
+        </div>
+        <div class="bench-ladder-row">
+          <div class="bench-ladder-metric">Deadlift (xBW)</div>
+          <div class="bench-ladder-bar">
+            <div class="bench-ladder-fill" data-width="70" style="background: linear-gradient(90deg, #6a8fff, #b482ff); width: 0;"></div>
+            <div class="bench-ladder-marker" data-pos="70" style="left: 0;"></div>
+          </div>
+          <div class="bench-ladder-tier current">1.5x</div>
+          <div class="bench-ladder-tier strong">2.0x</div>
+          <div class="bench-ladder-tier elite">2.5x</div>
+        </div>
+        <div class="bench-ladder-row">
+          <div class="bench-ladder-metric">Consistency</div>
+          <div class="bench-ladder-bar">
+            <div class="bench-ladder-fill" data-width="80" style="background: linear-gradient(90deg, #6a8fff, #50c878); width: 0;"></div>
+            <div class="bench-ladder-marker" data-pos="80" style="left: 0;"></div>
+          </div>
+          <div class="bench-ladder-tier current">75%</div>
+          <div class="bench-ladder-tier strong">90%</div>
+          <div class="bench-ladder-tier elite">98%+</div>
+        </div>
+        <div class="bench-ladder-row">
+          <div class="bench-ladder-metric">Confidence</div>
+          <div class="bench-ladder-bar">
+            <div class="bench-ladder-fill" data-width="88" style="background: linear-gradient(90deg, #50c878, #b482ff); width: 0;"></div>
+            <div class="bench-ladder-marker" data-pos="88" style="left: 0;"></div>
+          </div>
+          <div class="bench-ladder-tier current">Growing</div>
+          <div class="bench-ladder-tier strong">Strong</div>
+          <div class="bench-ladder-tier elite">Owns It</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STANDARD LEDGER — Live Activity Board
+  ============================================================ -->
+  <section class="ledger-section section" id="standardLedger">
+    <div class="container">
+      <div class="cl-section-label reveal-up">THE STANDARD LEDGER</div>
+      <h2 class="cl-section-title reveal-up">
+        What the Room<br />
+        <span class="accent">Respects.</span>
+      </h2>
+      <p class="cl-section-intro reveal-up">Not a leaderboard. A live record of what PPF members are earning through work, consistency, and standard.</p>
+
+      <div class="ledger-board">
+        <div class="ledger-header">
+          <div class="ledger-header-title">LIVE ACTIVITY</div>
+          <div class="ledger-live-dot">UPDATING</div>
+        </div>
+        <div class="ledger-rows">
+          <!-- Rows populated by JS -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       COACH CUE WAVEFORM — Coaching Voice System
+  ============================================================ -->
+  <section class="waveform-section section" id="cueWaveform">
+    <div class="container">
+      <div class="cl-section-label reveal-up">COACH'S VOICE</div>
+      <h2 class="cl-section-title reveal-up">
+        The Cue<br />
+        <span class="accent">Changes Everything.</span>
+      </h2>
+      <p class="cl-section-intro reveal-up">These are the coaching cues that run the room. Tap to hear the waveform. Short, sharp, unmistakably PPF.</p>
+
+      <div class="waveform-grid">
+        <div class="waveform-card" data-cue="sprint1">
+          <div class="waveform-play">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <div class="waveform-content">
+            <div class="waveform-cue-text">"Drive through the ground. Own every inch."</div>
+            <div class="waveform-meta">
+              <span class="waveform-tag sprint">SPRINT</span>
+              <span class="waveform-tag">COACH RICHARD</span>
+            </div>
+          </div>
+          <div class="waveform-viz"><canvas></canvas></div>
+        </div>
+
+        <div class="waveform-card" data-cue="strength1">
+          <div class="waveform-play">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <div class="waveform-content">
+            <div class="waveform-cue-text">"Stack it — ribs over hips, every single rep."</div>
+            <div class="waveform-meta">
+              <span class="waveform-tag strength">STRENGTH</span>
+              <span class="waveform-tag">COACH RICHARD</span>
+            </div>
+          </div>
+          <div class="waveform-viz"><canvas></canvas></div>
+        </div>
+
+        <div class="waveform-card" data-cue="integrated1">
+          <div class="waveform-play">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <div class="waveform-content">
+            <div class="waveform-cue-text">"You belong here. Every step counts."</div>
+            <div class="waveform-meta">
+              <span class="waveform-tag integrated">INTEGRATED</span>
+              <span class="waveform-tag">COACH REBECCA</span>
+            </div>
+          </div>
+          <div class="waveform-viz"><canvas></canvas></div>
+        </div>
+
+        <div class="waveform-card" data-cue="accountability1">
+          <div class="waveform-play">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <div class="waveform-content">
+            <div class="waveform-cue-text">"The standard doesn't care how you feel. Show up. Do the work."</div>
+            <div class="waveform-meta">
+              <span class="waveform-tag accountability">ACCOUNTABILITY</span>
+              <span class="waveform-tag">COACH RICHARD</span>
+            </div>
+          </div>
+          <div class="waveform-viz"><canvas></canvas></div>
+        </div>
+
+        <div class="waveform-card" data-cue="sprint2">
+          <div class="waveform-play">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <div class="waveform-content">
+            <div class="waveform-cue-text">"Sink and snap — own the cut. Don't drift through it."</div>
+            <div class="waveform-meta">
+              <span class="waveform-tag sprint">SPRINT</span>
+              <span class="waveform-tag">AGILITY</span>
+            </div>
+          </div>
+          <div class="waveform-viz"><canvas></canvas></div>
+        </div>
+
+        <div class="waveform-card" data-cue="strength2">
+          <div class="waveform-play">
+            <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
+          <div class="waveform-content">
+            <div class="waveform-cue-text">"Absorb the force — don't fight the ground."</div>
+            <div class="waveform-meta">
+              <span class="waveform-tag strength">STRENGTH</span>
+              <span class="waveform-tag">LANDING</span>
+            </div>
+          </div>
+          <div class="waveform-viz"><canvas></canvas></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       LIVE AVAILABILITY RADAR
+  ============================================================ -->
+  <section class="radar-section section" id="availabilityRadar">
+    <div class="container">
+      <div class="cl-section-label reveal-up">AVAILABILITY RADAR</div>
+      <h2 class="cl-section-title reveal-up">
+        Open Slots.<br />
+        <span class="accent">Real Time.</span>
+      </h2>
+      <p class="cl-section-intro reveal-up">Not fake urgency. Real availability across every PPF path — updated to reflect actual capacity.</p>
+
+      <div class="radar-grid">
+        <div class="radar-viz">
+          <canvas class="radar-canvas"></canvas>
+        </div>
+
+        <div class="radar-slots">
+          <div class="radar-slot">
+            <div class="radar-dot open"></div>
+            <div class="radar-slot-info">
+              <div class="radar-slot-name">Athlete Evaluation</div>
+              <div class="radar-slot-detail">Speed & power assessment — 60 min</div>
+            </div>
+            <div>
+              <div class="radar-slot-count">4</div>
+              <div class="radar-slot-unit">SLOTS</div>
+            </div>
+          </div>
+          <div class="radar-slot">
+            <div class="radar-dot limited"></div>
+            <div class="radar-slot-info">
+              <div class="radar-slot-name">Adult Assessment</div>
+              <div class="radar-slot-detail">Strength & movement screen — 45 min</div>
+            </div>
+            <div>
+              <div class="radar-slot-count">2</div>
+              <div class="radar-slot-unit">SLOTS</div>
+            </div>
+          </div>
+          <div class="radar-slot">
+            <div class="radar-dot open"></div>
+            <div class="radar-slot-info">
+              <div class="radar-slot-name">Integrated Consult</div>
+              <div class="radar-slot-detail">Family meeting with Rebecca — 30 min</div>
+            </div>
+            <div>
+              <div class="radar-slot-count">3</div>
+              <div class="radar-slot-unit">SLOTS</div>
+            </div>
+          </div>
+          <div class="radar-slot">
+            <div class="radar-dot filling"></div>
+            <div class="radar-slot-info">
+              <div class="radar-slot-name">Speed Camp</div>
+              <div class="radar-slot-detail">Next camp: combine prep series</div>
+            </div>
+            <div>
+              <div class="radar-slot-count">6</div>
+              <div class="radar-slot-unit">LEFT</div>
+            </div>
+          </div>
+
+          <div class="radar-fastest">
+            <div class="radar-fastest-label">FASTEST PATH TO START</div>
+            <div class="radar-fastest-value">Book a 3-Day Free Experience — slots available this week</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PPF PIPELINE MAP — Local Athlete Origins
+  ============================================================ -->
+  <section class="pipeline-section section" id="pipelineMap">
+    <div class="container">
+      <div class="cl-section-label reveal-up">PPF PIPELINE</div>
+      <h2 class="cl-section-title reveal-up">
+        Where They Come From.<br />
+        <span class="accent">Where They Go.</span>
+      </h2>
+      <p class="cl-section-intro reveal-up">PPF is the room serious athletes and families in this region already know. Here is the footprint.</p>
+
+      <div class="pipeline-grid">
+        <div class="pipeline-map">
+          <canvas></canvas>
+        </div>
+
+        <div class="pipeline-stats">
+          <div class="pipeline-stat">
+            <div class="pipeline-stat-num">12+</div>
+            <div class="pipeline-stat-info">
+              <div class="pipeline-stat-label">Schools Represented</div>
+              <div class="pipeline-stat-desc">Forsyth, Cherokee, Gwinnett, Hall counties</div>
+            </div>
+          </div>
+          <div class="pipeline-stat">
+            <div class="pipeline-stat-num">500+</div>
+            <div class="pipeline-stat-info">
+              <div class="pipeline-stat-label">Athletes & Members Served</div>
+              <div class="pipeline-stat-desc">Active and alumni across all three paths</div>
+            </div>
+          </div>
+          <div class="pipeline-stat">
+            <div class="pipeline-stat-num">20+</div>
+            <div class="pipeline-stat-info">
+              <div class="pipeline-stat-label">Years in Cumming, GA</div>
+              <div class="pipeline-stat-desc">Family-owned, locally trusted, results-proven</div>
+            </div>
+          </div>
+          <div class="pipeline-stat">
+            <div class="pipeline-stat-num">3</div>
+            <div class="pipeline-stat-info">
+              <div class="pipeline-stat-label">Distinct Coaching Paths</div>
+              <div class="pipeline-stat-desc">Athlete, Adult, and Integrated — one standard</div>
+            </div>
+          </div>
+          <div class="pipeline-stat">
+            <div class="pipeline-stat-num">45+</div>
+            <div class="pipeline-stat-info">
+              <div class="pipeline-stat-label">Collegiate Athletes Produced</div>
+              <div class="pipeline-stat-desc">From high school training to college competition</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -4060,5 +4797,6 @@
   <script src="js/ppf-ground-response.js"></script>
   <script src="js/ppf-bar-tension.js"></script>
   <script src="js/ppf-rail.js"></script>
+  <script src="js/ppf-command-layer.js"></script>
 </body>
 </html>
