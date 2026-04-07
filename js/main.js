@@ -3490,7 +3490,7 @@
 
   // Camp countdown (next Saturday from now, as a sample)
   var nextCamp = new Date(now);
-  nextCamp.setDate(now.getDate() + (6 - now.getDay() + 7) % 7 + 14);
+  nextCamp.setDate(now.getDate() + ((6 - now.getDay() + 7) % 7 || 7) + 14);
   nextCamp.setHours(9, 0, 0, 0);
   var diff = nextCamp - now;
   var daysLeft = Math.floor(diff / 86400000);
