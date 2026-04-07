@@ -78,7 +78,8 @@
       '.ss-bar-fill.ss-animate { width: var(--fill); }'
     ].join('\n'));
 
-    /* Map passport quiz keys (who/goal/level/schedule) to score inputs */
+    /* Passport quiz stores schedule as a number (days per week: 2–5).
+       Map to timeline categories used by the score calculator. */
     var scheduleToTimeline = { '2': '1month', '3': '1month', '4': '3months', '5': 'asap' };
 
     /* Score calculation matrices */
