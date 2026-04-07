@@ -327,6 +327,15 @@ var PPFMember = (function () {
     // ── Tile Hover Effects ──
     initTileEffects();
 
+    // ── Daily Streak ──
+    initDailyStreak();
+
+    // ── Daily Challenges ──
+    initDailyChallenges();
+
+    // ── Win Recap ──
+    updateWinRecap();
+
     // ── Quick Stats ──
     if (!isGuestMode) {
       animateQuickStats();
@@ -726,6 +735,220 @@ var PPFMember = (function () {
 
 
   /* ══════════════════════════════════════════════════════
+     PROFILE PAGE — MEMBER IDENTITY CARD
+     ══════════════════════════════════════════════════════ */
+
+  function initProfile() {
+    var profile = getProfile();
+
+    // If no profile at all, redirect to login
+    if (!profile) {
+      window.location.href = 'index.html';
+      return;
+    }
+
+    var firstName = profile.firstName || '';
+    var isGuestMode = profile.isGuest;
+
+    // ── Identity Card ──
+    var cardName = qs('#idCardName');
+    var cardPath = qs('#idCardPath');
+    var cardTier = qs('#idCardTier');
+    var cardSince = qs('#idCardSince');
+    var cardGoal = qs('#idCardGoal');
+    var cardMilestone = qs('#idCardMilestone');
+    var cardMetric = qs('#idCardMetric');
+
+    var pathNames = {
+      athlete: 'ATHLETE',
+      adult: 'ADULT PERFORMANCE',
+      integrated: 'INTEGRATED',
+      guest: 'GUEST EXPLORATION'
+    };
+
+    if (cardName) {
+      cardName.textContent = isGuestMode ? 'GUEST' : (firstName || 'MEMBER').toUpperCase();
+    }
+    if (cardPath) {
+      cardPath.textContent = pathNames[profile.path] || 'ATHLETE';
+    }
+    if (cardTier) {
+      cardTier.textContent = isGuestMode ? 'PPF GUEST' : 'PPF MEMBER';
+    }
+    if (cardSince) {
+      var joinDate = profile.joinDate ? new Date(profile.joinDate) : new Date();
+      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      cardSince.textContent = months[joinDate.getMonth()] + ' ' + joinDate.getDate() + ', ' + joinDate.getFullYear();
+    }
+    if (cardGoal) {
+      cardGoal.textContent = profile.goalText || 'Not set';
+    }
+    if (cardMilestone) {
+      cardMilestone.textContent = isGuestMode ? 'Explore first' : 'Standard Setter';
+    }
+    if (cardMetric) {
+      cardMetric.textContent = isGuestMode ? '—' : 'Bench PR: 205 lb';
+    }
+
+    // ── Body Blueprint ──
+    var startWeight = profile.startWeight || 0;
+    var startBMI = profile.startBMI || 0;
+    // Default goal: 3% weight reduction when no explicit goal is set
+    var goalWeight = startWeight > 0 ? Math.round(startWeight * 0.97) : 0;
+
+    var bw = qs('#bodyWeight');
+    var bmi = qs('#bodyBMI');
+    var gw = qs('#bodyGoalWeight');
+    var bp = qs('#bodyProgress');
+    var bt = qs('#bodyTrend');
+    var bs = qs('#bodyStreak');
+    var bc = qs('#bodyCoachNote');
+    var bm = qs('#bodyMilestone');
+
+    if (bw) bw.textContent = startWeight > 0 ? startWeight + ' lb' : '—';
+    if (bmi) bmi.textContent = startBMI > 0 ? startBMI : '—';
+    if (gw) gw.textContent = goalWeight > 0 ? (goalWeight - 2) + '–' + (goalWeight + 2) + ' lb' : '—';
+
+    if (bp && startWeight > 0) {
+      var diff = startWeight - goalWeight;
+      var lost = Math.round(diff * 0.45);
+      var pct = diff > 0 ? Math.min(Math.round((lost / diff) * 100), 100) : 0;
+      bp.style.setProperty('--pct', pct + '%');
+    }
+
+    if (bt) bt.textContent = isGuestMode ? '—' : '↓ 0.8 lb this week';
+    if (bs) bs.textContent = isGuestMode ? '—' : '12-day streak';
+    if (bc) bc.textContent = isGuestMode ? '—' : '"Trending in the right direction. Stay consistent with protein targets."';
+    if (bm) bm.textContent = isGuestMode ? '—' : 'Body Blueprint Builder — In Progress';
+
+    // ── Performance Blueprint ──
+    var perfData = {
+      perfBench: isGuestMode ? '—' : '205 lb',
+      perfSquat: isGuestMode ? '—' : '285 lb',
+      perfVertical: isGuestMode ? '—' : '28.5"',
+      perfBroad: isGuestMode ? '—' : '8\'4"',
+      perfTenYard: isGuestMode ? '—' : '1.62s',
+      perf40: isGuestMode ? '—' : '4.68s',
+      perfShuttle: isGuestMode ? '—' : '4.31s',
+      perfAttendance: isGuestMode ? '—' : '87%',
+      perfRecovery: isGuestMode ? '—' : '82'
+    };
+
+    Object.keys(perfData).forEach(function (id) {
+      var el = qs('#' + id);
+      if (el) el.textContent = perfData[id];
+    });
+
+    // ── Momentum Score ──
+    var mVal = qs('#profileMomentumValue');
+    var mStatus = qs('#profileMomentumStatus');
+    var momentumScore = isGuestMode ? 0 : 82;
+
+    if (mVal) {
+      if (isGuestMode) {
+        mVal.textContent = '—';
+      } else {
+        animateNumber(mVal, 0, momentumScore, '');
+      }
+    }
+    if (mStatus) {
+      if (isGuestMode) {
+        mStatus.textContent = 'Create your profile to start building momentum.';
+      } else if (momentumScore >= 80) {
+        mStatus.textContent = 'You are building momentum. Keep the standard locked in.';
+      } else if (momentumScore >= 60) {
+        mStatus.textContent = 'Good trajectory. Tighten the details this week.';
+      } else {
+        mStatus.textContent = 'Momentum is slipping. Get back to the standard.';
+      }
+    }
+
+    // Momentum breakdown
+    var breakdownData = {
+      momentumAttendance: isGuestMode ? '—' : '87',
+      momentumConsistency: isGuestMode ? '—' : '91',
+      momentumNutrition: isGuestMode ? '—' : '72',
+      momentumPerformance: isGuestMode ? '—' : '85',
+      momentumRecovery: isGuestMode ? '—' : '78'
+    };
+
+    Object.keys(breakdownData).forEach(function (id) {
+      var el = qs('#' + id);
+      if (el) {
+        if (isGuestMode) {
+          el.textContent = '—';
+        } else {
+          animateNumber(el, 0, parseInt(breakdownData[id], 10), '');
+        }
+      }
+    });
+
+    // ── Journey Snapshot — update first node date ──
+    if (profile.joinDate) {
+      var firstNode = qs('#profileJourneyTimeline .journey-node.completed .journey-date');
+      if (firstNode) {
+        var jd = new Date(profile.joinDate);
+        var months2 = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        firstNode.textContent = months2[jd.getMonth()] + ' ' + jd.getDate() + ', ' + jd.getFullYear();
+      }
+    }
+  }
+
+
+  /* ══════════════════════════════════════════════════════
+     DASHBOARD ENHANCEMENTS — Daily Streak, Challenges, Win Recap
+     ══════════════════════════════════════════════════════ */
+
+  function initDailyStreak() {
+    var streakCards = qsa('.streak-card');
+    var streakSummary = qs('#streakSummaryText');
+    var activeCategories = 0;
+
+    streakCards.forEach(function (card) {
+      if (card.classList.contains('active')) activeCategories++;
+    });
+
+    if (streakSummary) {
+      streakSummary.textContent = 'Current streak: ' + activeCategories + ' of ' + streakCards.length + ' categories active';
+    }
+  }
+
+  function initDailyChallenges() {
+    var items = qsa('.challenge-item');
+    items.forEach(function (item) {
+      item.addEventListener('click', function () {
+        item.classList.toggle('completed');
+        updateWinRecap();
+      });
+    });
+  }
+
+  function updateWinRecap() {
+    var total = qsa('.challenge-item').length;
+    var done = qsa('.challenge-item.completed').length;
+    var headline = qs('#winRecapHeadline');
+    var detail = qs('#winRecapDetail');
+    var card = qs('.win-recap-card');
+
+    if (headline) {
+      headline.textContent = done + ' of ' + total + ' standards completed';
+    }
+    if (detail) {
+      if (done === total) {
+        detail.textContent = 'Full standard met today. That is how you build.';
+      } else if (done >= total / 2) {
+        detail.textContent = 'Solid effort. Close the day strong.';
+      } else {
+        detail.textContent = 'Still time to lock in. Attack the details.';
+      }
+    }
+    if (card) {
+      card.classList.toggle('strong', done >= total / 2);
+    }
+  }
+
+
+  /* ══════════════════════════════════════════════════════
      PUBLIC API
      ══════════════════════════════════════════════════════ */
 
@@ -733,6 +956,7 @@ var PPFMember = (function () {
     initEntry: initEntry,
     initDashboard: initDashboard,
     initOnboarding: initOnboarding,
+    initProfile: initProfile,
     getProfile: getProfile,
     saveProfile: saveProfile,
     isGuest: isGuest
