@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="css/ppf-performance-os.css" />
   <link rel="stylesheet" href="css/ppf-systems.css" />
   <link rel="stylesheet" href="css/ppf-ground-response.css" />
+  <link rel="stylesheet" href="css/ppf-bar-tension.css" />
 
   <!-- Structured Data: SportsActivityLocation -->
   <script type="application/ld+json">
@@ -593,9 +594,52 @@
     </div>
   </section>
 
-  <!-- SECTION TRANSITION — PATHS -->
-  <div class="section-transition st-chalk" aria-hidden="true">
-    <div class="st-particles"></div>
+  <!-- LOADED STANDARD REVEAL — Bar Load Tension Build -->
+  <div class="bar-tension-reveal" data-target="paths" aria-hidden="true">
+
+    <!-- Brace Command -->
+    <div class="bar-brace-cmd">BRACE</div>
+
+    <!-- Load Callout Labels -->
+    <div class="bar-load-labels">
+      <span class="bar-load-label">TENSION</span>
+      <span class="bar-load-label">POSITION</span>
+      <span class="bar-load-label">OUTPUT</span>
+      <span class="bar-load-label">TRANSFER</span>
+    </div>
+
+    <!-- Chalk Particles -->
+    <div class="bar-chalk-zone">
+      <div class="chalk-particle"></div>
+      <div class="chalk-particle"></div>
+      <div class="chalk-particle"></div>
+      <div class="chalk-particle"></div>
+      <div class="chalk-particle"></div>
+      <div class="chalk-particle"></div>
+    </div>
+
+    <!-- SVG Bar -->
+    <svg class="bar-tension-svg" viewBox="0 0 1000 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="barGradient" x1="0" y1="0" x2="1000" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="rgba(255,85,0,0.0)" />
+          <stop offset="8%" stop-color="rgba(255,85,0,0.5)" />
+          <stop offset="50%" stop-color="rgba(255,85,0,1)" />
+          <stop offset="92%" stop-color="rgba(255,85,0,0.5)" />
+          <stop offset="100%" stop-color="rgba(255,85,0,0.0)" />
+        </linearGradient>
+      </defs>
+
+      <!-- Calibration Ticks -->
+      <g class="bar-tension-ticks"></g>
+
+      <!-- Anchor Points -->
+      <circle class="bar-anchor" cx="30" cy="40" r="3" />
+      <circle class="bar-anchor" cx="970" cy="40" r="3" />
+
+      <!-- The Bar -->
+      <path class="bar-line" d="M 30 40 Q 500 40 970 40" />
+    </svg>
   </div>
 
   <!-- ============================================================
@@ -4013,5 +4057,6 @@
   <script src="js/ppf-elite-animations.js"></script>
   <script src="js/ppf-systems.js"></script>
   <script src="js/ppf-ground-response.js"></script>
+  <script src="js/ppf-bar-tension.js"></script>
 </body>
 </html>

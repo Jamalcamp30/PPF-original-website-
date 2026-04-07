@@ -1,0 +1,289 @@
+/* ================================================================
+   PPF BAR LOAD TENSION BUILD — Loaded Standard Reveal
+   A precision horizontal line that bends under invisible load,
+   braces at peak tension, then snaps back to reveal the section.
+   ================================================================ */
+
+/* ── Container ─────────────────────────────────────────────────── */
+.bar-tension-reveal {
+  position: relative;
+  width: 100%;
+  padding: 60px 0 0;
+  overflow: visible;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── SVG Bar ───────────────────────────────────────────────────── */
+.bar-tension-svg {
+  display: block;
+  width: 100%;
+  height: 80px;
+  overflow: visible;
+}
+
+/* ── Calibration Ticks (knurl marks) ───────────────────────────── */
+.bar-tension-ticks {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.bar-tension-reveal.phase-load .bar-tension-ticks,
+.bar-tension-reveal.phase-brace .bar-tension-ticks {
+  opacity: 1;
+}
+
+.bar-tick {
+  stroke: var(--orange, #ff5500);
+  stroke-width: 1;
+  opacity: 0.35;
+  transition: opacity 0.3s ease;
+}
+
+.bar-tension-reveal.phase-brace .bar-tick {
+  opacity: 0.7;
+}
+
+/* ── The Main Bar Path ─────────────────────────────────────────── */
+.bar-line {
+  fill: none;
+  stroke: url(#barGradient);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 3px rgba(255, 85, 0, 0.08));
+  transition: stroke-width 0.3s ease;
+}
+
+.bar-tension-reveal.phase-brace .bar-line {
+  stroke-width: 2.8;
+  filter: drop-shadow(0 0 6px rgba(255, 85, 0, 0.15));
+}
+
+/* ── Anchor Points (grip markers) ──────────────────────────────── */
+.bar-anchor {
+  fill: var(--orange, #ff5500);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.bar-tension-reveal.phase-load .bar-anchor,
+.bar-tension-reveal.phase-brace .bar-anchor {
+  opacity: 0.6;
+}
+
+/* ── Brace Command Flash ──────────────────────────────────────── */
+.bar-brace-cmd {
+  position: absolute;
+  left: 50%;
+  top: 18px;
+  transform: translateX(-50%);
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 13px;
+  letter-spacing: 0.35em;
+  color: var(--orange, #ff5500);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  text-shadow: 0 0 12px rgba(255, 85, 0, 0.3);
+  transition: opacity 0.15s ease;
+}
+
+.bar-tension-reveal.phase-brace .bar-brace-cmd {
+  opacity: 1;
+}
+
+/* ── Load Callout Labels ──────────────────────────────────────── */
+.bar-load-labels {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8%;
+  pointer-events: none;
+}
+
+.bar-load-label {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 85, 0, 0.0);
+  transition: color 0.3s ease;
+}
+
+.bar-tension-reveal.phase-brace .bar-load-label {
+  color: rgba(255, 85, 0, 0.45);
+}
+
+/* ── Chalk Particles ──────────────────────────────────────────── */
+.bar-chalk-zone {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 60px;
+  pointer-events: none;
+}
+
+.chalk-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  opacity: 0;
+  top: 50%;
+  left: 50%;
+}
+
+.bar-tension-reveal.phase-load .chalk-particle,
+.bar-tension-reveal.phase-brace .chalk-particle {
+  animation: chalkFall 1.2s ease-out forwards;
+}
+
+.chalk-particle:nth-child(1) { animation-delay: 0.1s; --cx: -15px; --cy: 30px; }
+.chalk-particle:nth-child(2) { animation-delay: 0.25s; --cx: 8px; --cy: 35px; }
+.chalk-particle:nth-child(3) { animation-delay: 0.4s; --cx: -5px; --cy: 28px; }
+.chalk-particle:nth-child(4) { animation-delay: 0.55s; --cx: 12px; --cy: 32px; }
+.chalk-particle:nth-child(5) { animation-delay: 0.15s; --cx: -20px; --cy: 25px; }
+.chalk-particle:nth-child(6) { animation-delay: 0.35s; --cx: 18px; --cy: 38px; }
+
+@keyframes chalkFall {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(1);
+  }
+  20% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--cx), var(--cy)) scale(0.4);
+  }
+}
+
+/* ── Background Tension Darken ────────────────────────────────── */
+.bar-tension-reveal::before {
+  content: '';
+  position: absolute;
+  inset: -80px -20px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.25) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.bar-tension-reveal.phase-load::before,
+.bar-tension-reveal.phase-brace::before {
+  opacity: 1;
+}
+
+/* ── Vibration (pre-tension micro-shake) ──────────────────────── */
+@keyframes barSettle {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-0.3px); }
+  50% { transform: translateY(0.3px); }
+  75% { transform: translateY(-0.15px); }
+}
+
+.bar-tension-reveal.phase-pretension .bar-tension-svg {
+  animation: barSettle 0.3s ease-in-out 2;
+}
+
+/* ── Section Content Reveal (chained to release) ──────────────── */
+.bar-tension-target {
+  /* content hidden until release */
+}
+
+.bar-tension-target .section-label,
+.bar-tension-target .section-title,
+.bar-tension-target .section-intro,
+.bar-tension-target .paths-selector {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.bar-tension-target.bt-locked .section-label,
+.bar-tension-target.bt-locked .section-title,
+.bar-tension-target.bt-locked .section-intro,
+.bar-tension-target.bt-locked .paths-selector {
+  opacity: 0 !important;
+  transform: translateY(18px) !important;
+}
+
+.bar-tension-target.bt-released .section-label {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-delay: 0s;
+}
+
+.bar-tension-target.bt-released .section-title {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-delay: 0.12s;
+}
+
+.bar-tension-target.bt-released .section-intro {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-delay: 0.24s;
+}
+
+.bar-tension-target.bt-released .paths-selector {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-delay: 0.36s;
+}
+
+/* ── Finish State: structural divider ─────────────────────────── */
+.bar-tension-reveal.phase-done {
+  padding: 0;
+}
+
+.bar-tension-reveal.phase-done .bar-tension-svg {
+  height: 3px;
+  transition: height 0.4s ease;
+}
+
+.bar-tension-reveal.phase-done .bar-brace-cmd,
+.bar-tension-reveal.phase-done .bar-load-labels,
+.bar-tension-reveal.phase-done .bar-chalk-zone,
+.bar-tension-reveal.phase-done .bar-tension-ticks {
+  display: none;
+}
+
+/* ── Mobile Reduced Motion ────────────────────────────────────── */
+@media (max-width: 600px) {
+  .bar-tension-reveal {
+    padding: 30px 0 0;
+  }
+
+  .bar-tension-svg {
+    height: 50px;
+  }
+
+  .bar-brace-cmd {
+    font-size: 11px;
+    top: 8px;
+  }
+
+  .bar-load-labels {
+    display: none;
+  }
+
+  .bar-chalk-zone {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar-tension-reveal * {
+    animation: none !important;
+    transition-duration: 0.01s !important;
+  }
+}
