@@ -41,12 +41,17 @@
     /* Ripple */
     rippleInterval:    180,   // ms — min time between ripples
     rippleSize:        240,   // px — ripple diameter
+    rippleDuration:    850,   // ms — matches CSS animation length
     maxRipples:        3,     // concurrent ripple limit per zone
 
     /* Pellets */
     pelletCount:       24,    // pellets per zone
     pelletDriftMax:    6,     // px — max drift distance
     pelletRadius:      140,   // px — interaction radius
+    pelletMinDistance:  10,    // px — dead zone around cursor center
+    pelletSizeMin:     1.5,   // px — smallest pellet diameter
+    pelletSizeMax:     3.0,   // px — largest pellet diameter
+    warmPelletRatio:   0.2,   // fraction of pellets with orange tint
 
     /* Recovery */
     recoverySpeed:     0.06,  // lerp factor back to neutral (slightly faster than depression)
@@ -215,7 +220,7 @@
     setTimeout(function () {
       if (ripple.parentNode) ripple.parentNode.removeChild(ripple);
       self.rippleCount--;
-    }, 850);
+    }, CONFIG.rippleDuration);
   };
 
   /* ── Layer 4: Seed Pellets ─────────────────────── */
@@ -226,7 +231,7 @@
       pellet.className = 'grs-pellet';
 
       /* Random warm-tinted pellets (orange rubber infill) */
-      if (Math.random() < 0.2) {
+      if (Math.random() < CONFIG.warmPelletRatio) {
         pellet.classList.add('grs-pellet--warm');
       }
 
@@ -237,7 +242,7 @@
       pellet.style.top = py + '%';
 
       /* Slight size variation */
-      var s = 1.5 + Math.random() * 1.5;
+      var s = CONFIG.pelletSizeMin + Math.random() * (CONFIG.pelletSizeMax - CONFIG.pelletSizeMin);
       pellet.style.width = s + 'px';
       pellet.style.height = s + 'px';
 
@@ -267,7 +272,7 @@
       var targetOffsetX = 0;
       var targetOffsetY = 0;
 
-      if (this.active && d < CONFIG.pelletRadius && d > 10) {
+      if (this.active && d < CONFIG.pelletRadius && d > CONFIG.pelletMinDistance) {
         /* Push pellets outward from cursor */
         var force = (1 - d / CONFIG.pelletRadius) * CONFIG.pelletDriftMax * this.intensity;
         var angle = Math.atan2(pelletAbsY - this.smoothY, pelletAbsX - this.smoothX);
@@ -285,7 +290,8 @@
         p.el.style.transform = 'translate(' +
           p.currentOffsetX.toFixed(1) + 'px,' +
           p.currentOffsetY.toFixed(1) + 'px)';
-        p.el.style.opacity = clamp(0.08 + Math.abs(p.currentOffsetX + p.currentOffsetY) * 0.01, 0.04, 0.14).toFixed(3);
+        var offsetMag = Math.sqrt(p.currentOffsetX * p.currentOffsetX + p.currentOffsetY * p.currentOffsetY);
+        p.el.style.opacity = clamp(0.08 + offsetMag * 0.01, 0.04, 0.14).toFixed(3);
       } else {
         p.el.style.transform = 'translate(0,0)';
         p.el.style.opacity = '0.08';
@@ -464,7 +470,7 @@
     var seamAfterIds = ['#hero', '#standard', '#paths', '#proof', '#experience'];
     seamAfterIds.forEach(function (id) {
       var section = qs(id);
-      if (section && section.nextElementSibling) {
+      if (section && section.parentNode && section.nextElementSibling) {
         var seam = document.createElement('div');
         seam.className = 'grs-section-seam';
         section.parentNode.insertBefore(seam, section.nextElementSibling);
