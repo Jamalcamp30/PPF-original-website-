@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Member Identity Card — PPF Athletics</title>
+  <meta name="description" content="Your PPF identity card. Body blueprint, performance profile, momentum score, and earned distinctions — all in one view." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/ppf-member.css" />
+</head>
+<body class="ppf-profile-body">
+
+  <!-- ============================================================
+       TOP NAV
+  ============================================================ -->
+  <nav class="dash-nav">
+    <a href="dashboard.html" class="dash-nav-logo">PPF MEMBER OS</a>
+    <div class="dash-nav-actions">
+      <a href="dashboard.html" class="profile-back-link">← Dashboard</a>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       MAIN PROFILE
+  ============================================================ -->
+  <main class="dash-main">
+
+    <!-- ─── MEMBER IDENTITY CARD ─── -->
+    <section class="profile-id-section">
+      <h2 class="section-heading">Member Identity Card</h2>
+      <p class="section-sub">Your credential. Your proof. Earned through the work.</p>
+
+      <div class="id-card">
+        <div class="id-card-header">
+          <div class="id-card-brand">
+            <span class="id-card-logo-mark">PPF</span>
+            <span class="id-card-logo-tag">ATHLETICS</span>
+          </div>
+          <span class="id-card-tier" id="idCardTier">PPF MEMBER</span>
+        </div>
+
+        <div class="id-card-body">
+          <h1 class="id-card-name" id="idCardName">—</h1>
+          <span class="id-card-path" id="idCardPath">ATHLETE</span>
+
+          <div class="id-card-details">
+            <div class="id-card-detail">
+              <span class="id-card-detail-label">Member Since</span>
+              <span class="id-card-detail-value" id="idCardSince">—</span>
+            </div>
+            <div class="id-card-detail">
+              <span class="id-card-detail-label">#1 Goal</span>
+              <span class="id-card-detail-value" id="idCardGoal">—</span>
+            </div>
+            <div class="id-card-detail">
+              <span class="id-card-detail-label">Latest Milestone</span>
+              <span class="id-card-detail-value" id="idCardMilestone">—</span>
+            </div>
+            <div class="id-card-detail">
+              <span class="id-card-detail-label">Featured Metric</span>
+              <span class="id-card-detail-value" id="idCardMetric">—</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="id-card-footer">
+          <span class="id-card-tagline">Built for progress. Proven daily.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── BODY BLUEPRINT ─── -->
+    <section class="profile-body-section">
+      <h2 class="section-heading">Body Blueprint</h2>
+      <p class="section-sub">Not just a number. A full picture of where you are and where you're heading.</p>
+
+      <div class="body-blueprint-grid">
+        <div class="body-card">
+          <span class="body-card-label">Current Weight</span>
+          <span class="body-card-value" id="bodyWeight">—</span>
+        </div>
+        <div class="body-card">
+          <span class="body-card-label">BMI (Reference)</span>
+          <span class="body-card-value" id="bodyBMI">—</span>
+        </div>
+        <div class="body-card">
+          <span class="body-card-label">Goal Weight Range</span>
+          <span class="body-card-value" id="bodyGoalWeight">—</span>
+        </div>
+        <div class="body-card body-card-wide">
+          <span class="body-card-label">Progress Toward Target</span>
+          <div class="body-progress-bar" id="bodyProgress" style="--pct: 0%;">
+            <div class="body-progress-fill"></div>
+          </div>
+        </div>
+        <div class="body-card">
+          <span class="body-card-label">Weekly Trend</span>
+          <span class="body-card-value" id="bodyTrend">—</span>
+        </div>
+        <div class="body-card">
+          <span class="body-card-label">Check-In Streak</span>
+          <span class="body-card-value" id="bodyStreak">—</span>
+        </div>
+        <div class="body-card body-card-wide">
+          <span class="body-card-label">Coach Notes</span>
+          <span class="body-card-value body-card-note" id="bodyCoachNote">—</span>
+        </div>
+        <div class="body-card">
+          <span class="body-card-label">Milestone Status</span>
+          <span class="body-card-value" id="bodyMilestone">—</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PERFORMANCE BLUEPRINT ─── -->
+    <section class="profile-performance-section">
+      <h2 class="section-heading">Performance Blueprint</h2>
+      <p class="section-sub">Every rep, every sprint, every test — tracked and proven.</p>
+
+      <div class="perf-grid">
+        <div class="perf-card">
+          <span class="perf-card-label">Bench PR</span>
+          <span class="perf-card-value" id="perfBench">—</span>
+        </div>
+        <div class="perf-card">
+          <span class="perf-card-label">Squat PR</span>
+          <span class="perf-card-value" id="perfSquat">—</span>
+        </div>
+        <div class="perf-card">
+          <span class="perf-card-label">Vertical Jump</span>
+          <span class="perf-card-value" id="perfVertical">—</span>
+        </div>
+        <div class="perf-card">
+          <span class="perf-card-label">Broad Jump</span>
+          <span class="perf-card-value" id="perfBroad">—</span>
+        </div>
+        <div class="perf-card">
+          <span class="perf-card-label">10-Yard Split</span>
+          <span class="perf-card-value" id="perfTenYard">—</span>
+        </div>
+        <div class="perf-card">
+          <span class="perf-card-label">40 Time</span>
+          <span class="perf-card-value" id="perf40">—</span>
+        </div>
+        <div class="perf-card">
+          <span class="perf-card-label">Shuttle</span>
+          <span class="perf-card-value" id="perfShuttle">—</span>
+        </div>
+        <div class="perf-card">
+          <span class="perf-card-label">Attendance Rate</span>
+          <span class="perf-card-value" id="perfAttendance">—</span>
+        </div>
+        <div class="perf-card">
+          <span class="perf-card-label">Recovery Score</span>
+          <span class="perf-card-value" id="perfRecovery">—</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PPF MOMENTUM SCORE ─── -->
+    <section class="profile-momentum-section">
+      <h2 class="section-heading">PPF Momentum Score</h2>
+      <p class="section-sub">A live indicator of your trajectory. Momentum is earned daily.</p>
+
+      <div class="momentum-card">
+        <div class="momentum-hero">
+          <span class="momentum-hero-value" id="profileMomentumValue">—</span>
+          <span class="momentum-hero-label">PPF Momentum Score</span>
+        </div>
+        <p class="momentum-status" id="profileMomentumStatus">—</p>
+
+        <div class="momentum-breakdown">
+          <div class="momentum-indicator">
+            <span class="momentum-ind-label">Attendance</span>
+            <span class="momentum-ind-value" id="momentumAttendance">—</span>
+          </div>
+          <div class="momentum-indicator">
+            <span class="momentum-ind-label">Consistency</span>
+            <span class="momentum-ind-value" id="momentumConsistency">—</span>
+          </div>
+          <div class="momentum-indicator">
+            <span class="momentum-ind-label">Nutrition</span>
+            <span class="momentum-ind-value" id="momentumNutrition">—</span>
+          </div>
+          <div class="momentum-indicator">
+            <span class="momentum-ind-label">Performance</span>
+            <span class="momentum-ind-value" id="momentumPerformance">—</span>
+          </div>
+          <div class="momentum-indicator">
+            <span class="momentum-ind-label">Recovery</span>
+            <span class="momentum-ind-value" id="momentumRecovery">—</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── EARNED DISTINCTIONS ─── -->
+    <section class="dash-awards" id="profileAwards">
+      <h2 class="section-heading">Earned Distinctions</h2>
+      <p class="section-sub">Earned, not handed out. The board rewards the work.</p>
+
+      <div class="awards-grid" id="profileAwardsGrid">
+        <!-- Performance -->
+        <div class="award-card earned" data-award="standard-setter">
+          <div class="award-icon">⬡</div>
+          <h4 class="award-name">Standard Setter</h4>
+          <p class="award-desc">4 straight weeks of consistency</p>
+        </div>
+        <div class="award-card earned" data-award="fuel-locked">
+          <div class="award-icon">◈</div>
+          <h4 class="award-name">Fuel Locked</h4>
+          <p class="award-desc">Nutrition goals hit for 14 days</p>
+        </div>
+        <div class="award-card" data-award="velocity-mark">
+          <div class="award-icon">◇</div>
+          <h4 class="award-name">Velocity Mark</h4>
+          <p class="award-desc">Speed improvement unlocked</p>
+        </div>
+        <div class="award-card" data-award="power-standard">
+          <div class="award-icon">◇</div>
+          <h4 class="award-name">Power Standard</h4>
+          <p class="award-desc">Major strength PR hit</p>
+        </div>
+
+        <!-- Consistency -->
+        <div class="award-card" data-award="no-miss-club">
+          <div class="award-icon">◇</div>
+          <h4 class="award-name">No Miss Club</h4>
+          <p class="award-desc">Zero missed sessions in a month</p>
+        </div>
+        <div class="award-card" data-award="locked-in">
+          <div class="award-icon">◇</div>
+          <h4 class="award-name">Locked In</h4>
+          <p class="award-desc">Daily check-in streak</p>
+        </div>
+
+        <!-- Nutrition / Recovery -->
+        <div class="award-card" data-award="recovery-first">
+          <div class="award-icon">◇</div>
+          <h4 class="award-name">Recovery First</h4>
+          <p class="award-desc">Recovery score above 90% for 2 weeks</p>
+        </div>
+        <div class="award-card" data-award="built-weekly">
+          <div class="award-icon">◇</div>
+          <h4 class="award-name">Built Weekly</h4>
+          <p class="award-desc">Full weekly standard met 4 weeks running</p>
+        </div>
+
+        <!-- Community -->
+        <div class="award-card" data-award="team-lift">
+          <div class="award-icon">◇</div>
+          <h4 class="award-name">Team Lift</h4>
+          <p class="award-desc">Helped a teammate hit a PR</p>
+        </div>
+        <div class="award-card" data-award="ppf-presence">
+          <div class="award-icon">◇</div>
+          <h4 class="award-name">PPF Presence</h4>
+          <p class="award-desc">Consistent presence and energy in the room</p>
+        </div>
+        <div class="award-card" data-award="explosive-profile">
+          <div class="award-icon">◇</div>
+          <h4 class="award-name">Explosive Profile</h4>
+          <p class="award-desc">Top-tier explosive power metrics</p>
+        </div>
+        <div class="award-card" data-award="draft-ready-marker">
+          <div class="award-icon">◇</div>
+          <h4 class="award-name">Draft Ready Marker</h4>
+          <p class="award-desc">All combine-style benchmarks met</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PPF JOURNEY SNAPSHOT ─── -->
+    <section class="dash-journey" id="profileJourney">
+      <h2 class="section-heading">PPF Journey Snapshot</h2>
+      <p class="section-sub">The milestones that map your path.</p>
+
+      <div class="journey-timeline" id="profileJourneyTimeline">
+        <div class="journey-node completed">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>Joined PPF</h4>
+            <span class="journey-date">Jan 15, 2025</span>
+          </div>
+        </div>
+        <div class="journey-node completed">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>First Assessment</h4>
+            <span class="journey-date">Jan 18, 2025</span>
+          </div>
+        </div>
+        <div class="journey-node completed">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>10 Sessions Completed</h4>
+            <span class="journey-date">Feb 12, 2025</span>
+          </div>
+        </div>
+        <div class="journey-node active">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>Body Blueprint Milestone</h4>
+            <span class="journey-date">In progress</span>
+          </div>
+        </div>
+        <div class="journey-node locked">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>Benchmark Retest</h4>
+            <span class="journey-date">Upcoming</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Footer ─── -->
+    <footer class="dash-footer">
+      <p>&copy; 2025 PPF Athletics. Built for progress. Proven daily.</p>
+    </footer>
+  </main>
+
+  <script src="../js/ppf-member.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PPFMember !== 'undefined') {
+        PPFMember.initProfile();
+      }
+    });
+  </script>
+</body>
+</html>
