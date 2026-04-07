@@ -986,7 +986,7 @@ button {
   left: 20px;
   width: calc(100% - 40px);
   height: 2px;
-  background: rgba(255, 85, 0, 0.2);
+  background: rgba(100, 140, 255, 0.2);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -995,7 +995,7 @@ button {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(255, 85, 0, 0.6);
+  background: rgba(100, 140, 255, 0.6);
   transform: scaleX(0);
   transform-origin: left;
   animation: barFill 2s var(--ease-out-expo) infinite;
@@ -1013,7 +1013,7 @@ button {
   top: 50%;
   left: 50%;
   border-radius: 50%;
-  border: 1px solid rgba(255, 85, 0, 0.2);
+  border: 1px solid rgba(80, 200, 120, 0.2);
   transform: translate(-50%, -50%) scale(0);
   animation: circleExpand 2.5s ease-out infinite;
 }
@@ -1195,6 +1195,221 @@ button {
 .path-card[data-path="athlete"] .path-coach-phrase { color: var(--orange); }
 .path-card[data-path="adult"] .path-coach-phrase { color: #6a8fff; }
 .path-card[data-path="integrated"] .path-coach-phrase { color: #50c878; }
+
+/* =====================================================
+   PATH UNLOCK — EXPANDED BOOT-UP PANEL
+   ===================================================== */
+.path-unlock-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: rgba(8, 8, 8, 0.97);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 32px;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.97);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  overflow-y: auto;
+}
+
+.path-card.unlocked .path-unlock-panel {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+/* Boot-up sequence */
+.path-unlock-boot {
+  width: 100%;
+  max-width: 340px;
+  margin-bottom: 28px;
+}
+
+.boot-line {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.2);
+  padding: 4px 0;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.path-card.unlocked .boot-line--1 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.1s;
+}
+
+.path-card.unlocked .boot-line--2 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.35s;
+}
+
+.path-card.unlocked .boot-line--3 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.6s;
+}
+
+.path-card.boot-complete .boot-line--3 {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.path-card[data-path="athlete"].boot-complete .boot-line--3 { color: var(--orange); }
+.path-card[data-path="adult"].boot-complete .boot-line--3 { color: #6a8fff; }
+.path-card[data-path="integrated"].boot-complete .boot-line--3 { color: #50c878; }
+
+/* Expanded content blocks */
+.path-unlock-content {
+  width: 100%;
+  max-width: 340px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition-delay: 0s;
+}
+
+.path-card.boot-complete .path-unlock-content {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.15s;
+}
+
+.unlock-block {
+  margin-bottom: 20px;
+}
+
+.unlock-block-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.path-card[data-path="athlete"] .unlock-block-label { color: rgba(255, 85, 0, 0.5); border-bottom-color: rgba(255, 85, 0, 0.08); }
+.path-card[data-path="adult"] .unlock-block-label { color: rgba(100, 140, 255, 0.5); border-bottom-color: rgba(100, 140, 255, 0.08); }
+.path-card[data-path="integrated"] .unlock-block-label { color: rgba(80, 200, 120, 0.5); border-bottom-color: rgba(80, 200, 120, 0.08); }
+
+.unlock-block p {
+  font-size: 13px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.unlock-week-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.unlock-week-grid span {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.unlock-week-grid span:last-child { border-bottom: none; }
+
+.unlock-entry-btn {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 12px 24px;
+  border: 1px solid rgba(255, 85, 0, 0.4);
+  color: var(--orange);
+  background: rgba(255, 85, 0, 0.05);
+  text-decoration: none;
+  transition: background 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+}
+
+.unlock-entry-btn:hover {
+  background: rgba(255, 85, 0, 0.12);
+  border-color: var(--orange);
+}
+
+.path-card[data-path="adult"] .unlock-entry-btn {
+  border-color: rgba(100, 140, 255, 0.4);
+  color: #6a8fff;
+  background: rgba(100, 140, 255, 0.05);
+}
+.path-card[data-path="adult"] .unlock-entry-btn:hover {
+  background: rgba(100, 140, 255, 0.12);
+  border-color: #6a8fff;
+}
+
+.path-card[data-path="integrated"] .unlock-entry-btn {
+  border-color: rgba(80, 200, 120, 0.4);
+  color: #50c878;
+  background: rgba(80, 200, 120, 0.05);
+}
+.path-card[data-path="integrated"] .unlock-entry-btn:hover {
+  background: rgba(80, 200, 120, 0.12);
+  border-color: #50c878;
+}
+
+/* Close button */
+.path-unlock-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  z-index: 25;
+}
+
+.path-unlock-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+}
+
+/* Hide hover-only elements when unlocked */
+.path-card.unlocked .path-day-preview,
+.path-card.unlocked .path-coach-phrase,
+.path-card.unlocked .path-motion-layer {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+/* Top glow accent on expanded card */
+.path-card[data-path="athlete"].unlocked .path-unlock-panel {
+  border-top: 2px solid var(--orange);
+  box-shadow: inset 0 2px 30px rgba(255, 85, 0, 0.06);
+}
+.path-card[data-path="adult"].unlocked .path-unlock-panel {
+  border-top: 2px solid #6a8fff;
+  box-shadow: inset 0 2px 30px rgba(100, 140, 255, 0.06);
+}
+.path-card[data-path="integrated"].unlocked .path-unlock-panel {
+  border-top: 2px solid #50c878;
+  box-shadow: inset 0 2px 30px rgba(80, 200, 120, 0.06);
+}
 
 /* One Standard Pulse Connector */
 .paths-pulse-connector {
@@ -6516,6 +6731,26 @@ body.intro-active {
 
   .path-day-preview { display: none; }
   .path-coach-phrase { display: none; }
+
+  /* Path unlock panel — mobile: tap to expand, stack vertically */
+  .path-unlock-panel {
+    padding: 32px 20px;
+    position: relative;
+    inset: auto;
+    transform: none;
+    border-radius: 0;
+  }
+
+  .path-card.unlocked {
+    height: auto !important;
+  }
+
+  .path-card.unlocked .path-unlock-panel {
+    position: relative;
+  }
+
+  .path-unlock-content { max-width: 100%; }
+  .path-unlock-boot { max-width: 100%; }
 
   .paths-pulse-connector { height: 40px; }
   .pulse-dot { display: none; }

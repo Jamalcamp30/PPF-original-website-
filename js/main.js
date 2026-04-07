@@ -1745,6 +1745,7 @@
 
   pathCards.forEach(card => {
     card.addEventListener('mouseenter', function () {
+      if (this.classList.contains('unlocked')) return;
       const path = this.dataset.path;
       this.style.zIndex = '10';
 
@@ -1755,6 +1756,7 @@
     });
 
     card.addEventListener('mouseleave', function () {
+      if (this.classList.contains('unlocked')) return;
       this.style.zIndex = '';
       // Clear athlete timer
       const interval = cardTimers.get(this);
@@ -1765,6 +1767,39 @@
       const timerEl = qs('.motion-timer', this);
       if (timerEl) timerEl.textContent = '00:00.00';
     });
+
+    // Path unlock — click card to expand
+    card.addEventListener('click', function (e) {
+      // Don't trigger if clicking on a link, button, or CTA inside
+      if (e.target.closest('a, button, .ppf-cta, .path-unlock-close, .unlock-entry-btn')) return;
+      // Don't trigger if already unlocked
+      if (this.classList.contains('unlocked')) return;
+
+      // Close any other unlocked cards first
+      qsa('.path-card.unlocked').forEach(c => {
+        c.classList.remove('unlocked', 'boot-complete');
+      });
+
+      this.classList.add('unlocked');
+      this.style.zIndex = '15';
+
+      // Trigger boot-complete after boot sequence finishes
+      setTimeout(() => {
+        if (this.classList.contains('unlocked')) {
+          this.classList.add('boot-complete');
+        }
+      }, 800);
+    });
+
+    // Close button handler
+    const closeBtn = qs('.path-unlock-close', card);
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        card.classList.remove('unlocked', 'boot-complete');
+        card.style.zIndex = '';
+      });
+    }
   });
 
   function startAthleteTimer(card) {
