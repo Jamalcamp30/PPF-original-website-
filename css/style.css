@@ -268,6 +268,22 @@ button {
   transform: translateY(-1px);
 }
 
+/* Member Login button in nav */
+.nav-link.nav-member-btn {
+  background: transparent;
+  color: var(--orange);
+  padding: 10px 20px;
+  font-size: 11px;
+  border: 1px solid var(--orange);
+  transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+.nav-link.nav-member-btn::after { display: none; }
+.nav-link.nav-member-btn:hover {
+  background: var(--orange);
+  color: var(--white);
+  transform: translateY(-1px);
+}
+
 .nav-toggle {
   display: none;
   flex-direction: column;
