@@ -11,6 +11,14 @@
   var qs = function (s, p) { return (p || document).querySelector(s); };
   var qsa = function (s, p) { return Array.from((p || document).querySelectorAll(s)); };
 
+  function hexToRgba(hex, alpha) {
+    hex = hex.replace('#', '');
+    var r = parseInt(hex.substring(0, 2), 16);
+    var g = parseInt(hex.substring(2, 4), 16);
+    var b = parseInt(hex.substring(4, 6), 16);
+    return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+  }
+
   /* ══════════════════════════════════════════════
      1. READINESS FINGERPRINT
      ══════════════════════════════════════════════ */
@@ -104,10 +112,7 @@
         else ctx.lineTo(px, py);
       }
       ctx.closePath();
-      ctx.fillStyle = mainColor.replace(')', ',0.12)').replace('rgb', 'rgba').replace('#', '');
-      // Convert hex to rgba for fill
-      var fillColor = hexToRgba(mainColor, 0.12);
-      ctx.fillStyle = fillColor;
+      ctx.fillStyle = hexToRgba(mainColor, 0.12);
       ctx.fill();
       ctx.strokeStyle = mainColor;
       ctx.lineWidth = 2;
@@ -125,7 +130,6 @@
         ctx.fill();
         ctx.beginPath();
         ctx.arc(dx, dy, 7, 0, Math.PI * 2);
-        ctx.strokeStyle = mainColor.replace(')', ',0.3)');
         ctx.strokeStyle = hexToRgba(mainColor, 0.3);
         ctx.lineWidth = 1;
         ctx.stroke();
@@ -141,14 +145,6 @@
         pathCta.style.color = mainColor;
         pathCta.style.background = hexToRgba(mainColor, 0.12);
       }
-    }
-
-    function hexToRgba(hex, alpha) {
-      hex = hex.replace('#', '');
-      var r = parseInt(hex.substring(0, 2), 16);
-      var g = parseInt(hex.substring(2, 4), 16);
-      var b = parseInt(hex.substring(4, 6), 16);
-      return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
     }
 
     sliders.forEach(function (s) {
@@ -277,7 +273,6 @@
         // Glow
         ctx.beginPath();
         ctx.arc(x, y, 10, 0, Math.PI * 2);
-        ctx.fillStyle = color.replace(')', ',0.15)');
         ctx.fillStyle = hexToRgba(color, 0.15);
         ctx.fill();
 
@@ -303,14 +298,6 @@
       sweepAngle += 0.015;
       if (sweepAngle > Math.PI * 2) sweepAngle -= Math.PI * 2;
       requestAnimationFrame(draw);
-    }
-
-    function hexToRgba(hex, alpha) {
-      hex = hex.replace('#', '');
-      var r = parseInt(hex.substring(0, 2), 16);
-      var g = parseInt(hex.substring(2, 4), 16);
-      var b = parseInt(hex.substring(4, 6), 16);
-      return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
     }
 
     // Only animate when visible
@@ -427,7 +414,7 @@
     ];
 
     // Shuffle based on day
-    var dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+    var dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 1)) / 86400000);
     var shuffled = entries.slice().sort(function () { return 0.5 - seededRandom(dayOfYear); });
 
     function seededRandom(seed) {
@@ -561,12 +548,16 @@
           var fill = qs('.bench-ladder-fill', e.target);
           var marker = qs('.bench-ladder-marker', e.target);
           if (fill) {
-            var w = fill.getAttribute('data-width');
-            fill.style.width = w + '%';
+            var w = parseFloat(fill.getAttribute('data-width'));
+            if (!isNaN(w) && w >= 0 && w <= 100) {
+              fill.style.width = w + '%';
+            }
           }
           if (marker) {
-            var pos = marker.getAttribute('data-pos');
-            marker.style.left = pos + '%';
+            var pos = parseFloat(marker.getAttribute('data-pos'));
+            if (!isNaN(pos) && pos >= 0 && pos <= 100) {
+              marker.style.left = pos + '%';
+            }
           }
         }
       });
