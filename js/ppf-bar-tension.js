@@ -123,9 +123,9 @@
   }
 
   function easeOutBack(t) {
-    var c1 = 1.3; // controlled recoil, NOT springy
-    var c3 = c1 + 1;
-    return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+    var recoilIntensity = 1.3; // controlled recoil, NOT springy
+    var scaledRecoil = recoilIntensity + 1;
+    return 1 + scaledRecoil * Math.pow(t - 1, 3) + recoilIntensity * Math.pow(t - 1, 2);
   }
 
   /* ── ANIMATE BEND ───────────────────────────────────────────── */
