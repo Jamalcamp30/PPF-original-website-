@@ -231,7 +231,11 @@
           var eased = 1 - Math.pow(1 - progress, 3);
           current = Math.round(eased * total);
           num.textContent = current;
-          if (progress < 1) requestAnimationFrame(tick);
+          if (progress < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            num.textContent = total; // ensure exact final value
+          }
         })(start);
       });
     }
@@ -462,8 +466,8 @@
 
       /* Reset progress bar */
       progressFill.classList.remove('rf-progress-run');
-      /* Force reflow */
-      void progressFill.offsetWidth;
+      /* Force reflow to restart CSS transition */
+      progressFill.getBoundingClientRect();
       progressFill.classList.add('rf-progress-run');
     }
 
@@ -1143,7 +1147,8 @@
         /* Re-trigger animation for visible cards */
         if (match) {
           card.classList.remove('lw-card-show');
-          void card.offsetWidth;
+          /* Force reflow to restart card animation */
+          card.getBoundingClientRect();
         }
       });
 
@@ -1223,7 +1228,11 @@
         var progress = Math.min(elapsed / duration, 1);
         var eased = 1 - Math.pow(1 - progress, 3);
         numEl.textContent = Math.round(eased * target);
-        if (progress < 1) requestAnimationFrame(tick);
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          numEl.textContent = target; // ensure exact final value
+        }
       })(start);
     }
 
