@@ -793,6 +793,7 @@ var PPFMember = (function () {
     // ── Body Blueprint ──
     var startWeight = profile.startWeight || 0;
     var startBMI = profile.startBMI || 0;
+    // Default goal: 3% weight reduction when no explicit goal is set
     var goalWeight = startWeight > 0 ? Math.round(startWeight * 0.97) : 0;
 
     var bw = qs('#bodyWeight');
@@ -901,14 +902,14 @@ var PPFMember = (function () {
   function initDailyStreak() {
     var streakCards = qsa('.streak-card');
     var streakSummary = qs('#streakSummaryText');
-    var streakCount = 0;
+    var activeCategories = 0;
 
     streakCards.forEach(function (card) {
-      if (card.classList.contains('active')) streakCount++;
+      if (card.classList.contains('active')) activeCategories++;
     });
 
     if (streakSummary) {
-      streakSummary.textContent = 'Current streak: ' + streakCount + ' days locked in';
+      streakSummary.textContent = 'Current streak: ' + activeCategories + ' of ' + streakCards.length + ' categories active';
     }
   }
 
