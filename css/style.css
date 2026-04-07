@@ -1023,6 +1023,340 @@ button {
 .mc-3 { width: 240px; height: 240px; animation-delay: 1s; }
 
 /* =====================================================
+   PATH CARDS — ENHANCED IDENTITY ELEMENTS
+   ===================================================== */
+
+/* Branded subtitle (BUILT TO COMPETE, etc.) */
+.path-branded-sub {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  margin-bottom: 18px;
+  opacity: 0.55;
+  color: var(--white);
+  font-family: var(--font-body);
+}
+
+.path-card[data-path="athlete"] .path-branded-sub { color: var(--orange); }
+.path-card[data-path="adult"] .path-branded-sub { color: #6a8fff; }
+.path-card[data-path="integrated"] .path-branded-sub { color: #50c878; }
+
+/* Signature outcome line */
+.path-outcome {
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 20px;
+  max-width: 340px;
+  display: none;
+  opacity: 0;
+  transition: opacity var(--transition-med);
+}
+
+.path-card:hover .path-outcome {
+  display: block;
+  opacity: 1;
+}
+
+/* Proof element */
+.path-proof {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 16px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: none;
+  opacity: 0;
+  transition: opacity var(--transition-med);
+}
+
+.path-card:hover .path-proof {
+  display: block;
+  opacity: 1;
+}
+
+.path-card[data-path="athlete"] .path-proof { border-top-color: rgba(255, 85, 0, 0.15); }
+.path-card[data-path="adult"] .path-proof { border-top-color: rgba(100, 140, 255, 0.15); }
+.path-card[data-path="integrated"] .path-proof { border-top-color: rgba(80, 200, 120, 0.15); }
+
+/* "Who it's for" line */
+.path-who-for {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  margin-bottom: 20px;
+  padding: 8px 14px;
+  border-left: 2px solid var(--orange);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.path-card[data-path="adult"] .path-who-for { border-left-color: #6a8fff; }
+.path-card[data-path="integrated"] .path-who-for { border-left-color: #50c878; }
+
+/* "Why this path exists" */
+.path-why-exists {
+  font-size: 12px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: 20px;
+  max-width: 320px;
+  display: none;
+  opacity: 0;
+  transition: opacity var(--transition-med);
+}
+
+.path-card:hover .path-why-exists {
+  display: block;
+  opacity: 1;
+}
+
+/* Day-in-the-life hover preview */
+.path-day-preview {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 5;
+  padding: 20px 18px;
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+  max-width: 220px;
+}
+
+.path-card:hover .path-day-preview {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.path-day-label {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.path-card[data-path="athlete"] .path-day-label { color: rgba(255, 85, 0, 0.6); border-bottom-color: rgba(255, 85, 0, 0.1); }
+.path-card[data-path="adult"] .path-day-label { color: rgba(100, 140, 255, 0.6); border-bottom-color: rgba(100, 140, 255, 0.1); }
+.path-card[data-path="integrated"] .path-day-label { color: rgba(80, 200, 120, 0.6); border-bottom-color: rgba(80, 200, 120, 0.1); }
+
+.path-day-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 6px 0;
+}
+
+.path-day-num {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.2);
+  min-width: 22px;
+}
+
+.path-card[data-path="athlete"] .path-day-num { color: rgba(255, 85, 0, 0.4); }
+.path-card[data-path="adult"] .path-day-num { color: rgba(100, 140, 255, 0.4); }
+.path-card[data-path="integrated"] .path-day-num { color: rgba(80, 200, 120, 0.4); }
+
+/* Coach phrase on hover */
+.path-coach-phrase {
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  z-index: 5;
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s;
+  pointer-events: none;
+}
+
+.path-card:hover .path-coach-phrase {
+  opacity: 0.6;
+  transform: translateX(0);
+}
+
+.path-card[data-path="athlete"] .path-coach-phrase { color: var(--orange); }
+.path-card[data-path="adult"] .path-coach-phrase { color: #6a8fff; }
+.path-card[data-path="integrated"] .path-coach-phrase { color: #50c878; }
+
+/* One Standard Pulse Connector */
+.paths-pulse-connector {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: -4px;
+}
+
+.pulse-line {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 85, 0, 0.3) 15%,
+    rgba(100, 140, 255, 0.3) 50%,
+    rgba(80, 200, 120, 0.3) 85%,
+    transparent
+  );
+  transform: translateY(-50%);
+}
+
+.pulse-line::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, transparent, var(--orange), transparent);
+  border-radius: 2px;
+  animation: pulseRun 3s ease-in-out infinite;
+}
+
+@keyframes pulseRun {
+  0%   { left: 0%; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { left: calc(100% - 60px); opacity: 0; }
+}
+
+.pulse-dot {
+  position: absolute;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  animation: pulseDotGlow 2s ease-in-out infinite;
+}
+
+.pulse-dot--1 { left: 16.6%; background: var(--orange); animation-delay: 0s; }
+.pulse-dot--2 { left: 50%; background: #6a8fff; animation-delay: 0.6s; }
+.pulse-dot--3 { left: 83.3%; background: #50c878; animation-delay: 1.2s; }
+
+@keyframes pulseDotGlow {
+  0%, 100% { box-shadow: 0 0 4px currentColor; opacity: 0.5; }
+  50%      { box-shadow: 0 0 14px currentColor, 0 0 24px currentColor; opacity: 1; }
+}
+
+.pulse-label {
+  position: relative;
+  z-index: 2;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: rgba(255, 255, 255, 0.35);
+  background: var(--bg-base);
+  padding: 0 20px;
+}
+
+/* Path Comparison Strip */
+.path-compare-strip {
+  margin-top: 60px;
+  margin-bottom: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.compare-row {
+  display: grid;
+  grid-template-columns: 160px repeat(3, 1fr);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.compare-row:last-child { border-bottom: none; }
+
+.compare-row--header {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.compare-cell {
+  padding: 14px 20px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.compare-cell:last-child { border-right: none; }
+
+.compare-cell--label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.01);
+}
+
+.compare-row--header .compare-cell {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.compare-cell--athlete { color: var(--orange); }
+.compare-cell--adult { color: #6a8fff; }
+.compare-cell--integrated { color: #50c878; }
+
+/* Enhanced per-path visual atmospheres */
+
+/* Athlete: high-energy, motion streaks, metric overlay feel */
+.path-card[data-path="athlete"] .path-card-inner {
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 29px,
+      rgba(255, 85, 0, 0.02) 29px,
+      rgba(255, 85, 0, 0.02) 30px
+    );
+}
+
+/* Adult: structured grid, steel/barbell texture */
+.path-card[data-path="adult"] .path-card-inner {
+  background-image:
+    linear-gradient(rgba(100, 140, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 140, 255, 0.015) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Integrated: softer, warmer glow overlay */
+.path-card[data-path="integrated"] .path-card-inner {
+  background-image: radial-gradient(
+    ellipse at 50% 80%,
+    rgba(80, 200, 120, 0.04) 0%,
+    transparent 70%
+  );
+}
+
+/* =====================================================
    PROOF ENGINE SECTION
    ===================================================== */
 .proof-section {
@@ -6172,6 +6506,25 @@ body.intro-active {
 
   .path-motion-layer { display: none; }
 
+  /* New path elements — mobile */
+  .path-outcome,
+  .path-proof,
+  .path-why-exists {
+    display: block;
+    opacity: 1;
+  }
+
+  .path-day-preview { display: none; }
+  .path-coach-phrase { display: none; }
+
+  .paths-pulse-connector { height: 40px; }
+  .pulse-dot { display: none; }
+
+  .path-compare-strip { margin-top: 32px; }
+  .compare-row { grid-template-columns: 100px repeat(3, 1fr); }
+  .compare-cell { padding: 10px 10px; font-size: 10px; }
+  .compare-cell--label { font-size: 8px; }
+
   .proof-metrics-grid { grid-template-columns: repeat(2, 1fr); }
   .proof-stories { grid-template-columns: 1fr; }
 
@@ -6263,6 +6616,14 @@ body.intro-active {
   .experience-cta { padding: 48px 24px; }
 
   .trust-item { min-width: 100%; }
+
+  /* Path compare strip — hide on very small screens, show simplified */
+  .compare-row { grid-template-columns: 80px repeat(3, 1fr); }
+  .compare-cell { padding: 8px 6px; font-size: 9px; }
+  .compare-cell--label { font-size: 7px; letter-spacing: 0.15em; }
+  .compare-row--header .compare-cell { font-size: 8px; }
+
+  .path-day-preview { display: none !important; }
 
   .what-happens-next { padding: 24px 20px; }
   .first-visit-box { padding: 24px 20px; }
