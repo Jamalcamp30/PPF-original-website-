@@ -106,6 +106,18 @@
     integrated: 'PPF GUIDED PATH'
   };
 
+  /* Rail track spans 5%–95% of viewport, giving 90% usable range */
+  var TRACK_OFFSET  = 5;   /* top/bottom inset (%) */
+  var TRACK_RATIO   = 0.9; /* usable track fraction (90%) */
+  var MARKER_LEAD   = 2;   /* scroll % before marker to count as reached */
+  var HERO_HIDE_PCT = 3;   /* hide rails when within this % of page top */
+  var DOM_SETTLE_MS = 300;  /* delay to let DOM layout stabilise on init */
+
+  /* IntersectionObserver tuning for section detection */
+  var SECTION_THRESHOLDS = [0.15, 0.3, 0.5];
+  var SECTION_ROOT_MARGIN = '-10% 0px -10% 0px';
+  var HERO_EXIT_THRESHOLD = 0.3;
+
   /* ── State ─────────────────────────────────────────── */
   var currentPath = 'athlete';
   var scrollPct = 0;
@@ -214,7 +226,7 @@
     if (!section) return -1;
     var docHeight = document.documentElement.scrollHeight - window.innerHeight;
     if (docHeight <= 0) return -1;
-    var top = section.getBoundingClientRect().top + window.pageYOffset;
+    var top = section.getBoundingClientRect().top + window.scrollY;
     return Math.min(100, Math.max(0, (top / docHeight) * 100));
   }
 
@@ -374,17 +386,17 @@
   function updateProgress() {
     var docHeight = document.documentElement.scrollHeight - window.innerHeight;
     if (docHeight <= 0) return;
-    scrollPct = Math.min(100, Math.max(0, (window.pageYOffset / docHeight) * 100));
+    scrollPct = Math.min(100, Math.max(0, (window.scrollY / docHeight) * 100));
 
-    /* Progress fill height — maps to the 90% track area (5% to 95%) */
-    var fillHeight = scrollPct * 0.9;
+    /* Progress fill height — maps to the track area */
+    var fillHeight = scrollPct * TRACK_RATIO;
     leftProgress.style.height = fillHeight + '%';
-    leftProgress.style.top = '5%';
+    leftProgress.style.top = TRACK_OFFSET + '%';
     rightProgress.style.height = fillHeight + '%';
-    rightProgress.style.top = '5%';
+    rightProgress.style.top = TRACK_OFFSET + '%';
 
     /* Glow dot position */
-    var glowTop = 5 + scrollPct * 0.9;
+    var glowTop = TRACK_OFFSET + scrollPct * TRACK_RATIO;
     leftGlow.style.top = glowTop + '%';
     leftGlow.classList.add('ppf-rail__glow--active');
     rightGlow.style.top = glowTop + '%';
@@ -399,7 +411,7 @@
       .concat(qsa('.ppf-rail__marker', rightMarkerContainer));
     allMarkers.forEach(function (m) {
       var markerPct = parseFloat(m.getAttribute('data-pct'));
-      if (scrollPct >= markerPct - 2) {
+      if (scrollPct >= markerPct - MARKER_LEAD) {
         m.classList.add('ppf-rail__marker--reached');
       } else {
         m.classList.remove('ppf-rail__marker--reached');
@@ -529,8 +541,8 @@
         }
       });
     }, {
-      threshold: [0.15, 0.3, 0.5],
-      rootMargin: '-10% 0px -10% 0px'
+      threshold: SECTION_THRESHOLDS,
+      rootMargin: SECTION_ROOT_MARGIN
     });
 
     sections.forEach(function (section) {
@@ -544,18 +556,18 @@
     if (bracketPct < 0) return;
 
     /* Left bracket */
-    leftBracket.style.top = (5 + bracketPct * 0.9) + '%';
+    leftBracket.style.top = (TRACK_OFFSET + bracketPct * TRACK_RATIO) + '%';
     leftBracket.classList.add('ppf-rail__bracket--active');
 
     /* Right bracket */
-    rightBracket.style.top = (5 + bracketPct * 0.9) + '%';
+    rightBracket.style.top = (TRACK_OFFSET + bracketPct * TRACK_RATIO) + '%';
     rightBracket.classList.add('ppf-rail__bracket--active');
 
     /* Right status label */
     var statusText = getStatusText(sectionId);
     if (statusText) {
       rightStatus.textContent = statusText;
-      rightStatus.style.top = (5 + bracketPct * 0.9 + 3) + '%';
+      rightStatus.style.top = (TRACK_OFFSET + bracketPct * TRACK_RATIO + 3) + '%';
       rightStatus.classList.add('ppf-rail__status--visible');
     } else {
       rightStatus.classList.remove('ppf-rail__status--visible');
@@ -611,12 +623,12 @@
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) {
           showRails();
-        } else if (scrollPct < 3) {
+        } else if (scrollPct < HERO_HIDE_PCT) {
           leftRail.classList.remove('ppf-rail--visible');
           rightRail.classList.remove('ppf-rail--visible');
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: HERO_EXIT_THRESHOLD });
 
     heroObserver.observe(hero);
   }
@@ -716,7 +728,7 @@
       observeSections();
       observeHeroExit();
       updateProgress();
-    }, 300);
+    }, DOM_SETTLE_MS);
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onResize, { passive: true });
