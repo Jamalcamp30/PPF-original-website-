@@ -3345,3 +3345,48 @@
   })();
 
 })();
+
+/* ── CONVERSION RAIL ───────────────────────────────── */
+(function initConversionRail() {
+  var rail = document.getElementById('conversionRail');
+  if (!rail) return;
+
+  var shown = false;
+  var scrollThreshold = 400;
+
+  function checkScroll() {
+    if (window.scrollY > scrollThreshold && !shown) {
+      shown = true;
+      rail.classList.add('is-visible');
+    } else if (window.scrollY <= scrollThreshold && shown) {
+      shown = false;
+      rail.classList.remove('is-visible');
+    }
+  }
+
+  // Debounced scroll handler
+  var ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      window.requestAnimationFrame(function() {
+        checkScroll();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // Smooth scroll for internal links
+  rail.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Initial check
+  checkScroll();
+})();
