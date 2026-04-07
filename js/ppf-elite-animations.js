@@ -249,11 +249,11 @@
       '.chalk-p{position:absolute;border-radius:50%;will-change:transform,opacity;',
       '  top:50%;left:50%;transform:translate(-50%,-50%)}',
       '@keyframes chalkLeft{0%{transform:translate(-50%,-50%) scale(0);opacity:.7}',
-      '  100%{transform:translate(calc(-50vw + ' + (Math.random()*20) + 'px),-50%) scale(1.5);opacity:0}}',
+      '  100%{transform:translate(calc(-50vw + 10px),-50%) scale(1.5);opacity:0}}',
       '@keyframes chalkDown{0%{transform:translate(-50%,-50%) scale(0);opacity:.7}',
       '  100%{transform:translate(-50%,40vh) scale(1.5);opacity:0}}',
       '@keyframes chalkRight{0%{transform:translate(-50%,-50%) scale(0);opacity:.7}',
-      '  100%{transform:translate(calc(50vw - ' + (Math.random()*20) + 'px),-50%) scale(1.5);opacity:0}}'
+      '  100%{transform:translate(calc(50vw - 10px),-50%) scale(1.5);opacity:0}}'
     ].join('\n'));
 
     var fired = false;
@@ -433,9 +433,9 @@
     var defaultArc = { color: '#ff5500', d: 'M10,70 L50,30 L90,70' };
 
     function getPathType(el) {
-      var p = el.dataset.path || el.closest('[data-path]');
-      if (p && typeof p === 'object') p = p.dataset.path;
-      return (typeof p === 'string') ? p : null;
+      if (el.dataset.path) return el.dataset.path;
+      var ancestor = el.closest('[data-path]');
+      return ancestor ? ancestor.dataset.path : null;
     }
 
     qsa('.path-card, .leader-card').forEach(function (card) {
@@ -658,10 +658,10 @@
       var perNode = Math.floor(totalSteps / Math.max(nodes.length - 1, 1));
 
       function getPos(node) {
-        if (node.offsetLeft !== undefined && node.getBoundingClientRect) {
+        if (node instanceof HTMLElement) {
           return { x: node.offsetLeft + node.offsetWidth / 2, y: node.offsetTop + node.offsetHeight / 2 };
         }
-        return { x: node.offsetLeft || 0, y: node.offsetTop || 0 };
+        return { x: node.x || 0, y: node.y || 0 };
       }
 
       function tick() {
@@ -902,19 +902,25 @@
 
     // Trigger on form submit
     var form = qs('#startForm');
+    var formCheckInterval = null;
     if (form) {
       form.addEventListener('submit', function () {
+        // Clear any existing interval from a previous submit
+        if (formCheckInterval) clearInterval(formCheckInterval);
         // Wait for success state to appear
-        var check = setInterval(function () {
+        formCheckInterval = setInterval(function () {
           var success = qs('#formSuccess');
           if (success && (success.offsetHeight > 0 || success.classList.contains('visible') ||
               getComputedStyle(success).display !== 'none')) {
-            clearInterval(check);
+            clearInterval(formCheckInterval);
+            formCheckInterval = null;
             playFinish();
           }
         }, 200);
         // Safety timeout
-        setTimeout(function () { clearInterval(check); }, 5000);
+        setTimeout(function () {
+          if (formCheckInterval) { clearInterval(formCheckInterval); formCheckInterval = null; }
+        }, 5000);
       });
     }
 
