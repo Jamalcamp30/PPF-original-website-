@@ -2369,16 +2369,51 @@
     });
   }
 
-  /* ── SOCIAL CARD HOVER EFFECTS ─────────────────────── */
-  const socialCards = qsa('.social-card');
-  socialCards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-      const arrow = card.querySelector('.social-card-arrow');
-      if (arrow) arrow.style.transform = 'translateX(4px)';
+  /* ── PPF ECOSYSTEM — MODE SWITCHING & ANIMATIONS ──── */
+  /* Story mode toggles */
+  const ecoModes = qsa('.eco-mode-btn');
+  const ecoPanels = qsa('.eco-panel');
+
+  ecoModes.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.mode;
+
+      /* Update active button */
+      ecoModes.forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+
+      /* Switch visible panel */
+      ecoPanels.forEach(panel => {
+        panel.classList.remove('is-visible');
+        if (panel.dataset.panel === mode) {
+          panel.classList.add('is-visible');
+        }
+      });
     });
-    card.addEventListener('mouseleave', () => {
-      const arrow = card.querySelector('.social-card-arrow');
-      if (arrow) arrow.style.transform = '';
+  });
+
+  /* Ecosystem boot-up animation on scroll */
+  const ecoSection = qs('.ppf-ecosystem');
+  if (ecoSection && 'IntersectionObserver' in window) {
+    const ecoObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          ecoSection.classList.add('eco-active');
+          ecoObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    ecoObs.observe(ecoSection);
+  }
+
+  /* Social link hover effects */
+  const ecoSocialLinks = qsa('.eco-social-link');
+  ecoSocialLinks.forEach(link => {
+    link.addEventListener('mouseenter', () => {
+      link.style.transform = 'translateY(-3px)';
+    });
+    link.addEventListener('mouseleave', () => {
+      link.style.transform = '';
     });
   });
 

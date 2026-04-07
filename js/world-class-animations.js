@@ -105,7 +105,7 @@
     dom.hudCue          = qs('#hudCue');
     dom.hudProgressFill = qs('#hudProgressFill');
 
-    dom.socialCards     = qsa('.social-card');
+    dom.socialCards     = qsa('.eco-social-link');
   }
 
   /* ---------------------------------------------------------------
