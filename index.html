@@ -381,6 +381,136 @@
     </div>
   </section>
 
+  <!-- ============================================================
+       PPF DAILY SIGNAL — THE READINESS BOARD
+       A live performance command center that makes the site a daily habit
+  ============================================================ -->
+  <section class="section signal-section" id="dailySignal">
+    <div class="container">
+      <div class="section-label reveal-up">DAILY SIGNAL</div>
+      <h2 class="section-title reveal-up">
+        The Room Is<br />
+        <span class="accent">Live.</span>
+      </h2>
+
+      <div class="signal-board reveal-up">
+        <!-- Date & Status Bar -->
+        <div class="signal-header">
+          <div class="signal-date" id="signalDate"></div>
+          <div class="signal-status">
+            <span class="signal-status-dot"></span>
+            <span class="signal-status-label" id="signalStatusLabel">ROOM ACTIVE</span>
+          </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="signal-grid">
+          <!-- Coach Cue of the Day -->
+          <div class="signal-card signal-card--cue">
+            <div class="signal-card-label">COACH CUE OF THE DAY</div>
+            <div class="signal-card-value" id="signalCue">"Drive through the ground. Own every inch."</div>
+            <div class="signal-card-meta">— Coach Richard</div>
+          </div>
+
+          <!-- Room Temperature -->
+          <div class="signal-card signal-card--temp">
+            <div class="signal-card-label">ROOM TEMPERATURE</div>
+            <div class="signal-temp-meter">
+              <div class="temp-levels">
+                <span class="temp-level" data-level="calm">CALM</span>
+                <span class="temp-level" data-level="building">BUILDING</span>
+                <span class="temp-level active" data-level="live">LIVE</span>
+                <span class="temp-level" data-level="locked">LOCKED IN</span>
+              </div>
+              <div class="temp-bar">
+                <div class="temp-bar-fill" id="tempBarFill" style="--temp: 75%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Today's Session Focus -->
+          <div class="signal-card signal-card--focus">
+            <div class="signal-card-label">TODAY'S SESSION FOCUS</div>
+            <div class="signal-card-value" id="signalFocus">Lower Body Power + Sprint Mechanics</div>
+            <div class="signal-card-tags">
+              <span class="signal-tag">ATHLETE</span>
+              <span class="signal-tag">ADULT</span>
+            </div>
+          </div>
+
+          <!-- Featured Win -->
+          <div class="signal-card signal-card--win">
+            <div class="signal-card-label">TODAY'S FEATURED WIN</div>
+            <div class="signal-card-value" id="signalWin">Marcus T. — New squat PR: 365 lbs</div>
+            <div class="signal-card-meta">Athlete Path · Week 12</div>
+          </div>
+
+          <!-- Week Stats Row -->
+          <div class="signal-card signal-card--stats">
+            <div class="signal-stat">
+              <div class="signal-stat-num" id="signalSessions">127</div>
+              <div class="signal-stat-label">Sessions This Week</div>
+            </div>
+            <div class="signal-stat">
+              <div class="signal-stat-num" id="signalPRs">14</div>
+              <div class="signal-stat-label">PRs Recorded</div>
+            </div>
+            <div class="signal-stat">
+              <div class="signal-stat-num" id="signalEvals">8</div>
+              <div class="signal-stat-label">Evals Booked</div>
+            </div>
+            <div class="signal-stat">
+              <div class="signal-stat-num" id="signalCampSpots">12</div>
+              <div class="signal-stat-label">Camp Spots Left</div>
+            </div>
+          </div>
+
+          <!-- Micro-Moments -->
+          <div class="signal-card signal-card--moments">
+            <div class="signal-card-label">SPOTTED IN THE ROOM</div>
+            <div class="signal-moments-feed">
+              <div class="signal-moment">
+                <span class="moment-icon">🔥</span>
+                <span class="moment-text">Adult group hit 100% attendance this week</span>
+                <span class="moment-time">2h ago</span>
+              </div>
+              <div class="signal-moment">
+                <span class="moment-icon">⚡</span>
+                <span class="moment-text">New athlete evaluation booked — DB from North Forsyth</span>
+                <span class="moment-time">4h ago</span>
+              </div>
+              <div class="signal-moment">
+                <span class="moment-icon">🏆</span>
+                <span class="moment-text">Integrated path milestone: 6-month consistency streak</span>
+                <span class="moment-time">Yesterday</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Camp Countdown -->
+          <div class="signal-card signal-card--camp">
+            <div class="signal-card-label">NEXT CAMP COUNTDOWN</div>
+            <div class="signal-countdown" id="signalCountdown">
+              <div class="countdown-block">
+                <span class="countdown-num" id="countDays">14</span>
+                <span class="countdown-unit">DAYS</span>
+              </div>
+              <div class="countdown-block">
+                <span class="countdown-num" id="countHours">06</span>
+                <span class="countdown-unit">HRS</span>
+              </div>
+              <div class="countdown-block">
+                <span class="countdown-num" id="countMins">32</span>
+                <span class="countdown-unit">MIN</span>
+              </div>
+            </div>
+            <div class="signal-card-meta">Summer Speed & Power Camp — Register Now</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- SECTION TRANSITION — STANDARD -->
   <div class="section-transition st-sweep" aria-hidden="true">
     <div class="st-line"></div>

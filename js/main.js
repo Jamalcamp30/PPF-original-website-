@@ -3390,3 +3390,117 @@
   // Initial check
   checkScroll();
 })();
+
+/* ── DAILY SIGNAL BOARD ────────────────────────────── */
+(function initDailySignal() {
+  var dateEl = document.getElementById('signalDate');
+  if (!dateEl) return;
+
+  // Set today's date
+  var now = new Date();
+  var days = ['SUNDAY','MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY'];
+  var months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+  dateEl.textContent = days[now.getDay()] + ' · ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
+
+  // Daily rotation data — seeded by day of year
+  var dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
+
+  var cues = [
+    { text: '"Drive through the ground. Own every inch."', coach: '— Coach Richard' },
+    { text: '"The warm-up is not optional. It is the first rep."', coach: '— Coach Richard' },
+    { text: '"Slow is smooth. Smooth is fast."', coach: '— Coach Rebecca' },
+    { text: '"If you are in this room, you already chose harder. Now finish."', coach: '— Coach Richard' },
+    { text: '"Control the descent. Earn the ascent."', coach: '— Coach Richard' },
+    { text: '"Your body does not know Monday from Friday. The standard is constant."', coach: '— Coach Rebecca' },
+    { text: '"The first step wins or loses the play. We train the first step."', coach: '— Coach Richard' }
+  ];
+
+  var focuses = [
+    'Lower Body Power + Sprint Mechanics',
+    'Upper Body Strength + Mobility Flow',
+    'Speed Development + Agility Circuits',
+    'Full-Body Conditioning + Core Stability',
+    'Olympic Lift Technique + Power Cleans',
+    'Acceleration Drills + Lateral Quickness',
+    'Recovery Protocol + Movement Assessment'
+  ];
+
+  var wins = [
+    { text: 'Marcus T. — New squat PR: 365 lbs', meta: 'Athlete Path · Week 12' },
+    { text: 'Sarah K. — First unassisted pull-up', meta: 'Adult Path · Week 8' },
+    { text: 'Jaylen W. — 40-yard dash: 4.52s', meta: 'Athlete Path · Combine Prep' },
+    { text: 'David R. — 50 lb total weight loss milestone', meta: 'Adult Path · Month 6' },
+    { text: 'Emma C. — Independent warm-up completed', meta: 'Integrated Path · Week 16' },
+    { text: 'Tyler B. — Vertical leap +3 inches', meta: 'Athlete Path · Week 10' },
+    { text: 'Kim L. — Deadlift 1.5x bodyweight', meta: 'Adult Path · Week 14' }
+  ];
+
+  var idx = dayOfYear % cues.length;
+  var cueEl = document.getElementById('signalCue');
+  var cueMetaEl = cueEl ? cueEl.nextElementSibling : null;
+  if (cueEl) cueEl.textContent = cues[idx].text;
+  if (cueMetaEl) cueMetaEl.textContent = cues[idx].coach;
+
+  var focusEl = document.getElementById('signalFocus');
+  if (focusEl) focusEl.textContent = focuses[dayOfYear % focuses.length];
+
+  var winEl = document.getElementById('signalWin');
+  var winMeta = winEl ? winEl.nextElementSibling : null;
+  var winData = wins[dayOfYear % wins.length];
+  if (winEl) winEl.textContent = winData.text;
+  if (winMeta) winMeta.textContent = winData.meta;
+
+  // Randomize stats slightly based on day
+  var base = dayOfYear % 50;
+  var sessEl = document.getElementById('signalSessions');
+  var prEl = document.getElementById('signalPRs');
+  var evalEl = document.getElementById('signalEvals');
+  var campEl = document.getElementById('signalCampSpots');
+  if (sessEl) sessEl.textContent = 110 + base;
+  if (prEl) prEl.textContent = 8 + (base % 12);
+  if (evalEl) evalEl.textContent = 4 + (base % 8);
+  if (campEl) campEl.textContent = Math.max(3, 20 - (base % 15));
+
+  // Room temperature based on time of day
+  var hour = now.getHours();
+  var temp, activeLevel;
+  if (hour >= 5 && hour < 9) { temp = 40; activeLevel = 'building'; }
+  else if (hour >= 9 && hour < 15) { temp = 65; activeLevel = 'live'; }
+  else if (hour >= 15 && hour < 19) { temp = 90; activeLevel = 'locked'; }
+  else { temp = 20; activeLevel = 'calm'; }
+
+  var tempFill = document.getElementById('tempBarFill');
+  if (tempFill) tempFill.style.setProperty('--temp', temp + '%');
+
+  document.querySelectorAll('.temp-level').forEach(function(el) {
+    el.classList.toggle('active', el.getAttribute('data-level') === activeLevel);
+  });
+
+  // Update status label based on time
+  var statusLabel = document.getElementById('signalStatusLabel');
+  if (statusLabel) {
+    if (hour >= 5 && hour < 20) {
+      statusLabel.textContent = 'ROOM ACTIVE';
+    } else {
+      statusLabel.textContent = 'NEXT SESSION TOMORROW';
+      var dot = statusLabel.previousElementSibling;
+      if (dot) { dot.style.background = '#ff5500'; dot.style.boxShadow = '0 0 8px rgba(255,85,0,0.5)'; }
+    }
+  }
+
+  // Camp countdown (next Saturday from now, as a sample)
+  var nextCamp = new Date(now);
+  nextCamp.setDate(now.getDate() + (6 - now.getDay() + 7) % 7 + 14);
+  nextCamp.setHours(9, 0, 0, 0);
+  var diff = nextCamp - now;
+  var daysLeft = Math.floor(diff / 86400000);
+  var hoursLeft = Math.floor((diff % 86400000) / 3600000);
+  var minsLeft = Math.floor((diff % 3600000) / 60000);
+
+  var countDays = document.getElementById('countDays');
+  var countHours = document.getElementById('countHours');
+  var countMins = document.getElementById('countMins');
+  if (countDays) countDays.textContent = daysLeft < 10 ? '0' + daysLeft : daysLeft;
+  if (countHours) countHours.textContent = hoursLeft < 10 ? '0' + hoursLeft : hoursLeft;
+  if (countMins) countMins.textContent = minsLeft < 10 ? '0' + minsLeft : minsLeft;
+})();
