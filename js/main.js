@@ -2198,7 +2198,7 @@
       .path-card.touch-active .path-desc,
       .path-card.touch-active .path-highlights { display: block; opacity: 1; }
       .path-card.touch-active .path-highlights { display: flex; opacity: 1; }
-      .path-card.touch-active .path-cta { opacity: 1; transform: none; }
+      .path-card.touch-active .ppf-cta { opacity: 1; transform: none; }
       .path-card.touch-active .path-motion-layer { opacity: 1; }
       .path-card.touch-active .path-outcome { display: block; opacity: 1; }
       .path-card.touch-active .path-proof { display: block; opacity: 1; }
@@ -2655,7 +2655,7 @@
     });
 
     // Lane lock on CTA click
-    const cta = qs('.path-cta', card);
+    const cta = qs('.ppf-cta', card);
     if (cta) {
       cta.addEventListener('click', function (e) {
         const lockOverlay = qs('.lane-lock-overlay', card);
@@ -3073,7 +3073,7 @@
 
   // Listen for path card CTA clicks to set path routing
   pathCards.forEach(card => {
-    const cta = qs('.path-cta', card);
+    const cta = qs('.ppf-cta', card);
     if (cta) {
       cta.addEventListener('click', function () {
         const path = card.dataset.path;
@@ -3083,7 +3083,7 @@
 
     // Also set path on card click (beyond the CTA)
     card.addEventListener('click', function (e) {
-      if (e.target.closest('.path-cta')) return; // Let CTA handler deal with it
+      if (e.target.closest('.ppf-cta')) return; // Let CTA handler deal with it
       const path = this.dataset.path;
       setActivePath(path);
     });
@@ -3613,6 +3613,16 @@
       quiz.style.display = 'none';
       result.style.display = 'block';
       generatePathCard();
+
+      // Dispatch event so other systems (Standard Score) can react
+      document.dispatchEvent(new CustomEvent('passport:complete', {
+        detail: {
+          who: answers.who,
+          goal: answers.goal,
+          level: answers.level,
+          schedule: answers.schedule
+        }
+      }));
     }
   });
 

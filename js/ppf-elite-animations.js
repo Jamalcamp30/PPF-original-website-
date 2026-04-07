@@ -438,7 +438,7 @@
       return ancestor ? ancestor.dataset.path : null;
     }
 
-    qsa('.path-card, .leader-card').forEach(function (card) {
+    qsa('.path-card, .force-panel').forEach(function (card) {
       card.style.position = card.style.position || 'relative';
       var pathType = getPathType(card);
       var arc = (pathType && arcs[pathType]) ? arcs[pathType] : defaultArc;
@@ -524,8 +524,8 @@
     ].join('\n'));
 
     // Find "miss" vs "correct" content by section labels
-    qsa('.fr-section', filmRoom).forEach(function (sec) {
-      var label = qs('.fr-section-label', sec);
+    qsa('.film-block', filmRoom).forEach(function (sec) {
+      var label = qs('.film-block-label', sec);
       if (!label) return;
       var text = (label.textContent || '').toLowerCase();
 
