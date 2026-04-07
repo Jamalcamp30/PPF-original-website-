@@ -1582,7 +1582,7 @@
   /* ── ANIMATED NUMBER COUNTERS ────────────────────── */
   function animateCounter(el, target, duration = 1800) {
     const start    = performance.now();
-    const startVal = 0;
+    const startVal = parseInt(el.textContent, 10) || 0;
 
     function update(now) {
       const elapsed  = now - start;
