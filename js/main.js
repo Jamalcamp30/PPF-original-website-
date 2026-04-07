@@ -3504,3 +3504,162 @@
   if (countHours) countHours.textContent = hoursLeft < 10 ? '0' + hoursLeft : hoursLeft;
   if (countMins) countMins.textContent = minsLeft < 10 ? '0' + minsLeft : minsLeft;
 })();
+
+/* ── PROOF FILTER SYSTEM ───────────────────────────── */
+(function initProofFilters() {
+  var filterBtns = document.querySelectorAll('.proof-filter');
+  var timelineBtns = document.querySelectorAll('.proof-timeline-btn');
+  var cards = document.querySelectorAll('.ba-card');
+  if (!filterBtns.length || !cards.length) return;
+
+  var currentFilter = 'all';
+  var currentTimeline = 'all';
+
+  function applyFilters() {
+    cards.forEach(function(card) {
+      var cat = card.getAttribute('data-category');
+      var weeks = card.getAttribute('data-weeks');
+      var catMatch = currentFilter === 'all' || cat === currentFilter;
+      var timeMatch = currentTimeline === 'all' || weeks === currentTimeline;
+      card.classList.toggle('hidden', !(catMatch && timeMatch));
+    });
+  }
+
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      filterBtns.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentFilter = btn.getAttribute('data-filter');
+      applyFilters();
+    });
+  });
+
+  timelineBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      timelineBtns.forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentTimeline = btn.getAttribute('data-weeks');
+      applyFilters();
+    });
+  });
+})();
+
+/* ── PERFORMANCE PASSPORT ──────────────────────────── */
+(function initPassport() {
+  var quiz = document.getElementById('passportQuiz');
+  var result = document.getElementById('passportResult');
+  if (!quiz || !result) return;
+
+  var answers = {};
+
+  quiz.addEventListener('click', function(e) {
+    var option = e.target.closest('.passport-option');
+    if (!option) return;
+
+    var field = option.getAttribute('data-field');
+    var value = option.getAttribute('data-value');
+    answers[field] = value;
+
+    // Advance to next step
+    var currentStep = option.closest('.passport-step');
+    var currentNum = parseInt(currentStep.getAttribute('data-step'));
+    var nextStep = quiz.querySelector('[data-step="' + (currentNum + 1) + '"]');
+
+    if (nextStep) {
+      currentStep.classList.remove('active');
+      nextStep.classList.add('active');
+    } else {
+      // Quiz complete — show result
+      quiz.style.display = 'none';
+      result.style.display = 'block';
+      generatePathCard();
+    }
+  });
+
+  function generatePathCard() {
+    var pathEl = document.getElementById('passportPath');
+    var milestoneEl = document.getElementById('passportMilestone');
+    var week1El = document.getElementById('passportWeek1');
+    var membershipEl = document.getElementById('passportMembership');
+
+    var pathMap = {
+      athlete: 'ATHLETE PERFORMANCE',
+      adult: 'ADULT PERFORMANCE',
+      integrated: 'INTEGRATED FITNESS'
+    };
+
+    var milestones = {
+      athlete: {
+        speed: 'Drop 0.2s off your 40-yard in the first 8 weeks',
+        strength: 'Add 50 lbs to your squat in 12 weeks',
+        health: 'Complete a full athletic baseline in 4 weeks',
+        independence: 'Master 3 new movement patterns in 6 weeks'
+      },
+      adult: {
+        speed: 'Improve agility test time by 15% in 8 weeks',
+        strength: 'Hit a bodyweight deadlift in 10 weeks',
+        health: 'Lose 10 lbs and gain energy in 8 weeks',
+        independence: 'Build a consistent 4-day training habit in 6 weeks'
+      },
+      integrated: {
+        speed: 'Improve coordination drills score in 12 weeks',
+        strength: 'Build functional strength for daily tasks in 12 weeks',
+        health: 'Establish a sustainable movement routine in 8 weeks',
+        independence: 'Complete warm-up independently in 16 weeks'
+      }
+    };
+
+    var week1s = {
+      athlete: {
+        beginner: 'Movement assessment, baseline testing, introduction to coaching cues. You will train 2-3 sessions focused on mechanics.',
+        intermediate: 'Performance evaluation, identify weaknesses, begin structured program. 3-4 sessions with progressive loading.',
+        advanced: 'Advanced assessment, sport-specific planning, begin intensity work. 4-5 sessions at competition pace.'
+      },
+      adult: {
+        beginner: 'Full movement screen, learn the 6 foundational patterns, set baseline numbers. 2-3 sessions at learning pace.',
+        intermediate: 'Assess current fitness level, build your training split, set 12-week targets. 3-4 sessions with coaching.',
+        advanced: 'Performance testing, program design review, begin training block. 4-5 sessions with periodized structure.'
+      },
+      integrated: {
+        beginner: 'Meet your coach, tour the room, learn 3 safe movements. 2 sessions at comfort pace with full support.',
+        intermediate: 'Assessment of capabilities, identify growth areas, structured introduction. 2-3 sessions building confidence.',
+        advanced: 'Advanced capability review, independence goals, semi-supervised sessions. 3 sessions building autonomy.'
+      }
+    };
+
+    var scheduleMap = {
+      '2': 'Month-to-Month ($150/mo) — Flexible start',
+      '3': 'Quarterly ($650) — Best value for commitment',
+      '4': 'Semi-Annual ($875) — Serious progression',
+      '5': 'Yearly ($1,675) — Full transformation commitment'
+    };
+
+    var who = answers.who || 'adult';
+    var goal = answers.goal || 'strength';
+    var level = answers.level || 'beginner';
+    var schedule = answers.schedule || '3';
+
+    if (pathEl) pathEl.textContent = pathMap[who] || 'ADULT PERFORMANCE';
+    if (milestoneEl) milestoneEl.textContent = (milestones[who] && milestones[who][goal]) || 'Set your first baseline in 4 weeks';
+    if (week1El) week1El.textContent = (week1s[who] && week1s[who][level]) || 'Movement assessment and baseline testing with your PPF coach.';
+    if (membershipEl) membershipEl.textContent = scheduleMap[schedule] || 'Month-to-Month ($150/mo)';
+
+    // Smooth scroll to result
+    result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  // Retake button
+  var retakeBtn = document.getElementById('passportRetake');
+  if (retakeBtn) {
+    retakeBtn.addEventListener('click', function() {
+      answers = {};
+      result.style.display = 'none';
+      quiz.style.display = 'block';
+      quiz.querySelectorAll('.passport-step').forEach(function(step) {
+        step.classList.remove('active');
+      });
+      quiz.querySelector('[data-step="1"]').classList.add('active');
+      quiz.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+})();

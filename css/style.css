@@ -8145,3 +8145,469 @@ body.intro-active {
     align-items: flex-start;
   }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   PROOF FILTER BAR & BEFORE/AFTER CARDS
+   ══════════════════════════════════════════════════════════════ */
+.proof-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding: 16px 20px;
+  background: var(--bg-surface);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+}
+
+.proof-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.proof-filter-label {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gray-500);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-right: 4px;
+}
+
+.proof-filter,
+.proof-timeline-btn {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gray-300);
+  background: var(--bg-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.04em;
+}
+
+.proof-filter:hover,
+.proof-timeline-btn:hover {
+  color: var(--white);
+  border-color: rgba(255, 85, 0, 0.3);
+}
+
+.proof-filter.active,
+.proof-timeline-btn.active {
+  color: var(--orange);
+  border-color: var(--orange);
+  background: rgba(255, 85, 0, 0.08);
+}
+
+/* Before/After Cards */
+.proof-before-after {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.ba-card {
+  background: var(--bg-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.ba-card:hover {
+  border-color: rgba(255, 85, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+.ba-card.hidden {
+  display: none;
+}
+
+.ba-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.ba-badge {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 0.12em;
+  padding: 3px 10px;
+  border: 1px solid rgba(255, 85, 0, 0.3);
+  border-radius: 4px;
+}
+
+.ba-duration {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--gray-500);
+  letter-spacing: 0.05em;
+}
+
+.ba-metrics {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.ba-before, .ba-after {
+  flex: 1;
+  text-align: center;
+}
+
+.ba-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--gray-500);
+  letter-spacing: 0.15em;
+  margin-bottom: 4px;
+}
+
+.ba-value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--gray-300);
+  line-height: 1;
+}
+
+.ba-highlight {
+  color: var(--orange);
+}
+
+.ba-detail {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 10px;
+  color: var(--gray-500);
+  margin-top: 4px;
+}
+
+.ba-arrow {
+  font-size: 20px;
+  color: var(--orange);
+  flex-shrink: 0;
+}
+
+.ba-change {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  color: #00ff88;
+  text-align: center;
+  padding: 8px;
+  background: rgba(0, 255, 136, 0.05);
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.ba-coach-note {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 10px;
+  background: rgba(255, 85, 0, 0.04);
+  border-radius: 8px;
+  border-left: 2px solid var(--orange);
+  margin-bottom: 10px;
+}
+
+.ba-note-icon {
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.ba-coach-note span:last-child {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--gray-300);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.ba-meta {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--gray-500);
+  text-align: right;
+}
+
+@media (max-width: 700px) {
+  .proof-before-after {
+    grid-template-columns: 1fr;
+  }
+  .ba-value {
+    font-size: 22px;
+  }
+  .proof-filter-bar {
+    flex-direction: column;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PERFORMANCE PASSPORT
+   ══════════════════════════════════════════════════════════════ */
+.passport-section {
+  background: var(--bg-base);
+  position: relative;
+}
+
+.passport-intro {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--gray-300);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.passport-quiz {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.passport-step {
+  display: none;
+}
+
+.passport-step.active {
+  display: block;
+  animation: passportFadeIn 0.4s ease;
+}
+
+@keyframes passportFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.passport-step-label {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 0.15em;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.passport-progress {
+  height: 3px;
+  background: var(--bg-card);
+  border-radius: 2px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+
+.passport-progress-fill {
+  height: 100%;
+  background: var(--orange);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
+.passport-question {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--white);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.passport-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.passport-options--row {
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.passport-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+  color: var(--white);
+  font-family: var(--font-body);
+}
+
+.passport-option:hover {
+  border-color: rgba(255, 85, 0, 0.4);
+  background: rgba(255, 85, 0, 0.04);
+}
+
+.passport-option--compact {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 16px 24px;
+  min-width: 100px;
+  font-family: var(--font-display);
+  font-size: 22px;
+  gap: 0;
+}
+
+.po-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.po-title {
+  font-weight: 700;
+  font-size: 15px;
+  display: block;
+}
+
+.po-desc {
+  font-size: 12px;
+  color: var(--gray-500);
+  display: block;
+  margin-top: 2px;
+}
+
+/* Passport Result Card */
+.passport-result {
+  max-width: 540px;
+  margin: 0 auto;
+  animation: passportFadeIn 0.6s ease;
+}
+
+.passport-card {
+  background: var(--bg-surface);
+  border: 1px solid rgba(255, 85, 0, 0.2);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.passport-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, rgba(255, 85, 0, 0.1) 0%, transparent 100%);
+  border-bottom: 1px solid rgba(255, 85, 0, 0.1);
+}
+
+.passport-card-badge {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--orange);
+  letter-spacing: 0.15em;
+}
+
+.passport-card-brand {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--gray-500);
+  letter-spacing: 0.1em;
+}
+
+.passport-card-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.passport-field {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding-bottom: 16px;
+}
+
+.passport-field:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.passport-field-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gray-500);
+  letter-spacing: 0.12em;
+  margin-bottom: 6px;
+}
+
+.passport-field-value {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--orange);
+  line-height: 1.2;
+}
+
+.passport-field-value--sm {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--gray-100);
+  line-height: 1.6;
+}
+
+.passport-card-footer {
+  padding: 20px 24px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.passport-cta {
+  width: 100%;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.passport-retake {
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--gray-500);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  transition: color 0.2s;
+}
+
+.passport-retake:hover {
+  color: var(--orange);
+}
+
+@media (max-width: 600px) {
+  .passport-question {
+    font-size: 22px;
+  }
+  .passport-option {
+    padding: 14px 16px;
+  }
+  .passport-field-value {
+    font-size: 20px;
+  }
+}
