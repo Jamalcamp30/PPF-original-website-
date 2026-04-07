@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PPF Member Dashboard — PPF Athletics</title>
+  <meta name="description" content="Your PPF home base. Track performance, nutrition, milestones, and progress — all in one system." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/ppf-member.css" />
+</head>
+<body class="ppf-dashboard-body">
+
+  <!-- ============================================================
+       PPF ARRIVAL MODE — Branded Boot-Up
+  ============================================================ -->
+  <div class="arrival-overlay" id="arrivalOverlay">
+    <div class="arrival-name" id="arrivalName"></div>
+    <div class="arrival-greeting" id="arrivalGreeting"></div>
+    <div class="arrival-command" id="arrivalCommand"></div>
+    <div class="arrival-metric" id="arrivalMetric"></div>
+  </div>
+
+  <!-- ============================================================
+       GUEST BANNER
+  ============================================================ -->
+  <div class="guest-banner" id="guestBanner" style="display:none;">
+    <p>You're viewing guest mode. <button class="guest-claim-btn" id="guestClaimBtn">Create your profile</button> to unlock progress tracking, milestones, and coaching tools.</p>
+  </div>
+
+  <!-- ============================================================
+       TOP NAV
+  ============================================================ -->
+  <nav class="dash-nav" id="dashNav">
+    <a href="dashboard.html" class="dash-nav-logo">
+      <span class="dash-logo-mark">PPF</span>
+      <span class="dash-logo-tag">MEMBER OS</span>
+    </a>
+    <div class="dash-nav-actions">
+      <button class="dash-nav-btn" id="btnNotifications" aria-label="Notifications">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="notif-badge" id="notifBadge" style="display:none;">0</span>
+      </button>
+      <div class="dash-user-menu" id="userMenu">
+        <button class="dash-user-btn" id="userMenuBtn" aria-label="User menu">
+          <div class="user-avatar" id="userAvatar">
+            <span id="userInitial">G</span>
+          </div>
+        </button>
+        <div class="dash-dropdown" id="userDropdown" style="display:none;">
+          <div class="dropdown-header" id="dropdownHeader">
+            <strong id="dropdownName">Guest</strong>
+            <span id="dropdownEmail" class="dropdown-email"></span>
+          </div>
+          <a href="#" class="dropdown-item" id="linkProfile">My Profile</a>
+          <a href="#" class="dropdown-item" id="linkSettings">Settings</a>
+          <a href="../index.html" class="dropdown-item">PPF Website</a>
+          <button class="dropdown-item dropdown-logout" id="btnLogout">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       MAIN DASHBOARD
+  ============================================================ -->
+  <main class="dash-main">
+
+    <!-- ─── Welcome Header ─── -->
+    <section class="dash-welcome" id="dashWelcome">
+      <div class="welcome-text">
+        <h1 class="welcome-greeting" id="welcomeGreeting">Good morning</h1>
+        <p class="welcome-name" id="welcomeName">Welcome to PPF Athletics</p>
+        <p class="welcome-status" id="welcomeStatus">Your next win is already loaded.</p>
+      </div>
+      <div class="welcome-quick-stats" id="welcomeQuickStats">
+        <div class="qstat">
+          <span class="qstat-val" id="qstatSessions">0</span>
+          <span class="qstat-label">Sessions This Week</span>
+        </div>
+        <div class="qstat">
+          <span class="qstat-val" id="qstatStreak">0</span>
+          <span class="qstat-label">Day Streak</span>
+        </div>
+        <div class="qstat">
+          <span class="qstat-val" id="qstatPRs">0</span>
+          <span class="qstat-label">PRs This Month</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Coach Command ─── -->
+    <div class="coach-command-strip" id="coachCommandStrip">
+      <span class="ccs-icon">◆</span>
+      <span class="ccs-text" id="coachCommandText">Stay violent through the floor.</span>
+    </div>
+
+    <!-- ─── PPF Progress Ring ─── -->
+    <section class="dash-progress-ring-section">
+      <div class="progress-ring-card">
+        <h2 class="ring-title">PPF Standard This Week</h2>
+        <div class="progress-ring-container">
+          <svg class="progress-ring" viewBox="0 0 200 200">
+            <circle class="ring-bg" cx="100" cy="100" r="85" />
+            <circle class="ring-fill ring-training" cx="100" cy="100" r="85" id="ringTraining" />
+            <circle class="ring-bg ring-inner-bg" cx="100" cy="100" r="68" />
+            <circle class="ring-fill ring-nutrition" cx="100" cy="100" r="68" id="ringNutrition" />
+            <circle class="ring-bg ring-inner-bg2" cx="100" cy="100" r="51" />
+            <circle class="ring-fill ring-recovery" cx="100" cy="100" r="51" id="ringRecovery" />
+          </svg>
+          <div class="ring-center-label">
+            <span class="ring-pct" id="ringOverallPct">0%</span>
+            <span class="ring-sub">Standard Met</span>
+          </div>
+        </div>
+        <div class="ring-legend">
+          <span class="legend-item legend-training"><i></i> Training</span>
+          <span class="legend-item legend-nutrition"><i></i> Nutrition</span>
+          <span class="legend-item legend-recovery"><i></i> Recovery</span>
+        </div>
+      </div>
+
+      <!-- Standard Meter -->
+      <div class="standard-meter-card">
+        <h2 class="meter-title">Standard Meter</h2>
+        <div class="std-meter">
+          <div class="std-meter-fill" id="stdMeterFill"></div>
+          <div class="std-meter-label" id="stdMeterLabel">0%</div>
+        </div>
+        <p class="std-meter-note">Weekly execution score</p>
+
+        <!-- Momentum Score -->
+        <div class="momentum-score">
+          <span class="momentum-label">PPF Momentum Score</span>
+          <span class="momentum-value" id="momentumValue">—</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Dashboard Tiles ─── -->
+    <section class="dash-tiles" id="dashTiles">
+
+      <!-- Today's Focus -->
+      <div class="dash-tile tile-focus" data-tile="focus">
+        <div class="tile-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </div>
+        <h3 class="tile-title">Today's Focus</h3>
+        <p class="tile-value" id="tileFocus">Upper Body Strength</p>
+        <p class="tile-sub">Next session in <span id="tileCountdown">—</span></p>
+      </div>
+
+      <!-- Upcoming Session -->
+      <div class="dash-tile tile-session" data-tile="session">
+        <div class="tile-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3 class="tile-title">Upcoming Session</h3>
+        <p class="tile-value" id="tileSession">Tuesday 6:00 PM</p>
+        <p class="tile-sub">Strength + Speed Block</p>
+      </div>
+
+      <!-- PR Board -->
+      <div class="dash-tile tile-pr" data-tile="pr">
+        <div class="tile-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <h3 class="tile-title">PR Board</h3>
+        <p class="tile-value" id="tilePR">Bench: 205 lb</p>
+        <p class="tile-sub tile-sub-accent">+5 lb opportunity this week</p>
+      </div>
+
+      <!-- Nutrition Check-In -->
+      <div class="dash-tile tile-nutrition" data-tile="nutrition">
+        <div class="tile-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+        </div>
+        <h3 class="tile-title">Nutrition Check-In</h3>
+        <p class="tile-value" id="tileNutrition">Hydration: 82%</p>
+        <p class="tile-sub">Protein target: on track</p>
+      </div>
+
+      <!-- Weekly Attendance -->
+      <div class="dash-tile tile-attendance" data-tile="attendance">
+        <div class="tile-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <h3 class="tile-title">Weekly Attendance</h3>
+        <p class="tile-value" id="tileAttendance">3 of 5</p>
+        <div class="attendance-dots" id="attendanceDots">
+          <span class="att-dot filled"></span>
+          <span class="att-dot filled"></span>
+          <span class="att-dot filled"></span>
+          <span class="att-dot"></span>
+          <span class="att-dot"></span>
+        </div>
+      </div>
+
+      <!-- Recovery / Readiness -->
+      <div class="dash-tile tile-recovery" data-tile="recovery">
+        <div class="tile-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+        <h3 class="tile-title">Recovery / Readiness</h3>
+        <p class="tile-value" id="tileRecovery">Primed</p>
+        <p class="tile-sub">Sleep: 7.5h · Soreness: Low</p>
+      </div>
+
+      <!-- Body Blueprint -->
+      <div class="dash-tile tile-body" data-tile="body">
+        <div class="tile-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h3 class="tile-title">Body Blueprint</h3>
+        <p class="tile-value" id="tileBodyWeight">182 lb</p>
+        <p class="tile-sub">BMI: 24.1 · Goal: 178 lb</p>
+      </div>
+
+      <!-- Milestone Tracker -->
+      <div class="dash-tile tile-milestone" data-tile="milestone">
+        <div class="tile-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <h3 class="tile-title">Milestone Tracker</h3>
+        <p class="tile-value" id="tileMilestone">Standard Setter</p>
+        <p class="tile-sub">4 weeks consistent · 2 milestones away</p>
+      </div>
+
+      <!-- Coach Notes -->
+      <div class="dash-tile tile-coach" data-tile="coach">
+        <div class="tile-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        </div>
+        <h3 class="tile-title">Coach Notes</h3>
+        <p class="tile-value tile-coach-note" id="tileCoachNote">"Bar speed is improving. Stay aggressive."</p>
+        <p class="tile-sub">Updated 2 days ago</p>
+      </div>
+
+    </section>
+
+    <!-- ─── Daily Readiness Check-In ─── -->
+    <section class="dash-readiness" id="dashReadiness">
+      <h2 class="section-heading">Daily Readiness Check</h2>
+      <p class="section-sub">10-second check-in. Track the details that build the standard.</p>
+      <div class="readiness-grid">
+        <div class="readiness-item">
+          <label class="readiness-label">Sleep</label>
+          <input type="range" class="readiness-slider" id="sliderSleep" min="1" max="10" value="7" />
+          <span class="readiness-val" id="valSleep">7</span>
+        </div>
+        <div class="readiness-item">
+          <label class="readiness-label">Soreness</label>
+          <input type="range" class="readiness-slider" id="sliderSoreness" min="1" max="10" value="3" />
+          <span class="readiness-val" id="valSoreness">3</span>
+        </div>
+        <div class="readiness-item">
+          <label class="readiness-label">Energy</label>
+          <input type="range" class="readiness-slider" id="sliderEnergy" min="1" max="10" value="8" />
+          <span class="readiness-val" id="valEnergy">8</span>
+        </div>
+        <div class="readiness-item">
+          <label class="readiness-label">Hydration</label>
+          <input type="range" class="readiness-slider" id="sliderHydration" min="1" max="10" value="6" />
+          <span class="readiness-val" id="valHydration">6</span>
+        </div>
+        <div class="readiness-item">
+          <label class="readiness-label">Focus</label>
+          <input type="range" class="readiness-slider" id="sliderFocus" min="1" max="10" value="8" />
+          <span class="readiness-val" id="valFocus">8</span>
+        </div>
+      </div>
+      <div class="readiness-response" id="readinessResponse" style="display:none;">
+        <span class="readiness-icon">◆</span>
+        <span class="readiness-text" id="readinessText"></span>
+      </div>
+      <button class="readiness-submit" id="btnReadiness">Log Readiness</button>
+    </section>
+
+    <!-- ─── Performance Awards ─── -->
+    <section class="dash-awards" id="dashAwards">
+      <h2 class="section-heading">Earned Distinctions</h2>
+      <p class="section-sub">Earned, not handed out. The board rewards the work.</p>
+      <div class="awards-grid" id="awardsGrid">
+        <!-- Awards populated by JS -->
+        <div class="award-card earned" data-award="standard-setter">
+          <div class="award-icon">⬡</div>
+          <h4 class="award-name">Standard Setter</h4>
+          <p class="award-desc">4 straight weeks of consistency</p>
+        </div>
+        <div class="award-card earned" data-award="fuel-locked">
+          <div class="award-icon">◈</div>
+          <h4 class="award-name">Fuel Locked</h4>
+          <p class="award-desc">Nutrition goals hit for 14 days</p>
+        </div>
+        <div class="award-card" data-award="velocity-mark">
+          <div class="award-icon">◇</div>
+          <h4 class="award-name">Velocity Mark</h4>
+          <p class="award-desc">Speed improvement unlocked</p>
+        </div>
+        <div class="award-card" data-award="power-standard">
+          <div class="award-icon">◇</div>
+          <h4 class="award-name">Power Standard</h4>
+          <p class="award-desc">Major strength PR hit</p>
+        </div>
+        <div class="award-card" data-award="no-miss-club">
+          <div class="award-icon">◇</div>
+          <h4 class="award-name">No Miss Club</h4>
+          <p class="award-desc">Zero missed sessions in a month</p>
+        </div>
+        <div class="award-card" data-award="locked-in">
+          <div class="award-icon">◇</div>
+          <h4 class="award-name">Locked In</h4>
+          <p class="award-desc">Daily check-in streak</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Community Leaderboard ─── -->
+    <section class="dash-leaderboard" id="dashLeaderboard">
+      <h2 class="section-heading">The Standard Board</h2>
+      <p class="section-sub">Visible progress. Earned respect.</p>
+      <div class="lb-tabs">
+        <button class="lb-tab active" data-board="consistency">Consistency</button>
+        <button class="lb-tab" data-board="momentum">Momentum</button>
+        <button class="lb-tab" data-board="strength">Strength</button>
+        <button class="lb-tab" data-board="community">Community</button>
+      </div>
+      <div class="lb-list" id="lbList">
+        <div class="lb-row lb-row-1">
+          <span class="lb-rank">1</span>
+          <span class="lb-name">J. Camp</span>
+          <span class="lb-stat">28-day streak</span>
+        </div>
+        <div class="lb-row lb-row-2">
+          <span class="lb-rank">2</span>
+          <span class="lb-name">M. Rivera</span>
+          <span class="lb-stat">24-day streak</span>
+        </div>
+        <div class="lb-row lb-row-3">
+          <span class="lb-rank">3</span>
+          <span class="lb-name">T. Brooks</span>
+          <span class="lb-stat">21-day streak</span>
+        </div>
+        <div class="lb-row">
+          <span class="lb-rank">4</span>
+          <span class="lb-name">K. Patel</span>
+          <span class="lb-stat">18-day streak</span>
+        </div>
+        <div class="lb-row">
+          <span class="lb-rank">5</span>
+          <span class="lb-name">A. Chen</span>
+          <span class="lb-stat">15-day streak</span>
+        </div>
+      </div>
+      <div class="lb-privacy">
+        <label class="lb-privacy-label">
+          <input type="checkbox" id="lbPrivacy" checked /> Show my name on the board
+        </label>
+      </div>
+    </section>
+
+    <!-- ─── PPF Journey / Performance Timeline ─── -->
+    <section class="dash-journey" id="dashJourney">
+      <h2 class="section-heading">Your PPF Journey</h2>
+      <p class="section-sub">The journey is live. Every metric has a story.</p>
+      <div class="journey-timeline" id="journeyTimeline">
+        <div class="journey-node completed">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>Joined PPF</h4>
+            <span class="journey-date">Jan 15, 2025</span>
+          </div>
+        </div>
+        <div class="journey-node completed">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>First Assessment</h4>
+            <span class="journey-date">Jan 18, 2025</span>
+          </div>
+        </div>
+        <div class="journey-node completed">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>10 Sessions Completed</h4>
+            <span class="journey-date">Feb 12, 2025</span>
+          </div>
+        </div>
+        <div class="journey-node completed">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>First PR — Bench 195 lb</h4>
+            <span class="journey-date">Feb 28, 2025</span>
+          </div>
+        </div>
+        <div class="journey-node active">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>Body Blueprint Milestone</h4>
+            <span class="journey-date">In progress</span>
+          </div>
+        </div>
+        <div class="journey-node locked">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>Benchmark Retest</h4>
+            <span class="journey-date">Upcoming</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Targets In Motion ─── -->
+    <section class="dash-targets" id="dashTargets">
+      <h2 class="section-heading">Targets In Motion</h2>
+      <p class="section-sub">Progress you can actually measure.</p>
+      <div class="targets-grid">
+        <div class="target-card">
+          <h4 class="target-name">Bench Press</h4>
+          <div class="target-bar-wrap">
+            <div class="target-bar" style="--pct: 91%;">
+              <div class="target-bar-fill"></div>
+            </div>
+            <span class="target-pct">91%</span>
+          </div>
+          <p class="target-detail">205 / 225 lb target</p>
+          <p class="target-coach">"Bar speed is improving. Stay aggressive through the floor."</p>
+        </div>
+        <div class="target-card">
+          <h4 class="target-name">Body Weight</h4>
+          <div class="target-bar-wrap">
+            <div class="target-bar" style="--pct: 65%;">
+              <div class="target-bar-fill"></div>
+            </div>
+            <span class="target-pct">65%</span>
+          </div>
+          <p class="target-detail">182 → 178 lb goal</p>
+          <p class="target-coach">On pace for mid-May target</p>
+        </div>
+        <div class="target-card">
+          <h4 class="target-name">10-Yard Sprint</h4>
+          <div class="target-bar-wrap">
+            <div class="target-bar" style="--pct: 78%;">
+              <div class="target-bar-fill"></div>
+            </div>
+            <span class="target-pct">78%</span>
+          </div>
+          <p class="target-detail">1.62s → 1.55s target</p>
+          <p class="target-coach">Mechanics first. Speed follows.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Weekly Identity Recap ─── -->
+    <section class="dash-recap" id="dashRecap">
+      <div class="recap-card">
+        <span class="recap-label">This Week's Identity</span>
+        <h3 class="recap-verdict" id="recapVerdict">Standard Setter</h3>
+        <p class="recap-detail" id="recapDetail">This week you trained like a Standard Setter. Attendance, effort, and nutrition are locked in.</p>
+      </div>
+    </section>
+
+    <!-- ─── Footer ─── -->
+    <footer class="dash-footer">
+      <p>&copy; 2025 PPF Athletics. Built for progress. Proven daily.</p>
+      <p class="dash-footer-tagline">Every person who enters PPF should feel recognized, guided, and connected.</p>
+    </footer>
+  </main>
+
+  <script src="../js/ppf-member.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PPFMember !== 'undefined') {
+        PPFMember.initDashboard();
+      }
+    });
+  </script>
+</body>
+</html>

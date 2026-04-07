@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome — Set Up Your PPF Profile</title>
+  <meta name="description" content="Set up your PPF member profile. Choose your path, set your goals, and enter the system." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/ppf-member.css" />
+</head>
+<body class="ppf-onboarding-body">
+
+  <!-- ============================================================
+       PPF ONBOARDING — Premium Profile Setup
+       4 steps: Goals → Tracking → Path → Welcome
+  ============================================================ -->
+
+  <div class="onboard-wrapper">
+    <!-- Progress bar -->
+    <div class="onboard-progress">
+      <div class="onboard-progress-fill" id="onboardProgressFill" style="width: 25%;"></div>
+    </div>
+
+    <!-- Step indicators -->
+    <div class="onboard-steps">
+      <span class="step-dot active" data-step="1">1</span>
+      <span class="step-line"></span>
+      <span class="step-dot" data-step="2">2</span>
+      <span class="step-line"></span>
+      <span class="step-dot" data-step="3">3</span>
+      <span class="step-line"></span>
+      <span class="step-dot" data-step="4">4</span>
+    </div>
+
+    <!-- ─── Step 1: What brings you to PPF? ─── -->
+    <section class="onboard-step active" id="step1">
+      <div class="onboard-header">
+        <h1 class="onboard-title">What brings you to PPF?</h1>
+        <p class="onboard-sub">Select everything that applies. This shapes your experience.</p>
+      </div>
+      <div class="onboard-options" id="goalOptions">
+        <label class="onboard-option">
+          <input type="checkbox" name="goal" value="speed" />
+          <span class="option-card">
+            <span class="option-icon">⚡</span>
+            <span class="option-text">Speed</span>
+          </span>
+        </label>
+        <label class="onboard-option">
+          <input type="checkbox" name="goal" value="strength" />
+          <span class="option-card">
+            <span class="option-icon">◆</span>
+            <span class="option-text">Strength</span>
+          </span>
+        </label>
+        <label class="onboard-option">
+          <input type="checkbox" name="goal" value="fat-loss" />
+          <span class="option-card">
+            <span class="option-icon">▼</span>
+            <span class="option-text">Fat Loss</span>
+          </span>
+        </label>
+        <label class="onboard-option">
+          <input type="checkbox" name="goal" value="confidence" />
+          <span class="option-card">
+            <span class="option-icon">★</span>
+            <span class="option-text">Confidence</span>
+          </span>
+        </label>
+        <label class="onboard-option">
+          <input type="checkbox" name="goal" value="return" />
+          <span class="option-card">
+            <span class="option-icon">↻</span>
+            <span class="option-text">Return to Training</span>
+          </span>
+        </label>
+        <label class="onboard-option">
+          <input type="checkbox" name="goal" value="combine" />
+          <span class="option-card">
+            <span class="option-icon">▶</span>
+            <span class="option-text">Combine / Pro Day</span>
+          </span>
+        </label>
+        <label class="onboard-option">
+          <input type="checkbox" name="goal" value="adult" />
+          <span class="option-card">
+            <span class="option-icon">■</span>
+            <span class="option-text">Adult Fitness</span>
+          </span>
+        </label>
+        <label class="onboard-option">
+          <input type="checkbox" name="goal" value="integrated" />
+          <span class="option-card">
+            <span class="option-icon">⬡</span>
+            <span class="option-text">Integrated Program</span>
+          </span>
+        </label>
+      </div>
+      <button class="onboard-next" id="next1">Continue</button>
+    </section>
+
+    <!-- ─── Step 2: What do you want to track? ─── -->
+    <section class="onboard-step" id="step2">
+      <div class="onboard-header">
+        <h1 class="onboard-title">What do you want to track?</h1>
+        <p class="onboard-sub">What gets tracked gets elevated.</p>
+      </div>
+      <div class="onboard-options" id="trackOptions">
+        <label class="onboard-option">
+          <input type="checkbox" name="track" value="prs" />
+          <span class="option-card">
+            <span class="option-icon">📊</span>
+            <span class="option-text">PRs</span>
+          </span>
+        </label>
+        <label class="onboard-option">
+          <input type="checkbox" name="track" value="bodyweight" />
+          <span class="option-card">
+            <span class="option-icon">⚖️</span>
+            <span class="option-text">Body Weight</span>
+          </span>
+        </label>
+        <label class="onboard-option">
+          <input type="checkbox" name="track" value="nutrition" />
+          <span class="option-card">
+            <span class="option-icon">🥗</span>
+            <span class="option-text">Nutrition</span>
+          </span>
+        </label>
+        <label class="onboard-option">
+          <input type="checkbox" name="track" value="attendance" />
+          <span class="option-card">
+            <span class="option-icon">✓</span>
+            <span class="option-text">Attendance</span>
+          </span>
+        </label>
+        <label class="onboard-option">
+          <input type="checkbox" name="track" value="milestones" />
+          <span class="option-card">
+            <span class="option-icon">🏆</span>
+            <span class="option-text">Milestones</span>
+          </span>
+        </label>
+        <label class="onboard-option">
+          <input type="checkbox" name="track" value="recovery" />
+          <span class="option-card">
+            <span class="option-icon">💤</span>
+            <span class="option-text">Recovery</span>
+          </span>
+        </label>
+        <label class="onboard-option">
+          <input type="checkbox" name="track" value="speed" />
+          <span class="option-card">
+            <span class="option-icon">⏱</span>
+            <span class="option-text">Speed Metrics</span>
+          </span>
+        </label>
+        <label class="onboard-option">
+          <input type="checkbox" name="track" value="bmi" />
+          <span class="option-card">
+            <span class="option-icon">📐</span>
+            <span class="option-text">BMI / Body Comp</span>
+          </span>
+        </label>
+      </div>
+      <div class="onboard-nav-row">
+        <button class="onboard-back" id="back2">Back</button>
+        <button class="onboard-next" id="next2">Continue</button>
+      </div>
+    </section>
+
+    <!-- ─── Step 3: Choose your path ─── -->
+    <section class="onboard-step" id="step3">
+      <div class="onboard-header">
+        <h1 class="onboard-title">Choose Your Path</h1>
+        <p class="onboard-sub">Three paths. One standard.</p>
+      </div>
+      <div class="onboard-paths" id="pathOptions">
+        <label class="path-option">
+          <input type="radio" name="path" value="athlete" />
+          <span class="path-card">
+            <span class="path-name">Athlete</span>
+            <span class="path-desc">Speed, strength, and competitive edge. Built for athletes who demand more.</span>
+          </span>
+        </label>
+        <label class="path-option">
+          <input type="radio" name="path" value="adult" />
+          <span class="path-card">
+            <span class="path-name">Adult Performance</span>
+            <span class="path-desc">Real training. Real coaching. For adults who refuse to settle.</span>
+          </span>
+        </label>
+        <label class="path-option">
+          <input type="radio" name="path" value="integrated" />
+          <span class="path-card">
+            <span class="path-name">Integrated</span>
+            <span class="path-desc">Performance training fused with sport-specific coaching under one roof.</span>
+          </span>
+        </label>
+        <label class="path-option">
+          <input type="radio" name="path" value="guest" />
+          <span class="path-card">
+            <span class="path-name">Guest Exploration</span>
+            <span class="path-desc">Browse the system. See what PPF is about before committing.</span>
+          </span>
+        </label>
+      </div>
+      <div class="onboard-nav-row">
+        <button class="onboard-back" id="back3">Back</button>
+        <button class="onboard-next" id="next3">Continue</button>
+      </div>
+    </section>
+
+    <!-- ─── Step 4: Personal Welcome ─── -->
+    <section class="onboard-step" id="step4">
+      <div class="onboard-header">
+        <h1 class="onboard-title">Almost There</h1>
+        <p class="onboard-sub">Let's make this yours.</p>
+      </div>
+      <div class="onboard-form">
+        <div class="onboard-field">
+          <label for="onboardFirstName">First Name</label>
+          <input type="text" id="onboardFirstName" class="onboard-input" placeholder="Jamal" required />
+        </div>
+        <div class="onboard-field">
+          <label for="onboardGoalText">What's your #1 goal right now?</label>
+          <input type="text" id="onboardGoalText" class="onboard-input" placeholder="Hit a 225 bench" />
+        </div>
+        <div class="onboard-field">
+          <label for="onboardWeight">Current Body Weight (optional)</label>
+          <input type="number" id="onboardWeight" class="onboard-input" placeholder="182" />
+        </div>
+        <div class="onboard-field">
+          <label for="onboardHeight">Height in inches (optional, for BMI)</label>
+          <input type="number" id="onboardHeight" class="onboard-input" placeholder="71" />
+        </div>
+      </div>
+      <div class="onboard-nav-row">
+        <button class="onboard-back" id="back4">Back</button>
+        <button class="onboard-next onboard-finish" id="finishOnboard">Enter the PPF System</button>
+      </div>
+    </section>
+
+    <!-- ─── Completion Screen ─── -->
+    <section class="onboard-step" id="stepComplete" style="display:none;">
+      <div class="onboard-complete">
+        <div class="complete-icon">◆</div>
+        <h1 class="complete-title" id="completeTitle">Welcome, Jamal</h1>
+        <p class="complete-sub">Your PPF profile is live. The standard starts now.</p>
+        <div class="complete-card" id="completeCard">
+          <div class="complete-detail"><strong>Path:</strong> <span id="completePath">Athlete</span></div>
+          <div class="complete-detail"><strong>Goal:</strong> <span id="completeGoal">Hit a 225 bench</span></div>
+          <div class="complete-detail" id="completeBMIRow" style="display:none;"><strong>Starting BMI:</strong> <span id="completeBMI">—</span></div>
+        </div>
+        <p class="complete-tagline">Built for progress. Proven daily.</p>
+        <a href="dashboard.html" class="onboard-next">Enter Your Dashboard</a>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="../js/ppf-member.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PPFMember !== 'undefined') {
+        PPFMember.initOnboarding();
+      }
+    });
+  </script>
+</body>
+</html>
