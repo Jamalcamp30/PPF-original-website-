@@ -3583,7 +3583,7 @@ button {
 
 /* Signal tile type-specific pulse accents */
 .signal-tile[data-signal="proof"]    { --tile-pulse: rgba(255, 85, 0, 0.15); }
-.signal-tile[data-signal="milestone"]{ --tile-pulse: rgba(100, 200, 100, 0.12); }
+.signal-tile[data-signal="milestone"] { --tile-pulse: rgba(100, 200, 100, 0.12); }
 .signal-tile[data-signal="culture"]  { --tile-pulse: rgba(150, 120, 255, 0.12); }
 .signal-tile[data-signal="coaching"] { --tile-pulse: rgba(255, 200, 60, 0.12); }
 .signal-tile[data-signal="output"]   { --tile-pulse: rgba(255, 85, 0, 0.1); }
