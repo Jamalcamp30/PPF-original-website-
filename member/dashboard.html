@@ -53,7 +53,7 @@
             <strong id="dropdownName">Guest</strong>
             <span id="dropdownEmail" class="dropdown-email"></span>
           </div>
-          <a href="#" class="dropdown-item" id="linkProfile">My Profile</a>
+          <a href="profile.html" class="dropdown-item" id="linkProfile">My Profile</a>
           <a href="#" class="dropdown-item" id="linkSettings">Settings</a>
           <a href="../index.html" class="dropdown-item">PPF Website</a>
           <button class="dropdown-item dropdown-logout" id="btnLogout">Sign Out</button>
@@ -448,6 +448,74 @@
           <p class="target-detail">1.62s → 1.55s target</p>
           <p class="target-coach">Mechanics first. Speed follows.</p>
         </div>
+      </div>
+    </section>
+
+    <!-- ─── Daily Streak ─── -->
+    <section class="dash-streak" id="dashStreak">
+      <h2 class="section-heading">Daily Streaks</h2>
+      <p class="section-sub">Consistency leaves evidence.</p>
+      <div class="streak-grid">
+        <div class="streak-card active">
+          <span class="streak-card-value">9</span>
+          <span class="streak-card-label">Workouts</span>
+        </div>
+        <div class="streak-card active">
+          <span class="streak-card-value">7</span>
+          <span class="streak-card-label">Meals</span>
+        </div>
+        <div class="streak-card active">
+          <span class="streak-card-value">12</span>
+          <span class="streak-card-label">Hydration</span>
+        </div>
+        <div class="streak-card">
+          <span class="streak-card-value">4</span>
+          <span class="streak-card-label">Recovery</span>
+        </div>
+        <div class="streak-card active">
+          <span class="streak-card-value">5</span>
+          <span class="streak-card-label">Check-Ins</span>
+        </div>
+      </div>
+      <p class="streak-summary" id="streakSummaryText">Current streak: 0 days locked in</p>
+    </section>
+
+    <!-- ─── Daily Challenge ─── -->
+    <section class="dash-challenge" id="dashChallenge">
+      <h2 class="section-heading">Today's Standards</h2>
+      <p class="section-sub">Daily actions. Real status.</p>
+      <div class="challenge-grid">
+        <div class="challenge-item" data-challenge="hydration">
+          <span class="challenge-check">✓</span>
+          <span class="challenge-text">Hit your hydration target</span>
+        </div>
+        <div class="challenge-item" data-challenge="bodyweight">
+          <span class="challenge-check">✓</span>
+          <span class="challenge-text">Log body weight</span>
+        </div>
+        <div class="challenge-item" data-challenge="steps">
+          <span class="challenge-check">✓</span>
+          <span class="challenge-text">Beat your step goal</span>
+        </div>
+        <div class="challenge-item" data-challenge="recovery">
+          <span class="challenge-check">✓</span>
+          <span class="challenge-text">Complete recovery work</span>
+        </div>
+        <div class="challenge-item" data-challenge="session">
+          <span class="challenge-check">✓</span>
+          <span class="challenge-text">Upload your session result</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Daily Win Recap ─── -->
+    <section class="dash-win-recap" id="dashWinRecap">
+      <h2 class="section-heading">Today's Recap</h2>
+      <p class="section-sub">See the work. See the growth.</p>
+      <div class="win-recap-card">
+        <div class="win-recap-icon">◆</div>
+        <h3 class="win-recap-headline" id="winRecapHeadline">0 of 5 standards completed</h3>
+        <p class="win-recap-detail" id="winRecapDetail">Still time to lock in. Attack the details.</p>
       </div>
     </section>
 
