@@ -414,7 +414,8 @@
     ];
 
     // Shuffle based on day
-    var dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 1)) / 86400000);
+    var now = new Date();
+    var dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 1)) / 86400000);
     var shuffled = entries.slice().sort(function () { return 0.5 - seededRandom(dayOfYear); });
 
     function seededRandom(seed) {
@@ -431,7 +432,7 @@
     // Cycle new entries every 12 seconds
     var idx = shown;
     setInterval(function () {
-      if (container.children.length >= 8) {
+      if (container.children.length >= 8 && container.lastChild) {
         container.lastChild.remove();
       }
       var entry = shuffled[idx % shuffled.length];
@@ -743,8 +744,8 @@
   function fixHeroCounters() {
     var counters = qsa('.hero-metrics .metric-num[data-target]');
     counters.forEach(function (el) {
-      // Set innerHTML to the real target value immediately
-      // The animation JS can still animate if it wants
+      // Set textContent to the real target value immediately
+      // The animation JS reads the current value as its start point
       var target = el.getAttribute('data-target');
       if (target && el.textContent === '0') {
         el.textContent = target;
