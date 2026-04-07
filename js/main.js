@@ -2165,6 +2165,11 @@
       .path-card.touch-active .path-highlights { display: flex; opacity: 1; }
       .path-card.touch-active .path-cta { opacity: 1; transform: none; }
       .path-card.touch-active .path-motion-layer { opacity: 1; }
+      .path-card.touch-active .path-outcome { display: block; opacity: 1; }
+      .path-card.touch-active .path-proof { display: block; opacity: 1; }
+      .path-card.touch-active .path-why-exists { display: block; opacity: 1; }
+      .path-card.touch-active .path-day-preview { opacity: 1; transform: translateY(0); }
+      .path-card.touch-active .path-coach-phrase { opacity: 0.6; transform: translateX(0); }
     `;
     document.head.appendChild(style);
   }
