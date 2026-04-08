@@ -262,7 +262,7 @@
       pulseRings.push({ x: W / 2, y: H / 2, r: 0, alpha: 0.3, speed: 1.5 });
     }
 
-    setInterval(addPulseRing, 3000);
+    let pulseRingInterval = setInterval(addPulseRing, 3000);
     addPulseRing();
 
     function drawPulseRings() {
@@ -290,7 +290,7 @@
       });
     }
 
-    setInterval(addStreak, 600);
+    let streakInterval = setInterval(addStreak, 600);
 
     function drawStreaks() {
       streaks = streaks.filter(s => s.x < W + s.w);
@@ -334,7 +334,7 @@
       heroRafId = requestAnimationFrame(heroLoop);
     }
 
-    // Pause hero canvas RAF when section is not visible
+    // Pause hero canvas RAF and intervals when section is not visible
     const heroCanvasParent = heroCanvas.closest('section') || heroCanvas.parentElement;
     if (heroCanvasParent && 'IntersectionObserver' in window) {
       const heroCanvasObs = new IntersectionObserver((entries) => {
@@ -342,9 +342,17 @@
           heroVisible = entry.isIntersecting;
           if (heroVisible && !heroRafId) {
             heroRafId = requestAnimationFrame(heroLoop);
+            // Resume intervals
+            if (!pulseRingInterval) pulseRingInterval = setInterval(addPulseRing, 3000);
+            if (!streakInterval)    streakInterval = setInterval(addStreak, 600);
           } else if (!heroVisible && heroRafId) {
             cancelAnimationFrame(heroRafId);
             heroRafId = null;
+            // Pause intervals to prevent memory leak
+            clearInterval(pulseRingInterval);
+            pulseRingInterval = null;
+            clearInterval(streakInterval);
+            streakInterval = null;
           }
         });
       }, { threshold: 0 });
@@ -1952,7 +1960,7 @@
     let lockProgress = 0;
 
     function showLock() {
-      if (lockShown || lockUnlocked) return;
+      if (!stdLock || lockShown || lockUnlocked) return;
       lockShown = true;
       stdLock.classList.add('active');
 
@@ -1963,7 +1971,7 @@
     }
 
     function unlockLock() {
-      if (lockUnlocked) return;
+      if (!stdLock || lockUnlocked) return;
       lockUnlocked = true;
       stdLock.classList.add('unlocking');
       setTimeout(function() {
@@ -2073,6 +2081,53 @@
     });
 
     /* ── 4. VOICE OF THE STANDARD ─────────────────────── */
+
+    /* ── Micro Audio: Web Audio synthesized cues ────── */
+    var _voiceAudioCtx = null;
+    function getVoiceAudioCtx() {
+      if (!_voiceAudioCtx) {
+        try { _voiceAudioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+        catch (e) { /* Web Audio unsupported */ }
+      }
+      return _voiceAudioCtx;
+    }
+
+    /**
+     * playSound — synthesized micro-cue via Web Audio.
+     * 'strike' = sharp percussive hit (Richard), 'palm' = softer tap (Rebecca).
+     */
+    function playSound(type) {
+      var ac = getVoiceAudioCtx();
+      if (!ac) return;
+      if (ac.state === 'suspended') { ac.resume(); }
+
+      var now = ac.currentTime;
+      var osc = ac.createOscillator();
+      var gain = ac.createGain();
+
+      if (type === 'strike') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(900, now);
+        osc.frequency.exponentialRampToValueAtTime(200, now + 0.12);
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+        osc.connect(gain);
+        gain.connect(ac.destination);
+        osc.start(now);
+        osc.stop(now + 0.12);
+      } else {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(600, now);
+        osc.frequency.exponentialRampToValueAtTime(300, now + 0.1);
+        gain.gain.setValueAtTime(0.05, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+        osc.connect(gain);
+        gain.connect(ac.destination);
+        osc.start(now);
+        osc.stop(now + 0.1);
+      }
+    }
+
     // Create voice overlay element
     var voiceOverlay = document.createElement('div');
     voiceOverlay.className = 'voice-overlay';
@@ -2086,7 +2141,7 @@
 
         var isRichard = btn.classList.contains('richard-voice');
 
-        // Play a voice-button cue sound (playSound handles AudioContext resume)
+        // Play a voice-button cue sound
         playSound(isRichard ? 'strike' : 'palm');
 
         // Flash the button
