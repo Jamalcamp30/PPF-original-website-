@@ -3210,9 +3210,12 @@ button {
 /* ── Membership Cards Grid ────────────────────────── */
 .membership-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 1fr;
   gap: 20px;
   margin-bottom: 48px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .membership-card {
@@ -3598,9 +3601,12 @@ button {
 /* Private Coaching Cards */
 .ms-pc-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   margin-bottom: 48px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .ms-pc-card {
@@ -3618,7 +3624,8 @@ button {
   box-shadow: 0 12px 40px rgba(255, 85, 0, 0.1);
 }
 
-.ms-pc-card[data-pkg="ten"] {
+.ms-pc-card[data-pkg="thirty"],
+.ms-pc-card[data-pkg="sixty"] {
   border-color: rgba(255, 85, 0, 0.3);
   background: linear-gradient(180deg, rgba(255, 85, 0, 0.04), rgba(14, 14, 14, 0.9));
 }
@@ -3666,6 +3673,24 @@ button {
   font-size: 13px;
   color: var(--gray-500);
   margin-bottom: 20px;
+}
+
+.ms-pc-per {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--gray-400);
+}
+
+.ms-pc-bundle-price {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  margin-bottom: 12px;
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 85, 0, 0.2);
+  background: rgba(255, 85, 0, 0.06);
+  display: inline-block;
 }
 
 /* Final CTA */

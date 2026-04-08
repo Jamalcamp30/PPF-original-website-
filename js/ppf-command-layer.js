@@ -664,21 +664,21 @@
         milestone30: '10-yard split improvement, consistent form cues, 3x/week training rhythm established',
         milestone60: 'Measurable 40-yard time drop, power output increase, benchmark board entries started',
         milestone90: 'Full combine-ready testing, competition prep protocol, PPF Standard Score earned',
-        membership: 'Quarterly Athlete — $650'
+        membership: 'Monthly Group Training — $159/mo'
       },
       adult: {
         week1: 'Movement assessment, strength baseline testing, mobility screen, first coached strength session',
         milestone30: 'Consistent 3x/week attendance, form mastery on core lifts, first body comp check',
         milestone60: 'Strength benchmarks tracked, mobility improvement measured, push-up benchmark attempted',
         milestone90: 'Deadlift 2x BW progression, consistency streak active, full benchmark board review',
-        membership: 'Quarterly Adult — $650'
+        membership: 'Monthly Group Training — $159/mo'
       },
       integrated: {
         week1: 'Family consultation, trust-building session, movement exploration, coach introduction with Rebecca',
         milestone30: 'Comfort in the room established, engagement metrics improving, first milestone shared with family',
         milestone60: 'Independence markers tracked, coordination improvements noted, session streak active',
         milestone90: 'Confidence rating measurable, family trust fully established, long-term plan reviewed',
-        membership: 'Quarterly Integrated — $650'
+        membership: 'Monthly Group Training — $159/mo'
       }
     };
 
