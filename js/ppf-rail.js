@@ -34,11 +34,11 @@
 
   /* Section → marker mappings per path */
   var ATHLETE_MARKERS = [
-    { sectionId: 'hero',       label: 'START',  phase: 'ENTER',               type: 'yard' },
-    { sectionId: 'paths',      label: '10 YD',  phase: 'CHOOSE YOUR LANE',    type: 'yard' },
-    { sectionId: 'proof',      label: '20 YD',  phase: 'SEE THE RESULTS',     type: 'yard' },
-    { sectionId: 'memberships',label: '30 YD',  phase: 'COMMIT',              type: 'yard' },
-    { sectionId: 'start',      label: 'GOAL',   phase: 'START YOUR PATH',     type: 'yard' }
+    { sectionId: 'hero',        label: 'START', phase: 'ENTER',            type: 'yard' },
+    { sectionId: 'paths',       label: '10 YD', phase: 'CHOOSE YOUR LANE', type: 'yard' },
+    { sectionId: 'proof',       label: '20 YD', phase: 'SEE THE RESULTS',  type: 'yard' },
+    { sectionId: 'memberships', label: '30 YD', phase: 'COMMIT',           type: 'yard' },
+    { sectionId: 'start',       label: 'GOAL',  phase: 'START YOUR PATH',  type: 'yard' }
   ];
 
   var ADULT_MARKERS = [

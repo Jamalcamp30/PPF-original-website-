@@ -289,13 +289,13 @@
 
 .ppf-rail--integrated .ppf-rail__bracket {
   color: #50c878;
-  border-radius: 3px 0 0 3px;
+  border-radius: 2px 0 0 2px;
   height: 28px;
   border-width: 1px;
 }
 
 .ppf-rail--right.ppf-rail--integrated .ppf-rail__bracket {
-  border-radius: 0 3px 3px 0;
+  border-radius: 0 2px 2px 0;
 }
 
 .ppf-rail--integrated .ppf-rail__tick    { background: #50c878; }
