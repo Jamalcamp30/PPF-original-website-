@@ -34,70 +34,34 @@
 
   /* Section → marker mappings per path */
   var ATHLETE_MARKERS = [
-    { sectionId: 'standard', label: '10 YD',  phase: 'SPEED FOUNDATION',     type: 'yard' },
-    { sectionId: 'proof',    label: '20 YD',  phase: 'FORCE APPLICATION',    type: 'yard' },
-    { sectionId: 'passport', label: '30 YD',  phase: 'POSITIONAL MOVEMENT',  type: 'yard' },
-    { sectionId: 'memberships', label: '40 YD', phase: 'VERIFIED TESTING',   type: 'yard' },
-    { sectionId: 'start',   label: 'GOAL',   phase: 'START YOUR PATH',       type: 'yard' }
-  ];
-
-  var ATHLETE_METRICS = ['40', 'VERT', 'BROAD', 'SHUTTLE', 'BENCH', 'RAS'];
-
-  /* Section → metric tag association */
-  var ATHLETE_METRIC_SECTIONS = {
-    proof:          '40',
-    legacyWall:     'VERT',
-    benchmarkBoard: 'BROAD',
-    passport:       'SHUTTLE',
-    memberships:    'BENCH',
-    start:          'RAS'
-  };
-
-  /* Split times that appear as user scrolls */
-  var ATHLETE_SPLITS = [
-    { pct: 15, time: '1.52' },
-    { pct: 35, time: '2.89' },
-    { pct: 60, time: '3.74' },
-    { pct: 85, time: '4.48' }
+    { sectionId: 'hero',        label: 'START', phase: 'ENTER',            type: 'yard' },
+    { sectionId: 'paths',       label: '10 YD', phase: 'CHOOSE YOUR LANE', type: 'yard' },
+    { sectionId: 'proof',       label: '20 YD', phase: 'SEE THE RESULTS',  type: 'yard' },
+    { sectionId: 'memberships', label: '30 YD', phase: 'COMMIT',           type: 'yard' },
+    { sectionId: 'start',       label: 'GOAL',  phase: 'START YOUR PATH',  type: 'yard' }
   ];
 
   var ADULT_MARKERS = [
-    { sectionId: 'standard',    label: 'START',    phase: 'READY',           type: 'milestone' },
-    { sectionId: 'proof',       label: 'BUILD',    phase: 'BUILD',           type: 'milestone' },
-    { sectionId: 'experience',  label: 'IMPROVE',  phase: 'STRENGTH',        type: 'milestone' },
+    { sectionId: 'hero',        label: 'START',    phase: 'READY',           type: 'milestone' },
+    { sectionId: 'paths',       label: 'BUILD',    phase: 'FIND YOUR FIT',   type: 'milestone' },
+    { sectionId: 'proof',       label: 'IMPROVE',  phase: 'SEE THE RESULTS', type: 'milestone' },
     { sectionId: 'memberships', label: 'PERFORM',  phase: 'COMMIT',          type: 'milestone' },
     { sectionId: 'start',       label: 'SUSTAIN',  phase: 'STAY CONSISTENT', type: 'milestone' }
   ];
 
-  var ADULT_READINESS_CUES = {
-    standard:    'READY',
-    paths:       'BUILD',
-    proof:       'STRENGTH',
-    experience:  'COMMIT',
-    memberships: 'PERFORM',
-    start:       'STAY CONSISTENT'
-  };
-
   var INTEGRATED_MARKERS = [
-    { sectionId: 'standard',        label: 'WELCOME',    phase: 'WELCOME',    type: 'guided' },
-    { sectionId: 'paths',           label: 'SUPPORT',    phase: 'SUPPORT',    type: 'guided' },
-    { sectionId: 'filmRoom',        label: 'MOVEMENT',   phase: 'MOVEMENT',   type: 'guided' },
-    { sectionId: 'passport',        label: 'PROGRESS',   phase: 'PROGRESS',   type: 'guided' },
-    { sectionId: 'familyDashboard', label: 'CONFIDENCE', phase: 'CONFIDENCE', type: 'guided' },
+    { sectionId: 'hero',            label: 'WELCOME',    phase: 'WELCOME',    type: 'guided' },
+    { sectionId: 'paths',           label: 'EXPLORE',    phase: 'EXPLORE',    type: 'guided' },
+    { sectionId: 'familyDashboard', label: 'SUPPORT',    phase: 'SUPPORT',    type: 'guided' },
+    { sectionId: 'memberships',     label: 'PROGRESS',   phase: 'PROGRESS',   type: 'guided' },
     { sectionId: 'start',           label: 'BELONGING',  phase: 'BELONGING',  type: 'guided' }
   ];
-
-  /* Sections that trigger connection lines (integrated) */
-  var INTEGRATED_CONNECT_SECTIONS = ['familyDashboard', 'paths', 'room', 'trust'];
 
   /* Sections that trigger proof-active state */
   var PROOF_SECTIONS = ['proof', 'legacyWall', 'benchmarkBoard', 'standardStreaks'];
 
   /* Sections that trigger CTA-active state */
   var CTA_SECTIONS = ['start', 'experience'];
-
-  /* Sections that trigger tension (adult) */
-  var STRENGTH_SECTIONS = ['proof', 'benchmarkBoard', 'memberships'];
 
   /* Path labels */
   var PATH_NAMES = {
@@ -129,15 +93,9 @@
   var leftProgress, rightProgress;
   var leftBracket, rightBracket;
   var leftGlow, rightGlow;
-  var leftPulse;
   var rightStatus;
   var leftPathName;
   var leftMarkerContainer, rightMarkerContainer;
-  var leftConnection;  /* integrated only */
-  var rightCtaZone;
-  var leftSplitTime;   /* athlete only */
-  var leftReadiness;   /* adult only */
-  var metricTagEls = {};
 
   /* ── Build Rail DOM ────────────────────────────────── */
   function buildRails() {
@@ -160,24 +118,12 @@
     leftGlow = el('div', 'ppf-rail__glow');
     leftRail.appendChild(leftGlow);
 
-    leftPulse = el('div', 'ppf-rail__pulse');
-    leftRail.appendChild(leftPulse);
-
     leftPathName = el('div', 'ppf-rail__path-name');
     leftRail.appendChild(leftPathName);
 
     leftMarkerContainer = el('div', 'ppf-rail__markers');
     leftMarkerContainer.style.cssText = 'position:absolute;top:5%;bottom:5%;width:100%';
     leftRail.appendChild(leftMarkerContainer);
-
-    leftConnection = el('div', 'ppf-rail__connection');
-    leftRail.appendChild(leftConnection);
-
-    leftSplitTime = el('div', 'ppf-rail__split-time');
-    leftRail.appendChild(leftSplitTime);
-
-    leftReadiness = el('div', 'ppf-rail__readiness');
-    leftRail.appendChild(leftReadiness);
 
     /* —— Right Rail —— */
     rightRail = el('div', 'ppf-rail ppf-rail--right');
@@ -202,9 +148,6 @@
     rightMarkerContainer.style.cssText = 'position:absolute;top:5%;bottom:5%;width:100%';
     rightRail.appendChild(rightMarkerContainer);
 
-    rightCtaZone = el('div', 'ppf-rail__cta-zone');
-    rightRail.appendChild(rightCtaZone);
-
     document.body.appendChild(leftRail);
     document.body.appendChild(rightRail);
   }
@@ -214,7 +157,6 @@
   function clearMarkers() {
     leftMarkerContainer.innerHTML = '';
     rightMarkerContainer.innerHTML = '';
-    metricTagEls = {};
   }
 
   /**
@@ -258,19 +200,6 @@
       rMarker.appendChild(rTick);
       rMarker.appendChild(rLabel);
       rightMarkerContainer.appendChild(rMarker);
-    });
-
-    /* Metric stack tags — right rail */
-    var metricStartPct = 20;
-    var metricGap = 10;
-    ATHLETE_METRICS.forEach(function (name, i) {
-      var tag = el('div', 'ppf-rail__metric-tag');
-      tag.textContent = name;
-      tag.style.position = 'absolute';
-      tag.style.top = (metricStartPct + i * metricGap) + '%';
-      tag.style.left = '4px';
-      metricTagEls[name] = tag;
-      rightMarkerContainer.appendChild(tag);
     });
   }
 
@@ -370,11 +299,6 @@
     /* Rebuild path-specific markers */
     buildMarkersForPath();
 
-    /* Show/hide path-specific elements */
-    leftSplitTime.style.display = (path === 'athlete') ? '' : 'none';
-    leftReadiness.style.display = (path === 'adult') ? '' : 'none';
-    leftConnection.style.display = (path === 'integrated') ? '' : 'none';
-
     /* Force update */
     updateProgress();
   }
@@ -402,10 +326,6 @@
     rightGlow.style.top = glowTop + '%';
     rightGlow.classList.add('ppf-rail__glow--active');
 
-    /* Pulse position */
-    leftPulse.style.top = glowTop + '%';
-    leftPulse.style.opacity = '1';
-
     /* Update markers — mark as reached when scroll passes them */
     var allMarkers = qsa('.ppf-rail__marker', leftMarkerContainer)
       .concat(qsa('.ppf-rail__marker', rightMarkerContainer));
@@ -417,24 +337,6 @@
         m.classList.remove('ppf-rail__marker--reached');
       }
     });
-
-    /* Path-specific scroll effects */
-    if (currentPath === 'athlete') {
-      updateAthleteSplitTime();
-      updateAthleteMetricTags();
-    } else if (currentPath === 'adult') {
-      updateAdultReadiness();
-      updateAdultTension();
-    } else if (currentPath === 'integrated') {
-      updateIntegratedConnection();
-    }
-
-    /* CTA zone */
-    if (scrollPct > 85) {
-      rightCtaZone.classList.add('ppf-rail__cta-zone--hot');
-    } else {
-      rightCtaZone.classList.remove('ppf-rail__cta-zone--hot');
-    }
   }
 
   function onScroll() {
@@ -444,84 +346,6 @@
         scrollTicking = false;
       });
       scrollTicking = true;
-    }
-  }
-
-  /* ── Athlete-Specific: Split Time ──────────────────── */
-
-  function updateAthleteSplitTime() {
-    var currentSplit = null;
-    for (var i = ATHLETE_SPLITS.length - 1; i >= 0; i--) {
-      if (scrollPct >= ATHLETE_SPLITS[i].pct) {
-        currentSplit = ATHLETE_SPLITS[i];
-        break;
-      }
-    }
-    if (currentSplit) {
-      leftSplitTime.textContent = currentSplit.time + 's';
-      leftSplitTime.style.opacity = '1';
-    } else {
-      leftSplitTime.textContent = '0.00s';
-      leftSplitTime.style.opacity = '0.3';
-    }
-  }
-
-  /* ── Athlete-Specific: Metric Tags ─────────────────── */
-
-  function updateAthleteMetricTags() {
-    if (!activeSection) return;
-    var litMetric = ATHLETE_METRIC_SECTIONS[activeSection];
-    Object.keys(metricTagEls).forEach(function (name) {
-      if (name === litMetric) {
-        metricTagEls[name].classList.add('ppf-rail__metric-tag--lit');
-      } else {
-        metricTagEls[name].classList.remove('ppf-rail__metric-tag--lit');
-      }
-    });
-  }
-
-  /* ── Adult-Specific: Readiness Cue ─────────────────── */
-
-  function updateAdultReadiness() {
-    if (!activeSection) {
-      leftReadiness.classList.remove('ppf-rail__readiness--show');
-      return;
-    }
-    var cue = ADULT_READINESS_CUES[activeSection];
-    if (cue) {
-      leftReadiness.textContent = cue;
-      leftReadiness.classList.add('ppf-rail__readiness--show');
-      /* Position near the bracket */
-      var bracketTop = parseFloat(leftBracket.style.top) || 50;
-      leftReadiness.style.top = (bracketTop + 4) + '%';
-    } else {
-      leftReadiness.classList.remove('ppf-rail__readiness--show');
-    }
-  }
-
-  /* ── Adult-Specific: Tension Effect ────────────────── */
-
-  function updateAdultTension() {
-    var inStrength = STRENGTH_SECTIONS.indexOf(activeSection) >= 0;
-    if (inStrength) {
-      leftRail.classList.add('ppf-rail--tension');
-      rightRail.classList.add('ppf-rail--tension');
-    } else {
-      leftRail.classList.remove('ppf-rail--tension');
-      rightRail.classList.remove('ppf-rail--tension');
-    }
-  }
-
-  /* ── Integrated-Specific: Connection Lines ─────────── */
-
-  function updateIntegratedConnection() {
-    var shouldConnect = INTEGRATED_CONNECT_SECTIONS.indexOf(activeSection) >= 0;
-    if (shouldConnect) {
-      /* Position connection line at bracket */
-      leftConnection.style.top = leftBracket.style.top;
-      leftConnection.classList.add('ppf-rail__connection--extend');
-    } else {
-      leftConnection.classList.remove('ppf-rail__connection--extend');
     }
   }
 
@@ -584,24 +408,21 @@
   }
 
   function getStatusText(sectionId) {
+    var markers;
     if (currentPath === 'athlete') {
-      var aMarker = null;
-      ATHLETE_MARKERS.forEach(function (m) {
-        if (m.sectionId === sectionId) aMarker = m;
-      });
-      return aMarker ? aMarker.phase : null;
+      markers = ATHLETE_MARKERS;
+    } else if (currentPath === 'adult') {
+      markers = ADULT_MARKERS;
+    } else if (currentPath === 'integrated') {
+      markers = INTEGRATED_MARKERS;
+    } else {
+      return null;
     }
-    if (currentPath === 'adult') {
-      return ADULT_READINESS_CUES[sectionId] || null;
-    }
-    if (currentPath === 'integrated') {
-      var iMarker = null;
-      INTEGRATED_MARKERS.forEach(function (m) {
-        if (m.sectionId === sectionId) iMarker = m;
-      });
-      return iMarker ? iMarker.phase : null;
-    }
-    return null;
+    var found = null;
+    markers.forEach(function (m) {
+      if (m.sectionId === sectionId) found = m;
+    });
+    return found ? found.phase : null;
   }
 
   /* ── Visibility Control ────────────────────────────── */
