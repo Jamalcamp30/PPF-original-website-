@@ -168,52 +168,9 @@
 </head>
 <body>
 
-  <!-- ============================================================
-       PPF INTRO — Logo Reveal
-       Clean, professional opening screen before the website loads
-  ============================================================ -->
-  <div class="ppf-intro" id="ppfIntro" aria-live="polite" role="status">
-    <div class="intro-logo-reveal">
-      <div class="intro-logo-mark" id="introLogoMark">
-        <span class="intro-logo-letters">PPF</span>
-        <span class="intro-logo-word">ATHLETICS</span>
-      </div>
-      <div class="intro-logo-line" id="introLine"></div>
-      <div class="intro-logo-tagline" id="introTagline">THREE PATHS. ONE STANDARD.</div>
-    </div>
-    <button class="intro-skip" id="introSkip" aria-label="Skip intro">SKIP ›</button>
-  </div>
-
   <!-- CUSTOM CURSOR -->
   <div class="cursor-ring" id="cursorRing"></div>
   <div class="cursor-dot" id="cursorDot"></div>
-
-  <!-- COACH CUE HUD -->
-  <div class="coach-hud" id="coachHud">
-    <div class="hud-phase" id="hudPhase">—</div>
-    <div class="hud-progress-bar"><div class="hud-progress-fill" id="hudProgressFill"></div></div>
-    <div class="hud-cue" id="hudCue"></div>
-    <div class="hud-path" id="hudPath">ALL PATHS</div>
-  </div>
-
-  <!-- COACHING COMMAND OVERLAY — PPF Signature System -->
-  <div class="coaching-command-overlay" id="coachingCommandOverlay" aria-hidden="true">
-    <div class="command-text" id="commandText"></div>
-  </div>
-
-  <!-- PPF STANDARD METER — Brand Engagement Tracker -->
-  <div class="ppf-standard-meter" id="ppfStandardMeter" aria-hidden="true">
-    <div class="standard-meter-label">THE STANDARD</div>
-    <div class="standard-meter-bar">
-      <div class="standard-meter-fill" id="standardMeterFill"></div>
-    </div>
-    <div class="standard-meter-level" id="standardMeterLevel">PRESENCE</div>
-  </div>
-
-  <!-- LIVE METRIC STRIP -->
-  <div class="live-metric-strip" id="liveMetricStrip">
-    <div class="lms-track" id="lmsTrack"></div>
-  </div>
 
   <!-- NAVIGATION -->
   <nav class="site-nav" id="siteNav">
@@ -245,26 +202,6 @@
 
     <div class="hero-overlay"></div>
 
-    <!-- Hero micro-data HUD -->
-    <div class="hero-micro-data" id="heroMicroData">
-      <div class="micro-datum" data-micro="reaction">
-        <span class="micro-label">REACTION</span>
-        <span class="micro-value" id="microReaction">42ms</span>
-      </div>
-      <div class="micro-datum" data-micro="output">
-        <span class="micro-label">OUTPUT</span>
-        <span class="micro-value" id="microOutput">94%</span>
-      </div>
-      <div class="micro-datum" data-micro="coaching">
-        <span class="micro-label">COACHING</span>
-        <span class="micro-value" id="microCoaching">LIVE</span>
-      </div>
-      <div class="micro-datum" data-micro="structure">
-        <span class="micro-label">STRUCTURE</span>
-        <span class="micro-value" id="microStructure">ACTIVE</span>
-      </div>
-    </div>
-
     <div class="hero-content">
       <div class="hero-eyebrow reveal-up">
         <span class="eyebrow-line"></span>
@@ -286,35 +223,17 @@
 
       <div class="hero-actions reveal-up">
         <div class="ppf-cta is-rest" data-cta-tier="1" data-section="hero">
-          <span class="cta-pre-label" data-rest-text="NEXT STEP AVAILABLE" data-active-text="GO NOW">NEXT STEP AVAILABLE</span>
           <div class="cta-shell">
-            <div class="cta-corner cta-corner--tl"></div>
-            <div class="cta-corner cta-corner--tr"></div>
-            <div class="cta-corner cta-corner--bl"></div>
-            <div class="cta-corner cta-corner--br"></div>
-            <div class="cta-edge-runner"></div>
-            <div class="cta-scanner"></div>
-            <div class="cta-burst"></div>
             <a href="#start" class="cta-action">
-              <span class="cta-label" data-confirm-text="ASSESSMENT STARTED">CLAIM YOUR SPOT</span>
-              <span class="cta-subline">Direct performance inquiry</span>
+              <span class="cta-label">START YOUR 3-DAY EXPERIENCE</span>
               <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
           </div>
         </div>
         <div class="ppf-cta is-rest" data-cta-tier="2" data-section="hero">
-          <span class="cta-pre-label" data-rest-text="PPF LIVE" data-active-text="INITIATE">PPF LIVE</span>
           <div class="cta-shell cta-shell--ghost">
-            <div class="cta-corner cta-corner--tl"></div>
-            <div class="cta-corner cta-corner--tr"></div>
-            <div class="cta-corner cta-corner--bl"></div>
-            <div class="cta-corner cta-corner--br"></div>
-            <div class="cta-edge-runner"></div>
-            <div class="cta-scanner"></div>
-            <div class="cta-burst"></div>
             <a href="#paths" class="cta-action">
-              <span class="cta-label">ENTER THE SYSTEM</span>
-              <span class="cta-subline">See how the build works</span>
+              <span class="cta-label">EXPLORE THE THREE PATHS</span>
             </a>
           </div>
         </div>
@@ -344,167 +263,6 @@
       </div>
     </div>
 
-    <!-- Decision-Maker Quick Portal -->
-    <div class="dm-strip" id="decisionMaker">
-      <div class="dm-inner">
-        <span class="dm-label">I AM HERE FOR</span>
-        <a href="#paths" class="dm-btn" data-dm="athlete">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          Athletes
-        </a>
-        <span class="dm-divider"></span>
-        <a href="#paths" class="dm-btn" data-dm="adult">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-          Adults
-        </a>
-        <span class="dm-divider"></span>
-        <a href="#familyDashboard" class="dm-btn" data-dm="family">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          Families
-        </a>
-        <span class="dm-divider"></span>
-        <a href="#trust" class="dm-btn" data-dm="parent">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Parents
-        </a>
-      </div>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="scroll-indicator">
-      <div class="scroll-line"></div>
-      <span>SCROLL</span>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       PPF DAILY SIGNAL — THE READINESS BOARD
-       A live performance command center that makes the site a daily habit
-  ============================================================ -->
-  <section class="section signal-section" id="dailySignal">
-    <div class="container">
-      <div class="section-label reveal-up">DAILY SIGNAL</div>
-      <h2 class="section-title reveal-up">
-        The Room Is<br />
-        <span class="accent">Live.</span>
-      </h2>
-
-      <div class="signal-board reveal-up">
-        <!-- Date & Status Bar -->
-        <div class="signal-header">
-          <div class="signal-date" id="signalDate"></div>
-          <div class="signal-status">
-            <span class="signal-status-dot"></span>
-            <span class="signal-status-label" id="signalStatusLabel">ROOM ACTIVE</span>
-          </div>
-        </div>
-
-        <!-- Main Grid -->
-        <div class="signal-grid">
-          <!-- Coach Cue of the Day -->
-          <div class="signal-card signal-card--cue">
-            <div class="signal-card-label">COACH CUE OF THE DAY</div>
-            <div class="signal-card-value" id="signalCue">"Drive through the ground. Own every inch."</div>
-            <div class="signal-card-meta">— Coach Richard</div>
-          </div>
-
-          <!-- Room Temperature -->
-          <div class="signal-card signal-card--temp">
-            <div class="signal-card-label">ROOM TEMPERATURE</div>
-            <div class="signal-temp-meter">
-              <div class="temp-levels">
-                <span class="temp-level" data-level="calm">CALM</span>
-                <span class="temp-level" data-level="building">BUILDING</span>
-                <span class="temp-level active" data-level="live">LIVE</span>
-                <span class="temp-level" data-level="locked">LOCKED IN</span>
-              </div>
-              <div class="temp-bar">
-                <div class="temp-bar-fill" id="tempBarFill" style="--temp: 75%"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Today's Session Focus -->
-          <div class="signal-card signal-card--focus">
-            <div class="signal-card-label">TODAY'S SESSION FOCUS</div>
-            <div class="signal-card-value" id="signalFocus">Lower Body Power + Sprint Mechanics</div>
-            <div class="signal-card-tags">
-              <span class="signal-tag">ATHLETE</span>
-              <span class="signal-tag">ADULT</span>
-            </div>
-          </div>
-
-          <!-- Featured Win -->
-          <div class="signal-card signal-card--win">
-            <div class="signal-card-label">TODAY'S FEATURED WIN</div>
-            <div class="signal-card-value" id="signalWin">Marcus T. — New squat PR: 365 lbs</div>
-            <div class="signal-card-meta">Athlete Path · Week 12</div>
-          </div>
-
-          <!-- Week Stats Row -->
-          <div class="signal-card signal-card--stats">
-            <div class="signal-stat">
-              <div class="signal-stat-num" id="signalSessions">127</div>
-              <div class="signal-stat-label">Sessions This Week</div>
-            </div>
-            <div class="signal-stat">
-              <div class="signal-stat-num" id="signalPRs">14</div>
-              <div class="signal-stat-label">PRs Recorded</div>
-            </div>
-            <div class="signal-stat">
-              <div class="signal-stat-num" id="signalEvals">8</div>
-              <div class="signal-stat-label">Evals Booked</div>
-            </div>
-            <div class="signal-stat">
-              <div class="signal-stat-num" id="signalCampSpots">12</div>
-              <div class="signal-stat-label">Camp Spots Left</div>
-            </div>
-          </div>
-
-          <!-- Micro-Moments -->
-          <div class="signal-card signal-card--moments">
-            <div class="signal-card-label">SPOTTED IN THE ROOM</div>
-            <div class="signal-moments-feed">
-              <div class="signal-moment">
-                <span class="moment-icon">🔥</span>
-                <span class="moment-text">Adult group hit 100% attendance this week</span>
-                <span class="moment-time">2h ago</span>
-              </div>
-              <div class="signal-moment">
-                <span class="moment-icon">⚡</span>
-                <span class="moment-text">New athlete evaluation booked — DB from North Forsyth</span>
-                <span class="moment-time">4h ago</span>
-              </div>
-              <div class="signal-moment">
-                <span class="moment-icon">🏆</span>
-                <span class="moment-text">Integrated path milestone: 6-month consistency streak</span>
-                <span class="moment-time">Yesterday</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Camp Countdown -->
-          <div class="signal-card signal-card--camp">
-            <div class="signal-card-label">NEXT CAMP COUNTDOWN</div>
-            <div class="signal-countdown" id="signalCountdown">
-              <div class="countdown-block">
-                <span class="countdown-num" id="countDays">14</span>
-                <span class="countdown-unit">DAYS</span>
-              </div>
-              <div class="countdown-block">
-                <span class="countdown-num" id="countHours">06</span>
-                <span class="countdown-unit">HRS</span>
-              </div>
-              <div class="countdown-block">
-                <span class="countdown-num" id="countMins">32</span>
-                <span class="countdown-unit">MIN</span>
-              </div>
-            </div>
-            <div class="signal-card-meta">Summer Speed & Power Camp — Register Now</div>
-          </div>
-        </div>
-      </div>
-    </div>
   </section>
 
   <!-- SECTION TRANSITION — STANDARD -->
@@ -587,54 +345,6 @@
     </div>
   </section>
 
-  <!-- LOADED STANDARD REVEAL — Bar Load Tension Build -->
-  <div class="bar-tension-reveal" data-target="paths" aria-hidden="true">
-
-    <!-- Brace Command -->
-    <div class="bar-brace-cmd">BRACE</div>
-
-    <!-- Load Callout Labels -->
-    <div class="bar-load-labels">
-      <span class="bar-load-label">TENSION</span>
-      <span class="bar-load-label">POSITION</span>
-      <span class="bar-load-label">OUTPUT</span>
-      <span class="bar-load-label">TRANSFER</span>
-    </div>
-
-    <!-- Chalk Particles -->
-    <div class="bar-chalk-zone">
-      <div class="chalk-particle"></div>
-      <div class="chalk-particle"></div>
-      <div class="chalk-particle"></div>
-      <div class="chalk-particle"></div>
-      <div class="chalk-particle"></div>
-      <div class="chalk-particle"></div>
-    </div>
-
-    <!-- SVG Bar -->
-    <svg class="bar-tension-svg" viewBox="0 0 1000 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="barGradient" x1="0" y1="0" x2="1000" y2="0" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stop-color="rgba(255,85,0,0.0)" />
-          <stop offset="8%" stop-color="rgba(255,85,0,0.5)" />
-          <stop offset="50%" stop-color="rgba(255,85,0,1)" />
-          <stop offset="92%" stop-color="rgba(255,85,0,0.5)" />
-          <stop offset="100%" stop-color="rgba(255,85,0,0.0)" />
-        </linearGradient>
-      </defs>
-
-      <!-- Calibration Ticks -->
-      <g class="bar-tension-ticks"></g>
-
-      <!-- Anchor Points -->
-      <circle class="bar-anchor" cx="30" cy="40" r="3" />
-      <circle class="bar-anchor" cx="970" cy="40" r="3" />
-
-      <!-- The Bar -->
-      <path class="bar-line" d="M 30 40 Q 500 40 970 40" />
-    </svg>
-  </div>
-
   <!-- ============================================================
        SECTION 3 — THREE PATHS. ONE STANDARD.
   ============================================================ -->
@@ -643,7 +353,7 @@
     <div class="paths-ambient-glow" id="pathsAmbient"></div>
 
     <div class="container">
-      <div class="section-label reveal-up">FIND YOUR PLACE IN THE PPF SYSTEM</div>
+      <div class="section-label reveal-up">THREE PATHS</div>
       <h2 class="section-title reveal-up">
         Three Paths.<br />
         <span class="accent">One Standard.</span>
@@ -679,18 +389,9 @@
             <div class="path-who-for">FOR ATHLETES CHASING REAL PERFORMANCE TRANSFER</div>
             <div class="path-why-exists">Athlete Performance exists because talent without structure is wasted potential.</div>
             <div class="ppf-cta is-rest" data-cta-tier="2" data-section="paths">
-              <span class="cta-pre-label" data-rest-text="PATH AVAILABLE" data-active-text="LOCK IN">PATH AVAILABLE</span>
               <div class="cta-shell">
-                <div class="cta-corner cta-corner--tl"></div>
-                <div class="cta-corner cta-corner--tr"></div>
-                <div class="cta-corner cta-corner--bl"></div>
-                <div class="cta-corner cta-corner--br"></div>
-                <div class="cta-edge-runner"></div>
-                <div class="cta-scanner"></div>
-                <div class="cta-burst"></div>
                 <a href="#start" class="cta-action">
-                  <span class="cta-label" data-confirm-text="EVALUATION LOCKED">START ATHLETE EVALUATION</span>
-                  <span class="cta-subline">Speed, power, output evaluation</span>
+                  <span class="cta-label">START ATHLETE EVALUATION</span>
                   <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
               </div>
@@ -708,11 +409,6 @@
           <div class="path-coach-phrase">Train with transfer.</div>
           <!-- Path Unlock Expanded Panel -->
           <div class="path-unlock-panel">
-            <div class="path-unlock-boot">
-              <div class="boot-line boot-line--1">INITIALIZING ATHLETE PATH...</div>
-              <div class="boot-line boot-line--2">LOADING PERFORMANCE PROTOCOL...</div>
-              <div class="boot-line boot-line--3">SYSTEM READY</div>
-            </div>
             <div class="path-unlock-content">
               <div class="unlock-block">
                 <div class="unlock-block-label">WHO THIS IS FOR</div>
@@ -735,13 +431,6 @@
             </div>
             <button class="path-unlock-close" aria-label="Close expanded view">✕</button>
           </div>
-          <div class="path-motion-layer path-motion-athlete">
-            <div class="motion-line ml-1"></div>
-            <div class="motion-line ml-2"></div>
-            <div class="motion-line ml-3"></div>
-            <div class="motion-timer">00:00.00</div>
-          </div>
-          <div class="lane-lock-overlay"><span class="lane-lock-text">PATH LOCKED</span><div class="lane-lock-ring"></div></div>
         </div>
       </div>
 
@@ -770,18 +459,9 @@
             <div class="path-who-for">FOR ADULTS WHO WANT REAL COACHING AND REAL PROGRESS</div>
             <div class="path-why-exists">Adult Performance exists for adults who still want to train with intention, not just stay busy.</div>
             <div class="ppf-cta is-rest" data-cta-tier="2" data-section="paths">
-              <span class="cta-pre-label" data-rest-text="PATH AVAILABLE" data-active-text="LOCK IN">PATH AVAILABLE</span>
               <div class="cta-shell">
-                <div class="cta-corner cta-corner--tl"></div>
-                <div class="cta-corner cta-corner--tr"></div>
-                <div class="cta-corner cta-corner--bl"></div>
-                <div class="cta-corner cta-corner--br"></div>
-                <div class="cta-edge-runner"></div>
-                <div class="cta-scanner"></div>
-                <div class="cta-burst"></div>
                 <a href="#start" class="cta-action">
-                  <span class="cta-label" data-confirm-text="ASSESSMENT LOCKED">START ADULT ASSESSMENT</span>
-                  <span class="cta-subline">Strength, structure, accountability</span>
+                  <span class="cta-label">START ADULT ASSESSMENT</span>
                   <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
               </div>
@@ -799,11 +479,6 @@
           <div class="path-coach-phrase">Own the standard.</div>
           <!-- Path Unlock Expanded Panel -->
           <div class="path-unlock-panel">
-            <div class="path-unlock-boot">
-              <div class="boot-line boot-line--1">INITIALIZING ADULT PATH...</div>
-              <div class="boot-line boot-line--2">LOADING STRENGTH PROTOCOL...</div>
-              <div class="boot-line boot-line--3">SYSTEM READY</div>
-            </div>
             <div class="path-unlock-content">
               <div class="unlock-block">
                 <div class="unlock-block-label">WHO THIS IS FOR</div>
@@ -826,12 +501,6 @@
             </div>
             <button class="path-unlock-close" aria-label="Close expanded view">✕</button>
           </div>
-          <div class="path-motion-layer path-motion-adult">
-            <div class="motion-bar mb-1"></div>
-            <div class="motion-bar mb-2"></div>
-            <div class="motion-bar mb-3"></div>
-          </div>
-          <div class="lane-lock-overlay"><span class="lane-lock-text">PATH LOCKED</span><div class="lane-lock-ring"></div></div>
         </div>
       </div>
 
@@ -860,18 +529,9 @@
             <div class="path-who-for">FOR INDIVIDUALS WHO THRIVE WITH PERSONALIZED SUPPORT</div>
             <div class="path-why-exists">Integrated Fitness exists because every person deserves coaching built around who they are.</div>
             <div class="ppf-cta is-rest" data-cta-tier="2" data-section="paths">
-              <span class="cta-pre-label" data-rest-text="PATH AVAILABLE" data-active-text="LOCK IN">PATH AVAILABLE</span>
               <div class="cta-shell">
-                <div class="cta-corner cta-corner--tl"></div>
-                <div class="cta-corner cta-corner--tr"></div>
-                <div class="cta-corner cta-corner--bl"></div>
-                <div class="cta-corner cta-corner--br"></div>
-                <div class="cta-edge-runner"></div>
-                <div class="cta-scanner"></div>
-                <div class="cta-burst"></div>
                 <a href="#start" class="cta-action">
-                  <span class="cta-label" data-confirm-text="PATH LOCKED">START INTEGRATED PATH</span>
-                  <span class="cta-subline">Adaptive, purposeful, personal</span>
+                  <span class="cta-label">START INTEGRATED PATH</span>
                   <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
               </div>
@@ -889,11 +549,6 @@
           <div class="path-coach-phrase">Built with purpose.</div>
           <!-- Path Unlock Expanded Panel -->
           <div class="path-unlock-panel">
-            <div class="path-unlock-boot">
-              <div class="boot-line boot-line--1">INITIALIZING INTEGRATED PATH...</div>
-              <div class="boot-line boot-line--2">LOADING ADAPTIVE PROTOCOL...</div>
-              <div class="boot-line boot-line--3">SYSTEM READY</div>
-            </div>
             <div class="path-unlock-content">
               <div class="unlock-block">
                 <div class="unlock-block-label">WHO THIS IS FOR</div>
@@ -916,12 +571,6 @@
             </div>
             <button class="path-unlock-close" aria-label="Close expanded view">✕</button>
           </div>
-          <div class="path-motion-layer path-motion-integrated">
-            <div class="motion-circle mc-1"></div>
-            <div class="motion-circle mc-2"></div>
-            <div class="motion-circle mc-3"></div>
-          </div>
-          <div class="lane-lock-overlay"><span class="lane-lock-text">PATH LOCKED</span><div class="lane-lock-ring"></div></div>
         </div>
       </div>
     </div>
@@ -972,18 +621,13 @@
     </div>
   </section>
 
-  <!-- SECTION TRANSITION — PROOF -->
-  <div class="section-transition st-timer" aria-hidden="true">
-    <div class="st-flip">00:00</div>
-  </div>
-
   <!-- ============================================================
        SECTION 4 — PROOF ENGINE
   ============================================================ -->
   <section class="section proof-section" id="proof">
     <div class="proof-grid-bg"></div>
     <div class="container">
-      <div class="section-label reveal-up">PROOF ENGINE</div>
+      <div class="section-label reveal-up">RESULTS</div>
       <h2 class="section-title reveal-up">
         Results Are<br />
         <span class="accent">The Standard.</span>
@@ -1178,25 +822,25 @@
       <div class="proof-panel active" id="proofAthlete">
         <div class="proof-metrics-grid">
           <div class="proof-metric">
-            <div class="proof-num" data-target="500">0</div>
+            <div class="proof-num" data-target="500">500</div>
             <div class="proof-unit">+</div>
             <div class="proof-label">Athletes Trained</div>
             <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 92%"></div></div>
           </div>
           <div class="proof-metric">
-            <div class="proof-num" data-target="20">0</div>
+            <div class="proof-num" data-target="20">20</div>
             <div class="proof-unit">+</div>
             <div class="proof-label">Years Developing Athletes</div>
             <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 100%"></div></div>
           </div>
           <div class="proof-metric">
-            <div class="proof-num" data-target="40">0</div>
+            <div class="proof-num" data-target="40">40</div>
             <div class="proof-unit">ms</div>
             <div class="proof-label">Avg Reaction Improvement</div>
             <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 78%"></div></div>
           </div>
           <div class="proof-metric">
-            <div class="proof-num" data-target="95">0</div>
+            <div class="proof-num" data-target="95">95</div>
             <div class="proof-unit">%</div>
             <div class="proof-label">Return-to-Play Success</div>
             <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 95%"></div></div>
@@ -1264,25 +908,25 @@
       <div class="proof-panel" id="proofAdult">
         <div class="proof-metrics-grid">
           <div class="proof-metric">
-            <div class="proof-num" data-target="85">0</div>
+            <div class="proof-num" data-target="85">85</div>
             <div class="proof-unit">%</div>
             <div class="proof-label">Member Retention Rate</div>
             <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 85%"></div></div>
           </div>
           <div class="proof-metric">
-            <div class="proof-num" data-target="12">0</div>
+            <div class="proof-num" data-target="12">12</div>
             <div class="proof-unit">wk</div>
             <div class="proof-label">Avg Time to First Major Milestone</div>
             <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 70%"></div></div>
           </div>
           <div class="proof-metric">
-            <div class="proof-num" data-target="200">0</div>
+            <div class="proof-num" data-target="200">200</div>
             <div class="proof-unit">+</div>
             <div class="proof-label">Adults Transformed</div>
             <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 88%"></div></div>
           </div>
           <div class="proof-metric">
-            <div class="proof-num" data-target="5">0</div>
+            <div class="proof-num" data-target="5">5</div>
             <div class="proof-unit">x</div>
             <div class="proof-label">Avg Strength Gain Multiplier</div>
             <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 82%"></div></div>
@@ -1323,25 +967,25 @@
       <div class="proof-panel" id="proofIntegrated">
         <div class="proof-metrics-grid">
           <div class="proof-metric">
-            <div class="proof-num" data-target="100">0</div>
+            <div class="proof-num" data-target="100">100</div>
             <div class="proof-unit">%</div>
             <div class="proof-label">Family Trust Rating</div>
             <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 100%"></div></div>
           </div>
           <div class="proof-metric">
-            <div class="proof-num" data-target="3">0</div>
+            <div class="proof-num" data-target="3">3</div>
             <div class="proof-unit">x</div>
             <div class="proof-label">Programs Offered</div>
             <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 75%"></div></div>
           </div>
           <div class="proof-metric">
-            <div class="proof-num" data-target="90">0</div>
+            <div class="proof-num" data-target="90">90</div>
             <div class="proof-unit">%</div>
             <div class="proof-label">Confidence Improvement Reported</div>
             <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 90%"></div></div>
           </div>
           <div class="proof-metric">
-            <div class="proof-num" data-target="50">0</div>
+            <div class="proof-num" data-target="50">50</div>
             <div class="proof-unit">+</div>
             <div class="proof-label">Integrated Members Served</div>
             <div class="proof-bar"><div class="proof-bar-fill" style="--fill: 65%"></div></div>
