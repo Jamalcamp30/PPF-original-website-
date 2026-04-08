@@ -50,12 +50,12 @@
    * Each cue type gets a distinct pitch / character so cards feel unique.
    */
   var CUE_TONES = {
-    sprint1:         { freq: 440, type: 'sawtooth', dur: 0.35 },
-    sprint2:         { freq: 466, type: 'sawtooth', dur: 0.35 },
-    strength1:       { freq: 330, type: 'triangle', dur: 0.40 },
-    strength2:       { freq: 349, type: 'triangle', dur: 0.40 },
-    integrated1:     { freq: 392, type: 'sine',     dur: 0.45 },
-    accountability1: { freq: 294, type: 'square',   dur: 0.30 }
+    sprint1:         { freq: 440, type: 'sawtooth', dur: 0.35 },  // A4
+    sprint2:         { freq: 466, type: 'sawtooth', dur: 0.35 },  // A#4
+    strength1:       { freq: 330, type: 'triangle', dur: 0.40 },  // E4
+    strength2:       { freq: 349, type: 'triangle', dur: 0.40 },  // F4
+    integrated1:     { freq: 392, type: 'sine',     dur: 0.45 },  // G4
+    accountability1: { freq: 294, type: 'square',   dur: 0.30 }   // D4
   };
 
   function playCueTone(cueKey) {

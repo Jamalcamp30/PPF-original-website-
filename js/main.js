@@ -3285,13 +3285,7 @@
 
         var isRichard = btn.classList.contains('richard-voice');
 
-        // Resume AudioContext on user gesture (autoplay policy)
-        var ac = getAudioCtx();
-        if (ac && ac.state === 'suspended') {
-          ac.resume().catch(function () {});
-        }
-
-        // Play a voice-button cue sound
+        // Play a voice-button cue sound (playSound handles AudioContext resume)
         playSound(isRichard ? 'strike' : 'palm');
 
         // Flash the button
