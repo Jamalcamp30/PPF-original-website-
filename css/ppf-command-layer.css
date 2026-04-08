@@ -7,22 +7,21 @@
 
 /* ──────────────────────────────────────────────
    1. DECISION-MAKER MODE — Quick Portal Strip
+      Now positioned inside hero, above scroll indicator
    ────────────────────────────────────────────── */
 .dm-strip {
-  position: relative;
-  width: 100%;
-  padding: 12px 0;
-  background: linear-gradient(180deg, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.8) 100%);
-  border-bottom: 1px solid rgba(255,85,0,0.15);
-  z-index: 50;
+  position: absolute;
+  bottom: 110px;
+  left: 0;
+  right: 0;
+  padding: 10px 0;
+  background: transparent;
+  border-bottom: none;
+  z-index: 3;
   overflow: hidden;
 }
 .dm-strip::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(90deg, transparent 0, transparent 24.9%, rgba(255,85,0,0.04) 25%, rgba(255,85,0,0.04) 25.1%);
-  pointer-events: none;
+  display: none;
 }
 .dm-inner {
   display: flex;
@@ -82,6 +81,7 @@
 }
 
 @media (max-width: 600px) {
+  .dm-strip { bottom: 90px; }
   .dm-inner { flex-wrap: wrap; gap: 6px; }
   .dm-label { width: 100%; text-align: center; margin-right: 0; margin-bottom: 2px; }
   .dm-divider { display: none; }
