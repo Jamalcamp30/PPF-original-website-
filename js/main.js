@@ -349,8 +349,10 @@
             cancelAnimationFrame(heroRafId);
             heroRafId = null;
             // Pause intervals to prevent memory leak
-            clearInterval(pulseRingInterval); pulseRingInterval = null;
-            clearInterval(streakInterval);    streakInterval = null;
+            clearInterval(pulseRingInterval);
+            pulseRingInterval = null;
+            clearInterval(streakInterval);
+            streakInterval = null;
           }
         });
       }, { threshold: 0 });

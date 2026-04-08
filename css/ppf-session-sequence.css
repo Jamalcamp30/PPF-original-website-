@@ -5,6 +5,7 @@
 
 /* ── SECTION SHELL ──────────────────────────────────── */
 .ssq-section {
+  --ssq-grid-size: 48px;
   background: var(--bg-base);
   position: relative;
   z-index: 1;
@@ -212,11 +213,11 @@
 /* Stage 0: Arrival — entry glow + grid */
 .ssq-vis-arrival .ssq-door-grid {
   position: absolute;
-  inset: -48px;
+  inset: calc(-1 * var(--ssq-grid-size));
   background-image:
     linear-gradient(rgba(255, 85, 0, 0.06) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 85, 0, 0.06) 1px, transparent 1px);
-  background-size: 48px 48px;
+  background-size: var(--ssq-grid-size) var(--ssq-grid-size);
   animation: ssqGridDrift 10s linear infinite;
   will-change: transform;
 }
@@ -576,7 +577,7 @@
 /* ── KEYFRAMES ──────────────────────────────────────── */
 @keyframes ssqGridDrift {
   from { transform: translate(0, 0); }
-  to   { transform: translate(48px, 48px); }
+  to   { transform: translate(var(--ssq-grid-size), var(--ssq-grid-size)); }
 }
 
 @keyframes ssqPulseGlow {
