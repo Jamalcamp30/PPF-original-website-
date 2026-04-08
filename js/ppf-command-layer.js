@@ -19,6 +19,68 @@
     return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
   }
 
+  /* ── Shared Audio Context & Unlock ── */
+  var _audioCtx = null;
+  var _audioUnlocked = false;
+
+  function getAudioCtx() {
+    if (!_audioCtx) {
+      try { _audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+      catch (e) { /* Web Audio unsupported */ }
+    }
+    return _audioCtx;
+  }
+
+  function unlockAudio() {
+    if (_audioUnlocked) return;
+    var ac = getAudioCtx();
+    if (!ac) return;
+    if (ac.state === 'suspended') {
+      ac.resume().catch(function () {});
+    }
+    _audioUnlocked = true;
+  }
+
+  // Unlock on first real user interaction
+  window.addEventListener('pointerdown', unlockAudio, { once: true });
+  window.addEventListener('keydown', unlockAudio, { once: true });
+
+  /**
+   * Play a synthesized coaching-cue tone.
+   * Each cue type gets a distinct pitch / character so cards feel unique.
+   */
+  var CUE_TONES = {
+    sprint1:         { freq: 440, type: 'sawtooth', dur: 0.35 },
+    sprint2:         { freq: 466, type: 'sawtooth', dur: 0.35 },
+    strength1:       { freq: 330, type: 'triangle', dur: 0.40 },
+    strength2:       { freq: 349, type: 'triangle', dur: 0.40 },
+    integrated1:     { freq: 392, type: 'sine',     dur: 0.45 },
+    accountability1: { freq: 294, type: 'square',   dur: 0.30 }
+  };
+
+  function playCueTone(cueKey) {
+    try {
+      unlockAudio();
+      var ac = getAudioCtx();
+      if (!ac) return;
+      var cfg = CUE_TONES[cueKey] || { freq: 400, type: 'sine', dur: 0.35 };
+      var now = ac.currentTime;
+
+      var osc = ac.createOscillator();
+      var gain = ac.createGain();
+      osc.type = cfg.type;
+      osc.frequency.setValueAtTime(cfg.freq, now);
+      osc.frequency.exponentialRampToValueAtTime(cfg.freq * 0.7, now + cfg.dur);
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.linearRampToValueAtTime(0.18, now + cfg.dur * 0.15);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + cfg.dur);
+      osc.connect(gain);
+      gain.connect(ac.destination);
+      osc.start(now);
+      osc.stop(now + cfg.dur + 0.05);
+    } catch (e) { /* silent */ }
+  }
+
   /* ══════════════════════════════════════════════
      1. READINESS FINGERPRINT
      ══════════════════════════════════════════════ */
@@ -375,6 +437,8 @@
         if (!wasPlaying) {
           card.classList.add('playing');
           animateWaveform();
+          // Play synthesized coaching-cue tone for this card
+          playCueTone(card.getAttribute('data-cue') || '');
           // Auto-stop after 4 seconds
           setTimeout(function () {
             card.classList.remove('playing');

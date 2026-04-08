@@ -815,6 +815,10 @@
       try {
         var ac = getAudioCtx();
         if (!ac) return;
+        // Resume AudioContext when suspended (autoplay policy)
+        if (ac.state === 'suspended') {
+          ac.resume().catch(function () {});
+        }
         var now = ac.currentTime;
 
         if (type === 'hum') {
@@ -3280,6 +3284,15 @@
         if (!quote) return;
 
         var isRichard = btn.classList.contains('richard-voice');
+
+        // Resume AudioContext on user gesture (autoplay policy)
+        var ac = getAudioCtx();
+        if (ac && ac.state === 'suspended') {
+          ac.resume().catch(function () {});
+        }
+
+        // Play a voice-button cue sound
+        playSound(isRichard ? 'strike' : 'palm');
 
         // Flash the button
         btn.classList.add('playing');
