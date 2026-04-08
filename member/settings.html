@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Performance Controls — PPF Athletics</title>
+  <meta name="description" content="Performance Controls — configure your PPF Performance OS environment, training preferences, coaching communication, recovery integrations, and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/ppf-member.css" />
+  <style>
+    /* ══════════════════════════════════════════════════════════════
+       Performance Controls — pos-* scoped styles
+    ══════════════════════════════════════════════════════════════ */
+
+    /* ── Page Header ── */
+    .pos-controls-header {
+      text-align: center;
+      padding: 3.5rem 1.5rem 2rem;
+    }
+    .pos-controls-header .section-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      letter-spacing: 0.04em;
+      color: #fff;
+      margin: 0 0 0.25rem;
+    }
+    .pos-controls-subtitle {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      color: rgba(255,255,255,.5);
+      margin: 0 0 1.25rem;
+    }
+    .pos-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 999px;
+      padding: 0.35rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #4ade80;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .pos-status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      animation: pos-pulse 2s ease-in-out infinite;
+    }
+    @keyframes pos-pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74,222,128,.5); }
+      50%       { opacity: .7; box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+    }
+
+    /* ── Settings Container ── */
+    .pos-settings-container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* ── Accordion Group ── */
+    .pos-settings-group {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color .25s;
+    }
+    .pos-settings-group:hover {
+      border-color: rgba(255,85,0,.25);
+    }
+    .pos-settings-group-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.15rem 1.5rem;
+      cursor: pointer;
+      user-select: none;
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.35rem;
+      letter-spacing: 0.05em;
+      color: #fff;
+    }
+    .pos-settings-group-header:hover {
+      background: rgba(255,255,255,.03);
+    }
+    .pos-settings-group-header::after {
+      content: '+';
+      font-family: 'Inter', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 300;
+      color: rgba(255,255,255,.35);
+      transition: transform .25s;
+    }
+    .pos-settings-group.open .pos-settings-group-header::after {
+      content: '−';
+    }
+    .pos-settings-group-body {
+      display: none;
+      padding: 0.25rem 1.5rem 1.5rem;
+    }
+    .pos-settings-group.open .pos-settings-group-body {
+      display: block;
+    }
+
+    /* ── Setting Row ── */
+    .pos-setting-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+    }
+    .pos-setting-row:last-child {
+      border-bottom: none;
+    }
+    .pos-setting-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+      flex: 1;
+      min-width: 0;
+    }
+    .pos-setting-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+    }
+    .pos-setting-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,.4);
+    }
+
+    /* ── Toggle ── */
+    .pos-toggle {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .pos-toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+    .pos-toggle-track {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,.12);
+      border-radius: 999px;
+      transition: background .25s;
+    }
+    .pos-toggle-track::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform .25s;
+    }
+    .pos-toggle input:checked + .pos-toggle-track {
+      background: #ff5500;
+    }
+    .pos-toggle input:checked + .pos-toggle-track::after {
+      transform: translateX(20px);
+    }
+
+    /* ── Radio Group ── */
+    .pos-radio-group {
+      display: flex;
+      gap: 0;
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .pos-radio {
+      cursor: pointer;
+      position: relative;
+    }
+    .pos-radio input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+    .pos-radio span {
+      display: block;
+      padding: 0.4rem 0.75rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.45);
+      background: transparent;
+      transition: background .2s, color .2s;
+      white-space: nowrap;
+      border-right: 1px solid rgba(255,255,255,.07);
+    }
+    .pos-radio:last-child span {
+      border-right: none;
+    }
+    .pos-radio input:checked + span {
+      background: #ff5500;
+      color: #fff;
+    }
+
+    /* ── Buttons ── */
+    .pos-setting-btn {
+      flex-shrink: 0;
+      padding: 0.5rem 1.1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #fff;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background .2s, border-color .2s;
+    }
+    .pos-setting-btn:hover {
+      background: rgba(255,85,0,.2);
+      border-color: #ff5500;
+    }
+    .pos-setting-btn--danger {
+      color: #ff4444;
+      border-color: rgba(255,68,68,.25);
+    }
+    .pos-setting-btn--danger:hover {
+      background: rgba(255,68,68,.15);
+      border-color: #ff4444;
+    }
+    .pos-setting-btn--signout {
+      color: rgba(255,255,255,.6);
+    }
+
+    /* ── Slider ── */
+    .pos-slider-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-shrink: 0;
+    }
+    .pos-slider-wrap input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 110px;
+      height: 4px;
+      background: rgba(255,255,255,.12);
+      border-radius: 2px;
+      outline: none;
+    }
+    .pos-slider-wrap input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #ff5500;
+      cursor: pointer;
+    }
+    .pos-slider-wrap input[type="range"]::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      border: none;
+      border-radius: 50%;
+      background: #ff5500;
+      cursor: pointer;
+    }
+    .pos-slider-value {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #ff5500;
+      min-width: 3ch;
+      text-align: right;
+    }
+
+    /* ── Read-Only Field ── */
+    .pos-setting-readonly {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,.45);
+      flex-shrink: 0;
+    }
+
+    /* ── PRO Badge ── */
+    .pos-badge-pro {
+      display: inline-block;
+      padding: 0.15rem 0.45rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: #080808;
+      background: #ff5500;
+      border-radius: 4px;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+
+    /* ── Theme Swatches ── */
+    .pos-swatch-group {
+      display: flex;
+      gap: 0;
+      flex-shrink: 0;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .pos-swatch-label {
+      cursor: pointer;
+      position: relative;
+    }
+    .pos-swatch-label input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+    .pos-swatch-label span {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.4rem 0.65rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.45);
+      background: transparent;
+      transition: background .2s, color .2s;
+      white-space: nowrap;
+      border-right: 1px solid rgba(255,255,255,.07);
+    }
+    .pos-swatch-label:last-child span {
+      border-right: none;
+    }
+    .pos-swatch-label input:checked + span {
+      background: rgba(255,85,0,.2);
+      color: #fff;
+    }
+    .pos-swatch-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    /* ── Auto-save Indicator ── */
+    .pos-autosave {
+      text-align: center;
+      padding: 1.5rem 1rem 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+    .pos-autosave-check {
+      color: #4ade80;
+      font-size: 0.9rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .pos-setting-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.65rem;
+      }
+      .pos-radio-group,
+      .pos-swatch-group {
+        flex-wrap: wrap;
+      }
+      .pos-slider-wrap input[type="range"] {
+        width: 140px;
+      }
+    }
+  </style>
+</head>
+<body class="ppf-profile-body">
+
+  <!-- ============================================================
+       TOP NAV
+  ============================================================ -->
+  <nav class="dash-nav">
+    <a href="dashboard.html" class="dash-nav-logo">
+      <span class="dash-logo-mark">PPF</span>
+      <span class="dash-logo-tag">PERFORMANCE OS</span>
+    </a>
+    <div class="dash-nav-actions">
+      <a href="dashboard.html" class="profile-back-link">← Dashboard</a>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       MAIN CONTENT
+  ============================================================ -->
+  <main class="dash-main">
+
+    <!-- ─── Page Header ─── -->
+    <header class="pos-controls-header">
+      <h1 class="section-heading">PERFORMANCE CONTROLS</h1>
+      <p class="pos-controls-subtitle">Your environment. Your rules. Your system.</p>
+      <span class="pos-status-pill">
+        <span class="pos-status-dot" aria-hidden="true"></span>
+        System Active
+      </span>
+    </header>
+
+    <!-- ─── Settings Container ─── -->
+    <div class="pos-settings-container">
+
+      <!-- ══════════════════════════════════════════════════════════
+           1. Training Experience
+      ══════════════════════════════════════════════════════════ -->
+      <section class="pos-settings-group open" id="settingsTraining">
+        <button type="button" class="pos-settings-group-header" aria-expanded="true" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">
+          Training Experience
+        </button>
+        <div class="pos-settings-group-body">
+
+          <!-- Preferred workout view -->
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Preferred workout view</span>
+              <span class="pos-setting-desc">Choose how training sessions are displayed</span>
+            </div>
+            <div class="pos-radio-group">
+              <label class="pos-radio"><input type="radio" name="workoutView" id="workoutViewSimple" value="simple" checked /><span>Simple</span></label>
+              <label class="pos-radio"><input type="radio" name="workoutView" id="workoutViewDetailed" value="detailed" /><span>Detailed</span></label>
+              <label class="pos-radio"><input type="radio" name="workoutView" id="workoutViewCoach" value="coach" /><span>Coach Mode</span></label>
+            </div>
+          </div>
+
+          <!-- Rest timer style -->
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Rest timer style</span>
+              <span class="pos-setting-desc">Control how rest periods are timed between sets</span>
+            </div>
+            <div class="pos-radio-group">
+              <label class="pos-radio"><input type="radio" name="restTimer" id="restTimerStandard" value="standard" checked /><span>Standard</span></label>
+              <label class="pos-radio"><input type="radio" name="restTimer" id="restTimerAuto" value="auto" /><span>Auto</span></label>
+              <label class="pos-radio"><input type="radio" name="restTimer" id="restTimerCompetition" value="competition" /><span>Competition</span></label>
+            </div>
+          </div>
+
+          <!-- Music mode sync -->
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Music mode sync</span>
+              <span class="pos-setting-desc">Sync training phases with your music player</span>
+            </div>
+            <label class="pos-toggle">
+              <input type="checkbox" id="musicSync" />
+              <span class="pos-toggle-track"></span>
+            </label>
+          </div>
+
+          <!-- Motivational language level -->
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Motivational language level</span>
+              <span class="pos-setting-desc">Intensity of encouragement prompts during sessions</span>
+            </div>
+            <div class="pos-radio-group">
+              <label class="pos-radio"><input type="radio" name="motivationLevel" id="motivationSubtle" value="subtle" /><span>Subtle</span></label>
+              <label class="pos-radio"><input type="radio" name="motivationLevel" id="motivationStandard" value="standard" checked /><span>Standard</span></label>
+              <label class="pos-radio"><input type="radio" name="motivationLevel" id="motivationIntense" value="intense" /><span>Intense</span></label>
+            </div>
+          </div>
+
+          <!-- Session reminder intensity -->
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Session reminder intensity</span>
+              <span class="pos-setting-desc">How aggressively you're reminded about upcoming sessions</span>
+            </div>
+            <div class="pos-radio-group">
+              <label class="pos-radio"><input type="radio" name="reminderIntensity" id="reminderOff" value="off" /><span>Off</span></label>
+              <label class="pos-radio"><input type="radio" name="reminderIntensity" id="reminderLight" value="light" /><span>Light</span></label>
+              <label class="pos-radio"><input type="radio" name="reminderIntensity" id="reminderStandard" value="standard" checked /><span>Standard</span></label>
+              <label class="pos-radio"><input type="radio" name="reminderIntensity" id="reminderAggressive" value="aggressive" /><span>Aggressive</span></label>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           2. Coaching Communication
+      ══════════════════════════════════════════════════════════ -->
+      <section class="pos-settings-group" id="settingsCoaching">
+        <button type="button" class="pos-settings-group-header" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">
+          Coaching Communication
+        </button>
+        <div class="pos-settings-group-body">
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Receive direct coach notes</span>
+              <span class="pos-setting-desc">Get in-app notes and feedback from your coach</span>
+            </div>
+            <label class="pos-toggle">
+              <input type="checkbox" id="coachNotes" checked />
+              <span class="pos-toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Weekly progress recap</span>
+              <span class="pos-setting-desc">Receive a weekly summary of your training metrics</span>
+            </div>
+            <label class="pos-toggle">
+              <input type="checkbox" id="weeklyRecap" checked />
+              <span class="pos-toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Video breakdown alerts</span>
+              <span class="pos-setting-desc">Notify when new video analysis is available</span>
+            </div>
+            <label class="pos-toggle">
+              <input type="checkbox" id="videoAlerts" checked />
+              <span class="pos-toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Testing reminders</span>
+              <span class="pos-setting-desc">Get reminded about upcoming performance tests</span>
+            </div>
+            <label class="pos-toggle">
+              <input type="checkbox" id="testingReminders" checked />
+              <span class="pos-toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Goal milestone celebrations</span>
+              <span class="pos-setting-desc">Celebrate when you hit training milestones</span>
+            </div>
+            <label class="pos-toggle">
+              <input type="checkbox" id="milestones" checked />
+              <span class="pos-toggle-track"></span>
+            </label>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           3. Recovery & Readiness
+      ══════════════════════════════════════════════════════════ -->
+      <section class="pos-settings-group" id="settingsRecovery">
+        <button type="button" class="pos-settings-group-header" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">
+          Recovery &amp; Readiness
+        </button>
+        <div class="pos-settings-group-body">
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Connect Apple Health</span>
+              <span class="pos-setting-desc">Sync recovery data from Apple Health</span>
+            </div>
+            <button type="button" class="pos-setting-btn" id="btnAppleHealth" onclick="alert('Coming Soon')">Connect</button>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Connect Fitbit</span>
+              <span class="pos-setting-desc">Sync recovery data from Fitbit</span>
+            </div>
+            <button type="button" class="pos-setting-btn" id="btnFitbit" onclick="alert('Coming Soon')">Connect</button>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Connect Whoop</span>
+              <span class="pos-setting-desc">Sync recovery data from Whoop</span>
+            </div>
+            <button type="button" class="pos-setting-btn" id="btnWhoop" onclick="alert('Coming Soon')">Connect</button>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Sleep import</span>
+              <span class="pos-setting-desc">Automatically import sleep data from connected devices</span>
+            </div>
+            <label class="pos-toggle">
+              <input type="checkbox" id="sleepImport" />
+              <span class="pos-toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">HRV / Readiness display</span>
+              <span class="pos-setting-desc">Show heart-rate variability and readiness scores</span>
+            </div>
+            <label class="pos-toggle">
+              <input type="checkbox" id="hrvDisplay" />
+              <span class="pos-toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Soreness check-ins</span>
+              <span class="pos-setting-desc">Prompt for daily soreness and body status reports</span>
+            </div>
+            <label class="pos-toggle">
+              <input type="checkbox" id="sorenessCheckins" />
+              <span class="pos-toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Hydration reminders</span>
+              <span class="pos-setting-desc">Receive periodic reminders to stay hydrated</span>
+            </div>
+            <label class="pos-toggle">
+              <input type="checkbox" id="hydrationReminders" />
+              <span class="pos-toggle-track"></span>
+            </label>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           4. Identity & Visibility
+      ══════════════════════════════════════════════════════════ -->
+      <section class="pos-settings-group" id="settingsIdentity">
+        <button type="button" class="pos-settings-group-header" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">
+          Identity &amp; Visibility
+        </button>
+        <div class="pos-settings-group-body">
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Public athlete card</span>
+              <span class="pos-setting-desc">Make your athlete identity card visible to others</span>
+            </div>
+            <label class="pos-toggle">
+              <input type="checkbox" id="publicCard" />
+              <span class="pos-toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Shareable progress profile</span>
+              <span class="pos-setting-desc">Allow your progress profile to be shared via link</span>
+            </div>
+            <label class="pos-toggle">
+              <input type="checkbox" id="shareableProfile" />
+              <span class="pos-toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Recruiting-ready profile mode <span class="pos-badge-pro">PRO</span></span>
+              <span class="pos-setting-desc">Optimize your profile for recruiters and scouts</span>
+            </div>
+            <label class="pos-toggle">
+              <input type="checkbox" id="recruitingMode" />
+              <span class="pos-toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Family-view access</span>
+              <span class="pos-setting-desc">Allow family members to view a simplified dashboard</span>
+            </div>
+            <label class="pos-toggle">
+              <input type="checkbox" id="familyView" />
+              <span class="pos-toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Agent-view access</span>
+              <span class="pos-setting-desc">Grant agents or representatives access to your metrics</span>
+            </div>
+            <label class="pos-toggle">
+              <input type="checkbox" id="agentView" />
+              <span class="pos-toggle-track"></span>
+            </label>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Privacy level for metrics</span>
+              <span class="pos-setting-desc">Who can see your performance data</span>
+            </div>
+            <div class="pos-radio-group">
+              <label class="pos-radio"><input type="radio" name="privacyLevel" id="privacyPrivate" value="private" checked /><span>Private</span></label>
+              <label class="pos-radio"><input type="radio" name="privacyLevel" id="privacyTeam" value="team" /><span>Team</span></label>
+              <label class="pos-radio"><input type="radio" name="privacyLevel" id="privacyPublic" value="public" /><span>Public</span></label>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           5. Environment Personalization
+      ══════════════════════════════════════════════════════════ -->
+      <section class="pos-settings-group" id="settingsEnvironment">
+        <button type="button" class="pos-settings-group-header" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">
+          Environment Personalization
+        </button>
+        <div class="pos-settings-group-body">
+
+          <!-- Visual mode -->
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Visual mode</span>
+              <span class="pos-setting-desc">Overall visual style of the interface</span>
+            </div>
+            <div class="pos-radio-group">
+              <label class="pos-radio"><input type="radio" name="visualMode" id="visualPerformance" value="performance" checked /><span>Performance</span></label>
+              <label class="pos-radio"><input type="radio" name="visualMode" id="visualMinimal" value="minimal" /><span>Minimal</span></label>
+              <label class="pos-radio"><input type="radio" name="visualMode" id="visualCinematic" value="cinematic" /><span>Cinematic</span></label>
+            </div>
+          </div>
+
+          <!-- Dashboard density -->
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Dashboard density</span>
+              <span class="pos-setting-desc">How much information is packed into each view</span>
+            </div>
+            <div class="pos-radio-group">
+              <label class="pos-radio"><input type="radio" name="dashDensity" id="densityCompact" value="compact" /><span>Compact</span></label>
+              <label class="pos-radio"><input type="radio" name="dashDensity" id="densityStandard" value="standard" checked /><span>Standard</span></label>
+              <label class="pos-radio"><input type="radio" name="dashDensity" id="densityExpanded" value="expanded" /><span>Expanded</span></label>
+            </div>
+          </div>
+
+          <!-- Font scale -->
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Font scale</span>
+              <span class="pos-setting-desc">Adjust the base font size across the interface</span>
+            </div>
+            <div class="pos-slider-wrap">
+              <input type="range" id="fontScale" min="80" max="120" value="100" step="5" oninput="document.getElementById('fontScaleValue').textContent=this.value+'%'" />
+              <span class="pos-slider-value" id="fontScaleValue">100%</span>
+            </div>
+          </div>
+
+          <!-- Motion intensity -->
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Motion intensity</span>
+              <span class="pos-setting-desc">Control animation and transition levels</span>
+            </div>
+            <div class="pos-radio-group">
+              <label class="pos-radio"><input type="radio" name="motionIntensity" id="motionOff" value="off" /><span>Off</span></label>
+              <label class="pos-radio"><input type="radio" name="motionIntensity" id="motionSubtle" value="subtle" checked /><span>Subtle</span></label>
+              <label class="pos-radio"><input type="radio" name="motionIntensity" id="motionFull" value="full" /><span>Full</span></label>
+            </div>
+          </div>
+
+          <!-- Sound effects -->
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Sound effects</span>
+              <span class="pos-setting-desc">Play audio cues for interactions and achievements</span>
+            </div>
+            <label class="pos-toggle">
+              <input type="checkbox" id="soundEffects" />
+              <span class="pos-toggle-track"></span>
+            </label>
+          </div>
+
+          <!-- Training theme -->
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Training theme</span>
+              <span class="pos-setting-desc">Set the color atmosphere for training sessions</span>
+            </div>
+            <div class="pos-swatch-group">
+              <label class="pos-swatch-label"><input type="radio" name="trainingTheme" id="themeTurf" value="turf" checked /><span><span class="pos-swatch-dot" style="background:#22c55e" aria-hidden="true"></span>Turf</span></label>
+              <label class="pos-swatch-label"><input type="radio" name="trainingTheme" id="themeLab" value="lab" /><span><span class="pos-swatch-dot" style="background:#3b82f6" aria-hidden="true"></span>Lab</span></label>
+              <label class="pos-swatch-label"><input type="radio" name="trainingTheme" id="themeBlackout" value="blackout" /><span><span class="pos-swatch-dot" style="background:#1a1a1a;border:1px solid rgba(255,255,255,.2)" aria-hidden="true"></span>Blackout</span></label>
+              <label class="pos-swatch-label"><input type="radio" name="trainingTheme" id="themeCombine" value="combine" /><span><span class="pos-swatch-dot" style="background:#ff5500" aria-hidden="true"></span>Combine</span></label>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ══════════════════════════════════════════════════════════
+           6. Account & System
+      ══════════════════════════════════════════════════════════ -->
+      <section class="pos-settings-group" id="settingsAccount">
+        <button type="button" class="pos-settings-group-header" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">
+          Account &amp; System
+        </button>
+        <div class="pos-settings-group-body">
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Email</span>
+              <span class="pos-setting-desc">Your registered email address</span>
+            </div>
+            <span class="pos-setting-readonly" id="settingsEmail">—</span>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Member since</span>
+              <span class="pos-setting-desc">When you joined PPF Athletics</span>
+            </div>
+            <span class="pos-setting-readonly" id="settingsSince">—</span>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Membership path</span>
+              <span class="pos-setting-desc">Your current membership tier</span>
+            </div>
+            <span class="pos-setting-readonly" id="settingsPath">—</span>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Export my data</span>
+              <span class="pos-setting-desc">Download all your training and profile data</span>
+            </div>
+            <button type="button" class="pos-setting-btn" id="btnExportData">Export Data</button>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Sign out</span>
+              <span class="pos-setting-desc">End your current session</span>
+            </div>
+            <button type="button" class="pos-setting-btn pos-setting-btn--signout" id="settingsLogout">Sign Out</button>
+          </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Delete account</span>
+              <span class="pos-setting-desc">Permanently delete your account and all data</span>
+            </div>
+            <button type="button" class="pos-setting-btn pos-setting-btn--danger" id="btnDeleteAccount" onclick="if(confirm('Are you sure you want to delete your account? This action cannot be undone.'))alert('Account deletion requested.')">Delete Account</button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ─── Auto-save Indicator ─── -->
+      <div class="pos-autosave">
+        <span class="pos-autosave-check" aria-hidden="true">✓</span>
+        Changes auto-save
+      </div>
+
+    </div>
+
+    <!-- ─── Footer ─── -->
+    <footer class="dash-footer">
+      <p>&copy; 2025 PPF Athletics. Built for progress. Proven daily.</p>
+      <p class="dash-footer-tagline">Every person who enters PPF should feel recognized, guided, and connected.</p>
+    </footer>
+  </main>
+
+  <script src="../js/ppf-member.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PPFMember !== 'undefined' && PPFMember.initSettings) {
+        PPFMember.initSettings();
+      }
+    });
+  </script>
+</body>
+</html>
