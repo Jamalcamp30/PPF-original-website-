@@ -1687,6 +1687,7 @@
 
   function goToStage(index) {
     const total = roomStages.length;
+    if (total === 0) return;
     index = ((index % total) + total) % total;
 
     roomStages.forEach((s, i) => s.classList.toggle('active', i === index));

@@ -35,6 +35,7 @@
   <link rel="stylesheet" href="css/ppf-bar-tension.css" />
   <link rel="stylesheet" href="css/ppf-rail.css" />
   <link rel="stylesheet" href="css/ppf-command-layer.css" />
+  <link rel="stylesheet" href="css/ppf-session-sequence.css" />
 
   <!-- Structured Data: SportsActivityLocation -->
   <script type="application/ld+json">
@@ -1982,114 +1983,199 @@
   </section>
 
   <!-- ============================================================
-       SECTION 5 — INSIDE THE ROOM (SESSION SIMULATOR)
+       SECTION 5 — INSIDE THE ROOM (SESSION SEQUENCE)
   ============================================================ -->
-  <section class="section room-section" id="room">
-    <div class="container">
+  <section class="section ssq-section" id="room">
+    <div class="container ssq-header">
       <div class="section-label reveal-up">INSIDE THE ROOM</div>
       <h2 class="section-title reveal-up">
-        A Session.<br />
-        <span class="accent">Reconstructed.</span>
+        A SESSION, <span class="accent">RECONSTRUCTED.</span>
       </h2>
-      <p class="section-intro reveal-up">This is what training inside PPF actually feels like.</p>
+      <p class="section-intro reveal-up">Every session inside PPF has rhythm, structure, and intent. From entry to finish, the room is built to move with purpose.</p>
     </div>
 
-    <div class="room-track" id="roomTrack">
-      <!-- Room progress tracker -->
-      <div class="room-progress-tracker" id="roomProgressTracker">
-        <div class="rpt-stage active" data-rpt="0"><span class="rpt-dot"></span><span class="rpt-label">Arrival</span></div>
-        <div class="rpt-line"><div class="rpt-line-fill" id="rptLineFill"></div></div>
-        <div class="rpt-stage" data-rpt="1"><span class="rpt-dot"></span><span class="rpt-label">Warm-Up</span></div>
-        <div class="rpt-line"><div class="rpt-line-fill"></div></div>
-        <div class="rpt-stage" data-rpt="2"><span class="rpt-dot"></span><span class="rpt-label">Instruction</span></div>
-        <div class="rpt-line"><div class="rpt-line-fill"></div></div>
-        <div class="rpt-stage" data-rpt="3"><span class="rpt-dot"></span><span class="rpt-label">Work Block</span></div>
-        <div class="rpt-line"><div class="rpt-line-fill"></div></div>
-        <div class="rpt-stage" data-rpt="4"><span class="rpt-dot"></span><span class="rpt-label">Finish</span></div>
-      </div>
-      <div class="room-stage active" data-phase="arrival">
-        <div class="room-phase-num">01</div>
-        <div class="room-phase-label">ARRIVAL</div>
-        <h3 class="room-phase-title">Doors Open</h3>
-        <p class="room-phase-desc">You walk in and the environment does the rest. No scrolling on your phone. No wasted minutes. The floor is set and coaches are already tracking movement.</p>
-        <div class="room-visual rv-arrival">
-          <div class="rv-grid"></div>
-          <div class="rv-pulse"></div>
-        </div>
-      </div>
+    <!-- Sticky scroll-driven experience -->
+    <div class="ssq-scroll" id="ssqScroll">
+      <div class="ssq-frame">
 
-      <div class="room-stage" data-phase="warmup">
-        <div class="room-phase-num">02</div>
-        <div class="room-phase-label">WARM-UP</div>
-        <h3 class="room-phase-title">Movement Activation</h3>
-        <p class="room-phase-desc">Not stretching. Not jogging in circles. A coach-led neural activation sequence designed to fire every system you are about to use at maximum output.</p>
-        <div class="room-visual rv-warmup">
-          <div class="rv-wave w1"></div>
-          <div class="rv-wave w2"></div>
-          <div class="rv-wave w3"></div>
-        </div>
-      </div>
+        <!-- LEFT — Stage Rail -->
+        <div class="ssq-rail">
+          <div class="ssq-spine"><div class="ssq-spine-fill"></div></div>
 
-      <div class="room-stage" data-phase="instruction">
-        <div class="room-phase-num">03</div>
-        <div class="room-phase-label">INSTRUCTION</div>
-        <h3 class="room-phase-title">Coach Cues</h3>
-        <p class="room-phase-desc">The work block does not start until everyone understands intent. Cues are precise. Expectations are clear. Coaches walk the floor from the first rep.</p>
-        <div class="room-visual rv-instruction">
-          <div class="rv-line"></div>
-          <div class="rv-cue">HIPS BACK</div>
-          <div class="rv-cue delayed">DRIVE THROUGH</div>
-          <div class="rv-cue delayed-2">FINISH TALL</div>
+          <button class="ssq-rail-stage active" data-stage="0" aria-label="Arrival">
+            <span class="ssq-rail-num">01</span>
+            <span class="ssq-rail-label">ARRIVAL</span>
+            <span class="ssq-rail-tag">ENVIRONMENT SET</span>
+          </button>
+          <button class="ssq-rail-stage" data-stage="1" aria-label="Warm-Up">
+            <span class="ssq-rail-num">02</span>
+            <span class="ssq-rail-label">WARM-UP</span>
+            <span class="ssq-rail-tag">BODY PREP</span>
+          </button>
+          <button class="ssq-rail-stage" data-stage="2" aria-label="Instruction">
+            <span class="ssq-rail-num">03</span>
+            <span class="ssq-rail-label">INSTRUCTION</span>
+            <span class="ssq-rail-tag">STANDARD SET</span>
+          </button>
+          <button class="ssq-rail-stage" data-stage="3" aria-label="Work Block">
+            <span class="ssq-rail-num">04</span>
+            <span class="ssq-rail-label">WORK BLOCK</span>
+            <span class="ssq-rail-tag">OUTPUT WINDOW</span>
+          </button>
+          <button class="ssq-rail-stage" data-stage="4" aria-label="Finish">
+            <span class="ssq-rail-num">05</span>
+            <span class="ssq-rail-label">FINISH</span>
+            <span class="ssq-rail-tag">CLEAN CLOSE</span>
+          </button>
         </div>
-      </div>
 
-      <div class="room-stage" data-phase="work">
-        <div class="room-phase-num">04</div>
-        <div class="room-phase-label">WORK BLOCK</div>
-        <h3 class="room-phase-title">Maximum Output</h3>
-        <p class="room-phase-desc">This is when PPF separates itself. The energy in the room climbs. Every rep is coached. Every set has a purpose. Nobody phones it in because the standard does not allow it.</p>
-        <div class="room-visual rv-work">
-          <div class="rv-bar-container">
-            <div class="rv-energy-bar" style="--energy: 95%"></div>
-            <div class="rv-energy-label">OUTPUT</div>
+        <!-- CENTER — Visual Panel -->
+        <div class="ssq-visual" id="ssqVisual">
+          <div class="ssq-visual-label">SESSION PLAYBACK</div>
+          <div class="ssq-light-sweep"></div>
+
+          <!-- Arrival: entry glow / door grid -->
+          <div class="ssq-vis ssq-vis-arrival active" data-stage="0">
+            <div class="ssq-door-grid"></div>
+            <div class="ssq-entry-glow"></div>
+            <div class="ssq-door-line"></div>
           </div>
-          <div class="rv-counter" id="rvTimer">00:45</div>
-        </div>
-      </div>
 
-      <div class="room-stage" data-phase="finish">
-        <div class="room-phase-num">05</div>
-        <div class="room-phase-label">FINISH</div>
-        <h3 class="room-phase-title">The Close</h3>
-        <p class="room-phase-desc">Every session ends with intention. The coach closes out the work, acknowledges who pushed hardest, and sets the frame for what comes next. Culture is not an accident here.</p>
-        <div class="room-visual rv-finish">
-          <div class="rv-check">
-            <svg viewBox="0 0 60 60" fill="none">
-              <circle cx="30" cy="30" r="28" stroke="#FF5500" stroke-width="1.5" class="check-circle"/>
-              <polyline points="16,30 26,40 44,22" stroke="#FF5500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-mark"/>
+          <!-- Warm-up: turf lanes / mobility waves -->
+          <div class="ssq-vis ssq-vis-warmup" data-stage="1">
+            <div class="ssq-turf"></div>
+            <div class="ssq-mobility-wave" style="top:25%"></div>
+            <div class="ssq-mobility-wave"></div>
+            <div class="ssq-mobility-wave"></div>
+            <div class="ssq-mobility-wave"></div>
+          </div>
+
+          <!-- Instruction: coach diagram / cue floats -->
+          <div class="ssq-vis ssq-vis-instruction" data-stage="2">
+            <div class="ssq-diagram-grid"></div>
+            <div class="ssq-demo-line" style="top:35%"></div>
+            <div class="ssq-demo-line"></div>
+            <div class="ssq-demo-line"></div>
+            <div class="ssq-demo-line"></div>
+            <div class="ssq-cue-float">HIPS BACK</div>
+            <div class="ssq-cue-float">DRIVE THROUGH</div>
+            <div class="ssq-cue-float">FINISH TALL</div>
+          </div>
+
+          <!-- Work Block: output bars + timer -->
+          <div class="ssq-vis ssq-vis-work" data-stage="3">
+            <div class="ssq-output-bars">
+              <div class="ssq-bar"></div>
+              <div class="ssq-bar"></div>
+              <div class="ssq-bar"></div>
+              <div class="ssq-bar"></div>
+              <div class="ssq-bar"></div>
+              <div class="ssq-bar"></div>
+              <div class="ssq-bar"></div>
+              <div class="ssq-bar"></div>
+            </div>
+            <div class="ssq-output-label">OUTPUT</div>
+            <div class="ssq-output-timer">00:45</div>
+          </div>
+
+          <!-- Finish: recovery / checkmark -->
+          <div class="ssq-vis ssq-vis-finish" data-stage="4">
+            <div class="ssq-reset-gradient"></div>
+            <svg class="ssq-check-icon" viewBox="0 0 60 60" fill="none">
+              <circle cx="30" cy="30" r="28" stroke="#FF5500" stroke-width="1.5" class="check-circle-seq"/>
+              <polyline points="16,30 26,40 44,22" stroke="#FF5500" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="check-mark-seq"/>
             </svg>
+            <div class="ssq-finish-label">SESSION COMPLETE</div>
           </div>
-          <div class="rv-finish-label">SESSION COMPLETE</div>
+
+          <!-- Coach callout pulse -->
+          <div class="ssq-callout" id="ssqCallout" aria-hidden="true"></div>
         </div>
-      </div>
-    </div>
 
-    <!-- Navigation dots -->
-    <div class="room-nav" id="roomNav">
-      <button class="room-dot active" data-index="0" aria-label="Arrival"></button>
-      <button class="room-dot" data-index="1" aria-label="Warm-up"></button>
-      <button class="room-dot" data-index="2" aria-label="Instruction"></button>
-      <button class="room-dot" data-index="3" aria-label="Work Block"></button>
-      <button class="room-dot" data-index="4" aria-label="Finish"></button>
-    </div>
+        <!-- RIGHT — Content Cards -->
+        <div class="ssq-content">
+          <div class="ssq-card active" data-stage="0">
+            <div class="ssq-card-num">01</div>
+            <div class="ssq-card-phase">ARRIVAL</div>
+            <h3 class="ssq-card-title">DOORS OPEN. STANDARD SET.</h3>
+            <p class="ssq-card-body">The room is already alive when you walk in. Equipment is staged. Coaches are already engaged. There is no standing around waiting for the session to become serious.</p>
+            <ul class="ssq-card-points">
+              <li>Floor prepared before the first rep</li>
+              <li>Coaches already scanning movement and readiness</li>
+              <li>No wasted minutes, no dead space, no drift</li>
+            </ul>
+          </div>
 
-    <div class="room-controls">
-      <button class="room-btn" id="roomPrev" aria-label="Previous">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      </button>
-      <button class="room-btn" id="roomNext" aria-label="Next">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
+          <div class="ssq-card" data-stage="1">
+            <div class="ssq-card-num">02</div>
+            <div class="ssq-card-phase">WARM-UP</div>
+            <h3 class="ssq-card-title">PREP BEGINS WITH PURPOSE.</h3>
+            <p class="ssq-card-body">The body gets opened, activated, and organized for what is coming next. Nothing is random. Every movement prepares the next demand.</p>
+            <ul class="ssq-card-points">
+              <li>Opens range and raises tissue temperature</li>
+              <li>Sharpens positions for the work ahead</li>
+              <li>Coach-led, not a warmup you ignore</li>
+            </ul>
+          </div>
+
+          <div class="ssq-card" data-stage="2">
+            <div class="ssq-card-num">03</div>
+            <div class="ssq-card-phase">INSTRUCTION</div>
+            <h3 class="ssq-card-title">COACHING MAKES THE STANDARD CLEAR.</h3>
+            <p class="ssq-card-body">Setup, timing, rhythm, positions, intent. Before the work begins, everyone understands what the rep should look like and how it should be attacked.</p>
+            <ul class="ssq-card-points">
+              <li>Standards established before a single rep</li>
+              <li>Cues are precise, expectations are clear</li>
+              <li>Everyone moves with the same intent</li>
+            </ul>
+          </div>
+
+          <div class="ssq-card" data-stage="3">
+            <div class="ssq-card-num">04</div>
+            <div class="ssq-card-phase">WORK BLOCK</div>
+            <h3 class="ssq-card-title">HIGH OUTPUT. TIGHTLY COACHED.</h3>
+            <p class="ssq-card-body">This is where the room accelerates. Speed, strength, mechanics, and intent all get challenged under structure. The energy rises, but the standard stays sharp.</p>
+            <ul class="ssq-card-points">
+              <li>Every rep is coached, every set has purpose</li>
+              <li>Speed, force, mechanics, and discipline converge</li>
+              <li>The standard does not drop</li>
+            </ul>
+          </div>
+
+          <div class="ssq-card" data-stage="4">
+            <div class="ssq-card-num">05</div>
+            <div class="ssq-card-phase">FINISH</div>
+            <h3 class="ssq-card-title">THE SESSION CLOSES CLEAN.</h3>
+            <p class="ssq-card-body">The final block reinforces the day, brings the room down the right way, and leaves people feeling worked, organized, and ready to return.</p>
+            <ul class="ssq-card-points">
+              <li>Reinforces what mattered that session</li>
+              <li>Resets the body for recovery</li>
+              <li>No fadeout, no loose ending</li>
+            </ul>
+          </div>
+        </div>
+
+      </div><!-- /.ssq-frame -->
+
+      <!-- Scroll spacers (each = one stage on desktop) -->
+      <div class="ssq-spacer" data-stage="0"></div>
+      <div class="ssq-spacer" data-stage="1"></div>
+      <div class="ssq-spacer" data-stage="2"></div>
+      <div class="ssq-spacer" data-stage="3"></div>
+      <div class="ssq-spacer" data-stage="4"></div>
+    </div><!-- /.ssq-scroll -->
+
+    <!-- Floor readiness meter -->
+    <div class="ssq-floor-meter">
+      <span class="ssq-meter-stage active" data-meter="0">ENTRY</span>
+      <span class="ssq-meter-arrow">&rarr;</span>
+      <span class="ssq-meter-stage" data-meter="1">PREP</span>
+      <span class="ssq-meter-arrow">&rarr;</span>
+      <span class="ssq-meter-stage" data-meter="2">TEACH</span>
+      <span class="ssq-meter-arrow">&rarr;</span>
+      <span class="ssq-meter-stage" data-meter="3">OUTPUT</span>
+      <span class="ssq-meter-arrow">&rarr;</span>
+      <span class="ssq-meter-stage" data-meter="4">CLOSE</span>
     </div>
   </section>
 
@@ -4246,5 +4332,6 @@
   <script src="js/ppf-bar-tension.js"></script>
   <script src="js/ppf-rail.js"></script>
   <script src="js/ppf-command-layer.js"></script>
+  <script src="js/ppf-session-sequence.js"></script>
 </body>
 </html>
