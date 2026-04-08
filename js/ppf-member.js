@@ -86,15 +86,58 @@ var PPFMember = (function () {
      ══════════════════════════════════════════════════════ */
 
   function initEntry() {
-    // Boot animation
+    // Boot animation with staged status messages
     var boot = qs('#ppfBoot');
     var wrapper = qs('#entryWrapper');
+    var bootStatus = qs('#bootStatus');
 
     if (boot && wrapper) {
+      var bootMessages = [
+        'INITIALIZING SYSTEM…',
+        'LOADING PERFORMANCE DATA…',
+        'CALIBRATING METRICS…',
+        'SYSTEM READY.'
+      ];
+      var msgIndex = 0;
+      if (bootStatus) {
+        var bootInterval = setInterval(function () {
+          msgIndex++;
+          if (msgIndex < bootMessages.length) {
+            bootStatus.textContent = bootMessages[msgIndex];
+          } else {
+            clearInterval(bootInterval);
+          }
+        }, 700);
+      }
+
       setTimeout(function () {
         boot.classList.add('done');
         wrapper.classList.add('visible');
-      }, 2800);
+      }, 3200);
+    }
+
+    // Check for returning user
+    var profile = getProfile();
+    var returningSection = qs('#returningUser');
+    var newUserSection = qs('#newUserSection');
+
+    if (profile && profile.firstName && profile.onboarded) {
+      // Returning user — show personalized welcome
+      if (returningSection) {
+        returningSection.style.display = 'block';
+        var retGreeting = qs('#returningGreeting');
+        if (retGreeting) {
+          retGreeting.textContent = 'WELCOME BACK, ' + profile.firstName.toUpperCase() + '. SYSTEM READY.';
+        }
+      }
+      // Hide new user auth if returning section is visible
+      if (newUserSection && returningSection) {
+        newUserSection.style.display = 'none';
+      }
+      // Set path-specific background
+      if (profile.path) {
+        document.body.setAttribute('data-path', profile.path);
+      }
     }
 
     // Time-of-day greeting
@@ -156,12 +199,6 @@ var PPFMember = (function () {
       guestBtn.addEventListener('click', function () {
         handleGuestLogin();
       });
-    }
-
-    // If already logged in, redirect to dashboard
-    var profile = getProfile();
-    if (profile && profile.firstName) {
-      window.location.href = 'dashboard.html';
     }
   }
 
@@ -750,15 +787,6 @@ var PPFMember = (function () {
     var firstName = profile.firstName || '';
     var isGuestMode = profile.isGuest;
 
-    // ── Identity Card ──
-    var cardName = qs('#idCardName');
-    var cardPath = qs('#idCardPath');
-    var cardTier = qs('#idCardTier');
-    var cardSince = qs('#idCardSince');
-    var cardGoal = qs('#idCardGoal');
-    var cardMilestone = qs('#idCardMilestone');
-    var cardMetric = qs('#idCardMetric');
-
     var pathNames = {
       athlete: 'ATHLETE',
       adult: 'ADULT PERFORMANCE',
@@ -766,70 +794,60 @@ var PPFMember = (function () {
       guest: 'GUEST EXPLORATION'
     };
 
-    if (cardName) {
-      cardName.textContent = isGuestMode ? 'GUEST' : (firstName || 'MEMBER').toUpperCase();
-    }
-    if (cardPath) {
-      cardPath.textContent = pathNames[profile.path] || 'ATHLETE';
-    }
-    if (cardTier) {
-      cardTier.textContent = isGuestMode ? 'PPF GUEST' : 'PPF MEMBER';
-    }
-    if (cardSince) {
-      var joinDate = profile.joinDate ? new Date(profile.joinDate) : new Date();
-      var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-      cardSince.textContent = months[joinDate.getMonth()] + ' ' + joinDate.getDate() + ', ' + joinDate.getFullYear();
-    }
-    if (cardGoal) {
-      cardGoal.textContent = profile.goalText || 'Not set';
-    }
-    if (cardMilestone) {
-      cardMilestone.textContent = isGuestMode ? 'Explore first' : 'Standard Setter';
-    }
-    if (cardMetric) {
-      cardMetric.textContent = isGuestMode ? '—' : 'Bench PR: 205 lb';
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var joinDate = profile.joinDate ? new Date(profile.joinDate) : new Date();
+    var joinStr = months[joinDate.getMonth()] + ' ' + joinDate.getDate() + ', ' + joinDate.getFullYear();
+
+    // ── Today's Brief ──
+    initProfileBrief(profile, isGuestMode);
+
+    // ── Hero Identity Card ──
+    setText('#heroAvatar', isGuestMode ? 'G' : (firstName.charAt(0) || 'M').toUpperCase());
+    setText('#heroName', isGuestMode ? 'GUEST' : (firstName || 'MEMBER').toUpperCase());
+    setText('#heroPath', pathNames[profile.path] || 'ATHLETE');
+    setText('#heroPhase', isGuestMode ? '—' : 'Force Development');
+    setText('#heroCoach', isGuestMode ? '—' : 'Coach Davis');
+    setText('#heroGoal', profile.goalText || 'Not set');
+    setText('#heroStreak', isGuestMode ? '—' : '🔥 12 days');
+    setText('#heroLastUpdate', isGuestMode ? '—' : 'Apr 5, 2025');
+
+    var statusTag = qs('#heroStatus');
+    if (statusTag) {
+      if (isGuestMode) {
+        statusTag.textContent = 'EXPLORING';
+        statusTag.setAttribute('data-status', 'returning');
+      } else {
+        statusTag.textContent = 'BUILDING';
+        statusTag.setAttribute('data-status', 'building');
+      }
     }
 
-    // ── Body Blueprint ──
-    var startWeight = profile.startWeight || 0;
-    var startBMI = profile.startBMI || 0;
-    // Default goal: 3% weight reduction when no explicit goal is set
-    var goalWeight = startWeight > 0 ? Math.round(startWeight * 0.97) : 0;
+    // ── Hero Details ──
+    setText('#heroSince', joinStr);
+    setText('#heroMilestone', isGuestMode ? '—' : 'Standard Setter');
+    setText('#heroMetric', isGuestMode ? '—' : 'Bench PR: 205 lb');
 
-    var bw = qs('#bodyWeight');
-    var bmi = qs('#bodyBMI');
-    var gw = qs('#bodyGoalWeight');
-    var bp = qs('#bodyProgress');
-    var bt = qs('#bodyTrend');
-    var bs = qs('#bodyStreak');
-    var bc = qs('#bodyCoachNote');
-    var bm = qs('#bodyMilestone');
+    // ── Readiness Ring ──
+    initReadinessRing(isGuestMode);
 
-    if (bw) bw.textContent = startWeight > 0 ? startWeight + ' lb' : '—';
-    if (bmi) bmi.textContent = startBMI > 0 ? startBMI : '—';
-    if (gw) gw.textContent = goalWeight > 0 ? (goalWeight - 2) + '–' + (goalWeight + 2) + ' lb' : '—';
+    // ── Performance DNA ──
+    initPerformanceDNA(isGuestMode);
 
-    if (bp && startWeight > 0) {
-      var diff = startWeight - goalWeight;
-      var lost = Math.round(diff * 0.45);
-      var pct = diff > 0 ? Math.min(Math.round((lost / diff) * 100), 100) : 0;
-      bp.style.setProperty('--pct', pct + '%');
-    }
+    // ── Coach's Eye Toggle ──
+    initCoachEye();
 
-    if (bt) bt.textContent = isGuestMode ? '—' : '↓ 0.8 lb this week';
-    if (bs) bs.textContent = isGuestMode ? '—' : '12-day streak';
-    if (bc) bc.textContent = isGuestMode ? '—' : '"Trending in the right direction. Stay consistent with protein targets."';
-    if (bm) bm.textContent = isGuestMode ? '—' : 'Body Blueprint Builder — In Progress';
+    // ── Personal Identity (Why I Train) ──
+    initIdentitySection(profile);
 
     // ── Performance Blueprint ──
     var perfData = {
-      perfBench: isGuestMode ? '—' : '205 lb',
-      perfSquat: isGuestMode ? '—' : '285 lb',
-      perfVertical: isGuestMode ? '—' : '28.5"',
-      perfBroad: isGuestMode ? '—' : '8\'4"',
-      perfTenYard: isGuestMode ? '—' : '1.62s',
-      perf40: isGuestMode ? '—' : '4.68s',
-      perfShuttle: isGuestMode ? '—' : '4.31s',
+      perfBench: isGuestMode ? '—' : '205 lb ↑',
+      perfSquat: isGuestMode ? '—' : '285 lb ↑',
+      perfVertical: isGuestMode ? '—' : '28.5" →',
+      perfBroad: isGuestMode ? '—' : '8\'4" ↑',
+      perfTenYard: isGuestMode ? '—' : '1.62s ↑',
+      perf40: isGuestMode ? '—' : '4.68s →',
+      perfShuttle: isGuestMode ? '—' : '4.31s ↑',
       perfAttendance: isGuestMode ? '—' : '87%',
       perfRecovery: isGuestMode ? '—' : '82'
     };
@@ -883,15 +901,480 @@ var PPFMember = (function () {
       }
     });
 
+    // ── AI Weekly Recap ──
+    initWeeklyRecap(isGuestMode);
+
     // ── Journey Snapshot — update first node date ──
     if (profile.joinDate) {
       var firstNode = qs('#profileJourneyTimeline .journey-node.completed .journey-date');
       if (firstNode) {
-        var jd = new Date(profile.joinDate);
-        var months2 = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        firstNode.textContent = months2[jd.getMonth()] + ' ' + jd.getDate() + ', ' + jd.getFullYear();
+        firstNode.textContent = joinStr;
       }
     }
+  }
+
+  /* ── Profile Sub-initializers ─── */
+
+  function setText(sel, text) {
+    var el = qs(sel);
+    if (el) el.textContent = text;
+  }
+
+  function initProfileBrief(profile, isGuestMode) {
+    setText('#briefReadiness', isGuestMode ? '—' : '78');
+    setText('#briefObjective', isGuestMode ? 'Explore the system' : 'Force application + acceleration quality');
+    setText('#briefCoachMsg', isGuestMode ? '—' : 'Stay aggressive through the floor today.');
+    setText('#briefSchedule', isGuestMode ? '—' : 'Session at 4:30 PM');
+    setText('#briefMilestone', isGuestMode ? '—' : '4 days to retest');
+    setText('#briefFocus', isGuestMode
+      ? 'Create your profile to receive personalized briefings.'
+      : 'TODAY: Force application + short acceleration quality. You are 4 days from retest. Coach note waiting.');
+  }
+
+  function initReadinessRing(isGuestMode) {
+    var segments = [
+      { id: 'ringSleep', pct: isGuestMode ? 0 : 0.82 },
+      { id: 'ringSoreness', pct: isGuestMode ? 0 : 0.75 },
+      { id: 'ringAttendance', pct: isGuestMode ? 0 : 0.87 },
+      { id: 'ringSession', pct: isGuestMode ? 0 : 0.90 },
+      { id: 'ringRecoveryRing', pct: isGuestMode ? 0 : 0.72 }
+    ];
+
+    setTimeout(function () {
+      segments.forEach(function (seg) {
+        var el = qs('#' + seg.id);
+        if (el) {
+          var r = parseFloat(el.getAttribute('r')) || 90;
+          var circ = 2 * Math.PI * r;
+          // Each segment is ~60deg arc (1/6 of circumference) for visual separation
+          var arcLen = circ * 0.167;
+          el.style.strokeDasharray = (arcLen * seg.pct) + ' ' + circ;
+        }
+      });
+    }, 600);
+
+    var avg = isGuestMode ? 0 : Math.round((0.82 + 0.75 + 0.87 + 0.90 + 0.72) / 5 * 100);
+    var scoreEl = qs('#readinessScore');
+    if (scoreEl) {
+      if (isGuestMode) {
+        scoreEl.textContent = '—';
+      } else {
+        animateNumber(scoreEl, 0, avg, '');
+      }
+    }
+
+    var statusEl = qs('#readinessStatus');
+    if (statusEl) {
+      if (isGuestMode) {
+        statusEl.textContent = 'SYSTEM STATUS: INACTIVE';
+      } else if (avg >= 80) {
+        statusEl.textContent = 'SYSTEM STATUS: HIGH READINESS';
+      } else if (avg >= 60) {
+        statusEl.textContent = 'SYSTEM STATUS: MODERATE READINESS';
+      } else {
+        statusEl.textContent = 'SYSTEM STATUS: LOW READINESS';
+      }
+    }
+
+    var recEl = qs('#readinessRec');
+    if (recEl) {
+      if (isGuestMode) {
+        recEl.textContent = 'Create your profile to track readiness.';
+      } else if (avg >= 80) {
+        recEl.textContent = 'You are primed today. Attack your session with full intensity.';
+      } else if (avg >= 60) {
+        recEl.textContent = 'Moderate readiness. Maintain technical quality, reduce CNS volume by 10%.';
+      } else {
+        recEl.textContent = 'Prioritize recovery today. Hydrate, stretch, rest up.';
+      }
+    }
+  }
+
+  function initPerformanceDNA(isGuestMode) {
+    var dnaData = [
+      { id: 'dnaAcceleration', score: 78, trend: 'up', note: 'First 10 yards improving', focus: 'Shin angle + drive phase' },
+      { id: 'dnaTopSpeed', score: 71, trend: 'flat', note: 'Top-end mechanics need work', focus: 'Front-side mechanics' },
+      { id: 'dnaLowerPower', score: 85, trend: 'up', note: 'Jump output strong', focus: 'Maintain explosive volume' },
+      { id: 'dnaRelStrength', score: 82, trend: 'up', note: 'Squat-to-BW ratio climbing', focus: 'Progressive overload' },
+      { id: 'dnaMovement', score: 65, trend: 'down', note: 'Hip mobility flagged', focus: 'Daily mobility protocol' },
+      { id: 'dnaRecovery', score: 72, trend: 'flat', note: 'Sleep consistency needed', focus: '8+ hours target' },
+      { id: 'dnaConsistency', score: 91, trend: 'up', note: 'Attendance locked in', focus: 'Maintain standard' }
+    ];
+
+    dnaData.forEach(function (item) {
+      var scoreEl = qs('#' + item.id + 'Score');
+      var barEl = qs('#' + item.id + 'Bar');
+      var trendEl = qs('#' + item.id + 'Trend');
+      var noteEl = qs('#' + item.id + 'Note');
+      var focusEl = qs('#' + item.id + 'Focus');
+
+      if (scoreEl) {
+        if (isGuestMode) {
+          scoreEl.textContent = '—';
+        } else {
+          animateNumber(scoreEl, 0, item.score, '');
+        }
+      }
+      if (barEl) {
+        setTimeout(function () {
+          barEl.style.width = (isGuestMode ? 0 : item.score) + '%';
+        }, 400);
+      }
+      if (trendEl) {
+        trendEl.textContent = isGuestMode ? '—' : (item.trend === 'up' ? '↑' : item.trend === 'down' ? '↓' : '→');
+        trendEl.className = 'pos-dna-trend ' + (isGuestMode ? '' : item.trend);
+      }
+      if (noteEl) noteEl.textContent = isGuestMode ? '—' : item.note;
+      if (focusEl) focusEl.textContent = isGuestMode ? '' : 'Focus: ' + item.focus;
+    });
+  }
+
+  function initCoachEye() {
+    var toggle = qs('#coachEyeToggle');
+    var myViewBtn = qs('#btnMyView');
+    var coachViewBtn = qs('#btnCoachView');
+    var myPanel = qs('#myViewPanel');
+    var coachPanel = qs('#coachEyePanel');
+
+    if (coachViewBtn && coachPanel && myViewBtn) {
+      coachViewBtn.addEventListener('click', function () {
+        if (coachPanel) coachPanel.classList.add('visible');
+        if (myPanel) myPanel.style.display = 'none';
+        coachViewBtn.classList.add('active');
+        myViewBtn.classList.remove('active');
+      });
+
+      myViewBtn.addEventListener('click', function () {
+        if (coachPanel) coachPanel.classList.remove('visible');
+        if (myPanel) myPanel.style.display = 'block';
+        myViewBtn.classList.add('active');
+        coachViewBtn.classList.remove('active');
+      });
+    }
+  }
+
+  function initIdentitySection(profile) {
+    // Load saved identity data
+    var whyEl = qs('#whyITrain');
+    var chasingEl = qs('#whatImChasing');
+    var whoEl = qs('#whoITrainFor');
+    var saveBtn = qs('#saveIdentity');
+
+    if (whyEl && profile.whyITrain) whyEl.value = profile.whyITrain;
+    if (chasingEl && profile.whatImChasing) chasingEl.value = profile.whatImChasing;
+    if (whoEl && profile.whoITrainFor) whoEl.value = profile.whoITrainFor;
+
+    if (saveBtn) {
+      saveBtn.addEventListener('click', function () {
+        var p = getProfile() || {};
+        if (whyEl) p.whyITrain = whyEl.value;
+        if (chasingEl) p.whatImChasing = chasingEl.value;
+        if (whoEl) p.whoITrainFor = whoEl.value;
+        saveProfile(p);
+        saveBtn.textContent = 'SAVED ✓';
+        setTimeout(function () {
+          saveBtn.textContent = 'SAVE IDENTITY';
+        }, 2000);
+      });
+    }
+  }
+
+  function initWeeklyRecap(isGuestMode) {
+    var recapItems = {
+      recapSummary: isGuestMode ? '—' : '4 sessions completed, 2 PRs logged',
+      recapConsistency: isGuestMode ? '—' : '91%',
+      recapBest: isGuestMode ? '—' : 'Bench PR: 205 lb (+5)',
+      recapEmphasis: isGuestMode ? '—' : 'Front-side sprint mechanics',
+      recapRecoveryTrend: isGuestMode ? '—' : 'Improving (↑ 8%)',
+      recapSlipping: isGuestMode ? '—' : 'Sleep consistency below target'
+    };
+
+    Object.keys(recapItems).forEach(function (id) {
+      setText('#' + id, recapItems[id]);
+    });
+  }
+
+
+  /* ══════════════════════════════════════════════════════
+     SETTINGS PAGE — PERFORMANCE CONTROLS
+     ══════════════════════════════════════════════════════ */
+
+  var SETTINGS_KEY = 'ppf_member_settings';
+
+  function getSettings() {
+    try {
+      var data = localStorage.getItem(SETTINGS_KEY);
+      return data ? JSON.parse(data) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveSettings(settings) {
+    try {
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
+    } catch (e) { /* storage unavailable */ }
+  }
+
+  function initSettings() {
+    var profile = getProfile();
+
+    if (!profile) {
+      window.location.href = 'index.html';
+      return;
+    }
+
+    var settings = getSettings();
+
+    // ── Populate account info ──
+    setText('#settingsEmail', profile.email || 'Not set');
+    var joinDate = profile.joinDate ? new Date(profile.joinDate) : new Date();
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    setText('#settingsSince', months[joinDate.getMonth()] + ' ' + joinDate.getDate() + ', ' + joinDate.getFullYear());
+
+    var pathNames = {
+      athlete: 'Athlete Performance',
+      adult: 'Adult Performance',
+      integrated: 'Integrated Program',
+      guest: 'Guest Exploration'
+    };
+    setText('#settingsPath', pathNames[profile.path] || 'Athlete Performance');
+
+    // ── Accordion toggles ──
+    var headers = qsa('.pos-settings-group-header');
+    headers.forEach(function (header) {
+      header.addEventListener('click', function () {
+        var body = header.nextElementSibling;
+        var isOpen = header.classList.contains('open');
+        // Close all others
+        headers.forEach(function (h) {
+          h.classList.remove('open');
+          if (h.nextElementSibling) h.nextElementSibling.style.display = 'none';
+        });
+        if (!isOpen) {
+          header.classList.add('open');
+          if (body) body.style.display = 'block';
+        }
+      });
+    });
+
+    // Open first group by default
+    if (headers.length > 0) {
+      headers[0].classList.add('open');
+      var firstBody = headers[0].nextElementSibling;
+      if (firstBody) firstBody.style.display = 'block';
+    }
+
+    // ── Restore saved settings ──
+    restoreSettings(settings);
+
+    // ── Auto-save on change ──
+    var allInputs = qsa('.pos-settings-group-body input, .pos-settings-group-body select');
+    allInputs.forEach(function (input) {
+      var eventType = input.type === 'checkbox' || input.type === 'radio' ? 'change' : 'input';
+      input.addEventListener(eventType, function () {
+        autoSaveSettings();
+        showAutoSaved();
+      });
+    });
+
+    // ── Font scale slider ──
+    var fontSlider = qs('#fontScale');
+    var fontDisplay = qs('#fontScaleDisplay');
+    if (fontSlider) {
+      fontSlider.addEventListener('input', function () {
+        if (fontDisplay) fontDisplay.textContent = fontSlider.value + '%';
+      });
+    }
+
+    // ── Integration buttons (demo) ──
+    qsa('.pos-setting-btn[data-connect]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        btn.textContent = 'Coming Soon';
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
+      });
+    });
+
+    // ── Export Data button ──
+    var exportBtn = qs('#btnExportData');
+    if (exportBtn) {
+      exportBtn.addEventListener('click', function () {
+        var data = JSON.stringify({ profile: getProfile(), settings: getSettings() }, null, 2);
+        var blob = new Blob([data], { type: 'application/json' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'ppf-member-data.json';
+        a.click();
+        URL.revokeObjectURL(url);
+        exportBtn.textContent = 'Exported ✓';
+        setTimeout(function () { exportBtn.textContent = 'Export My Data'; }, 2000);
+      });
+    }
+
+    // ── Logout button ──
+    var logoutBtn = qs('#settingsLogout');
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', function () {
+        localStorage.removeItem(PROFILE_KEY);
+        localStorage.removeItem(SETTINGS_KEY);
+        window.location.href = 'index.html';
+      });
+    }
+
+    // ── Delete account ──
+    var deleteBtn = qs('#btnDeleteAccount');
+    if (deleteBtn) {
+      deleteBtn.addEventListener('click', function () {
+        if (confirm('Are you sure you want to delete your account? This cannot be undone.')) {
+          localStorage.removeItem(PROFILE_KEY);
+          localStorage.removeItem(SETTINGS_KEY);
+          window.location.href = 'index.html';
+        }
+      });
+    }
+  }
+
+  function restoreSettings(settings) {
+    Object.keys(settings).forEach(function (key) {
+      var el = qs('#' + key);
+      if (!el) return;
+      if (el.type === 'checkbox') {
+        el.checked = settings[key];
+      } else if (el.type === 'radio') {
+        // Find the right radio in the group
+        var radios = qsa('input[name="' + el.name + '"]');
+        radios.forEach(function (r) {
+          r.checked = (r.value === settings[key]);
+        });
+      } else if (el.type === 'range') {
+        el.value = settings[key];
+        var display = qs('#' + key + 'Display');
+        if (display) display.textContent = settings[key] + '%';
+      }
+    });
+  }
+
+  function autoSaveSettings() {
+    var settings = {};
+    var checkboxes = qsa('.pos-settings-group-body input[type="checkbox"]');
+    checkboxes.forEach(function (cb) {
+      if (cb.id) settings[cb.id] = cb.checked;
+    });
+
+    var radios = qsa('.pos-settings-group-body input[type="radio"]:checked');
+    radios.forEach(function (r) {
+      if (r.name) settings[r.name] = r.value;
+    });
+
+    var sliders = qsa('.pos-settings-group-body input[type="range"]');
+    sliders.forEach(function (s) {
+      if (s.id) settings[s.id] = s.value;
+    });
+
+    saveSettings(settings);
+  }
+
+  function showAutoSaved() {
+    var indicator = qs('#autoSaveIndicator');
+    if (indicator) {
+      indicator.style.opacity = '1';
+      setTimeout(function () {
+        indicator.style.opacity = '0.6';
+      }, 1500);
+    }
+  }
+
+
+  /* ══════════════════════════════════════════════════════
+     MEMBERSHIP PAGE — LIVE TIER SYSTEM
+     ══════════════════════════════════════════════════════ */
+
+  function initMembership() {
+    var profile = getProfile();
+
+    if (!profile) {
+      window.location.href = 'index.html';
+      return;
+    }
+
+    var firstName = profile.firstName || '';
+    var isGuestMode = profile.isGuest;
+
+    var pathNames = {
+      athlete: 'PPF ATHLETE',
+      adult: 'PPF ADULT PERFORMANCE',
+      integrated: 'PPF INTEGRATED',
+      guest: 'PPF GUEST'
+    };
+
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var joinDate = profile.joinDate ? new Date(profile.joinDate) : new Date();
+    var joinStr = months[joinDate.getMonth()] + ' ' + joinDate.getDate() + ', ' + joinDate.getFullYear();
+
+    // ── Membership Hero ──
+    setText('#memTierBadge', pathNames[profile.path] || 'PPF ATHLETE');
+    setText('#memName', isGuestMode ? 'GUEST' : (firstName || 'MEMBER').toUpperCase());
+    setText('#memStatus', isGuestMode ? 'GUEST MODE' : 'ACTIVE');
+    setText('#memCycle', isGuestMode ? '—' : 'Spring 2025 — Block 2');
+    setText('#memCoach', isGuestMode ? '—' : 'Coach Davis');
+    setText('#memBilling', isGuestMode ? '—' : 'Current');
+    setText('#memRenewal', isGuestMode ? '—' : 'May 15, 2025');
+    setText('#memSince', joinStr);
+
+    // ── Path-specific styling on hero card ──
+    var heroCard = qs('#membershipHero');
+    if (heroCard && profile.path) {
+      heroCard.setAttribute('data-path', profile.path);
+    }
+
+    // ── Pathway active state ──
+    initPathway(profile);
+
+    // ── Attendance bar ──
+    var attBar = qs('#memAttBar');
+    if (attBar) {
+      setTimeout(function () {
+        attBar.style.width = isGuestMode ? '0%' : '87%';
+      }, 500);
+    }
+
+    // ── Unlock progress animations ──
+    var unlockBars = qsa('.pos-unlock-bar');
+    unlockBars.forEach(function (bar) {
+      var pct = bar.style.getPropertyValue('--pct') || '0%';
+      bar.style.width = '0%';
+      setTimeout(function () {
+        bar.style.width = pct;
+        bar.style.transition = 'width 1s cubic-bezier(0.16, 1, 0.3, 1)';
+      }, 800);
+    });
+  }
+
+  function initPathway(profile) {
+    var isGuestMode = profile.isGuest;
+    var activePhase = isGuestMode ? '' : 'force';
+
+    var nodes = qsa('.pos-path-node');
+    var lines = qsa('.pos-path-line');
+    var foundActive = false;
+
+    nodes.forEach(function (node, i) {
+      var phase = node.getAttribute('data-phase');
+      if (foundActive) {
+        node.classList.remove('completed', 'active');
+        node.classList.add('locked');
+        if (lines[i - 1]) {
+          lines[i - 1].classList.remove('completed');
+          lines[i - 1].classList.add('locked');
+        }
+      } else if (phase === activePhase) {
+        node.classList.remove('completed', 'locked');
+        node.classList.add('active');
+        foundActive = true;
+      }
+    });
   }
 
 
@@ -957,6 +1440,8 @@ var PPFMember = (function () {
     initDashboard: initDashboard,
     initOnboarding: initOnboarding,
     initProfile: initProfile,
+    initSettings: initSettings,
+    initMembership: initMembership,
     getProfile: getProfile,
     saveProfile: saveProfile,
     isGuest: isGuest
