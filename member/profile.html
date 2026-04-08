@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Member Identity Card — PPF Athletics</title>
-  <meta name="description" content="Your PPF identity card. Body blueprint, performance profile, momentum score, and earned distinctions — all in one view." />
+  <title>Performance OS — PPF Athletics</title>
+  <meta name="description" content="Your PPF Performance OS. Identity, readiness, performance DNA, coaching intel, milestones, and media — the complete athlete operating system." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
@@ -16,7 +16,10 @@
        TOP NAV
   ============================================================ -->
   <nav class="dash-nav">
-    <a href="dashboard.html" class="dash-nav-logo">PPF MEMBER OS</a>
+    <a href="dashboard.html" class="dash-nav-logo">
+      <span class="dash-logo-mark">PPF</span>
+      <span class="dash-logo-tag">PERFORMANCE OS</span>
+    </a>
     <div class="dash-nav-actions">
       <a href="dashboard.html" class="profile-back-link">← Dashboard</a>
     </div>
@@ -27,94 +30,322 @@
   ============================================================ -->
   <main class="dash-main">
 
-    <!-- ─── MEMBER IDENTITY CARD ─── -->
-    <section class="profile-id-section">
-      <h2 class="section-heading">Member Identity Card</h2>
-      <p class="section-sub">Your credential. Your proof. Earned through the work.</p>
+    <!-- ─── TODAY'S BRIEF ─── -->
+    <section class="pos-brief" id="todaysBrief">
+      <div class="pos-brief-header">
+        <span class="pos-brief-tag">TODAY'S BRIEF</span>
+        <time class="pos-brief-date" id="briefDate">—</time>
+      </div>
 
-      <div class="id-card">
-        <div class="id-card-header">
-          <div class="id-card-brand">
-            <span class="id-card-logo-mark">PPF</span>
-            <span class="id-card-logo-tag">ATHLETICS</span>
-          </div>
-          <span class="id-card-tier" id="idCardTier">PPF MEMBER</span>
+      <div class="pos-brief-grid">
+        <div class="pos-brief-readiness">
+          <svg class="pos-brief-ring" viewBox="0 0 120 120" width="120" height="120" aria-label="Readiness score ring">
+            <circle cx="60" cy="60" r="52" fill="none" stroke="#1a1a1a" stroke-width="8" />
+            <circle cx="60" cy="60" r="52" fill="none" stroke="#ff5500" stroke-width="8"
+                    stroke-dasharray="327" stroke-dashoffset="82" stroke-linecap="round"
+                    transform="rotate(-90 60 60)" />
+          </svg>
+          <span class="pos-brief-readiness-value" id="briefReadiness">75</span>
+          <span class="pos-brief-readiness-label">READINESS</span>
         </div>
 
-        <div class="id-card-body">
-          <h1 class="id-card-name" id="idCardName">—</h1>
-          <span class="id-card-path" id="idCardPath">ATHLETE</span>
+        <div class="pos-brief-details">
+          <div class="pos-brief-item">
+            <span class="pos-brief-item-label">Training Objective</span>
+            <span class="pos-brief-item-value" id="briefObjective">Force application + short acceleration quality</span>
+          </div>
+          <div class="pos-brief-item">
+            <span class="pos-brief-item-label">Coach Message</span>
+            <span class="pos-brief-item-value" id="briefCoachMsg">Coach note waiting.</span>
+          </div>
+          <div class="pos-brief-item">
+            <span class="pos-brief-item-label">Schedule</span>
+            <span class="pos-brief-item-value" id="briefSchedule">Speed session — 4:30 PM</span>
+          </div>
+          <div class="pos-brief-item">
+            <span class="pos-brief-item-label">Milestone Countdown</span>
+            <span class="pos-brief-item-value" id="briefMilestone">4 days to retest</span>
+          </div>
+        </div>
+      </div>
 
-          <div class="id-card-details">
-            <div class="id-card-detail">
-              <span class="id-card-detail-label">Member Since</span>
-              <span class="id-card-detail-value" id="idCardSince">—</span>
-            </div>
-            <div class="id-card-detail">
-              <span class="id-card-detail-label">#1 Goal</span>
-              <span class="id-card-detail-value" id="idCardGoal">—</span>
-            </div>
-            <div class="id-card-detail">
-              <span class="id-card-detail-label">Latest Milestone</span>
-              <span class="id-card-detail-value" id="idCardMilestone">—</span>
-            </div>
-            <div class="id-card-detail">
-              <span class="id-card-detail-label">Featured Metric</span>
-              <span class="id-card-detail-value" id="idCardMetric">—</span>
-            </div>
+      <p class="pos-brief-focus" id="briefFocus">TODAY: Force application + short acceleration quality. You are 4 days from retest. Coach note waiting.</p>
+    </section>
+
+    <!-- ─── HERO IDENTITY CARD ─── -->
+    <section class="pos-hero-card" id="heroCard">
+      <div class="pos-hero-card-inner">
+        <div class="pos-hero-avatar" id="heroAvatar" aria-label="Athlete avatar">
+          <span class="pos-hero-initials">JD</span>
+        </div>
+
+        <div class="pos-hero-info">
+          <h1 class="pos-hero-name" id="heroName">—</h1>
+          <div class="pos-hero-meta">
+            <span class="pos-hero-path" id="heroPath">ATHLETE</span>
+            <span class="pos-hero-divider">·</span>
+            <span class="pos-hero-phase" id="heroPhase">Speed Phase II</span>
+          </div>
+          <div class="pos-hero-details">
+            <span class="pos-hero-detail"><strong>Coach:</strong> <span id="heroCoach">Coach Davis</span></span>
+            <span class="pos-hero-detail"><strong>Goal:</strong> <span id="heroGoal">Sub-4.5 forty</span></span>
+            <span class="pos-hero-detail"><strong>Streak:</strong> <span id="heroStreak">🔥 12 days</span></span>
+            <span class="pos-hero-detail"><strong>Last Update:</strong> <span id="heroLastUpdate">Jun 10, 2025</span></span>
           </div>
         </div>
 
-        <div class="id-card-footer">
-          <span class="id-card-tagline">Built for progress. Proven daily.</span>
+        <div class="pos-hero-status">
+          <span class="pos-status-tag" id="heroStatus" data-status="building">BUILDING</span>
         </div>
       </div>
     </section>
 
-    <!-- ─── BODY BLUEPRINT ─── -->
-    <section class="profile-body-section">
-      <h2 class="section-heading">Body Blueprint</h2>
-      <p class="section-sub">Not just a number. A full picture of where you are and where you're heading.</p>
+    <!-- ─── DYNAMIC READINESS RING ─── -->
+    <section class="pos-readiness" id="readinessSection">
+      <h2 class="section-heading">Dynamic Readiness</h2>
+      <p class="section-sub">Your body's live operating status — five signals, one score.</p>
 
-      <div class="body-blueprint-grid">
-        <div class="body-card">
-          <span class="body-card-label">Current Weight</span>
-          <span class="body-card-value" id="bodyWeight">—</span>
-        </div>
-        <div class="body-card">
-          <span class="body-card-label">BMI (Reference)</span>
-          <span class="body-card-value" id="bodyBMI">—</span>
-        </div>
-        <div class="body-card">
-          <span class="body-card-label">Goal Weight Range</span>
-          <span class="body-card-value" id="bodyGoalWeight">—</span>
-        </div>
-        <div class="body-card body-card-wide">
-          <span class="body-card-label">Progress Toward Target</span>
-          <div class="body-progress-bar" id="bodyProgress" style="--pct: 0%;">
-            <div class="body-progress-fill"></div>
+      <div class="pos-readiness-layout">
+        <div class="pos-readiness-ring-wrap">
+          <svg class="pos-readiness-svg" viewBox="0 0 260 260" width="260" height="260" aria-label="Readiness ring with five segments">
+            <!-- Sleep segment -->
+            <circle class="pos-ring-segment" data-segment="sleep" cx="130" cy="130" r="110"
+                    fill="none" stroke="#4a90d9" stroke-width="14"
+                    stroke-dasharray="69 623" stroke-dashoffset="0"
+                    transform="rotate(-90 130 130)" stroke-linecap="round" />
+            <!-- Soreness segment -->
+            <circle class="pos-ring-segment" data-segment="soreness" cx="130" cy="130" r="110"
+                    fill="none" stroke="#e74c3c" stroke-width="14"
+                    stroke-dasharray="69 623" stroke-dashoffset="-138"
+                    transform="rotate(-90 130 130)" stroke-linecap="round" />
+            <!-- Attendance segment -->
+            <circle class="pos-ring-segment" data-segment="attendance" cx="130" cy="130" r="110"
+                    fill="none" stroke="#2ecc71" stroke-width="14"
+                    stroke-dasharray="69 623" stroke-dashoffset="-276"
+                    transform="rotate(-90 130 130)" stroke-linecap="round" />
+            <!-- Session Performance segment -->
+            <circle class="pos-ring-segment" data-segment="session" cx="130" cy="130" r="110"
+                    fill="none" stroke="#ff5500" stroke-width="14"
+                    stroke-dasharray="69 623" stroke-dashoffset="-414"
+                    transform="rotate(-90 130 130)" stroke-linecap="round" />
+            <!-- Recovery segment -->
+            <circle class="pos-ring-segment" data-segment="recovery" cx="130" cy="130" r="110"
+                    fill="none" stroke="#9b59b6" stroke-width="14"
+                    stroke-dasharray="69 623" stroke-dashoffset="-552"
+                    transform="rotate(-90 130 130)" stroke-linecap="round" />
+            <!-- Center score -->
+            <text x="130" y="125" text-anchor="middle" class="pos-readiness-center-score" fill="#ffffff" font-size="48" font-family="'Bebas Neue', sans-serif" id="readinessScore">82</text>
+            <text x="130" y="150" text-anchor="middle" fill="#888" font-size="12" font-family="'Inter', sans-serif">READINESS</text>
+          </svg>
+
+          <div class="pos-readiness-legend">
+            <span class="pos-legend-item"><span class="pos-legend-dot" style="background:#4a90d9;"></span> Sleep</span>
+            <span class="pos-legend-item"><span class="pos-legend-dot" style="background:#e74c3c;"></span> Soreness</span>
+            <span class="pos-legend-item"><span class="pos-legend-dot" style="background:#2ecc71;"></span> Attendance</span>
+            <span class="pos-legend-item"><span class="pos-legend-dot" style="background:#ff5500;"></span> Session</span>
+            <span class="pos-legend-item"><span class="pos-legend-dot" style="background:#9b59b6;"></span> Recovery</span>
           </div>
         </div>
-        <div class="body-card">
-          <span class="body-card-label">Weekly Trend</span>
-          <span class="body-card-value" id="bodyTrend">—</span>
-        </div>
-        <div class="body-card">
-          <span class="body-card-label">Check-In Streak</span>
-          <span class="body-card-value" id="bodyStreak">—</span>
-        </div>
-        <div class="body-card body-card-wide">
-          <span class="body-card-label">Coach Notes</span>
-          <span class="body-card-value body-card-note" id="bodyCoachNote">—</span>
-        </div>
-        <div class="body-card">
-          <span class="body-card-label">Milestone Status</span>
-          <span class="body-card-value" id="bodyMilestone">—</span>
+
+        <div class="pos-readiness-intel">
+          <p class="pos-readiness-status">SYSTEM STATUS: <strong id="readinessStatus">GREEN — All systems nominal</strong></p>
+          <p class="pos-readiness-rec" id="readinessRec">Full send today. Recovery markers are elevated, sleep was above threshold. Push intensity on primary lifts and sprint work.</p>
         </div>
       </div>
     </section>
 
-    <!-- ─── PERFORMANCE BLUEPRINT ─── -->
+    <!-- ─── PERFORMANCE DNA PANEL ─── -->
+    <section class="pos-dna" id="performanceDNA">
+      <h2 class="section-heading">Performance DNA</h2>
+      <p class="section-sub">Your athletic fingerprint. Seven attributes that define how you move.</p>
+
+      <div class="pos-dna-grid">
+        <div class="pos-dna-card" data-attribute="acceleration">
+          <div class="pos-dna-card-header">
+            <h4 class="pos-dna-label">Acceleration</h4>
+            <span class="pos-dna-trend" data-trend="up">↑</span>
+          </div>
+          <div class="pos-dna-bar-track">
+            <div class="pos-dna-bar-fill" style="--dna-pct: 78%;"></div>
+          </div>
+          <span class="pos-dna-score" id="dnaAcceleration">78</span>
+          <p class="pos-dna-note">First 10 yards improving. Stay aggressive off the line.</p>
+          <span class="pos-dna-focus">Focus: Block starts &amp; drive phase</span>
+        </div>
+
+        <div class="pos-dna-card" data-attribute="top-speed">
+          <div class="pos-dna-card-header">
+            <h4 class="pos-dna-label">Top-end Speed</h4>
+            <span class="pos-dna-trend" data-trend="up">↑</span>
+          </div>
+          <div class="pos-dna-bar-track">
+            <div class="pos-dna-bar-fill" style="--dna-pct: 72%;"></div>
+          </div>
+          <span class="pos-dna-score" id="dnaTopSpeed">72</span>
+          <p class="pos-dna-note">Max velocity mechanics are trending well.</p>
+          <span class="pos-dna-focus">Focus: Upright posture &amp; hip height</span>
+        </div>
+
+        <div class="pos-dna-card" data-attribute="lower-power">
+          <div class="pos-dna-card-header">
+            <h4 class="pos-dna-label">Lower-body Power</h4>
+            <span class="pos-dna-trend" data-trend="flat">→</span>
+          </div>
+          <div class="pos-dna-bar-track">
+            <div class="pos-dna-bar-fill" style="--dna-pct: 81%;"></div>
+          </div>
+          <span class="pos-dna-score" id="dnaLowerPower">81</span>
+          <p class="pos-dna-note">Solid base. Broad jump stalled — needs attention.</p>
+          <span class="pos-dna-focus">Focus: Reactive plyometrics</span>
+        </div>
+
+        <div class="pos-dna-card" data-attribute="relative-strength">
+          <div class="pos-dna-card-header">
+            <h4 class="pos-dna-label">Relative Strength</h4>
+            <span class="pos-dna-trend" data-trend="up">↑</span>
+          </div>
+          <div class="pos-dna-bar-track">
+            <div class="pos-dna-bar-fill" style="--dna-pct: 69%;"></div>
+          </div>
+          <span class="pos-dna-score" id="dnaRelStrength">69</span>
+          <p class="pos-dna-note">BW ratio climbing. Keep lean mass priority.</p>
+          <span class="pos-dna-focus">Focus: Trap-bar deadlift progression</span>
+        </div>
+
+        <div class="pos-dna-card" data-attribute="movement-efficiency">
+          <div class="pos-dna-card-header">
+            <h4 class="pos-dna-label">Movement Efficiency</h4>
+            <span class="pos-dna-trend" data-trend="up">↑</span>
+          </div>
+          <div class="pos-dna-bar-track">
+            <div class="pos-dna-bar-fill" style="--dna-pct: 85%;"></div>
+          </div>
+          <span class="pos-dna-score" id="dnaMovement">85</span>
+          <p class="pos-dna-note">Clean transitions. Sprint mechanics are dialing in.</p>
+          <span class="pos-dna-focus">Focus: Maintain — don't overthink</span>
+        </div>
+
+        <div class="pos-dna-card" data-attribute="recovery-discipline">
+          <div class="pos-dna-card-header">
+            <h4 class="pos-dna-label">Recovery Discipline</h4>
+            <span class="pos-dna-trend" data-trend="down">↓</span>
+          </div>
+          <div class="pos-dna-bar-track">
+            <div class="pos-dna-bar-fill" style="--dna-pct: 58%;"></div>
+          </div>
+          <span class="pos-dna-score" id="dnaRecovery">58</span>
+          <p class="pos-dna-note">Sleep dipping below 7 hrs. Address immediately.</p>
+          <span class="pos-dna-focus">Focus: Sleep hygiene &amp; recovery blocks</span>
+        </div>
+
+        <div class="pos-dna-card" data-attribute="session-consistency">
+          <div class="pos-dna-card-header">
+            <h4 class="pos-dna-label">Session Consistency</h4>
+            <span class="pos-dna-trend" data-trend="flat">→</span>
+          </div>
+          <div class="pos-dna-bar-track">
+            <div class="pos-dna-bar-fill" style="--dna-pct: 91%;"></div>
+          </div>
+          <span class="pos-dna-score" id="dnaConsistency">91</span>
+          <p class="pos-dna-note">Rock solid attendance. Keep the standard.</p>
+          <span class="pos-dna-focus">Focus: Maintain daily rhythm</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── YOUR STANDARD ─── -->
+    <section class="pos-standard" id="yourStandard">
+      <h2 class="section-heading">Your Standard</h2>
+      <p class="section-sub">Personal operating targets. The non-negotiables you hold yourself to.</p>
+
+      <div class="pos-standard-list">
+        <div class="pos-standard-item" data-met="true">
+          <span class="pos-standard-icon">✓</span>
+          <span class="pos-standard-label">Attendance Target</span>
+          <span class="pos-standard-value" id="stdAttendance">95%+</span>
+        </div>
+        <div class="pos-standard-item" data-met="false">
+          <span class="pos-standard-icon">◎</span>
+          <span class="pos-standard-label">Sleep Target</span>
+          <span class="pos-standard-value" id="stdSleep">8+ hours</span>
+        </div>
+        <div class="pos-standard-item" data-met="true">
+          <span class="pos-standard-icon">✓</span>
+          <span class="pos-standard-label">Weekly Recovery Blocks</span>
+          <span class="pos-standard-value" id="stdRecovery">2 per week</span>
+        </div>
+        <div class="pos-standard-item" data-met="true">
+          <span class="pos-standard-icon">✓</span>
+          <span class="pos-standard-label">Sprint Mechanics Priority</span>
+          <span class="pos-standard-value" id="stdSprint">Active focus</span>
+        </div>
+        <div class="pos-standard-item" data-met="false">
+          <span class="pos-standard-icon">◎</span>
+          <span class="pos-standard-label">Next Testing Benchmark</span>
+          <span class="pos-standard-value" id="stdBenchmark">40-yard dash</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── COACH'S EYE TOGGLE ─── -->
+    <section class="pos-coach-eye" id="coachEyeSection">
+      <div class="pos-coach-eye-header">
+        <h2 class="section-heading">Intelligence View</h2>
+        <button class="pos-coach-eye-toggle" id="coachEyeToggle" aria-pressed="false" aria-label="Toggle between My View and Coach's View">
+          <span class="pos-toggle-label pos-toggle-active">My View</span>
+          <span class="pos-toggle-switch"></span>
+          <span class="pos-toggle-label">Coach's View</span>
+        </button>
+      </div>
+
+      <div class="pos-coach-eye-panel" id="coachEyePanel" hidden>
+        <div class="pos-coach-eye-grid">
+          <div class="pos-coach-eye-item">
+            <h4 class="pos-coach-eye-item-label">What Coaches Are Tracking</h4>
+            <p class="pos-coach-eye-item-value" id="coachTracking">First-step quickness, hip mechanics through top-end phase, squat depth consistency under load.</p>
+          </div>
+          <div class="pos-coach-eye-item">
+            <h4 class="pos-coach-eye-item-label">Current Technical Emphasis</h4>
+            <p class="pos-coach-eye-item-value" id="coachEmphasis">Shin angles in acceleration, arm action symmetry, and front-side mechanics at max velocity.</p>
+          </div>
+          <div class="pos-coach-eye-item">
+            <h4 class="pos-coach-eye-item-label">Flagged Weakness</h4>
+            <p class="pos-coach-eye-item-value" id="coachWeakness">Posterior chain activation under fatigue — hamstring recruitment drops after rep 4 in sprint sets.</p>
+          </div>
+          <div class="pos-coach-eye-item">
+            <h4 class="pos-coach-eye-item-label">Next Performance Target</h4>
+            <p class="pos-coach-eye-item-value" id="coachTarget">Break 4.50 in the 40. Current best: 4.58. Gap: 0.08s. Achievable within 3 weeks at current trajectory.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PERSONAL IDENTITY LAYER — "WHY I TRAIN" ─── -->
+    <section class="pos-identity" id="personalIdentity">
+      <h2 class="section-heading">Why I Train</h2>
+      <p class="section-sub">Your purpose. Your fuel. Written in your own words.</p>
+
+      <div class="pos-identity-grid">
+        <div class="pos-identity-field">
+          <label class="pos-identity-label" for="whyITrain">Personal Mantra / Mission</label>
+          <textarea class="pos-identity-input" id="whyITrain" rows="3" placeholder="Write your reason here…">I train because nobody can take the work from me. Every rep is proof.</textarea>
+        </div>
+        <div class="pos-identity-field">
+          <label class="pos-identity-label" for="whatImChasing">What I'm Chasing</label>
+          <textarea class="pos-identity-input" id="whatImChasing" rows="2" placeholder="The goal that keeps you up…">D1 scholarship. A 4.4 forty. Being the hardest worker in every room.</textarea>
+        </div>
+        <div class="pos-identity-field">
+          <label class="pos-identity-label" for="whoITrainFor">Who I Train For</label>
+          <textarea class="pos-identity-input" id="whoITrainFor" rows="2" placeholder="The people behind your push…">My family. My teammates. The future version of me.</textarea>
+        </div>
+        <div class="pos-identity-actions">
+          <button class="pos-identity-save" id="saveIdentity" type="button">Save My Words</button>
+          <span class="pos-identity-saved" id="identitySavedMsg" hidden>Saved ✓</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PERFORMANCE BLUEPRINT (ENHANCED) ─── -->
     <section class="profile-performance-section">
       <h2 class="section-heading">Performance Blueprint</h2>
       <p class="section-sub">Every rep, every sprint, every test — tracked and proven.</p>
@@ -122,49 +353,49 @@
       <div class="perf-grid">
         <div class="perf-card">
           <span class="perf-card-label">Bench PR</span>
-          <span class="perf-card-value" id="perfBench">—</span>
+          <span class="perf-card-value" id="perfBench">— <span class="perf-trend" data-trend="up">↑</span></span>
         </div>
         <div class="perf-card">
           <span class="perf-card-label">Squat PR</span>
-          <span class="perf-card-value" id="perfSquat">—</span>
+          <span class="perf-card-value" id="perfSquat">— <span class="perf-trend" data-trend="up">↑</span></span>
         </div>
         <div class="perf-card">
           <span class="perf-card-label">Vertical Jump</span>
-          <span class="perf-card-value" id="perfVertical">—</span>
+          <span class="perf-card-value" id="perfVertical">— <span class="perf-trend" data-trend="flat">→</span></span>
         </div>
         <div class="perf-card">
           <span class="perf-card-label">Broad Jump</span>
-          <span class="perf-card-value" id="perfBroad">—</span>
+          <span class="perf-card-value" id="perfBroad">— <span class="perf-trend" data-trend="flat">→</span></span>
         </div>
         <div class="perf-card">
           <span class="perf-card-label">10-Yard Split</span>
-          <span class="perf-card-value" id="perfTenYard">—</span>
+          <span class="perf-card-value" id="perfTenYard">— <span class="perf-trend" data-trend="up">↑</span></span>
         </div>
         <div class="perf-card">
           <span class="perf-card-label">40 Time</span>
-          <span class="perf-card-value" id="perf40">—</span>
+          <span class="perf-card-value" id="perf40">— <span class="perf-trend" data-trend="up">↑</span></span>
         </div>
         <div class="perf-card">
           <span class="perf-card-label">Shuttle</span>
-          <span class="perf-card-value" id="perfShuttle">—</span>
+          <span class="perf-card-value" id="perfShuttle">— <span class="perf-trend" data-trend="down">↓</span></span>
         </div>
         <div class="perf-card">
           <span class="perf-card-label">Attendance Rate</span>
-          <span class="perf-card-value" id="perfAttendance">—</span>
+          <span class="perf-card-value" id="perfAttendance">— <span class="perf-trend" data-trend="up">↑</span></span>
         </div>
         <div class="perf-card">
           <span class="perf-card-label">Recovery Score</span>
-          <span class="perf-card-value" id="perfRecovery">—</span>
+          <span class="perf-card-value" id="perfRecovery">— <span class="perf-trend" data-trend="down">↓</span></span>
         </div>
       </div>
     </section>
 
-    <!-- ─── PPF MOMENTUM SCORE ─── -->
+    <!-- ─── PPF MOMENTUM SCORE (ENHANCED) ─── -->
     <section class="profile-momentum-section">
       <h2 class="section-heading">PPF Momentum Score</h2>
       <p class="section-sub">A live indicator of your trajectory. Momentum is earned daily.</p>
 
-      <div class="momentum-card">
+      <div class="momentum-card pos-momentum-glow" id="momentumCard">
         <div class="momentum-hero">
           <span class="momentum-hero-value" id="profileMomentumValue">—</span>
           <span class="momentum-hero-label">PPF Momentum Score</span>
@@ -191,6 +422,159 @@
           <div class="momentum-indicator">
             <span class="momentum-ind-label">Recovery</span>
             <span class="momentum-ind-value" id="momentumRecovery">—</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── MILESTONE TIMELINE (ENHANCED) ─── -->
+    <section class="dash-journey" id="profileJourney">
+      <h2 class="section-heading">Milestone Timeline</h2>
+      <p class="section-sub">The pathway that maps your evolution. Every node earned.</p>
+
+      <div class="journey-timeline pos-timeline-enhanced" id="profileJourneyTimeline">
+        <div class="journey-node completed">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>Joined PPF</h4>
+            <span class="journey-date">Jan 15, 2025</span>
+          </div>
+        </div>
+        <div class="journey-node completed">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>Baseline Test</h4>
+            <span class="journey-date">Jan 18, 2025</span>
+          </div>
+        </div>
+        <div class="journey-node completed">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>First Speed Phase</h4>
+            <span class="journey-date">Feb 3, 2025</span>
+          </div>
+        </div>
+        <div class="journey-node completed">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>First Strength Block</h4>
+            <span class="journey-date">Mar 1, 2025</span>
+          </div>
+        </div>
+        <div class="journey-node completed">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>PR Moment — Squat 315 lbs</h4>
+            <span class="journey-date">Apr 10, 2025</span>
+          </div>
+        </div>
+        <div class="journey-node completed">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>PR Moment — 4.58 Forty</h4>
+            <span class="journey-date">May 2, 2025</span>
+          </div>
+        </div>
+        <div class="journey-node active">
+          <div class="journey-dot"></div>
+          <div class="journey-content">
+            <h4>Speed Phase II — Current</h4>
+            <span class="journey-date">In progress</span>
+          </div>
+        </div>
+        <div class="journey-node locked">
+          <div class="journey-dot"><span class="pos-lock-icon">🔒</span></div>
+          <div class="journey-content">
+            <h4>Benchmark Retest</h4>
+            <span class="journey-date">Upcoming</span>
+          </div>
+        </div>
+        <div class="journey-node locked">
+          <div class="journey-dot"><span class="pos-lock-icon">🔒</span></div>
+          <div class="journey-content">
+            <h4>Elite Velocity Standard</h4>
+            <span class="journey-date">Locked</span>
+          </div>
+        </div>
+        <div class="journey-node locked">
+          <div class="journey-dot"><span class="pos-lock-icon">🔒</span></div>
+          <div class="journey-content">
+            <h4>Draft Ready Certification</h4>
+            <span class="journey-date">Locked</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── PRIVATE MEDIA VAULT ─── -->
+    <section class="pos-vault" id="mediaVault">
+      <h2 class="section-heading">Private Media Vault</h2>
+      <p class="section-sub">Your footage. Your evidence. Organized and coach-accessible.</p>
+
+      <div class="pos-vault-grid">
+        <div class="pos-vault-card" data-category="sprint-clips">
+          <div class="pos-vault-icon">🎬</div>
+          <h4 class="pos-vault-label">Sprint Clips</h4>
+          <span class="pos-vault-count" id="vaultSprints">4</span>
+        </div>
+        <div class="pos-vault-card" data-category="lifting-clips">
+          <div class="pos-vault-icon">🏋️</div>
+          <h4 class="pos-vault-label">Lifting Clips</h4>
+          <span class="pos-vault-count" id="vaultLifting">7</span>
+        </div>
+        <div class="pos-vault-card" data-category="technique">
+          <div class="pos-vault-icon">🔬</div>
+          <h4 class="pos-vault-label">Technique Breakdowns</h4>
+          <span class="pos-vault-count" id="vaultTechnique">2</span>
+        </div>
+        <div class="pos-vault-card" data-category="voice-notes">
+          <div class="pos-vault-icon">🎙️</div>
+          <h4 class="pos-vault-label">Coach Voice Notes</h4>
+          <span class="pos-vault-count" id="vaultVoice">3</span>
+        </div>
+        <div class="pos-vault-card" data-category="progress-photos">
+          <div class="pos-vault-icon">📸</div>
+          <h4 class="pos-vault-label">Progress Photos</h4>
+          <span class="pos-vault-count" id="vaultPhotos">5</span>
+        </div>
+        <div class="pos-vault-card" data-category="testing-reports">
+          <div class="pos-vault-icon">📊</div>
+          <h4 class="pos-vault-label">Testing Reports</h4>
+          <span class="pos-vault-count" id="vaultReports">2</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── AI WEEKLY RECAP ─── -->
+    <section class="pos-recap" id="weeklyRecap">
+      <h2 class="section-heading">Your Last 7 Days</h2>
+      <p class="section-sub">Auto-generated intelligence. What the data says about your week.</p>
+
+      <div class="pos-recap-card">
+        <div class="pos-recap-grid">
+          <div class="pos-recap-item">
+            <span class="pos-recap-label">Performance Summary</span>
+            <p class="pos-recap-value" id="recapSummary">4 of 5 sessions completed. Two speed days hit target velocity. One strength session exceeded projected load.</p>
+          </div>
+          <div class="pos-recap-item">
+            <span class="pos-recap-label">Consistency Score</span>
+            <p class="pos-recap-value" id="recapConsistency">87% — above your 12-week average of 83%.</p>
+          </div>
+          <div class="pos-recap-item">
+            <span class="pos-recap-label">Best Metric Improvement</span>
+            <p class="pos-recap-value" id="recapBestMetric">10-yard split dropped 0.03s — now at 1.58s.</p>
+          </div>
+          <div class="pos-recap-item">
+            <span class="pos-recap-label">Next Coaching Emphasis</span>
+            <p class="pos-recap-value" id="recapCoachEmphasis">Transition from drive phase to upright sprinting. Film review scheduled.</p>
+          </div>
+          <div class="pos-recap-item">
+            <span class="pos-recap-label">Recovery Trend</span>
+            <p class="pos-recap-value" id="recapRecovery">Slight dip mid-week. Sleep average: 6.8 hrs (below 8-hr target).</p>
+          </div>
+          <div class="pos-recap-item pos-recap-warning">
+            <span class="pos-recap-label">⚠ What's Slipping</span>
+            <p class="pos-recap-value" id="recapWarning">Sleep debt accumulating. Two nights below 6 hours. Recovery blocks missed on Wednesday.</p>
           </div>
         </div>
       </div>
@@ -273,11 +657,11 @@
     </section>
 
     <!-- ─── PPF JOURNEY SNAPSHOT ─── -->
-    <section class="dash-journey" id="profileJourney">
+    <section class="dash-journey" id="journeySnapshot">
       <h2 class="section-heading">PPF Journey Snapshot</h2>
       <p class="section-sub">The milestones that map your path.</p>
 
-      <div class="journey-timeline" id="profileJourneyTimeline">
+      <div class="journey-timeline" id="journeySnapshotTimeline">
         <div class="journey-node completed">
           <div class="journey-dot"></div>
           <div class="journey-content">
@@ -327,6 +711,45 @@
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof PPFMember !== 'undefined') {
         PPFMember.initProfile();
+      }
+
+      /* ── Coach's Eye Toggle ── */
+      var toggle = document.getElementById('coachEyeToggle');
+      var panel  = document.getElementById('coachEyePanel');
+      if (toggle && panel) {
+        toggle.addEventListener('click', function() {
+          var expanded = panel.hidden;
+          panel.hidden = !expanded;
+          toggle.setAttribute('aria-pressed', String(expanded));
+          toggle.classList.toggle('pos-toggle-on', expanded);
+        });
+      }
+
+      /* ── Save Identity to localStorage ── */
+      var saveBtn  = document.getElementById('saveIdentity');
+      var savedMsg = document.getElementById('identitySavedMsg');
+      var fields   = ['whyITrain', 'whatImChasing', 'whoITrainFor'];
+
+      // Restore saved values
+      fields.forEach(function(id) {
+        var el = document.getElementById(id);
+        if (el) {
+          var saved = localStorage.getItem('ppf_' + id);
+          if (saved !== null) el.value = saved;
+        }
+      });
+
+      if (saveBtn) {
+        saveBtn.addEventListener('click', function() {
+          fields.forEach(function(id) {
+            var el = document.getElementById(id);
+            if (el) localStorage.setItem('ppf_' + id, el.value);
+          });
+          if (savedMsg) {
+            savedMsg.hidden = false;
+            setTimeout(function() { savedMsg.hidden = true; }, 2000);
+          }
+        });
       }
     });
   </script>
