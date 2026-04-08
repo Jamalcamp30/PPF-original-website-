@@ -9,20 +9,242 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/ppf-member.css" />
+
+  <style>
+    /* ── Boot Particle Grid ─── */
+    .boot-grid {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .boot-grid-line {
+      position: absolute;
+      background: rgba(255, 85, 0, 0.04);
+    }
+    .boot-grid-line--h {
+      width: 100%;
+      height: 1px;
+      animation: boot-grid-sweep-h 3s ease-in-out infinite;
+    }
+    .boot-grid-line--v {
+      width: 1px;
+      height: 100%;
+      animation: boot-grid-sweep-v 3s ease-in-out infinite;
+    }
+    .boot-grid-line:nth-child(1) { top: 20%; animation-delay: 0s; }
+    .boot-grid-line:nth-child(2) { top: 40%; animation-delay: 0.4s; }
+    .boot-grid-line:nth-child(3) { top: 60%; animation-delay: 0.8s; }
+    .boot-grid-line:nth-child(4) { top: 80%; animation-delay: 1.2s; }
+    .boot-grid-line:nth-child(5) { left: 15%; animation-delay: 0.2s; }
+    .boot-grid-line:nth-child(6) { left: 35%; animation-delay: 0.6s; }
+    .boot-grid-line:nth-child(7) { left: 55%; animation-delay: 1.0s; }
+    .boot-grid-line:nth-child(8) { left: 75%; animation-delay: 1.4s; }
+
+    .boot-particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      border-radius: 50%;
+      background: rgba(255, 85, 0, 0.3);
+      animation: boot-particle-float 4s ease-in-out infinite;
+    }
+    .boot-particle:nth-child(9)  { top: 25%; left: 20%; animation-delay: 0s; }
+    .boot-particle:nth-child(10) { top: 45%; left: 70%; animation-delay: 0.7s; }
+    .boot-particle:nth-child(11) { top: 65%; left: 40%; animation-delay: 1.3s; }
+    .boot-particle:nth-child(12) { top: 15%; left: 80%; animation-delay: 0.3s; }
+    .boot-particle:nth-child(13) { top: 75%; left: 55%; animation-delay: 1.8s; }
+    .boot-particle:nth-child(14) { top: 35%; left: 10%; animation-delay: 0.5s; }
+    .boot-particle:nth-child(15) { top: 85%; left: 30%; animation-delay: 2.1s; }
+    .boot-particle:nth-child(16) { top: 55%; left: 90%; animation-delay: 1.1s; }
+
+    @keyframes boot-grid-sweep-h {
+      0%, 100% { opacity: 0; transform: scaleX(0.3); }
+      50%      { opacity: 1; transform: scaleX(1); }
+    }
+    @keyframes boot-grid-sweep-v {
+      0%, 100% { opacity: 0; transform: scaleY(0.3); }
+      50%      { opacity: 1; transform: scaleY(1); }
+    }
+    @keyframes boot-particle-float {
+      0%, 100% { opacity: 0.2; transform: translateY(0) scale(1); }
+      50%      { opacity: 0.8; transform: translateY(-12px) scale(1.5); }
+    }
+
+    /* ── Boot Bar Staged Fill ─── */
+    @keyframes boot-bar-staged {
+      0%   { width: 0; }
+      15%  { width: 20%; }
+      30%  { width: 22%; }
+      45%  { width: 50%; }
+      60%  { width: 52%; }
+      75%  { width: 80%; }
+      90%  { width: 82%; }
+      100% { width: 100%; }
+    }
+    .boot-bar-fill.boot-bar-fill--staged {
+      animation: boot-bar-staged 2.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+
+    /* ── Boot Scanline ─── */
+    .boot-scanline {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 85, 0, 0.008) 2px,
+        rgba(255, 85, 0, 0.008) 4px
+      );
+      animation: boot-scanline-scroll 8s linear infinite;
+    }
+    @keyframes boot-scanline-scroll {
+      0%   { background-position: 0 0; }
+      100% { background-position: 0 100px; }
+    }
+
+    /* ── Returning User Section ─── */
+    .entry-returning {
+      width: 100%;
+      margin-bottom: 24px;
+      padding: 20px;
+      border: 1px solid rgba(255, 85, 0, 0.15);
+      border-radius: 12px;
+      background: rgba(255, 85, 0, 0.04);
+    }
+    .entry-returning-greeting {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      letter-spacing: 0.08em;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+    .entry-returning-hints {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .entry-returning-hint {
+      font-size: 0.75rem;
+      font-weight: 400;
+      color: var(--gray-300);
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .entry-returning-hint::before {
+      content: '›';
+      color: var(--orange);
+      font-weight: 700;
+    }
+    .entry-resume-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 10px;
+      background: var(--orange);
+      color: var(--white);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      text-align: center;
+      transition: background 0.2s ease, transform 0.15s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .entry-resume-btn:hover {
+      background: var(--orange-dim);
+      transform: translateY(-1px);
+    }
+
+    /* ── Biometric Quick Login ─── */
+    .entry-biometric {
+      width: 100%;
+      display: none;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .entry-biometric-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 24px;
+      border-radius: 10px;
+      border: 1px solid var(--gray-700);
+      background: var(--bg-elevated);
+      color: var(--gray-300);
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      transition: border-color 0.2s ease, color 0.2s ease;
+      cursor: pointer;
+    }
+    .entry-biometric-btn:hover {
+      border-color: var(--orange);
+      color: var(--white);
+    }
+    .entry-biometric-icon {
+      width: 22px;
+      height: 22px;
+      opacity: 0.7;
+    }
+
+    /* ── Path-Specific Ambient Hints ─── */
+    body[data-path="athlete"] .entry-ambient {
+      background: radial-gradient(ellipse at 50% 0%, rgba(255, 85, 0, 0.06) 0%, transparent 60%);
+    }
+    body[data-path="adult"] .entry-ambient {
+      background: radial-gradient(ellipse at 50% 0%, rgba(59, 130, 246, 0.06) 0%, transparent 60%);
+    }
+    body[data-path="integrated"] .entry-ambient {
+      background: radial-gradient(ellipse at 50% 0%, rgba(168, 85, 247, 0.06) 0%, transparent 60%);
+    }
+
+    /* ── Show biometric on touch-capable devices ─── */
+    @media (pointer: coarse) {
+      .entry-biometric { display: flex; }
+    }
+  </style>
 </head>
-<body class="ppf-entry-body">
+<body class="ppf-entry-body" data-path="athlete">
 
   <!-- ============================================================
-       PPF ENTRY — ENTER THE PPF SYSTEM
-       Premium identity layer: not a login box, a gateway
+       PPF ENTRY — PERFORMANCE ENTRY SEQUENCE
+       Cinematic identity layer: not a login box, a gateway
   ============================================================ -->
 
   <!-- Boot-up animation overlay -->
   <div class="ppf-boot" id="ppfBoot" aria-live="polite">
+    <!-- Particle / grid effect behind boot -->
+    <div class="boot-grid" id="bootGrid">
+      <div class="boot-grid-line boot-grid-line--h"></div>
+      <div class="boot-grid-line boot-grid-line--h"></div>
+      <div class="boot-grid-line boot-grid-line--h"></div>
+      <div class="boot-grid-line boot-grid-line--h"></div>
+      <div class="boot-grid-line boot-grid-line--v"></div>
+      <div class="boot-grid-line boot-grid-line--v"></div>
+      <div class="boot-grid-line boot-grid-line--v"></div>
+      <div class="boot-grid-line boot-grid-line--v"></div>
+      <div class="boot-particle"></div>
+      <div class="boot-particle"></div>
+      <div class="boot-particle"></div>
+      <div class="boot-particle"></div>
+      <div class="boot-particle"></div>
+      <div class="boot-particle"></div>
+      <div class="boot-particle"></div>
+      <div class="boot-particle"></div>
+    </div>
+    <div class="boot-scanline"></div>
     <div class="boot-logo">PPF</div>
     <div class="boot-tagline">ATHLETICS</div>
     <div class="boot-status" id="bootStatus">INITIALIZING SYSTEM…</div>
-    <div class="boot-bar"><div class="boot-bar-fill" id="bootBarFill"></div></div>
+    <div class="boot-bar"><div class="boot-bar-fill boot-bar-fill--staged" id="bootBarFill"></div></div>
   </div>
 
   <div class="entry-wrapper" id="entryWrapper">
@@ -44,10 +266,35 @@
 
       <!-- Time-of-day greeting -->
       <h1 class="entry-title" id="entryGreeting">Welcome to PPF</h1>
-      <p class="entry-subtitle">Enter the system. Track the work. Build the result.</p>
+      <p class="entry-subtitle" id="entrySubtitle">Enter the system. Track the work. Build the result.</p>
+
+      <!-- Returning User Section (hidden by default, shown via JS) -->
+      <div class="entry-returning" id="returningUser" style="display:none;">
+        <div class="entry-returning-greeting" id="returningGreeting">WELCOME BACK. SYSTEM READY.</div>
+        <ul class="entry-returning-hints" id="returningHints">
+          <li class="entry-returning-hint" id="hintBlock">Resume Week 6 Speed Block</li>
+          <li class="entry-returning-hint" id="hintCoachNote">You have 1 coach note waiting</li>
+          <li class="entry-returning-hint" id="hintTestingDay">Testing day in 3 days</li>
+        </ul>
+        <button class="entry-resume-btn" id="btnResume" type="button">RESUME SESSION</button>
+      </div>
+
+      <!-- Biometric / Quick Login Hint (visible on touch devices) -->
+      <div class="entry-biometric" id="biometricSection">
+        <button class="entry-biometric-btn" id="btnBiometric" type="button">
+          <svg class="entry-biometric-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10"/>
+            <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6"/>
+            <path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2"/>
+            <path d="M22 2l-4 4"/>
+            <path d="M18 2h4v4"/>
+          </svg>
+          Face ID / Touch ID
+        </button>
+      </div>
 
       <!-- Auth Buttons -->
-      <div class="entry-auth-buttons">
+      <div class="entry-auth-buttons" id="authButtons">
         <button class="auth-btn auth-google" id="btnGoogle" type="button">
           <svg class="auth-icon" viewBox="0 0 24 24" width="22" height="22"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
           Continue with Google
@@ -108,6 +355,68 @@
   <script src="../js/ppf-member.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      /* ── Enhanced Boot Sequence ─── */
+      (function runBootSequence() {
+        var statusEl = document.getElementById('bootStatus');
+        var stages = [
+          'INITIALIZING SYSTEM…',
+          'LOADING PERFORMANCE DATA…',
+          'CALIBRATING METRICS…',
+          'SYSTEM READY.'
+        ];
+        var i = 0;
+        var interval = setInterval(function() {
+          i++;
+          if (i < stages.length && statusEl) {
+            statusEl.textContent = stages[i];
+          }
+          if (i >= stages.length - 1) {
+            clearInterval(interval);
+          }
+        }, 800);
+      })();
+
+      /* ── Returning User Detection ─── */
+      (function detectReturningUser() {
+        try {
+          var raw = localStorage.getItem('ppf_member_profile');
+          if (!raw) return;
+          var profile = JSON.parse(raw);
+          if (!profile || !profile.firstName) return;
+
+          var name = profile.firstName.toUpperCase();
+
+          var greetingEl = document.getElementById('entryGreeting');
+          var subtitleEl = document.getElementById('entrySubtitle');
+          var returningEl = document.getElementById('returningUser');
+          var returningGreetingEl = document.getElementById('returningGreeting');
+
+          if (greetingEl) greetingEl.textContent = 'Welcome back, ' + profile.firstName;
+          if (subtitleEl) subtitleEl.textContent = 'Your system is standing by.';
+          if (returningGreetingEl) {
+            returningGreetingEl.textContent = 'WELCOME BACK, ' + name + '. SYSTEM READY.';
+          }
+          if (returningEl) returningEl.style.display = '';
+
+          var resumeBtn = document.getElementById('btnResume');
+          if (resumeBtn) {
+            resumeBtn.addEventListener('click', function() {
+              window.location.href = 'dashboard.html';
+            });
+          }
+
+          /* Path-specific background */
+          var path = profile.path || 'athlete';
+          var validPaths = ['athlete', 'adult', 'integrated'];
+          if (validPaths.indexOf(path) !== -1) {
+            document.body.setAttribute('data-path', path);
+          }
+        } catch (e) {
+          /* localStorage unavailable or bad JSON — fall through to default */
+        }
+      })();
+
+      /* ── Init PPFMember ─── */
       if (typeof PPFMember !== 'undefined') {
         PPFMember.initEntry();
       }
