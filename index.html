@@ -169,41 +169,19 @@
 <body>
 
   <!-- ============================================================
-       PPF INTRO — "THE FIELD REMEMBERS"
-       Performance OS boot: field → chalk-data → logo earned → hero arms
+       PPF INTRO — Logo Reveal
+       Clean, professional opening screen before the website loads
   ============================================================ -->
   <div class="ppf-intro" id="ppfIntro" aria-live="polite" role="status">
-    <!-- Full-screen canvas — turf, field lines, chalk-data, logo, pellets -->
-    <canvas class="intro-canvas" id="introCanvas" aria-hidden="true"></canvas>
-
-    <!-- Ready / Not-Ready pulse overlay -->
-    <div class="intro-ready-pulse" id="introReadyPulse" aria-hidden="true">
-      <span class="ready-label">READY</span>
+    <div class="intro-logo-reveal">
+      <div class="intro-logo-mark" id="introLogoMark">
+        <span class="intro-logo-letters">PPF</span>
+        <span class="intro-logo-word">ATHLETICS</span>
+      </div>
+      <div class="intro-logo-line" id="introLine"></div>
+      <div class="intro-logo-tagline" id="introTagline">THREE PATHS. ONE STANDARD.</div>
     </div>
-
-    <!-- Metric tiles — performance system boot -->
-    <div class="intro-metric-tiles" id="introMetricTiles" aria-hidden="true">
-      <div class="metric-tile" data-pos="tl"><span class="tile-tag">10 YD SPLIT</span><span class="tile-val">LIVE</span></div>
-      <div class="metric-tile" data-pos="tr"><span class="tile-tag">FORCE INDEX</span><span class="tile-val">RISING</span></div>
-      <div class="metric-tile" data-pos="ml"><span class="tile-tag">JUMP TRANSFER</span><span class="tile-val">ACTIVE</span></div>
-      <div class="metric-tile" data-pos="mr"><span class="tile-tag">OUTPUT</span><span class="tile-val">READY</span></div>
-      <div class="metric-tile" data-pos="bl"><span class="tile-tag">MOVEMENT</span><span class="tile-val">CLEAN</span></div>
-      <div class="metric-tile" data-pos="br"><span class="tile-tag">SPEED WINDOW</span><span class="tile-val">OPEN</span></div>
-    </div>
-
-    <!-- Profile arming stamp -->
-    <div class="intro-profile-stamp" id="introProfileStamp" aria-hidden="true">
-      PROFILE ARMING
-    </div>
-
-    <!-- Coaching command -->
-    <div class="intro-command" id="introCommand" aria-hidden="true">
-      <div class="command-main">LOCK IN.</div>
-      <div class="command-sub">THE FIELD REMEMBERS.</div>
-    </div>
-
-    <!-- Skip button -->
-    <button class="intro-skip" id="introSkip" aria-label="Skip intro animation">SKIP ›</button>
+    <button class="intro-skip" id="introSkip" aria-label="Skip intro">SKIP ›</button>
   </div>
 
   <!-- CUSTOM CURSOR -->
@@ -257,33 +235,6 @@
     </ul>
   </nav>
 
-  <!-- ============================================================
-       DECISION-MAKER MODE — Quick Portal Strip
-  ============================================================ -->
-  <div class="dm-strip" id="decisionMaker">
-    <div class="dm-inner">
-      <span class="dm-label">I AM HERE FOR</span>
-      <a href="#paths" class="dm-btn" data-dm="athlete">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        Athletes
-      </a>
-      <span class="dm-divider"></span>
-      <a href="#paths" class="dm-btn" data-dm="adult">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-        Adults
-      </a>
-      <span class="dm-divider"></span>
-      <a href="#familyDashboard" class="dm-btn" data-dm="family">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        Families
-      </a>
-      <span class="dm-divider"></span>
-      <a href="#trust" class="dm-btn" data-dm="parent">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        Parents
-      </a>
-    </div>
-  </div>
 
   <!-- ============================================================
        SECTION 1 — HERO: IMPACT SEQUENCE
@@ -390,6 +341,32 @@
       <div class="metric-item">
         <span class="metric-num" data-target="3">3</span>
         <span class="metric-label">Day Free Experience</span>
+      </div>
+    </div>
+
+    <!-- Decision-Maker Quick Portal -->
+    <div class="dm-strip" id="decisionMaker">
+      <div class="dm-inner">
+        <span class="dm-label">I AM HERE FOR</span>
+        <a href="#paths" class="dm-btn" data-dm="athlete">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Athletes
+        </a>
+        <span class="dm-divider"></span>
+        <a href="#paths" class="dm-btn" data-dm="adult">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          Adults
+        </a>
+        <span class="dm-divider"></span>
+        <a href="#familyDashboard" class="dm-btn" data-dm="family">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Families
+        </a>
+        <span class="dm-divider"></span>
+        <a href="#trust" class="dm-btn" data-dm="parent">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Parents
+        </a>
       </div>
     </div>
 

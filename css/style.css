@@ -5588,14 +5588,10 @@ body.focus-mode .focus-target {
 
 /* Overlay container */
 /* =====================================================
-   PPF INTRO — THE STANDARD ACTIVATES
-   Ultimate opening: 9 concepts fused into one iconic sequence
+   PPF INTRO — Logo Reveal
+   Clean, professional opening screen
    ===================================================== */
 
-/* ═══════════════════════════════════════════════════════════
-   PPF INTRO — "THE FIELD REMEMBERS"
-   Performance OS boot sequence
-   ═══════════════════════════════════════════════════════════ */
 .ppf-intro {
   position: fixed;
   inset: 0;
@@ -5606,8 +5602,8 @@ body.focus-mode .focus-target {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ppf-intro.dismissed {
@@ -5620,235 +5616,86 @@ body.intro-active {
   overflow: hidden;
 }
 
-/* Full-screen canvas — turf, field lines, chalk-data, logo, pellets */
-.intro-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-/* ── READY / NOT-READY PULSE ── */
-.intro-ready-pulse {
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  opacity: 0;
-}
-
-.intro-ready-pulse .ready-label {
-  font-family: var(--font-display);
-  font-size: clamp(18px, 4vw, 36px);
-  letter-spacing: 0.5em;
-  color: #22c55e;
-  text-shadow: 0 0 40px rgba(34, 197, 94, 0.5), 0 0 100px rgba(34, 197, 94, 0.2);
-  opacity: 0;
-  transform: scale(0.8);
-}
-
-.ppf-intro.phase-ready .intro-ready-pulse {
-  opacity: 1;
-}
-
-.ppf-intro.phase-ready .intro-ready-pulse .ready-label {
-  animation: readyFlash 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes readyFlash {
-  0%   { opacity: 0; transform: scale(0.7); }
-  40%  { opacity: 1; transform: scale(1.05); }
-  100% { opacity: 0; transform: scale(1); }
-}
-
-/* ── METRIC TILES — system boot ── */
-.intro-metric-tiles {
-  position: absolute;
-  inset: 0;
-  z-index: 8;
-  pointer-events: none;
-}
-
-.metric-tile {
-  position: absolute;
+/* Logo reveal container */
+.intro-logo-reveal {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.015);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  border-left: 2px solid rgba(255, 85, 0, 0.3);
+  align-items: center;
+  gap: 0;
+}
+
+/* PPF mark */
+.intro-logo-mark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
   opacity: 0;
-  transform: translateX(-10px);
-  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(0.92);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.metric-tile .tile-tag {
-  font-family: var(--font-body);
-  font-size: 7px;
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: rgba(255, 85, 0, 0.5);
-}
-
-.metric-tile .tile-val {
-  font-family: var(--font-display);
-  font-size: 14px;
-  letter-spacing: 0.15em;
-  color: rgba(255, 255, 255, 0.7);
-  text-shadow: 0 0 8px rgba(255, 85, 0, 0.12);
-}
-
-.metric-tile[data-pos="tl"] { top: 18%; left: 5%; }
-.metric-tile[data-pos="tr"] { top: 18%; right: 5%; }
-.metric-tile[data-pos="ml"] { top: 42%; left: 5%; }
-.metric-tile[data-pos="mr"] { top: 42%; right: 5%; }
-.metric-tile[data-pos="bl"] { bottom: 22%; left: 5%; }
-.metric-tile[data-pos="br"] { bottom: 22%; right: 5%; }
-
-.ppf-intro.phase-tiles .metric-tile {
+.ppf-intro.phase-logo .intro-logo-mark {
   opacity: 1;
-  transform: translateX(0);
-}
-.ppf-intro.phase-tiles .metric-tile[data-pos="tl"] { transition-delay: 0s; }
-.ppf-intro.phase-tiles .metric-tile[data-pos="tr"] { transition-delay: 0.04s; }
-.ppf-intro.phase-tiles .metric-tile[data-pos="ml"] { transition-delay: 0.08s; }
-.ppf-intro.phase-tiles .metric-tile[data-pos="mr"] { transition-delay: 0.12s; }
-.ppf-intro.phase-tiles .metric-tile[data-pos="bl"] { transition-delay: 0.16s; }
-.ppf-intro.phase-tiles .metric-tile[data-pos="br"] { transition-delay: 0.20s; }
-
-/* ── PROFILE ARMING STAMP ── */
-.intro-profile-stamp {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9;
-  font-family: var(--font-body);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.45em;
-  text-transform: uppercase;
-  color: rgba(255, 85, 0, 0);
-  text-shadow: 0 0 15px rgba(255, 85, 0, 0.2);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.3s ease, color 0.3s ease;
-  white-space: nowrap;
+  transform: scale(1);
 }
 
-.ppf-intro.phase-tiles .intro-profile-stamp {
-  opacity: 1;
-  color: rgba(255, 85, 0, 0.45);
-}
-
-/* ── COACHING COMMAND ── */
-.intro-command {
-  position: absolute;
-  bottom: 16%;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 12;
-  text-align: center;
-  pointer-events: none;
-  opacity: 0;
-}
-
-.intro-command .command-main {
+.intro-logo-letters {
   font-family: var(--font-display);
-  font-size: clamp(44px, 9vw, 120px);
-  letter-spacing: 0.2em;
+  font-size: clamp(64px, 12vw, 140px);
+  letter-spacing: 0.35em;
   color: #fff;
-  text-shadow:
-    0 0 60px rgba(255, 85, 0, 0.4),
-    0 0 120px rgba(255, 85, 0, 0.15),
-    0 2px 30px rgba(0, 0, 0, 0.9);
-  transform: scale(1.5) translateY(10px);
-  opacity: 0;
-  transition: opacity 0.1s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  line-height: 1;
+  text-shadow: 0 0 60px rgba(255, 85, 0, 0.2);
 }
 
-.intro-command .command-sub {
-  font-family: var(--font-display);
-  font-size: clamp(11px, 2vw, 22px);
-  letter-spacing: 0.5em;
-  color: rgba(255, 85, 0, 0.6);
-  margin-top: 8px;
-  opacity: 0;
-  transform: translateY(12px);
-  transition: opacity 0.3s ease 0.1s, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+.intro-logo-word {
+  font-family: var(--font-body);
+  font-size: clamp(10px, 1.5vw, 16px);
+  font-weight: 600;
+  letter-spacing: 0.6em;
+  color: rgba(255, 85, 0, 0.7);
+  text-transform: uppercase;
 }
 
-.ppf-intro.phase-command .intro-command {
-  opacity: 1;
+/* Horizontal accent line */
+.intro-logo-line {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 85, 0, 0.5), transparent);
+  margin-top: 24px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
 }
 
-.ppf-intro.phase-command .intro-command .command-main {
-  opacity: 1;
-  transform: scale(1) translateY(0);
+.ppf-intro.phase-logo .intro-logo-line {
+  width: clamp(120px, 20vw, 240px);
 }
 
-.ppf-intro.phase-command .intro-command .command-sub {
-  opacity: 1;
-  transform: translateY(0);
+/* Tagline */
+.intro-logo-tagline {
+  font-family: var(--font-body);
+  font-size: clamp(9px, 1.2vw, 13px);
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  color: rgba(255, 255, 255, 0);
+  margin-top: 20px;
+  transition: color 0.6s ease 0.6s;
 }
 
-/* ── CHALK BURST FLASH ── */
-.ppf-intro.phase-logo-lock::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    ellipse 50% 40% at 50% 42%,
-    rgba(255, 255, 255, 0.25) 0%,
-    rgba(255, 255, 255, 0.06) 30%,
-    transparent 60%
-  );
-  z-index: 3;
-  pointer-events: none;
-  animation: chalkBurstFlash 0.2s ease-out forwards;
+.ppf-intro.phase-tagline .intro-logo-tagline {
+  color: rgba(255, 255, 255, 0.4);
 }
 
-@keyframes chalkBurstFlash {
-  0%   { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-/* ── IMPACT SHAKE ── */
-.ppf-intro.phase-impact {
-  animation: introImpactShake 0.35s ease-out;
-}
-
-@keyframes introImpactShake {
-  0%, 100% { transform: translate(0, 0); }
-  10%      { transform: translate(-4px, 3px); }
-  22%      { transform: translate(5px, -3px); }
-  34%      { transform: translate(-3px, 2px); }
-  48%      { transform: translate(4px, -2px); }
-  60%      { transform: translate(-2px, 1px); }
-  75%      { transform: translate(1px, -1px); }
-}
-
-/* ── HERO CONVERSION ── */
-.ppf-intro.phase-convert {
-  background: transparent;
-  transition: background 0.8s ease;
-}
-
-/* ── SKIP BUTTON ── */
+/* Skip button */
 .intro-skip {
   position: absolute;
   bottom: 32px;
   right: 32px;
   z-index: 20;
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.15);
   font-family: var(--font-body);
   font-size: 10px;
   font-weight: 600;
@@ -5860,33 +5707,19 @@ body.intro-active {
 }
 
 .intro-skip:hover {
-  color: rgba(255, 255, 255, 0.7);
-  border-color: rgba(255, 85, 0, 0.5);
+  color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 85, 0, 0.3);
 }
 
-/* ── REDUCED MOTION ── */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .ppf-intro {
     display: none !important;
   }
 }
 
-/* ── MOBILE ADJUSTMENTS ── */
+/* Mobile adjustments */
 @media (max-width: 600px) {
-  .metric-tile[data-pos="tl"] { top: 14%; left: 3%; }
-  .metric-tile[data-pos="tr"] { top: 14%; right: 3%; }
-  .metric-tile[data-pos="ml"] { top: 40%; left: 3%; }
-  .metric-tile[data-pos="mr"] { top: 40%; right: 3%; }
-  .metric-tile[data-pos="bl"] { bottom: 26%; left: 3%; }
-  .metric-tile[data-pos="br"] { bottom: 26%; right: 3%; }
-
-  .metric-tile .tile-val { font-size: 12px; }
-  .metric-tile .tile-tag { font-size: 6px; }
-
-  .intro-command { bottom: 26%; }
-  .intro-command .command-main { font-size: clamp(32px, 8vw, 60px); }
-  .intro-profile-stamp { font-size: 7px; letter-spacing: 0.3em; }
-
   .intro-skip {
     bottom: 16px;
     right: 16px;
