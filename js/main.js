@@ -2486,10 +2486,10 @@
     };
 
     var scheduleMap = {
-      '2': 'Month-to-Month ($150/mo) — Flexible start',
-      '3': 'Quarterly ($650) — Best value for commitment',
-      '4': 'Semi-Annual ($875) — Serious progression',
-      '5': 'Yearly ($1,675) — Full transformation commitment'
+      '2': 'Monthly Group Training ($159/mo) — Coached environment',
+      '3': 'Monthly Group Training ($159/mo) — Coached environment',
+      '4': 'Monthly Group Training ($159/mo) — Coached environment',
+      '5': 'Monthly Group Training ($159/mo) — Coached environment'
     };
 
     var who = answers.who || 'adult';
@@ -2500,7 +2500,7 @@
     if (pathEl) pathEl.textContent = pathMap[who] || 'ADULT PERFORMANCE';
     if (milestoneEl) milestoneEl.textContent = (milestones[who] && milestones[who][goal]) || 'Set your first baseline in 4 weeks';
     if (week1El) week1El.textContent = (week1s[who] && week1s[who][level]) || 'Movement assessment and baseline testing with your PPF coach.';
-    if (membershipEl) membershipEl.textContent = scheduleMap[schedule] || 'Month-to-Month ($150/mo)';
+    if (membershipEl) membershipEl.textContent = scheduleMap[schedule] || 'Monthly Group Training ($159/mo)';
 
     // Smooth scroll to result
     result.scrollIntoView({ behavior: 'smooth', block: 'center' });
