@@ -825,6 +825,8 @@
   function initRoomEnhance() {
     var roomSection = qs('#room');
     if (!roomSection) return;
+    /* Skip if new session-sequence section is active */
+    if (roomSection.classList.contains('ssq-section')) return;
 
     injectStyles('ppf-room-enhance-css', [
       '.re-enter-btn { display: inline-block; padding: 14px 32px; background: transparent; border: 2px solid var(--orange, #ff5500); border-radius: 8px; color: var(--orange, #ff5500); font-family: var(--font-display, "Bebas Neue", sans-serif); font-size: 1.1rem; letter-spacing: 0.1em; cursor: pointer; transition: all 0.3s ease; margin-top: 20px; }',
