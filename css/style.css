@@ -5592,18 +5592,22 @@ body.focus-mode .focus-target {
    Ultimate opening: 9 concepts fused into one iconic sequence
    ===================================================== */
 
+/* ═══════════════════════════════════════════════════════════
+   PPF INTRO — "THE FIELD REMEMBERS"
+   Performance OS boot sequence
+   ═══════════════════════════════════════════════════════════ */
 .ppf-intro {
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: #000;
+  background: #050505;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ppf-intro.dismissed {
@@ -5616,7 +5620,7 @@ body.intro-active {
   overflow: hidden;
 }
 
-/* Full-screen canvas — all animation layers */
+/* Full-screen canvas — turf, field lines, chalk-data, logo, pellets */
 .intro-canvas {
   position: absolute;
   inset: 0;
@@ -5625,72 +5629,11 @@ body.intro-active {
   z-index: 1;
 }
 
-/* ── TEST WINDOW SLIT (The Test Window concept) ── */
-.intro-test-window {
+/* ── READY / NOT-READY PULSE ── */
+.intro-ready-pulse {
   position: absolute;
   inset: 0;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-.test-window-slit {
-  width: 3px;
-  height: 100%;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.03) 20%,
-    rgba(255, 255, 255, 0.08) 45%,
-    rgba(255, 255, 255, 0.12) 50%,
-    rgba(255, 255, 255, 0.08) 55%,
-    rgba(255, 255, 255, 0.03) 80%,
-    transparent 100%
-  );
-  box-shadow:
-    0 0 30px rgba(255, 255, 255, 0.05),
-    0 0 80px rgba(255, 85, 0, 0.03);
-  transition: width 0.08s ease;
-}
-
-.ppf-intro.phase-slit .intro-test-window {
-  opacity: 1;
-}
-
-.ppf-intro.phase-slit .test-window-slit {
-  animation: slitPulse 0.5s ease-in-out infinite alternate;
-}
-
-@keyframes slitPulse {
-  0%   { width: 3px; box-shadow: 0 0 30px rgba(255, 255, 255, 0.05); }
-  100% { width: 5px; box-shadow: 0 0 50px rgba(255, 255, 255, 0.08), 0 0 100px rgba(255, 85, 0, 0.04); }
-}
-
-/* Slit EXPLODES open on impact */
-.ppf-intro.phase-explode .test-window-slit {
-  animation: slitExplode 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes slitExplode {
-  0%   { width: 5px; opacity: 1; }
-  40%  { width: 200vw; opacity: 0.8; }
-  100% { width: 300vw; opacity: 0; }
-}
-
-.ppf-intro.phase-explode .intro-test-window {
-  transition: opacity 0.3s ease 0.25s;
-  opacity: 0;
-}
-
-/* ── ROOM FLASHES (The Room concept) ── */
-.intro-room-flashes {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
+  z-index: 5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5698,175 +5641,98 @@ body.intro-active {
   opacity: 0;
 }
 
-.room-flash {
-  position: absolute;
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.3em;
-  color: rgba(255, 255, 255, 0);
-  text-transform: uppercase;
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-}
-
-.ppf-intro.phase-room .intro-room-flashes {
-  opacity: 1;
-}
-
-.ppf-intro.phase-room .room-flash[data-flash="knurl"] {
-  animation: roomFlashPulse 0.12s ease-out 0s 1 forwards;
-  font-size: 10px;
-  letter-spacing: 0.05em;
-  color: rgba(255, 255, 255, 0.06);
-}
-
-.ppf-intro.phase-room .room-flash[data-flash="lane"] {
-  animation: roomFlashPulse 0.12s ease-out 0.12s 1 forwards;
-  color: rgba(255, 255, 255, 0.08);
-}
-
-.ppf-intro.phase-room .room-flash[data-flash="chalk"] {
-  animation: roomFlashPulse 0.12s ease-out 0.24s 1 forwards;
-  color: rgba(255, 255, 255, 0.1);
-}
-
-.ppf-intro.phase-room .room-flash[data-flash="time"] {
-  animation: roomFlashPulse 0.15s ease-out 0.36s 1 forwards;
+.intro-ready-pulse .ready-label {
   font-family: var(--font-display);
-  font-size: 28px;
-  letter-spacing: 0.15em;
-  color: rgba(255, 255, 255, 0.12);
+  font-size: clamp(18px, 4vw, 36px);
+  letter-spacing: 0.5em;
+  color: #22c55e;
+  text-shadow: 0 0 40px rgba(34, 197, 94, 0.5), 0 0 100px rgba(34, 197, 94, 0.2);
+  opacity: 0;
+  transform: scale(0.8);
 }
 
-@keyframes roomFlashPulse {
-  0%   { opacity: 0; transform: scale(0.9); }
-  30%  { opacity: 1; transform: scale(1.05); }
+.ppf-intro.phase-ready .intro-ready-pulse {
+  opacity: 1;
+}
+
+.ppf-intro.phase-ready .intro-ready-pulse .ready-label {
+  animation: readyFlash 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes readyFlash {
+  0%   { opacity: 0; transform: scale(0.7); }
+  40%  { opacity: 1; transform: scale(1.05); }
   100% { opacity: 0; transform: scale(1); }
 }
 
-/* ── EDGE FORGE OVERLAY (The Edge Forge concept) ── */
-.intro-edge-forge {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(
-    ellipse 60% 50% at 50% 42%,
-    rgba(255, 85, 0, 0.04) 0%,
-    transparent 60%
-  );
-  mix-blend-mode: screen;
-}
-
-.ppf-intro.phase-forge .intro-edge-forge {
-  animation: forgeGlow 0.8s ease-out forwards;
-}
-
-@keyframes forgeGlow {
-  0%   { opacity: 0; }
-  30%  { opacity: 1; }
-  100% { opacity: 0; }
-}
-
-/* ── READINESS SCAN LINE ── */
-.intro-scan-line {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 85, 0, 0.05) 15%,
-    rgba(255, 85, 0, 0.4) 45%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 85, 0, 0.4) 55%,
-    rgba(255, 85, 0, 0.05) 85%,
-    transparent 100%
-  );
-  box-shadow: 0 0 20px rgba(255, 85, 0, 0.25), 0 0 60px rgba(255, 85, 0, 0.1);
-  z-index: 6;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.ppf-intro.phase-scan .intro-scan-line {
-  opacity: 1;
-  animation: introScanSweep 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes introScanSweep {
-  0%   { top: 25%; }
-  100% { top: 65%; }
-}
-
-/* ── METRIC PLATES (Readiness Architecture) ── */
-.intro-metric-plates {
+/* ── METRIC TILES — system boot ── */
+.intro-metric-tiles {
   position: absolute;
   inset: 0;
   z-index: 8;
   pointer-events: none;
 }
 
-.metric-plate {
+.metric-tile {
   position: absolute;
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 8px 14px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 2px;
-  backdrop-filter: blur(2px);
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.015);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-left: 2px solid rgba(255, 85, 0, 0.3);
   opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transform: translateX(-10px);
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.metric-plate .plate-label {
+.metric-tile .tile-tag {
   font-family: var(--font-body);
-  font-size: 8px;
+  font-size: 7px;
   font-weight: 700;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: rgba(255, 85, 0, 0.5);
 }
 
-.metric-plate .plate-value {
+.metric-tile .tile-val {
   font-family: var(--font-display);
-  font-size: 16px;
-  letter-spacing: 0.12em;
+  font-size: 14px;
+  letter-spacing: 0.15em;
   color: rgba(255, 255, 255, 0.7);
-  text-shadow: 0 0 12px rgba(255, 85, 0, 0.15);
+  text-shadow: 0 0 8px rgba(255, 85, 0, 0.12);
 }
 
-.metric-plate[data-pos="tl"] { top: 20%; left: 8%; }
-.metric-plate[data-pos="tr"] { top: 20%; right: 8%; }
-.metric-plate[data-pos="bl"] { bottom: 24%; left: 8%; }
-.metric-plate[data-pos="br"] { bottom: 24%; right: 8%; }
+.metric-tile[data-pos="tl"] { top: 18%; left: 5%; }
+.metric-tile[data-pos="tr"] { top: 18%; right: 5%; }
+.metric-tile[data-pos="ml"] { top: 42%; left: 5%; }
+.metric-tile[data-pos="mr"] { top: 42%; right: 5%; }
+.metric-tile[data-pos="bl"] { bottom: 22%; left: 5%; }
+.metric-tile[data-pos="br"] { bottom: 22%; right: 5%; }
 
-.ppf-intro.phase-metrics .metric-plate {
+.ppf-intro.phase-tiles .metric-tile {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
 }
-.ppf-intro.phase-metrics .metric-plate[data-pos="tl"] { transition-delay: 0.0s; }
-.ppf-intro.phase-metrics .metric-plate[data-pos="tr"] { transition-delay: 0.06s; }
-.ppf-intro.phase-metrics .metric-plate[data-pos="bl"] { transition-delay: 0.12s; }
-.ppf-intro.phase-metrics .metric-plate[data-pos="br"] { transition-delay: 0.18s; }
+.ppf-intro.phase-tiles .metric-tile[data-pos="tl"] { transition-delay: 0s; }
+.ppf-intro.phase-tiles .metric-tile[data-pos="tr"] { transition-delay: 0.04s; }
+.ppf-intro.phase-tiles .metric-tile[data-pos="ml"] { transition-delay: 0.08s; }
+.ppf-intro.phase-tiles .metric-tile[data-pos="mr"] { transition-delay: 0.12s; }
+.ppf-intro.phase-tiles .metric-tile[data-pos="bl"] { transition-delay: 0.16s; }
+.ppf-intro.phase-tiles .metric-tile[data-pos="br"] { transition-delay: 0.20s; }
 
-/* ── PROFILE STAMP (Profile Build concept) ── */
+/* ── PROFILE ARMING STAMP ── */
 .intro-profile-stamp {
   position: absolute;
-  top: 12%;
+  top: 10%;
   left: 50%;
   transform: translateX(-50%);
   z-index: 9;
   font-family: var(--font-body);
   font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.4em;
+  letter-spacing: 0.45em;
   text-transform: uppercase;
   color: rgba(255, 85, 0, 0);
   text-shadow: 0 0 15px rgba(255, 85, 0, 0.2);
@@ -5876,12 +5742,12 @@ body.intro-active {
   white-space: nowrap;
 }
 
-.ppf-intro.phase-profile .intro-profile-stamp {
+.ppf-intro.phase-tiles .intro-profile-stamp {
   opacity: 1;
   color: rgba(255, 85, 0, 0.45);
 }
 
-/* ── COACHING COMMAND — below logo, never covering it ── */
+/* ── COACHING COMMAND ── */
 .intro-command {
   position: absolute;
   bottom: 16%;
@@ -5895,27 +5761,27 @@ body.intro-active {
 
 .intro-command .command-main {
   font-family: var(--font-display);
-  font-size: clamp(44px, 9vw, 110px);
-  letter-spacing: 0.18em;
+  font-size: clamp(44px, 9vw, 120px);
+  letter-spacing: 0.2em;
   color: #fff;
   text-shadow:
-    0 0 60px rgba(255, 85, 0, 0.35),
-    0 0 120px rgba(255, 85, 0, 0.12),
-    0 2px 30px rgba(0, 0, 0, 0.8);
-  transform: scale(1.4) translateY(12px);
+    0 0 60px rgba(255, 85, 0, 0.4),
+    0 0 120px rgba(255, 85, 0, 0.15),
+    0 2px 30px rgba(0, 0, 0, 0.9);
+  transform: scale(1.5) translateY(10px);
   opacity: 0;
-  transition: opacity 0.12s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.1s ease, transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .intro-command .command-sub {
   font-family: var(--font-display);
-  font-size: clamp(12px, 2.2vw, 24px);
-  letter-spacing: 0.4em;
-  color: rgba(255, 85, 0, 0.65);
+  font-size: clamp(11px, 2vw, 22px);
+  letter-spacing: 0.5em;
+  color: rgba(255, 85, 0, 0.6);
   margin-top: 8px;
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.3s ease 0.12s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease 0.1s, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
 }
 
 .ppf-intro.phase-command .intro-command {
@@ -5932,98 +5798,46 @@ body.intro-active {
   transform: translateY(0);
 }
 
-/* ── PALM STRIKE FLASH ── */
-.ppf-intro.phase-palmstrike::after {
+/* ── CHALK BURST FLASH ── */
+.ppf-intro.phase-logo-lock::after {
   content: '';
   position: absolute;
   inset: 0;
   background: radial-gradient(
-    ellipse 55% 45% at 50% 40%,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(255, 255, 255, 0.08) 35%,
-    transparent 65%
+    ellipse 50% 40% at 50% 42%,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0.06) 30%,
+    transparent 60%
   );
   z-index: 3;
   pointer-events: none;
-  animation: palmFlash 0.18s ease-out forwards;
+  animation: chalkBurstFlash 0.2s ease-out forwards;
 }
 
-@keyframes palmFlash {
+@keyframes chalkBurstFlash {
   0%   { opacity: 1; }
   100% { opacity: 0; }
 }
 
-/* ── ASCENT LAYER (The PPF Ascent concept) ── */
-.intro-ascent {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  opacity: 0;
-  background: linear-gradient(
-    0deg,
-    rgba(255, 85, 0, 0.06) 0%,
-    transparent 30%,
-    transparent 70%,
-    rgba(255, 255, 255, 0.02) 100%
-  );
-}
-
-.ppf-intro.phase-ascent .intro-ascent {
-  opacity: 1;
-  animation: ascentRise 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes ascentRise {
-  0%   { transform: translateY(40px); opacity: 0; }
-  30%  { opacity: 1; }
-  100% { transform: translateY(-20px); opacity: 0; }
-}
-
-/* ── IMPACT SHAKE — violent final ── */
+/* ── IMPACT SHAKE ── */
 .ppf-intro.phase-impact {
-  animation: introImpactShake 0.4s ease-out;
+  animation: introImpactShake 0.35s ease-out;
 }
 
 @keyframes introImpactShake {
   0%, 100% { transform: translate(0, 0); }
-  8%       { transform: translate(-5px, 3px); }
-  20%      { transform: translate(6px, -4px); }
-  32%      { transform: translate(-4px, 3px); }
-  44%      { transform: translate(5px, -3px); }
-  56%      { transform: translate(-3px, 2px); }
-  68%      { transform: translate(2px, -1px); }
-  80%      { transform: translate(-1px, 1px); }
-}
-
-/* ── FOOT STRIKE SHAKE ── */
-.ppf-intro.phase-footstrike {
-  animation: footStrikeShake 0.2s ease-out;
-}
-
-@keyframes footStrikeShake {
-  0%, 100% { transform: translate(0, 0); }
-  15%      { transform: translate(-3px, 2px); }
-  40%      { transform: translate(4px, -3px); }
-  65%      { transform: translate(-2px, 1px); }
-}
-
-/* ── PALM STRIKE SHAKE ── */
-.ppf-intro.phase-palmstrike {
-  animation: palmShake 0.15s ease-out;
-}
-
-@keyframes palmShake {
-  0%, 100% { transform: translate(0, 0); }
-  25%      { transform: translate(-2px, 1px); }
-  50%      { transform: translate(3px, -2px); }
-  75%      { transform: translate(-1px, 1px); }
+  10%      { transform: translate(-4px, 3px); }
+  22%      { transform: translate(5px, -3px); }
+  34%      { transform: translate(-3px, 2px); }
+  48%      { transform: translate(4px, -2px); }
+  60%      { transform: translate(-2px, 1px); }
+  75%      { transform: translate(1px, -1px); }
 }
 
 /* ── HERO CONVERSION ── */
 .ppf-intro.phase-convert {
   background: transparent;
-  transition: background 1s ease;
+  transition: background 0.8s ease;
 }
 
 /* ── SKIP BUTTON ── */
@@ -6033,8 +5847,8 @@ body.intro-active {
   right: 32px;
   z-index: 20;
   background: none;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.2);
   font-family: var(--font-body);
   font-size: 10px;
   font-weight: 600;
@@ -6059,15 +5873,17 @@ body.intro-active {
 
 /* ── MOBILE ADJUSTMENTS ── */
 @media (max-width: 600px) {
-  .metric-plate[data-pos="tl"] { top: 16%; left: 5%; }
-  .metric-plate[data-pos="tr"] { top: 16%; right: 5%; }
-  .metric-plate[data-pos="bl"] { bottom: 30%; left: 5%; }
-  .metric-plate[data-pos="br"] { bottom: 30%; right: 5%; }
+  .metric-tile[data-pos="tl"] { top: 14%; left: 3%; }
+  .metric-tile[data-pos="tr"] { top: 14%; right: 3%; }
+  .metric-tile[data-pos="ml"] { top: 40%; left: 3%; }
+  .metric-tile[data-pos="mr"] { top: 40%; right: 3%; }
+  .metric-tile[data-pos="bl"] { bottom: 26%; left: 3%; }
+  .metric-tile[data-pos="br"] { bottom: 26%; right: 3%; }
 
-  .metric-plate .plate-value { font-size: 13px; }
-  .metric-plate .plate-label { font-size: 7px; }
+  .metric-tile .tile-val { font-size: 12px; }
+  .metric-tile .tile-tag { font-size: 6px; }
 
-  .intro-command { bottom: 28%; }
+  .intro-command { bottom: 26%; }
   .intro-command .command-main { font-size: clamp(32px, 8vw, 60px); }
   .intro-profile-stamp { font-size: 7px; letter-spacing: 0.3em; }
 
