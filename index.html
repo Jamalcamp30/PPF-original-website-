@@ -169,53 +169,38 @@
 <body>
 
   <!-- ============================================================
-       PPF INTRO — THE STANDARD ACTIVATES
-       Ultimate opening: 9 concepts fused into one iconic sequence
+       PPF INTRO — "THE FIELD REMEMBERS"
+       Performance OS boot: field → chalk-data → logo earned → hero arms
   ============================================================ -->
   <div class="ppf-intro" id="ppfIntro" aria-live="polite" role="status">
-    <!-- Full-screen canvas for all animation layers -->
+    <!-- Full-screen canvas — turf, field lines, chalk-data, logo, pellets -->
     <canvas class="intro-canvas" id="introCanvas" aria-hidden="true"></canvas>
 
-    <!-- Test Window slit — narrow gate that widens on impact -->
-    <div class="intro-test-window" id="introTestWindow" aria-hidden="true">
-      <div class="test-window-slit"></div>
+    <!-- Ready / Not-Ready pulse overlay -->
+    <div class="intro-ready-pulse" id="introReadyPulse" aria-hidden="true">
+      <span class="ready-label">READY</span>
     </div>
 
-    <!-- Room flash fragments — training room textures that pulse through the slit -->
-    <div class="intro-room-flashes" id="introRoomFlashes" aria-hidden="true">
-      <div class="room-flash" data-flash="knurl"><span>▓▓▓▓▓▓▓▓</span></div>
-      <div class="room-flash" data-flash="lane"><span>━━━━━━━━</span></div>
-      <div class="room-flash" data-flash="chalk"><span>◌ ◌ ◌</span></div>
-      <div class="room-flash" data-flash="time"><span>04.32</span></div>
+    <!-- Metric tiles — performance system boot -->
+    <div class="intro-metric-tiles" id="introMetricTiles" aria-hidden="true">
+      <div class="metric-tile" data-pos="tl"><span class="tile-tag">10 YD SPLIT</span><span class="tile-val">LIVE</span></div>
+      <div class="metric-tile" data-pos="tr"><span class="tile-tag">FORCE INDEX</span><span class="tile-val">RISING</span></div>
+      <div class="metric-tile" data-pos="ml"><span class="tile-tag">JUMP TRANSFER</span><span class="tile-val">ACTIVE</span></div>
+      <div class="metric-tile" data-pos="mr"><span class="tile-tag">OUTPUT</span><span class="tile-val">READY</span></div>
+      <div class="metric-tile" data-pos="bl"><span class="tile-tag">MOVEMENT</span><span class="tile-val">CLEAN</span></div>
+      <div class="metric-tile" data-pos="br"><span class="tile-tag">SPEED WINDOW</span><span class="tile-val">OPEN</span></div>
     </div>
 
-    <!-- Edge forge overlay — heat shimmer + pressure compression -->
-    <div class="intro-edge-forge" id="introEdgeForge" aria-hidden="true"></div>
-
-    <!-- Readiness scan line -->
-    <div class="intro-scan-line" id="introScanLine" aria-hidden="true"></div>
-
-    <!-- Metric plates (transparent performance checkpoints) -->
-    <div class="intro-metric-plates" id="introMetricPlates" aria-hidden="true">
-      <div class="metric-plate" data-pos="tl"><span class="plate-label">READINESS</span><span class="plate-value">LIVE</span></div>
-      <div class="metric-plate" data-pos="tr"><span class="plate-label">OUTPUT</span><span class="plate-value">BUILDING</span></div>
-      <div class="metric-plate" data-pos="bl"><span class="plate-label">SPEED</span><span class="plate-value">ARMED</span></div>
-      <div class="metric-plate" data-pos="br"><span class="plate-label">POWER</span><span class="plate-value">TRACKING</span></div>
-    </div>
-
-    <!-- Profile stamp -->
+    <!-- Profile arming stamp -->
     <div class="intro-profile-stamp" id="introProfileStamp" aria-hidden="true">
-      PPF PERFORMANCE PROFILE: LIVE
+      PROFILE ARMING
     </div>
 
-    <!-- Coaching command — positioned below logo, never covering it -->
+    <!-- Coaching command -->
     <div class="intro-command" id="introCommand" aria-hidden="true">
       <div class="command-main">LOCK IN.</div>
-      <div class="command-sub">THE STANDARD IS LIVE.</div>
+      <div class="command-sub">THE FIELD REMEMBERS.</div>
     </div>
-
-    <!-- Ascent layer — rising through system -->
-    <div class="intro-ascent" id="introAscent" aria-hidden="true"></div>
 
     <!-- Skip button -->
     <button class="intro-skip" id="introSkip" aria-label="Skip intro animation">SKIP ›</button>
