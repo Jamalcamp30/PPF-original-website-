@@ -1,6 +1,6 @@
 /* ============================================================
    PPF PATH-ADAPTIVE RAIL SYSTEM
-   One core system · Three audience modes
+   Clean, minimal scroll-progress rails that adapt to path.
    Athlete = PPF Drive Lane  |  Adult = PPF Strength Line
    Integrated = PPF Guided Path
    ============================================================ */
@@ -11,41 +11,31 @@
   position: fixed;
   top: 0;
   height: 100vh;
-  width: 36px;
+  width: 28px;
   z-index: 100;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.8s ease;
+  transition: opacity 0.6s ease;
 }
 
 .ppf-rail.ppf-rail--visible {
   opacity: 1;
 }
 
-.ppf-rail--left {
-  left: 0;
-}
-
-.ppf-rail--right {
-  right: 0;
-}
+.ppf-rail--left  { left: 0; }
+.ppf-rail--right { right: 0; }
 
 /* Track — thin background line */
 .ppf-rail__track {
   position: absolute;
-  top: 5%;
-  bottom: 5%;
+  top: 8%;
+  bottom: 8%;
   width: 1px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.04);
 }
 
-.ppf-rail--left .ppf-rail__track {
-  right: 8px;
-}
-
-.ppf-rail--right .ppf-rail__track {
-  left: 8px;
-}
+.ppf-rail--left .ppf-rail__track  { right: 8px; }
+.ppf-rail--right .ppf-rail__track { left: 8px; }
 
 /* Progress fill — grows from top */
 .ppf-rail__progress {
@@ -54,51 +44,46 @@
   width: 2px;
   height: 0%;
   border-radius: 1px;
-  transition: height 0.12s linear, background 0.6s ease;
+  transition: height 0.1s linear, background 0.5s ease;
   will-change: height;
 }
 
-.ppf-rail--left .ppf-rail__progress {
-  right: 7px;
-}
-
-.ppf-rail--right .ppf-rail__progress {
-  left: 7px;
-}
+.ppf-rail--left .ppf-rail__progress  { right: 7px; }
+.ppf-rail--right .ppf-rail__progress { left: 7px; }
 
 /* ── Section Lock-On Bracket ───────────────────────────── */
 
 .ppf-rail__bracket {
   position: absolute;
-  width: 10px;
-  height: 32px;
+  width: 8px;
+  height: 24px;
   opacity: 0;
-  transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.3s ease,
-              border-color 0.6s ease;
+  transition: top 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.25s ease,
+              border-color 0.5s ease;
   pointer-events: none;
 }
 
 .ppf-rail__bracket.ppf-rail__bracket--active {
-  opacity: 1;
+  opacity: 0.6;
 }
 
 .ppf-rail--left .ppf-rail__bracket {
   right: 4px;
-  border-left: 2px solid currentColor;
-  border-top: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
+  border-left: 1.5px solid currentColor;
+  border-top: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
   border-right: none;
-  border-radius: 3px 0 0 3px;
+  border-radius: 2px 0 0 2px;
 }
 
 .ppf-rail--right .ppf-rail__bracket {
   left: 4px;
-  border-right: 2px solid currentColor;
-  border-top: 2px solid currentColor;
-  border-bottom: 2px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  border-top: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
   border-left: none;
-  border-radius: 0 3px 3px 0;
+  border-radius: 0 2px 2px 0;
 }
 
 /* ── Markers — shared base ─────────────────────────────── */
@@ -107,9 +92,9 @@
   position: absolute;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   opacity: 0;
-  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
 }
 
@@ -119,36 +104,36 @@
 
 /* Tick dash */
 .ppf-rail__tick {
-  width: 8px;
+  width: 6px;
   height: 1px;
   flex-shrink: 0;
-  transition: background 0.4s ease, width 0.3s ease;
+  transition: background 0.3s ease, width 0.25s ease;
 }
 
 .ppf-rail__marker--reached .ppf-rail__tick {
-  width: 12px;
+  width: 10px;
 }
 
 /* Marker label */
 .ppf-rail__label {
   font-family: var(--font-display, 'Bebas Neue', sans-serif);
-  font-size: 8px;
-  letter-spacing: 0.14em;
+  font-size: 7px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   white-space: nowrap;
-  opacity: 0.5;
-  transition: opacity 0.4s ease, color 0.6s ease;
+  opacity: 0.4;
+  transition: opacity 0.3s ease, color 0.5s ease;
 }
 
 .ppf-rail__marker--reached .ppf-rail__label {
-  opacity: 1;
+  opacity: 0.85;
 }
 
 /* Left rail markers flow leftward */
 .ppf-rail--left .ppf-rail__marker {
   right: 4px;
   flex-direction: row-reverse;
-  transform: translateX(-6px);
+  transform: translateX(-4px);
 }
 
 .ppf-rail--left .ppf-rail__marker.ppf-rail__marker--reached {
@@ -158,7 +143,7 @@
 /* Right rail markers flow rightward */
 .ppf-rail--right .ppf-rail__marker {
   left: 4px;
-  transform: translateX(6px);
+  transform: translateX(4px);
 }
 
 .ppf-rail--right .ppf-rail__marker.ppf-rail__marker--reached {
@@ -173,16 +158,16 @@
   writing-mode: vertical-rl;
   text-orientation: mixed;
   font-family: var(--font-display, 'Bebas Neue', sans-serif);
-  font-size: 9px;
-  letter-spacing: 0.18em;
+  font-size: 8px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   opacity: 0;
-  transition: opacity 0.5s ease, color 0.6s ease;
+  transition: opacity 0.4s ease, color 0.5s ease;
   pointer-events: none;
 }
 
 .ppf-rail__status.ppf-rail__status--visible {
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
 /* ── Path Name Badge ───────────────────────────────────── */
@@ -192,10 +177,10 @@
   top: 12px;
   font-family: var(--font-display, 'Bebas Neue', sans-serif);
   font-size: 7px;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   opacity: 0;
-  transition: opacity 0.6s ease, color 0.6s ease;
+  transition: opacity 0.5s ease, color 0.5s ease;
   white-space: nowrap;
 }
 
@@ -205,388 +190,156 @@
 }
 
 .ppf-rail__path-name.ppf-rail__path-name--visible {
-  opacity: 0.35;
-}
-
-/* ── CTA Intensification Zone (bottom of right rail) ──── */
-
-.ppf-rail__cta-zone {
-  position: absolute;
-  bottom: 5%;
-  height: 24px;
-  width: 2px;
-  border-radius: 1px;
-  opacity: 0;
-  transition: opacity 0.6s ease, box-shadow 0.6s ease, background 0.6s ease;
-}
-
-.ppf-rail--right .ppf-rail__cta-zone {
-  left: 7px;
-}
-
-.ppf-rail__cta-zone.ppf-rail__cta-zone--hot {
-  opacity: 1;
+  opacity: 0.25;
 }
 
 /* ── Scroll Glow — current position indicator ──────────── */
 
 .ppf-rail__glow {
   position: absolute;
-  width: 4px;
-  height: 4px;
+  width: 3px;
+  height: 3px;
   border-radius: 50%;
   opacity: 0;
-  transition: top 0.12s linear, opacity 0.3s ease, background 0.6s ease;
+  transition: top 0.1s linear, opacity 0.25s ease, background 0.5s ease;
   will-change: top;
 }
 
-.ppf-rail--left .ppf-rail__glow {
-  right: 6px;
-}
-
-.ppf-rail--right .ppf-rail__glow {
-  left: 6px;
-}
+.ppf-rail--left .ppf-rail__glow  { right: 6px; }
+.ppf-rail--right .ppf-rail__glow { left: 6px; }
 
 .ppf-rail__glow.ppf-rail__glow--active {
-  opacity: 0.8;
-}
-
-/* ── Pulse Ring — path-specific rhythm ─────────────────── */
-
-.ppf-rail__pulse {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 1px solid transparent;
-  opacity: 0;
-  pointer-events: none;
-  transition: top 0.12s linear, border-color 0.6s ease;
-  will-change: top;
-}
-
-.ppf-rail--left .ppf-rail__pulse {
-  right: 4px;
+  opacity: 0.6;
 }
 
 /* ════════════════════════════════════════════════════════
    ATHLETE MODE — PPF Drive Lane
-   Explosive · Sharp · Competitive · Verified
    ════════════════════════════════════════════════════════ */
 
 .ppf-rail--athlete .ppf-rail__progress {
   background: linear-gradient(180deg, #ff5500 0%, #ff7733 100%);
-  box-shadow: 0 0 6px rgba(255, 85, 0, 0.3);
+  box-shadow: 0 0 4px rgba(255, 85, 0, 0.2);
 }
 
-.ppf-rail--athlete .ppf-rail__bracket {
-  color: #ff5500;
-}
-
-.ppf-rail--athlete .ppf-rail__tick {
-  background: #ff5500;
-}
-
-.ppf-rail--athlete .ppf-rail__label {
-  color: #ff5500;
-}
+.ppf-rail--athlete .ppf-rail__bracket { color: #ff5500; }
+.ppf-rail--athlete .ppf-rail__tick    { background: #ff5500; }
+.ppf-rail--athlete .ppf-rail__label   { color: #ff5500; }
+.ppf-rail--athlete .ppf-rail__status  { color: #ff5500; }
+.ppf-rail--athlete .ppf-rail__path-name { color: #ff5500; }
 
 .ppf-rail--athlete .ppf-rail__glow {
   background: #ff5500;
-  box-shadow: 0 0 8px rgba(255, 85, 0, 0.6);
+  box-shadow: 0 0 6px rgba(255, 85, 0, 0.4);
 }
 
-.ppf-rail--athlete .ppf-rail__pulse {
-  border-color: rgba(255, 85, 0, 0.3);
-  animation: railPulseAthlete 0.9s ease-in-out infinite;
-}
-
-.ppf-rail--athlete .ppf-rail__status {
-  color: #ff5500;
-}
-
-.ppf-rail--athlete .ppf-rail__path-name {
-  color: #ff5500;
-}
-
-.ppf-rail--athlete .ppf-rail__cta-zone {
-  background: #ff5500;
-  box-shadow: 0 0 12px rgba(255, 85, 0, 0.5);
-}
-
-/* Athlete yard-marker override — bold ticks */
+/* Athlete yard-marker — clean ticks */
 .ppf-rail--athlete .ppf-rail__marker--yard .ppf-rail__tick {
-  height: 2px;
-  width: 14px;
+  height: 1.5px;
+  width: 10px;
 }
 
 .ppf-rail--athlete .ppf-rail__marker--yard .ppf-rail__label {
-  font-size: 9px;
-  font-weight: 700;
-}
-
-/* Athlete metric tags — small stacked indicators */
-.ppf-rail__metric-tag {
-  position: absolute;
-  font-family: var(--font-display, 'Bebas Neue', sans-serif);
   font-size: 7px;
-  letter-spacing: 0.12em;
-  padding: 2px 4px;
-  border: 1px solid rgba(255, 85, 0, 0.15);
-  border-radius: 2px;
-  color: rgba(255, 85, 0, 0.3);
-  background: rgba(255, 85, 0, 0.03);
-  transition: color 0.4s ease, border-color 0.4s ease, background 0.4s ease,
-              box-shadow 0.4s ease;
-  pointer-events: none;
-}
-
-.ppf-rail__metric-tag.ppf-rail__metric-tag--lit {
-  color: #ff5500;
-  border-color: rgba(255, 85, 0, 0.5);
-  background: rgba(255, 85, 0, 0.08);
-  box-shadow: 0 0 6px rgba(255, 85, 0, 0.15);
-}
-
-/* Athlete split-time counter */
-.ppf-rail__split-time {
-  position: absolute;
-  bottom: 18%;
-  font-family: var(--font-display, 'Bebas Neue', sans-serif);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: rgba(255, 85, 0, 0.5);
-  transition: color 0.3s ease;
-  pointer-events: none;
-}
-
-.ppf-rail--left .ppf-rail__split-time {
-  right: 4px;
-}
-
-@keyframes railPulseAthlete {
-  0%, 100% { transform: scale(1); opacity: 0.3; }
-  50%      { transform: scale(1.6); opacity: 0; }
+  font-weight: 700;
 }
 
 /* ════════════════════════════════════════════════════════
    ADULT MODE — PPF Strength Line
-   Disciplined · Structured · Elevated · Confident
    ════════════════════════════════════════════════════════ */
 
 .ppf-rail--adult .ppf-rail__progress {
   background: linear-gradient(180deg, #6a8fff 0%, #8fa8ff 100%);
-  box-shadow: 0 0 6px rgba(106, 143, 255, 0.25);
-  width: 3px;
+  box-shadow: 0 0 4px rgba(106, 143, 255, 0.2);
+  width: 2px;
 }
 
-.ppf-rail--adult .ppf-rail__bracket {
-  color: #6a8fff;
-}
-
-.ppf-rail--adult .ppf-rail__tick {
-  background: #6a8fff;
-}
-
-.ppf-rail--adult .ppf-rail__label {
-  color: #6a8fff;
-}
+.ppf-rail--adult .ppf-rail__bracket { color: #6a8fff; }
+.ppf-rail--adult .ppf-rail__tick    { background: #6a8fff; }
+.ppf-rail--adult .ppf-rail__label   { color: #6a8fff; }
+.ppf-rail--adult .ppf-rail__status  { color: #6a8fff; }
+.ppf-rail--adult .ppf-rail__path-name { color: #6a8fff; }
 
 .ppf-rail--adult .ppf-rail__glow {
   background: #6a8fff;
-  box-shadow: 0 0 6px rgba(106, 143, 255, 0.5);
+  box-shadow: 0 0 6px rgba(106, 143, 255, 0.4);
 }
 
-.ppf-rail--adult .ppf-rail__pulse {
-  border-color: rgba(106, 143, 255, 0.3);
-  animation: railPulseAdult 1.5s ease-in-out infinite;
-}
-
-.ppf-rail--adult .ppf-rail__status {
-  color: #6a8fff;
-}
-
-.ppf-rail--adult .ppf-rail__path-name {
-  color: #6a8fff;
-}
-
-.ppf-rail--adult .ppf-rail__cta-zone {
-  background: #6a8fff;
-  box-shadow: 0 0 10px rgba(106, 143, 255, 0.4);
-}
-
-/* Adult tension effect — rail track bends */
-.ppf-rail--adult.ppf-rail--tension .ppf-rail__track {
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.ppf-rail--left.ppf-rail--adult.ppf-rail--tension .ppf-rail__track {
-  transform: scaleX(1.6);
-  transform-origin: right center;
-}
-
-.ppf-rail--right.ppf-rail--adult.ppf-rail--tension .ppf-rail__track {
-  transform: scaleX(1.6);
-  transform-origin: left center;
-}
-
-/* Adult milestone marker — heavier style */
+/* Adult milestone marker — clean style */
 .ppf-rail--adult .ppf-rail__marker--milestone .ppf-rail__tick {
-  height: 2px;
-  width: 10px;
+  height: 1.5px;
+  width: 8px;
   background: #6a8fff;
 }
 
 .ppf-rail--adult .ppf-rail__marker--milestone .ppf-rail__label {
-  font-size: 8px;
+  font-size: 7px;
   font-weight: 600;
-}
-
-/* Adult readiness text */
-.ppf-rail__readiness {
-  position: absolute;
-  font-family: var(--font-display, 'Bebas Neue', sans-serif);
-  font-size: 8px;
-  letter-spacing: 0.16em;
-  color: rgba(106, 143, 255, 0.4);
-  transition: opacity 0.5s ease, color 0.4s ease;
-  pointer-events: none;
-  opacity: 0;
-}
-
-.ppf-rail__readiness.ppf-rail__readiness--show {
-  opacity: 1;
-}
-
-.ppf-rail--left .ppf-rail__readiness {
-  right: 4px;
-}
-
-@keyframes railPulseAdult {
-  0%, 100% { transform: scale(1); opacity: 0.25; }
-  50%      { transform: scale(1.4); opacity: 0; }
 }
 
 /* ════════════════════════════════════════════════════════
    INTEGRATED MODE — PPF Guided Path
-   Welcoming · Adaptive · Encouraging · Dignified
    ════════════════════════════════════════════════════════ */
 
 .ppf-rail--integrated .ppf-rail__progress {
   background: linear-gradient(180deg, #50c878 0%, #6fd9a0 100%);
-  box-shadow: 0 0 5px rgba(80, 200, 120, 0.2);
+  box-shadow: 0 0 4px rgba(80, 200, 120, 0.15);
   width: 2px;
   border-radius: 1px;
 }
 
 .ppf-rail--integrated .ppf-rail__bracket {
   color: #50c878;
-  border-radius: 4px 0 0 4px;
-  height: 40px;
+  border-radius: 3px 0 0 3px;
+  height: 28px;
   border-width: 1px;
 }
 
 .ppf-rail--right.ppf-rail--integrated .ppf-rail__bracket {
-  border-radius: 0 4px 4px 0;
+  border-radius: 0 3px 3px 0;
 }
 
-.ppf-rail--integrated .ppf-rail__tick {
-  background: #50c878;
-}
-
-.ppf-rail--integrated .ppf-rail__label {
-  color: #50c878;
-  font-size: 7px;
-}
+.ppf-rail--integrated .ppf-rail__tick    { background: #50c878; }
+.ppf-rail--integrated .ppf-rail__label   { color: #50c878; font-size: 7px; }
+.ppf-rail--integrated .ppf-rail__status  { color: #50c878; }
+.ppf-rail--integrated .ppf-rail__path-name { color: #50c878; }
 
 .ppf-rail--integrated .ppf-rail__glow {
   background: #50c878;
-  box-shadow: 0 0 8px rgba(80, 200, 120, 0.4);
+  box-shadow: 0 0 6px rgba(80, 200, 120, 0.3);
+  width: 4px;
+  height: 4px;
+}
+
+/* Integrated guided markers — soft dots */
+.ppf-rail--integrated .ppf-rail__marker--guided .ppf-rail__tick {
   width: 5px;
   height: 5px;
-}
-
-.ppf-rail--integrated .ppf-rail__pulse {
-  border-color: rgba(80, 200, 120, 0.25);
-  animation: railPulseIntegrated 2.2s ease-in-out infinite;
-}
-
-.ppf-rail--integrated .ppf-rail__status {
-  color: #50c878;
-}
-
-.ppf-rail--integrated .ppf-rail__path-name {
-  color: #50c878;
-}
-
-.ppf-rail--integrated .ppf-rail__cta-zone {
-  background: #50c878;
-  box-shadow: 0 0 8px rgba(80, 200, 120, 0.3);
-}
-
-/* Integrated connection line — reaches inward on key sections */
-.ppf-rail__connection {
-  position: absolute;
-  height: 1px;
-  width: 0;
-  opacity: 0;
-  transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.5s ease;
-  pointer-events: none;
-}
-
-.ppf-rail--left .ppf-rail__connection {
-  right: 8px;
-  background: linear-gradient(90deg, transparent, rgba(80, 200, 120, 0.25));
-}
-
-.ppf-rail--right .ppf-rail__connection {
-  left: 8px;
-  background: linear-gradient(270deg, transparent, rgba(80, 200, 120, 0.25));
-}
-
-.ppf-rail__connection.ppf-rail__connection--extend {
-  width: 60px;
-  opacity: 1;
-}
-
-/* Integrated guided markers — softer, rounder */
-.ppf-rail--integrated .ppf-rail__marker--guided .ppf-rail__tick {
-  width: 6px;
-  height: 6px;
   border-radius: 50%;
-  background: rgba(80, 200, 120, 0.3);
+  background: rgba(80, 200, 120, 0.25);
 }
 
 .ppf-rail--integrated .ppf-rail__marker--guided.ppf-rail__marker--reached .ppf-rail__tick {
   background: #50c878;
-  width: 6px;
-  box-shadow: 0 0 4px rgba(80, 200, 120, 0.4);
-}
-
-@keyframes railPulseIntegrated {
-  0%, 100% { transform: scale(1); opacity: 0.2; }
-  50%      { transform: scale(1.3); opacity: 0; }
+  width: 5px;
+  box-shadow: 0 0 3px rgba(80, 200, 120, 0.3);
 }
 
 /* ════════════════════════════════════════════════════════
    SECTION-SPECIFIC TRIGGERS
    ════════════════════════════════════════════════════════ */
 
-/* Proof/results sections — rail brightens */
+/* Proof/results sections — track subtly brightens */
 .ppf-rail.ppf-rail--proof-active .ppf-rail__track {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
 }
 
-/* CTA sections — both rails intensify */
+/* CTA sections — progress slightly brighter */
 .ppf-rail.ppf-rail--cta-active .ppf-rail__progress {
-  filter: brightness(1.3);
+  filter: brightness(1.15);
 }
 
 .ppf-rail.ppf-rail--cta-active .ppf-rail__glow {
-  opacity: 1;
-  transform: scale(1.4);
+  opacity: 0.8;
 }
 
 /* ════════════════════════════════════════════════════════
@@ -594,9 +347,7 @@
    ════════════════════════════════════════════════════════ */
 
 @media (max-width: 900px) {
-  .ppf-rail {
-    display: none;
-  }
+  .ppf-rail { display: none; }
 }
 
 /* ════════════════════════════════════════════════════════
@@ -604,7 +355,5 @@
    ════════════════════════════════════════════════════════ */
 
 @media (prefers-reduced-motion: reduce) {
-  .ppf-rail {
-    display: none;
-  }
+  .ppf-rail { display: none; }
 }
