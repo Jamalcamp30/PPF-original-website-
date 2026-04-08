@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Membership Intelligence — PPF Athletics</title>
+  <meta name="description" content="Your PPF Membership Intelligence. Live status, pathway visualization, attendance quality, unlockable premium layers, and available upgrades." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/ppf-member.css" />
+
+  <style>
+    /* ═══════════════════════════════════════════
+       MEMBERSHIP INTELLIGENCE — Page-Specific
+    ═══════════════════════════════════════════ */
+
+    /* ── Membership Hero Card ── */
+    .mem-hero {
+      background: linear-gradient(135deg, #111 0%, #1a1a1a 60%, #1c1208 100%);
+      border: 1px solid #333;
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .mem-hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #ff5500, #ff8800, #ff5500);
+    }
+    .mem-hero-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .mem-hero-identity { flex: 1; min-width: 240px; }
+    .mem-tier-badge {
+      display: inline-block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 3px;
+      color: #ff5500;
+      background: rgba(255, 85, 0, 0.1);
+      border: 1px solid rgba(255, 85, 0, 0.3);
+      border-radius: 6px;
+      padding: 4px 14px;
+      margin-bottom: 12px;
+    }
+    .mem-hero-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 42px;
+      letter-spacing: 4px;
+      color: #fff;
+      line-height: 1.1;
+      margin: 0 0 8px;
+    }
+    .mem-hero-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .mem-status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 8px rgba(34, 197, 94, 0.6);
+      animation: statusPulse 2s ease-in-out infinite;
+    }
+    .mem-status-text { color: #22c55e; }
+    @keyframes statusPulse {
+      0%, 100% { box-shadow: 0 0 8px rgba(34, 197, 94, 0.6); }
+      50% { box-shadow: 0 0 16px rgba(34, 197, 94, 0.9); }
+    }
+    .mem-priority-badge {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ff5500;
+      background: rgba(255, 85, 0, 0.08);
+      border: 1px solid rgba(255, 85, 0, 0.2);
+      border-radius: 4px;
+      padding: 3px 10px;
+      margin-left: 12px;
+    }
+
+    .mem-hero-details {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .mem-detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .mem-detail-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #666;
+    }
+    .mem-detail-value {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: #e0e0e0;
+    }
+
+    /* ── Pathway Visualization ── */
+    .mem-pathway-section {
+      margin-bottom: 48px;
+    }
+    .pos-pathway {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0;
+      padding: 32px 16px;
+      overflow-x: auto;
+    }
+    .pos-path-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
+      min-width: 100px;
+    }
+    .pos-path-dot {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: #1a1a1a;
+      border: 2px solid #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #666;
+      transition: all 0.3s ease;
+    }
+    .pos-path-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      color: #555;
+      text-align: center;
+      max-width: 100px;
+      letter-spacing: 0.5px;
+    }
+    .pos-path-line {
+      flex: 1;
+      height: 2px;
+      background: #333;
+      margin-top: 20px;
+      min-width: 30px;
+    }
+
+    /* Pathway states */
+    .pos-path-node.completed .pos-path-dot {
+      background: rgba(255, 85, 0, 0.15);
+      border-color: #ff5500;
+      color: #ff5500;
+    }
+    .pos-path-node.completed .pos-path-label { color: #ccc; }
+    .pos-path-line.completed { background: #ff5500; }
+
+    .pos-path-node.active .pos-path-dot {
+      background: #ff5500;
+      border-color: #ff5500;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(255, 85, 0, 0.5);
+      animation: activeNodePulse 2s ease-in-out infinite;
+    }
+    .pos-path-node.active .pos-path-label {
+      color: #ff5500;
+      font-weight: 700;
+    }
+    @keyframes activeNodePulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(255, 85, 0, 0.4); }
+      50% { box-shadow: 0 0 32px rgba(255, 85, 0, 0.7); }
+    }
+
+    .pos-path-node.locked .pos-path-dot { opacity: 0.4; }
+    .pos-path-node.locked .pos-path-label { opacity: 0.4; }
+
+    /* ── Services Grid ── */
+    .mem-services-section { margin-bottom: 48px; }
+    .mem-services-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .pos-service-card {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .pos-service-card:hover {
+      border-color: #ff5500;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(255, 85, 0, 0.06);
+    }
+    .pos-service-icon {
+      font-size: 24px;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .pos-service-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #e0e0e0;
+      margin-bottom: 8px;
+    }
+    .pos-service-badge {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+    .pos-service-badge.included {
+      color: #22c55e;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+    .pos-service-badge.addon {
+      color: #a855f7;
+      background: rgba(168, 85, 247, 0.1);
+      border: 1px solid rgba(168, 85, 247, 0.2);
+    }
+
+    /* ── Attendance Quality ── */
+    .mem-attendance-section { margin-bottom: 48px; }
+    .mem-attendance-card {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 14px;
+      padding: 32px;
+    }
+    .mem-att-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .mem-att-rate {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 64px;
+      letter-spacing: 2px;
+      color: #ff5500;
+      line-height: 1;
+    }
+    .mem-att-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+    }
+    .mem-att-status {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+    .mem-att-status.verified {
+      color: #22c55e;
+      background: rgba(34, 197, 94, 0.1);
+    }
+    .mem-att-status.needs-improvement {
+      color: #eab308;
+      background: rgba(234, 179, 8, 0.1);
+    }
+    .mem-att-target {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      color: #666;
+    }
+
+    /* Attendance progress bar */
+    .mem-att-bar-container {
+      position: relative;
+      height: 10px;
+      background: #1a1a1a;
+      border-radius: 5px;
+      margin-bottom: 8px;
+      overflow: visible;
+    }
+    .mem-att-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #ff5500, #ff8800);
+      border-radius: 5px;
+      width: var(--att-pct, 87%);
+      transition: width 1s ease;
+    }
+    .mem-att-bar-target {
+      position: absolute;
+      top: -4px;
+      left: 90%;
+      width: 2px;
+      height: 18px;
+      background: #22c55e;
+      border-radius: 1px;
+    }
+    .mem-att-bar-target-label {
+      position: absolute;
+      top: -20px;
+      left: 90%;
+      transform: translateX(-50%);
+      font-family: 'Inter', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      color: #22c55e;
+      letter-spacing: 1px;
+    }
+
+    /* Monthly dot grid */
+    .mem-att-dots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 20px;
+    }
+    .mem-att-dot {
+      width: 12px; height: 12px;
+      border-radius: 3px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+    }
+    .mem-att-dot.attended {
+      background: #ff5500;
+      border-color: #ff5500;
+    }
+    .mem-att-dot.missed {
+      background: transparent;
+      border-color: #444;
+    }
+    .mem-att-dots-label {
+      margin-top: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      color: #555;
+      letter-spacing: 1px;
+    }
+
+    /* ── Unlockable Layers ── */
+    .mem-unlocks-section { margin-bottom: 48px; }
+    .mem-unlocks-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .pos-unlock-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 20px 24px;
+      transition: all 0.3s ease;
+    }
+    .pos-unlock-card:hover {
+      border-color: #333;
+      transform: translateX(4px);
+    }
+    .pos-unlock-card.unlocked {
+      border-color: rgba(255, 85, 0, 0.3);
+      background: linear-gradient(135deg, #111 0%, #1a1208 100%);
+    }
+    .pos-unlock-icon {
+      font-size: 20px;
+      width: 44px; height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      flex-shrink: 0;
+    }
+    .pos-unlock-card.unlocked .pos-unlock-icon {
+      color: #ff5500;
+      background: rgba(255, 85, 0, 0.1);
+      border-color: rgba(255, 85, 0, 0.3);
+    }
+    .pos-unlock-card.locked .pos-unlock-icon {
+      color: #555;
+    }
+    .pos-unlock-info { flex: 1; min-width: 0; }
+    .pos-unlock-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #e0e0e0;
+      margin: 0 0 4px;
+    }
+    .pos-unlock-req {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #666;
+      margin: 0;
+    }
+    .pos-unlock-progress {
+      height: 4px;
+      background: #1a1a1a;
+      border-radius: 2px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .pos-unlock-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #ff5500, #ff8800);
+      border-radius: 2px;
+      width: var(--pct, 0%);
+      transition: width 1s ease;
+    }
+    .pos-unlock-status {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .pos-unlock-card.unlocked .pos-unlock-status { color: #22c55e; }
+    .pos-unlock-card.locked .pos-unlock-status { color: #666; }
+
+    /* ── Upgrades ── */
+    .mem-upgrades-section { margin-bottom: 48px; }
+    .mem-upgrades-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .pos-upgrade-card {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.3s ease;
+    }
+    .pos-upgrade-card:hover {
+      border-color: #ff5500;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(255, 85, 0, 0.08);
+    }
+    .pos-upgrade-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #e0e0e0;
+      margin: 0;
+    }
+    .pos-upgrade-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      color: #777;
+      line-height: 1.5;
+      margin: 0;
+      flex: 1;
+    }
+    .pos-upgrade-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      letter-spacing: 1px;
+      color: #ff5500;
+    }
+    .pos-upgrade-btn {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+      background: transparent;
+      border: 1px solid #444;
+      border-radius: 6px;
+      padding: 8px 16px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .pos-upgrade-btn:hover {
+      border-color: #ff5500;
+      color: #ff5500;
+      background: rgba(255, 85, 0, 0.05);
+    }
+
+    /* ── Membership Promise Banner ── */
+    .mem-promise {
+      text-align: center;
+      padding: 40px 24px;
+      margin-bottom: 48px;
+      background: linear-gradient(135deg, #0a0a0a 0%, #111 50%, #0a0a0a 100%);
+      border: 1px solid #222;
+      border-radius: 14px;
+      position: relative;
+    }
+    .mem-promise::before,
+    .mem-promise::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 1px;
+      background: #ff5500;
+    }
+    .mem-promise::before { top: 16px; }
+    .mem-promise::after { bottom: 16px; }
+    .mem-promise-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: #999;
+      line-height: 1.7;
+      max-width: 640px;
+      margin: 0 auto;
+      font-style: italic;
+    }
+
+    /* ── Section Headings ── */
+    .mem-section-tag {
+      display: inline-block;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 11px;
+      letter-spacing: 3px;
+      color: #ff5500;
+      background: rgba(255, 85, 0, 0.08);
+      border: 1px solid rgba(255, 85, 0, 0.15);
+      border-radius: 4px;
+      padding: 3px 12px;
+      margin-bottom: 12px;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1100px) {
+      .mem-hero-details { grid-template-columns: repeat(2, 1fr); }
+      .mem-services-grid { grid-template-columns: repeat(3, 1fr); }
+      .mem-upgrades-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .mem-hero { padding: 28px; }
+      .mem-hero-name { font-size: 32px; }
+      .mem-services-grid { grid-template-columns: repeat(2, 1fr); }
+      .pos-pathway { justify-content: flex-start; }
+    }
+    @media (max-width: 600px) {
+      .mem-hero { padding: 20px; }
+      .mem-hero-name { font-size: 26px; letter-spacing: 2px; }
+      .mem-hero-details { grid-template-columns: 1fr; }
+      .mem-services-grid { grid-template-columns: 1fr; }
+      .mem-upgrades-grid { grid-template-columns: 1fr; }
+      .pos-pathway { flex-direction: column; align-items: center; }
+      .pos-path-line {
+        width: 2px;
+        height: 24px;
+        min-width: unset;
+        margin-top: 0;
+      }
+      .mem-att-rate { font-size: 48px; }
+      .pos-unlock-card { flex-direction: column; text-align: center; }
+      .pos-unlock-status { white-space: normal; }
+    }
+  </style>
+</head>
+<body class="ppf-membership-body">
+
+  <!-- ============================================================
+       TOP NAV
+  ============================================================ -->
+  <nav class="dash-nav">
+    <a href="dashboard.html" class="dash-nav-logo">
+      <span class="dash-logo-mark">PPF</span>
+      <span class="dash-logo-tag">PERFORMANCE OS</span>
+    </a>
+    <div class="dash-nav-actions">
+      <a href="dashboard.html" class="profile-back-link">← Dashboard</a>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       MAIN CONTENT
+  ============================================================ -->
+  <main class="dash-main">
+
+    <!-- ─── 1. MEMBERSHIP HERO CARD ─── -->
+    <section class="mem-hero" id="membershipHero">
+      <div class="mem-hero-top">
+        <div class="mem-hero-identity">
+          <span class="mem-tier-badge" id="memTierBadge">PPF ATHLETE</span>
+          <h1 class="mem-hero-name" id="memName">—</h1>
+          <div class="mem-hero-status">
+            <span class="mem-status-dot"></span>
+            <span class="mem-status-text" id="memStatus">ACTIVE</span>
+            <span class="mem-priority-badge" id="memPriorityBadge">PRIORITY BOOKING</span>
+          </div>
+        </div>
+      </div>
+      <div class="mem-hero-details">
+        <div class="mem-detail-item">
+          <span class="mem-detail-label">Current Cycle</span>
+          <span class="mem-detail-value" id="memCycle">Spring 2025 — Block 2</span>
+        </div>
+        <div class="mem-detail-item">
+          <span class="mem-detail-label">Coach Assignment</span>
+          <span class="mem-detail-value" id="memCoach">Coach Davis</span>
+        </div>
+        <div class="mem-detail-item">
+          <span class="mem-detail-label">Billing Status</span>
+          <span class="mem-detail-value" id="memBilling">Current</span>
+        </div>
+        <div class="mem-detail-item">
+          <span class="mem-detail-label">Renewal Date</span>
+          <span class="mem-detail-value" id="memRenewal">May 15, 2025</span>
+        </div>
+        <div class="mem-detail-item">
+          <span class="mem-detail-label">Member Since</span>
+          <span class="mem-detail-value" id="memSince">January 15, 2025</span>
+        </div>
+        <div class="mem-detail-item">
+          <span class="mem-detail-label">System Status</span>
+          <span class="mem-detail-value">System Updated</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 2. PATHWAY VISUALIZATION ─── -->
+    <section class="mem-pathway-section" id="membershipPathway">
+      <span class="mem-section-tag">INTELLIGENCE</span>
+      <h2 class="section-heading">Your Performance Path</h2>
+      <p class="section-sub">Every phase earned. Every node verified. The pathway maps your evolution.</p>
+
+      <div class="pos-pathway" id="pathwayMap">
+        <div class="pos-path-node completed" data-phase="assessment">
+          <div class="pos-path-dot">✓</div>
+          <span class="pos-path-label">Assessment</span>
+        </div>
+        <div class="pos-path-line completed"></div>
+        <div class="pos-path-node completed" data-phase="foundation">
+          <div class="pos-path-dot">✓</div>
+          <span class="pos-path-label">Foundation</span>
+        </div>
+        <div class="pos-path-line completed"></div>
+        <div class="pos-path-node active" data-phase="force">
+          <div class="pos-path-dot">◆</div>
+          <span class="pos-path-label">Force Development</span>
+        </div>
+        <div class="pos-path-line"></div>
+        <div class="pos-path-node locked" data-phase="speed">
+          <div class="pos-path-dot">◇</div>
+          <span class="pos-path-label">Speed Transfer</span>
+        </div>
+        <div class="pos-path-line"></div>
+        <div class="pos-path-node locked" data-phase="testing">
+          <div class="pos-path-dot">◇</div>
+          <span class="pos-path-label">Testing Phase</span>
+        </div>
+        <div class="pos-path-line"></div>
+        <div class="pos-path-node locked" data-phase="peak">
+          <div class="pos-path-dot">◇</div>
+          <span class="pos-path-label">Peak Week</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 3. INCLUDED SERVICES ─── -->
+    <section class="mem-services-section" id="membershipServices">
+      <span class="mem-section-tag">VERIFIED</span>
+      <h2 class="section-heading">What's Included</h2>
+      <p class="section-sub">Your membership provisions. Verified and active.</p>
+
+      <div class="mem-services-grid" id="servicesGrid">
+        <div class="pos-service-card">
+          <span class="pos-service-icon">⚡</span>
+          <div class="pos-service-name">Performance Training</div>
+          <span class="pos-service-detail">3x / week</span>
+          <span class="pos-service-badge included">Included</span>
+        </div>
+        <div class="pos-service-card">
+          <span class="pos-service-icon">💨</span>
+          <div class="pos-service-name">Speed Development</div>
+          <span class="pos-service-detail"></span>
+          <span class="pos-service-badge included">Included</span>
+        </div>
+        <div class="pos-service-card">
+          <span class="pos-service-icon">🏋️</span>
+          <div class="pos-service-name">Strength Programming</div>
+          <span class="pos-service-detail"></span>
+          <span class="pos-service-badge included">Included</span>
+        </div>
+        <div class="pos-service-card">
+          <span class="pos-service-icon">💬</span>
+          <div class="pos-service-name">Coach Communication</div>
+          <span class="pos-service-detail"></span>
+          <span class="pos-service-badge included">Included</span>
+        </div>
+        <div class="pos-service-card">
+          <span class="pos-service-icon">📈</span>
+          <div class="pos-service-name">Progress Tracking</div>
+          <span class="pos-service-detail"></span>
+          <span class="pos-service-badge included">Included</span>
+        </div>
+        <div class="pos-service-card">
+          <span class="pos-service-icon">🔄</span>
+          <div class="pos-service-name">Readiness Check-ins</div>
+          <span class="pos-service-detail"></span>
+          <span class="pos-service-badge included">Included</span>
+        </div>
+        <div class="pos-service-card">
+          <span class="pos-service-icon">📊</span>
+          <div class="pos-service-name">Monthly Performance Report</div>
+          <span class="pos-service-detail"></span>
+          <span class="pos-service-badge included">Included</span>
+        </div>
+        <div class="pos-service-card">
+          <span class="pos-service-icon">🎯</span>
+          <div class="pos-service-name">Testing &amp; Benchmarks</div>
+          <span class="pos-service-detail"></span>
+          <span class="pos-service-badge included">Included</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 4. ATTENDANCE QUALITY ─── -->
+    <section class="mem-attendance-section" id="membershipAttendance">
+      <span class="mem-section-tag">TRACKED</span>
+      <h2 class="section-heading">Attendance Quality</h2>
+      <p class="section-sub">Consistency is the standard. The system tracks every session.</p>
+
+      <div class="mem-attendance-card">
+        <div class="mem-att-top">
+          <div class="mem-att-rate" id="memAttRate">87%</div>
+          <div class="mem-att-meta">
+            <span class="mem-att-status needs-improvement" id="memAttStatus">Needs Improvement</span>
+            <span class="mem-att-target">Target: 90%</span>
+          </div>
+        </div>
+
+        <div class="mem-att-bar-container">
+          <span class="mem-att-bar-target-label">90%</span>
+          <div class="mem-att-bar-fill" style="--att-pct: 87%;"></div>
+          <div class="mem-att-bar-target"></div>
+        </div>
+
+        <div class="mem-att-dots" id="attendanceDots">
+          <!-- April 2025 — 30 days -->
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot missed"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot missed"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot missed"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot missed"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot attended"></div>
+          <div class="mem-att-dot missed"></div>
+          <div class="mem-att-dot attended"></div>
+        </div>
+        <div class="mem-att-dots-label">APRIL 2025 — 25 of 30 sessions verified</div>
+      </div>
+    </section>
+
+    <!-- ─── 5. UNLOCKABLE PREMIUM LAYERS ─── -->
+    <section class="mem-unlocks-section" id="membershipUnlocks">
+      <span class="mem-section-tag">EARNED</span>
+      <h2 class="section-heading">Unlockable Layers</h2>
+      <p class="section-sub">Consistency unlocks capability. Earn your next level.</p>
+
+      <div class="mem-unlocks-grid" id="unlocksGrid">
+        <!-- Unlocked -->
+        <div class="pos-unlock-card unlocked">
+          <div class="pos-unlock-icon">◆</div>
+          <div class="pos-unlock-info">
+            <h4 class="pos-unlock-name">Advanced Dashboard</h4>
+            <p class="pos-unlock-req">30 days consistent training</p>
+          </div>
+          <div class="pos-unlock-status">Unlocked ✓</div>
+        </div>
+
+        <div class="pos-unlock-card unlocked">
+          <div class="pos-unlock-icon">◆</div>
+          <div class="pos-unlock-info">
+            <h4 class="pos-unlock-name">Monthly Performance Report</h4>
+            <p class="pos-unlock-req">60 days consistent training</p>
+          </div>
+          <div class="pos-unlock-status">Unlocked ✓</div>
+        </div>
+
+        <!-- Locked — in progress -->
+        <div class="pos-unlock-card locked">
+          <div class="pos-unlock-icon">◇</div>
+          <div class="pos-unlock-info">
+            <h4 class="pos-unlock-name">Technique Archive Access</h4>
+            <p class="pos-unlock-req">90 days consistent training</p>
+            <div class="pos-unlock-progress">
+              <div class="pos-unlock-bar" style="--pct: 87%;"></div>
+            </div>
+          </div>
+          <div class="pos-unlock-status">12 days remaining</div>
+        </div>
+
+        <div class="pos-unlock-card locked">
+          <div class="pos-unlock-icon">◇</div>
+          <div class="pos-unlock-info">
+            <h4 class="pos-unlock-name">Coach Deep-Dive Review</h4>
+            <p class="pos-unlock-req">Top attendance — 95%+ rate required</p>
+            <div class="pos-unlock-progress">
+              <div class="pos-unlock-bar" style="--pct: 45%;"></div>
+            </div>
+          </div>
+          <div class="pos-unlock-status">Earn 95%+ attendance</div>
+        </div>
+
+        <div class="pos-unlock-card locked">
+          <div class="pos-unlock-icon">◇</div>
+          <div class="pos-unlock-info">
+            <h4 class="pos-unlock-name">Recruiting Profile Mode</h4>
+            <p class="pos-unlock-req">Complete combine prep phase</p>
+            <div class="pos-unlock-progress">
+              <div class="pos-unlock-bar" style="--pct: 0%;"></div>
+            </div>
+          </div>
+          <div class="pos-unlock-status">Complete combine prep phase</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 6. AVAILABLE UPGRADES ─── -->
+    <section class="mem-upgrades-section" id="membershipUpgrades">
+      <span class="mem-section-tag">UPGRADE</span>
+      <h2 class="section-heading">Available Upgrades</h2>
+      <p class="section-sub">Premium layers designed to accelerate your trajectory.</p>
+
+      <div class="mem-upgrades-grid" id="upgradesGrid">
+        <div class="pos-upgrade-card">
+          <h4 class="pos-upgrade-name">1-on-1 Speed Session</h4>
+          <p class="pos-upgrade-desc">Private speed coaching with film review. Personalized acceleration and top-end velocity work.</p>
+          <span class="pos-upgrade-price">$75/session</span>
+          <a href="#" class="pos-upgrade-btn">Learn More</a>
+        </div>
+
+        <div class="pos-upgrade-card">
+          <h4 class="pos-upgrade-name">Nutrition Coaching Add-on</h4>
+          <p class="pos-upgrade-desc">Personalized fueling strategy, macro targets, and weekly check-ins with a performance nutritionist.</p>
+          <span class="pos-upgrade-price">$99/month</span>
+          <a href="#" class="pos-upgrade-btn">Learn More</a>
+        </div>
+
+        <div class="pos-upgrade-card">
+          <h4 class="pos-upgrade-name">Recovery Protocol Package</h4>
+          <p class="pos-upgrade-desc">Cold plunge access, compression therapy, and guided recovery sessions to optimize adaptation.</p>
+          <span class="pos-upgrade-price">$49/month</span>
+          <a href="#" class="pos-upgrade-btn">Learn More</a>
+        </div>
+
+        <div class="pos-upgrade-card">
+          <h4 class="pos-upgrade-name">Combine Prep Intensive</h4>
+          <p class="pos-upgrade-desc">Full combine preparation — testing simulation, position-specific drills, and recruiting profile build.</p>
+          <span class="pos-upgrade-price">$199/month</span>
+          <a href="#" class="pos-upgrade-btn">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 7. MEMBERSHIP PROMISE ─── -->
+    <section class="mem-promise" id="membershipPromise">
+      <p class="mem-promise-text">Built for progress. Proven daily. Your membership is not a subscription — it's a commitment to your standard.</p>
+    </section>
+
+    <!-- ─── Footer ─── -->
+    <footer class="dash-footer">
+      <p>&copy; 2025 PPF Athletics. Built for progress. Proven daily.</p>
+    </footer>
+  </main>
+
+  <script src="../js/ppf-member.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof PPFMember !== 'undefined') {
+        if (typeof PPFMember.initMembership === 'function') {
+          PPFMember.initMembership();
+        }
+
+        /* Populate member name from profile */
+        var profile = PPFMember.getProfile();
+        if (profile && profile.firstName) {
+          var nameEl = document.getElementById('memName');
+          if (nameEl) nameEl.textContent = profile.firstName.toUpperCase();
+
+          var sinceEl = document.getElementById('memSince');
+          if (sinceEl && profile.joinDate) {
+            var d = new Date(profile.joinDate);
+            var months = ['January','February','March','April','May','June',
+                          'July','August','September','October','November','December'];
+            sinceEl.textContent = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+          }
+
+          /* Set tier badge from membership path */
+          var tierEl = document.getElementById('memTierBadge');
+          if (tierEl && profile.path) {
+            var tierMap = {
+              athlete: 'PPF ATHLETE',
+              adult: 'PPF ADULT',
+              integrated: 'PPF INTEGRATED',
+              guest: 'PPF GUEST'
+            };
+            tierEl.textContent = tierMap[profile.path] || 'PPF ATHLETE';
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
