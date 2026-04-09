@@ -1102,7 +1102,15 @@
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .pulse-vault { display: none; }
+  .pulse-vault {
+    transition: none;
+  }
+  .pv-brand {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .pv-canvas { display: none; }
   .cw-word,
   .ce-row,
   .atm-line,

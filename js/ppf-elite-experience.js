@@ -60,9 +60,10 @@
         p.radius = 80 + Math.sin(elapsed * 0.004 + p.phase) * 30;
 
         const alpha = 0.15 + 0.1 * (1 - convergeFactor);
+        const alphaInt = Math.min(255, Math.max(0, Math.round(alpha * 255)));
         const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius);
         grad.addColorStop(0, p.color + '44');
-        grad.addColorStop(0.5, p.color + Math.round(alpha * 255).toString(16).padStart(2, '0'));
+        grad.addColorStop(0.5, p.color + alphaInt.toString(16).padStart(2, '0'));
         grad.addColorStop(1, 'transparent');
         ctx.fillStyle = grad;
         ctx.beginPath();
@@ -497,8 +498,10 @@
     const origSuccess = qs('#formSuccess');
     if (!origSuccess) return;
 
+    let postSubmitShown = false;
+
     const mo = new MutationObserver(() => {
-      if (origSuccess.style.display === 'flex' || origSuccess.style.display === 'block' || origSuccess.classList.contains('visible')) {
+      if (!postSubmitShown && (origSuccess.style.display === 'flex' || origSuccess.style.display === 'block' || origSuccess.classList.contains('visible'))) {
         showPostSubmit();
       }
     });
@@ -507,13 +510,16 @@
     /* Also intercept form submit event */
     form.addEventListener('submit', () => {
       setTimeout(() => {
-        if (origSuccess.offsetHeight > 0) {
+        if (!postSubmitShown && origSuccess.offsetHeight > 0) {
           showPostSubmit();
         }
       }, 600);
     });
 
     function showPostSubmit() {
+      if (postSubmitShown) return;
+      postSubmitShown = true;
+      mo.disconnect();
       const pathSelect = qs('#path');
       if (pathBadge && pathSelect) {
         const val = pathSelect.value || 'your';
