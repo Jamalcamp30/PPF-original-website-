@@ -13,35 +13,9 @@
   overflow: hidden;
 }
 
+/* Surface texture overlay — disabled */
 .grs-zone::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.35;
-  background-image:
-    /* rubber speckle */
-    radial-gradient(circle 1px at 10% 15%, rgba(255,255,255,0.04) 0%, transparent 100%),
-    radial-gradient(circle 1px at 30% 45%, rgba(255,255,255,0.03) 0%, transparent 100%),
-    radial-gradient(circle 1px at 55% 20%, rgba(255,255,255,0.04) 0%, transparent 100%),
-    radial-gradient(circle 1px at 72% 60%, rgba(255,255,255,0.03) 0%, transparent 100%),
-    radial-gradient(circle 1px at 88% 35%, rgba(255,255,255,0.04) 0%, transparent 100%),
-    /* turf fiber grain */
-    repeating-linear-gradient(
-      92deg,
-      transparent,
-      transparent 3px,
-      rgba(255,255,255,0.012) 3px,
-      rgba(255,255,255,0.012) 4px
-    ),
-    repeating-linear-gradient(
-      88deg,
-      transparent,
-      transparent 5px,
-      rgba(255,255,255,0.008) 5px,
-      rgba(255,255,255,0.008) 6px
-    );
+  display: none;
 }
 
 /* ── Layer 2: Compression Field ───────────────────────
@@ -49,29 +23,18 @@
    Rendered by JS into .grs-pressure-field element.
    ───────────────────────────────────────────────────── */
 
+/* Pressure field — disabled */
 .grs-pressure-field {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  will-change: background;
-  mix-blend-mode: multiply;
+  display: none;
 }
 
 /* ── Layer 3: Ripple Response ─────────────────────────
    Low-contrast expanding pressure ring.
    ───────────────────────────────────────────────────── */
 
+/* Ripple — disabled */
 .grs-ripple {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  border: 1px solid rgba(255, 85, 0, 0.06);
-  background: transparent;
-  transform: scale(0);
-  opacity: 0;
-  will-change: transform, opacity;
+  display: none;
 }
 
 .grs-ripple.grs-ripple--active {

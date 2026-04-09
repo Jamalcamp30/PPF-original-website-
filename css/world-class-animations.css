@@ -368,40 +368,19 @@
   overflow: hidden;
 }
 
+/* Lane scanning — disabled (removes squiggly top border line) */
 .path-card.lane-scanning::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--orange) 30%,
-    var(--white) 50%,
-    var(--orange) 70%,
-    transparent 100%
-  );
-  z-index: 10;
-  animation: ppf-lane-scan 1.2s var(--ease-out-expo) forwards;
-  will-change: transform;
+  display: none;
 }
 
-/* Lane locked state */
+/* Lane locked state — disabled (removes border overlay) */
 .path-card.lane-locked {
-  animation: ppf-lane-lock-confirm 400ms var(--ease-spring) forwards;
-  border-color: var(--orange) !important;
+  animation: none;
+  border-color: inherit !important;
 }
 
 .path-card.lane-locked::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border: 1px solid var(--orange);
-  opacity: 0.3;
-  pointer-events: none;
-  border-radius: inherit;
+  display: none;
 }
 
 /* Path-specific hover: Athlete — sharp, fast */
@@ -440,23 +419,9 @@
   border-color: rgba(255, 85, 0, 0.35);
 }
 
-/* Path identity tag */
+/* Path identity tag — disabled */
 .path-identity-tag {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-family: var(--font-body);
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--orange);
-  padding: 4px 10px;
-  border: 1px solid rgba(255, 85, 0, 0.2);
-  background: rgba(255, 85, 0, 0.06);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 5;
+  display: none;
 }
 
 .path-card:hover .path-identity-tag {
@@ -474,18 +439,9 @@
   opacity: 1;
 }
 
+/* Ambient glow — disabled */
 .paths-ambient-glow {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0;
-  background: radial-gradient(
-    600px circle at var(--path-glow-x) var(--path-glow-y),
-    rgba(255, 85, 0, 0.04) 0%,
-    transparent 70%
-  );
-  transition: opacity 600ms var(--ease-out-expo);
-  z-index: 0;
+  display: none;
 }
 
 

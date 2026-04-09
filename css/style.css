@@ -723,10 +723,9 @@ button {
   transition: transform var(--transition-slow);
 }
 
+/* Path background animations — disabled */
 .path-bg-anim {
-  position: absolute;
-  inset: 0;
-  transition: opacity var(--transition-slow);
+  display: none;
 }
 
 .path-bg-athlete {
@@ -945,16 +944,12 @@ button {
 }
 
 /* Motion layers */
+/* Motion layers — disabled (removes speed lines / decorative overlays) */
 .path-motion-layer {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--transition-slow);
+  display: none;
 }
 
-.path-card:hover .path-motion-layer { opacity: 1; }
+.path-card:hover .path-motion-layer { opacity: 0; }
 
 /* Athlete motion — speed lines */
 .motion-line {
@@ -1542,33 +1537,20 @@ button {
 
 /* Enhanced per-path visual atmospheres */
 
-/* Athlete: high-energy, motion streaks, metric overlay feel */
+/* Athlete: clean background — no decorative pattern overlay */
 .path-card[data-path="athlete"] .path-card-inner {
-  background-image:
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 29px,
-      rgba(255, 85, 0, 0.02) 29px,
-      rgba(255, 85, 0, 0.02) 30px
-    );
+  background-image: none;
 }
 
-/* Adult: structured grid, steel/barbell texture */
+/* Adult: clean background — no decorative grid overlay */
 .path-card[data-path="adult"] .path-card-inner {
-  background-image:
-    linear-gradient(rgba(100, 140, 255, 0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(100, 140, 255, 0.015) 1px, transparent 1px);
-  background-size: 40px 40px;
+  background-image: none;
+  background-size: auto;
 }
 
-/* Integrated: softer, warmer glow overlay */
+/* Integrated: clean background — no decorative glow overlay */
 .path-card[data-path="integrated"] .path-card-inner {
-  background-image: radial-gradient(
-    ellipse at 50% 80%,
-    rgba(80, 200, 120, 0.04) 0%,
-    transparent 70%
-  );
+  background-image: none;
 }
 
 /* =====================================================
@@ -2046,6 +2028,99 @@ button {
 .room-btn:hover {
   background: rgba(255, 85, 0, 0.15);
   border-color: var(--orange);
+}
+
+/* =====================================================
+   FAMILY TRUST DASHBOARD — Blurb Grid
+   ===================================================== */
+.ftm-family-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.ftm-family-card {
+  padding: 20px 18px;
+  background: rgba(80,200,120,0.03);
+  border: 1px solid rgba(80,200,120,0.1);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.ftm-family-card:hover {
+  border-color: rgba(80,200,120,0.25);
+  background: rgba(80,200,120,0.06);
+}
+.ftm-family-card-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 1.5px;
+  color: #50c878;
+  margin-bottom: 0;
+}
+.ftm-family-card-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 12.5px;
+  color: rgba(255,255,255,0.6);
+  line-height: 1.55;
+}
+.ftm-family-card-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid rgba(80,200,120,0.08);
+  width: 100%;
+}
+.ftm-stat-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  color: #50c878;
+  letter-spacing: 1px;
+}
+.ftm-stat-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.ftm-family-card-contact {
+  margin-top: auto;
+  padding-top: 8px;
+  border-top: 1px solid rgba(80,200,120,0.08);
+  width: 100%;
+}
+.ftm-contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  color: #50c878;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.ftm-contact-link:hover {
+  opacity: 0.8;
+}
+.ftm-family-card--contact {
+  border-color: rgba(80,200,120,0.2);
+}
+@media (max-width: 768px) {
+  .ftm-family-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+@media (max-width: 480px) {
+  .ftm-family-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* =====================================================

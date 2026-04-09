@@ -7,7 +7,9 @@
 
 /* ── Core Rail Foundation ──────────────────────────────── */
 
+/* PPF Rail — disabled for clean layout */
 .ppf-rail {
+  display: none !important;
   position: fixed;
   top: 0;
   height: 100vh;
