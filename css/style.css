@@ -6522,6 +6522,7 @@ body.focus-mode .focus-target {
 .defense-item {
   position: relative;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 12px;
   padding: 10px 16px;
@@ -6536,6 +6537,18 @@ body.focus-mode .focus-target {
   border-color: rgba(255, 85, 0, 0.35);
   background: rgba(255, 85, 0, 0.06);
   box-shadow: 0 0 20px rgba(255, 85, 0, 0.08), inset 0 0 20px rgba(255, 85, 0, 0.04);
+}
+
+.defense-item::after {
+  content: '▾';
+  margin-left: auto;
+  font-size: 14px;
+  color: var(--orange);
+  transition: transform 0.3s ease;
+}
+
+.defense-item.scene-active::after {
+  transform: rotate(180deg);
 }
 
 .shield-ring {
@@ -6557,12 +6570,14 @@ body.focus-mode .focus-target {
   transition: background 0.3s ease;
 }
 
-.defense-item:hover .shield-ring {
+.defense-item:hover .shield-ring,
+.defense-item.scene-active .shield-ring {
   border-color: var(--orange);
   box-shadow: 0 0 12px rgba(255, 85, 0, 0.4);
 }
 
-.defense-item:hover .shield-ring::after {
+.defense-item:hover .shield-ring::after,
+.defense-item.scene-active .shield-ring::after {
   background: var(--orange);
 }
 
@@ -6575,25 +6590,21 @@ body.focus-mode .focus-target {
 }
 
 .defense-scene {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 8px 16px;
+  flex-basis: 100%;
+  max-height: 0;
+  overflow: hidden;
   font-size: 11px;
   color: var(--gray-300);
   background: rgba(255, 85, 0, 0.08);
-  border-top: 1px solid rgba(255, 85, 0, 0.15);
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
+  border-top: 0 solid rgba(255, 85, 0, 0.15);
+  padding: 0 16px;
+  transition: max-height 0.35s ease, padding 0.35s ease, border-top-width 0.35s ease;
 }
 
-.defense-item:hover .defense-scene {
-  transform: translateY(0);
-}
-
-.defense-item.scene-active {
-  padding-bottom: 40px;
+.defense-item.scene-active .defense-scene {
+  max-height: 120px;
+  padding: 8px 16px;
+  border-top-width: 1px;
 }
 
 /* ── FRAMEWORK (kept and enhanced) ─────────────────── */
