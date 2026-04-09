@@ -6199,6 +6199,239 @@ body.focus-mode .focus-target {
   padding-bottom: 0;
 }
 
+/* ── DUAL-COACH SPLIT SCREEN REVEAL ───────────────── */
+.coach-split {
+  position: relative;
+  display: flex;
+  height: 100vh;
+  min-height: 560px;
+  max-height: 900px;
+  overflow: hidden;
+  margin: 0 auto 64px;
+  max-width: 1400px;
+}
+
+/* Grid lines overlay */
+.cs-grid-lines {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-evenly;
+  pointer-events: none;
+  z-index: 3;
+}
+.cs-grid-lines span {
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Each half */
+.cs-half {
+  position: relative;
+  flex: 1 1 50%;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  cursor: pointer;
+  transition: flex 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover expand: hovered side grows, sibling shrinks */
+.coach-split:hover .cs-half {
+  flex: 1 1 35%;
+}
+.coach-split .cs-half:hover {
+  flex: 1 1 65%;
+}
+
+/* Backgrounds */
+.cs-half .cs-bg {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              filter 0.6s ease;
+  filter: brightness(0.55) grayscale(0.5);
+}
+.cs-richard .cs-bg {
+  background: linear-gradient(160deg, #0d0d0d 0%, #1a0800 40%, #0d0d0d 100%);
+}
+.cs-rebecca .cs-bg {
+  background: linear-gradient(200deg, #1a120a 0%, #0d0800 40%, #1a120a 100%);
+}
+.cs-half:hover .cs-bg {
+  transform: scale(1.06);
+  filter: brightness(0.75) grayscale(0);
+}
+
+/* Center divider */
+.cs-divider {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--orange), transparent);
+  opacity: 0.35;
+  z-index: 4;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+.coach-split:hover .cs-divider {
+  opacity: 0.12;
+}
+
+/* Content wrapper */
+.cs-content {
+  position: relative;
+  z-index: 2;
+  padding: 48px 40px;
+  width: 100%;
+  opacity: 0.7;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.cs-half:hover .cs-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Coach name */
+.cs-name {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 6vw, 96px);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1;
+  margin: 0 0 8px;
+}
+
+/* Title */
+.cs-title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 20px;
+}
+
+/* Quote */
+.cs-quote {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--gray-300);
+  font-style: italic;
+  margin: 0 0 24px;
+  max-width: 420px;
+  border: none;
+  padding: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
+}
+.cs-half:hover .cs-quote {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Tags */
+.cs-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease 0.15s, transform 0.4s ease 0.15s;
+}
+.cs-half:hover .cs-tags {
+  opacity: 1;
+  transform: translateY(0);
+}
+.cs-tag {
+  display: inline-block;
+  padding: 5px 14px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--white);
+  background: var(--tag-color, #555);
+  border-radius: 2px;
+}
+
+/* Bottom gradient fade on each half */
+.cs-half::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Split Screen — Mobile (<768px) ─────────────── */
+@media (max-width: 768px) {
+  .coach-split {
+    flex-direction: column;
+    height: auto;
+    max-height: none;
+    min-height: auto;
+    margin-bottom: 40px;
+  }
+  .cs-half {
+    flex: none;
+    height: 380px;
+  }
+  .coach-split:hover .cs-half,
+  .coach-split .cs-half:hover {
+    flex: none;
+  }
+  .cs-half.cs-active {
+    height: 480px;
+  }
+  .cs-divider {
+    left: 0;
+    top: auto;
+    bottom: 50%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--orange), transparent);
+  }
+  .cs-content {
+    padding: 32px 24px;
+    opacity: 1;
+    transform: none;
+  }
+  .cs-quote,
+  .cs-tags {
+    opacity: 1;
+    transform: none;
+  }
+  .cs-grid-lines {
+    display: none;
+  }
+}
+
+/* Reduced motion: disable split-screen transitions */
+@media (prefers-reduced-motion: reduce) {
+  .cs-half,
+  .cs-half .cs-bg,
+  .cs-content,
+  .cs-quote,
+  .cs-tags,
+  .cs-divider {
+    transition: none;
+  }
+  .cs-content,
+  .cs-quote,
+  .cs-tags {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .ldr-header {
   position: relative;
   z-index: 2;

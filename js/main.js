@@ -1951,6 +1951,25 @@
     const leadershipSection = qs('#leadership');
     if (!leadershipSection) return;
 
+    /* ── 0. DUAL-COACH SPLIT SCREEN REVEAL ────────────── */
+    (function initCoachSplit() {
+      var split = qs('#coachSplit');
+      if (!split) return;
+      var halves = qsa('.cs-half', split);
+      if (!halves.length) return;
+
+      /* Mobile: toggle active class on tap */
+      if (window.matchMedia('(max-width: 768px)').matches) {
+        halves.forEach(function(half) {
+          half.addEventListener('click', function() {
+            var wasActive = half.classList.contains('cs-active');
+            halves.forEach(function(h) { h.classList.remove('cs-active'); });
+            if (!wasActive) half.classList.add('cs-active');
+          });
+        });
+      }
+    })();
+
     /* ── 1. STANDARD LOCK ─────────────────────────────── */
     const stdLock = qs('#stdLock');
     const lockFill = qs('#lockFill');
