@@ -7944,7 +7944,13 @@ body.focus-mode .focus-target {
 }
 
 .force-panel.expanded .force-dropdown-content {
-  max-height: 2000px;
+  max-height: 2000px; /* generous max for variable content length */
+}
+
+/* Leader quotes inside dropdown are always visible when dropdown is open */
+.force-dropdown-content .leader-quote {
+  opacity: 1;
+  transform: none;
 }
 
 .force-dropdown-toggle {
