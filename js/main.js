@@ -1953,21 +1953,33 @@
 
     /* ── 0. DUAL-COACH SPLIT SCREEN REVEAL ────────────── */
     (function initCoachSplit() {
-      var split = qs('#coachSplit');
+      const split = qs('#coachSplit');
       if (!split) return;
-      var halves = qsa('.cs-half', split);
+      const halves = qsa('.cs-half', split);
       if (!halves.length) return;
 
-      /* Mobile: toggle active class on tap */
-      if (window.matchMedia('(max-width: 768px)').matches) {
+      /* Mobile: toggle active class on tap — responds to viewport changes */
+      const mobileQuery = window.matchMedia('(max-width: 768px)');
+
+      function onTap(half) {
+        const wasActive = half.classList.contains('cs-active');
+        halves.forEach(function(h) { h.classList.remove('cs-active'); });
+        if (!wasActive) half.classList.add('cs-active');
+      }
+
+      function handleMobile(e) {
         halves.forEach(function(half) {
-          half.addEventListener('click', function() {
-            var wasActive = half.classList.contains('cs-active');
-            halves.forEach(function(h) { h.classList.remove('cs-active'); });
-            if (!wasActive) half.classList.add('cs-active');
-          });
+          if (e.matches) {
+            half.addEventListener('click', half._csTap = function() { onTap(half); });
+          } else if (half._csTap) {
+            half.removeEventListener('click', half._csTap);
+            half.classList.remove('cs-active');
+          }
         });
       }
+
+      mobileQuery.addEventListener('change', handleMobile);
+      handleMobile(mobileQuery);
     })();
 
     /* ── 1. STANDARD LOCK ─────────────────────────────── */
