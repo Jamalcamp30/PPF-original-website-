@@ -7773,3 +7773,88 @@ body.focus-mode .focus-target {
     font-size: 20px;
   }
 }
+
+/* =====================================================
+   PATHS SECTION CLEANUP — No Animations, No Overlap
+   ===================================================== */
+.paths-section .paths-bg-canvas,
+.paths-section .paths-ambient-glow,
+.paths-section .path-bg-anim,
+.paths-section .path-coach-phrase,
+.paths-section .path-motion-layer,
+.paths-section .path-proof,
+.paths-section .path-why-exists {
+  display: none !important;
+}
+
+.paths-section .path-card {
+  height: auto;
+  min-height: 480px;
+  cursor: pointer;
+}
+
+.paths-section .path-card-inner {
+  position: relative;
+  inset: auto;
+}
+
+.paths-section .path-content {
+  position: relative;
+  background: none;
+  padding: 40px 32px;
+}
+
+.paths-section .path-card[data-path="athlete"] .path-card-inner {
+  background: linear-gradient(180deg, rgba(255,85,0,0.04) 0%, rgba(13,13,13,1) 100%);
+  border: 1px solid rgba(255,85,0,0.12);
+}
+.paths-section .path-card[data-path="adult"] .path-card-inner {
+  background: linear-gradient(180deg, rgba(106,143,255,0.04) 0%, rgba(13,13,13,1) 100%);
+  border: 1px solid rgba(106,143,255,0.12);
+}
+.paths-section .path-card[data-path="integrated"] .path-card-inner {
+  background: linear-gradient(180deg, rgba(80,200,120,0.04) 0%, rgba(13,13,13,1) 100%);
+  border: 1px solid rgba(80,200,120,0.12);
+}
+
+.paths-section .path-desc {
+  display: block;
+  opacity: 1;
+}
+
+.paths-section .path-highlights {
+  display: flex;
+  opacity: 1;
+}
+
+.paths-section .path-outcome {
+  display: block;
+  opacity: 1;
+}
+
+.paths-section .pulse-dot {
+  display: none;
+}
+
+.paths-section .path-day-preview {
+  position: relative;
+  top: auto;
+  right: auto;
+  opacity: 1;
+  pointer-events: auto;
+  padding: 20px 32px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Disable animations on path cards */
+.paths-section .path-card,
+.paths-section .path-card-inner,
+.paths-section .path-card *,
+.paths-section .paths-pulse-connector .pulse-dot {
+  animation: none !important;
+}
+
+.paths-section .lane-scanning::before,
+.paths-section .lane-locked::after {
+  display: none !important;
+}
