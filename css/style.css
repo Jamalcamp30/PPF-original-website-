@@ -7933,3 +7933,117 @@ body.focus-mode .focus-target {
 .paths-section .lane-locked::after {
   display: none !important;
 }
+
+/* =====================================================
+   LEADERSHIP — DROPDOWN ACCORDION (collapsed by default)
+   ===================================================== */
+.force-dropdown-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+.force-panel.expanded .force-dropdown-content {
+  max-height: 2000px; /* generous max for variable content length */
+}
+
+/* Leader quotes inside dropdown are always visible when dropdown is open */
+.force-dropdown-content .leader-quote {
+  opacity: 1;
+  transform: none;
+}
+
+.force-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255, 85, 0, 0.25);
+  background: rgba(255, 85, 0, 0.04);
+  color: var(--gray-300);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-body);
+  width: 100%;
+  justify-content: center;
+}
+
+.force-dropdown-toggle:hover {
+  border-color: var(--orange);
+  color: var(--white);
+  background: rgba(255, 85, 0, 0.1);
+}
+
+.force-toggle-icon {
+  transition: transform 0.3s ease;
+  font-size: 14px;
+}
+
+.force-panel.expanded .force-toggle-icon {
+  transform: rotate(180deg);
+}
+
+.force-panel.expanded .force-toggle-label::after {
+  content: none;
+}
+
+/* =====================================================
+   LEADERSHIP — REMOVE ORANGE SVG ARROW ON HOVER
+   ===================================================== */
+.force-panel .mo-svg {
+  display: none !important;
+}
+
+/* =====================================================
+   THREE PATHS — REMOVE ALL ANIMATIONS
+   ===================================================== */
+
+/* Remove entrance animations — override JS-set inline styles */
+.paths-section .path-card {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Remove hover transform animations */
+.paths-section .path-card-inner {
+  transition: none !important;
+  transform: none !important;
+}
+
+.paths-section .path-card[data-path="athlete"]:hover,
+.paths-section .path-card[data-path="adult"]:hover,
+.paths-section .path-card[data-path="integrated"]:hover {
+  transition-duration: 0s !important;
+  border-bottom-color: transparent;
+}
+
+.paths-section .path-card[data-path="athlete"]:hover .path-card-inner,
+.paths-section .path-card[data-path="adult"]:hover .path-card-inner,
+.paths-section .path-card[data-path="integrated"]:hover .path-card-inner {
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Remove pulse line animation */
+.paths-section .pulse-line::after {
+  animation: none !important;
+  display: none;
+}
+
+/* Remove SVG arc overlay on path cards */
+.paths-section .path-card .mo-svg {
+  display: none !important;
+}
+
+/* Remove reveal-up entrance animations in paths section */
+.paths-section .reveal-up {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}

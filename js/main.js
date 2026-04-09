@@ -2049,6 +2049,27 @@
     }, { threshold: 0.2 });
     forcePanels.forEach(function(p) { forceObserver.observe(p); });
 
+    /* ── FORCE PANEL DROPDOWN TOGGLES ────────────────── */
+    qsa('.force-dropdown-toggle').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var panel = btn.closest('.force-panel');
+        if (!panel) return;
+        var isExpanded = panel.classList.contains('expanded');
+        // Close all panels first
+        qsa('.force-panel.expanded').forEach(function(p) {
+          p.classList.remove('expanded');
+          var t = p.querySelector('.force-dropdown-toggle');
+          if (t) t.setAttribute('aria-expanded', 'false');
+        });
+        // Toggle this one
+        if (!isExpanded) {
+          panel.classList.add('expanded');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
     // Center seam visibility
     var seam = qs('#forcesSeam');
     if (seam) {
