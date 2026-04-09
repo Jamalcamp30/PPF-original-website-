@@ -33,6 +33,7 @@
   <link rel="stylesheet" href="css/ppf-systems.css" />
   <link rel="stylesheet" href="css/ppf-ground-response.css" />
   <link rel="stylesheet" href="css/ppf-session-sequence.css" />
+  <link rel="stylesheet" href="css/ppf-elite-experience.css" />
 
   <!-- Structured Data: SportsActivityLocation -->
   <script type="application/ld+json">
@@ -165,6 +166,33 @@
 </head>
 <body>
 
+  <!-- ============================================================
+       PULSE VAULT OPENING — CINEMATIC BRAND INTRO
+  ============================================================ -->
+  <div class="pulse-vault" id="pulseVault" aria-hidden="true">
+    <canvas class="pv-canvas" id="pvCanvas"></canvas>
+    <div class="pv-brand" id="pvBrand">
+      <div class="pv-brand-mark">PPF</div>
+      <div class="pv-brand-tag">Performance. Precision. Foundation.</div>
+    </div>
+  </div>
+
+  <!-- POST-SUBMIT TRANSFORMATION OVERLAY -->
+  <div class="post-submit-overlay" id="postSubmitOverlay">
+    <div class="ps-inner">
+      <div class="ps-badge"><span class="ps-badge-pulse"></span> YOU ARE NOW IN MOTION</div>
+      <h2 class="ps-title">Welcome to the System.</h2>
+      <p class="ps-sub">Your application has been received. A PPF coach — not an automated message — will reach out within 24 hours to confirm your path and schedule Day 1.</p>
+      <div class="ps-path-badge">YOUR PATH AWAITS</div>
+      <div class="ps-steps">
+        <div class="ps-step"><div class="ps-step-num">1</div><div class="ps-step-text">A coach reviews your submission and assigns your intake lane.</div></div>
+        <div class="ps-step"><div class="ps-step-num">2</div><div class="ps-step-text">You receive a direct call or text to schedule your first session.</div></div>
+        <div class="ps-step"><div class="ps-step-num">3</div><div class="ps-step-text">Day 1 begins — assessment, coaching, and your first real standard.</div></div>
+      </div>
+      <button class="ps-close" type="button">CONTINUE EXPLORING</button>
+    </div>
+  </div>
+
   <!-- CUSTOM CURSOR -->
   <div class="cursor-ring" id="cursorRing"></div>
   <div class="cursor-dot" id="cursorDot"></div>
@@ -196,6 +224,11 @@
   <section class="hero" id="hero">
     <canvas class="hero-canvas" id="heroCanvas"></canvas>
     <div class="hero-scanline"></div>
+
+    <!-- Hero Lock-On — cursor-responsive glow -->
+    <div class="hero-lockon-layer">
+      <div class="hero-lockon-glow"></div>
+    </div>
 
     <div class="hero-overlay"></div>
 
@@ -341,6 +374,38 @@
       </div>
     </div>
   </section>
+
+  <!-- ============================================================
+       COACHING LANGUAGE WALL — THE WORDS THAT BUILD THE ROOM
+  ============================================================ -->
+  <div class="env-transition" aria-hidden="true"></div>
+  <section class="section coaching-wall-section" id="coachingWall">
+    <div class="cw-inner">
+      <div class="cw-header">
+        <div class="section-label reveal-up">THE COACHING LANGUAGE</div>
+        <h2 class="section-title reveal-up">
+          These Words<br />
+          <span class="accent">Run the Room.</span>
+        </h2>
+      </div>
+      <div class="cw-words">
+        <span class="cw-word" data-explain="Every rep starts from the same position every time. Consistency is not optional — it is the precondition for progress.">RESET</span>
+        <span class="cw-word" data-explain="Acceleration is earned through mechanics, not effort alone. We coach the angles, the timing, and the intent behind every drive.">DRIVE</span>
+        <span class="cw-word" data-explain="Bracing is the language of control. It protects the spine, organizes force, and separates those who train from those who exercise.">BRACE</span>
+        <span class="cw-word" data-explain="The floor is information. Every ground contact sends a signal. We teach our athletes to own every surface they touch.">CONTACT</span>
+        <span class="cw-word" data-explain="We do not accept reps that simply exist. Every repetition has a purpose, a tempo, and a reason to count.">EARN IT</span>
+        <span class="cw-word" data-explain="Lock means stability before movement. The shoulder locks before the press. The hip locks before the sprint. Sequence matters.">LOCK</span>
+        <span class="cw-word" data-explain="Tempo controls adaptation. Slow where it matters, explosive where it counts. This is where coaching separates from counting reps.">TEMPO</span>
+        <span class="cw-word" data-explain="Tension is a skill. Maintaining full-body tension under load is what builds resilient, capable athletes and adults.">TENSION</span>
+        <span class="cw-word" data-explain="Posture is position. We cue it, correct it, and hold it to standard because movement quality starts with where you stand.">POSTURE</span>
+        <span class="cw-word" data-explain="Transfer means it carries outside these walls. Every exercise has a real-world application — or it does not belong in the program.">TRANSFER</span>
+      </div>
+      <div class="cw-explainer">
+        <p class="cw-explainer-text" id="cwExplainer"></p>
+      </div>
+    </div>
+  </section>
+  <div class="env-transition" aria-hidden="true"></div>
 
   <!-- ============================================================
        SECTION 3 — THREE PATHS. ONE STANDARD.
@@ -597,6 +662,129 @@
       </div>
     </div>
   </section>
+
+  <!-- ============================================================
+       FLOOR INTELLIGENCE MAP — INTERACTIVE FACILITY ZONES
+  ============================================================ -->
+  <div class="env-transition" aria-hidden="true"></div>
+  <section class="section floor-map-section" id="floorMap">
+    <div class="fm-container">
+      <div class="fm-header">
+        <div class="section-label reveal-up">THE FLOOR</div>
+        <h2 class="section-title reveal-up">
+          Every Zone<br />
+          <span class="accent">Has a Purpose.</span>
+        </h2>
+        <p class="section-intro reveal-up">This is not a gym floor. It is a coached environment where every square foot is built for a specific outcome. Tap a zone to see what it builds.</p>
+      </div>
+      <div class="fm-grid">
+        <div class="fm-zone" data-zone="sprint">
+          <div class="fm-zone-name">SPRINT LANE</div>
+          <div class="fm-zone-detail">
+            <div class="fm-zone-builds">BUILDS: ACCELERATION · FIRST STEP · TOP SPEED</div>
+            <div class="fm-zone-desc">40-yard turf lane with timing gates. Where athletes learn to produce force into the ground and translate it into speed that shows up on game day.</div>
+            <div class="fm-zone-path-tag">PRIMARY: ATHLETE</div>
+          </div>
+        </div>
+        <div class="fm-zone" data-zone="platform">
+          <div class="fm-zone-name">LIFTING PLATFORMS</div>
+          <div class="fm-zone-detail">
+            <div class="fm-zone-builds">BUILDS: STRENGTH · POWER · STRUCTURAL INTEGRITY</div>
+            <div class="fm-zone-desc">Olympic platforms for deadlift, clean, squat, and press. Every lift is coached, cued, and held to standard. No unearned weight moves here.</div>
+            <div class="fm-zone-path-tag">ALL PATHS</div>
+          </div>
+        </div>
+        <div class="fm-zone" data-zone="agility">
+          <div class="fm-zone-name">AGILITY GRID</div>
+          <div class="fm-zone-detail">
+            <div class="fm-zone-builds">BUILDS: CHANGE OF DIRECTION · REACTION · BODY CONTROL</div>
+            <div class="fm-zone-desc">Open floor with cone setups, ladder drills, and reactive circuits. Where movement quality meets decision speed under pressure.</div>
+            <div class="fm-zone-path-tag">PRIMARY: ATHLETE</div>
+          </div>
+        </div>
+        <div class="fm-zone" data-zone="conditioning">
+          <div class="fm-zone-name">CONDITIONING BAY</div>
+          <div class="fm-zone-detail">
+            <div class="fm-zone-builds">BUILDS: ENDURANCE · WORK CAPACITY · MENTAL TOUGHNESS</div>
+            <div class="fm-zone-desc">Sleds, rowers, bikes, and bodyweight circuits. Structured intervals that push capacity and teach adults to work at a level they didn't think was possible.</div>
+            <div class="fm-zone-path-tag">PRIMARY: ADULT</div>
+          </div>
+        </div>
+        <div class="fm-zone" data-zone="movement">
+          <div class="fm-zone-name">MOVEMENT LAB</div>
+          <div class="fm-zone-detail">
+            <div class="fm-zone-builds">BUILDS: COORDINATION · MOTOR SKILL · CONFIDENCE</div>
+            <div class="fm-zone-desc">Sensory-friendly station with adapted equipment, visual cues, and structured play. Where integrated members develop independence through coached repetition.</div>
+            <div class="fm-zone-path-tag">PRIMARY: INTEGRATED</div>
+          </div>
+        </div>
+        <div class="fm-zone" data-zone="assessment">
+          <div class="fm-zone-name">ASSESSMENT STATION</div>
+          <div class="fm-zone-detail">
+            <div class="fm-zone-builds">BUILDS: BASELINE DATA · MOVEMENT PROFILE · TRACKING</div>
+            <div class="fm-zone-desc">Where every member starts. Movement screens, benchmark tests, and progress check-ins live here. Data drives decisions, not guesswork.</div>
+            <div class="fm-zone-path-tag">ALL PATHS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STANDARD INDEX — WHAT PPF ACTUALLY MEASURES
+  ============================================================ -->
+  <div class="env-transition" aria-hidden="true"></div>
+  <section class="section standard-index-section" id="standardIndex">
+    <div class="si-container">
+      <div class="si-header">
+        <div class="section-label reveal-up">THE STANDARD INDEX</div>
+        <h2 class="section-title reveal-up">
+          We Don't Just Count Reps.<br />
+          <span class="accent">We Measure What Matters.</span>
+        </h2>
+        <p class="section-intro reveal-up">These are the six dimensions PPF holds every member accountable to. Not vanity metrics. Not before-and-after photos. The real indicators of coached progression.</p>
+      </div>
+      <div class="si-grid">
+        <div class="si-metric" data-metric="consistency">
+          <div class="si-metric-rank">01</div>
+          <div class="si-metric-name">CONSISTENCY</div>
+          <div class="si-metric-desc">Show up. Not when it's convenient — when it's scheduled. The foundation of everything PPF builds is built on presence.</div>
+          <div class="si-metric-bar"><div class="si-metric-fill" style="--fill: 92%"></div></div>
+        </div>
+        <div class="si-metric" data-metric="coaching-response">
+          <div class="si-metric-rank">02</div>
+          <div class="si-metric-name">COACHING RESPONSE</div>
+          <div class="si-metric-desc">How quickly a member applies a coaching cue. Not compliance — internalization. The cue becomes the habit.</div>
+          <div class="si-metric-bar"><div class="si-metric-fill" style="--fill: 85%"></div></div>
+        </div>
+        <div class="si-metric" data-metric="movement-quality">
+          <div class="si-metric-rank">03</div>
+          <div class="si-metric-name">MOVEMENT QUALITY</div>
+          <div class="si-metric-desc">Can you move correctly under load, under fatigue, under pressure? That's what separates trained from untrained.</div>
+          <div class="si-metric-bar"><div class="si-metric-fill" style="--fill: 88%"></div></div>
+        </div>
+        <div class="si-metric" data-metric="output">
+          <div class="si-metric-rank">04</div>
+          <div class="si-metric-name">OUTPUT</div>
+          <div class="si-metric-desc">What you produce when it counts — watts, velocity, load, time. Measurable, repeatable, coachable.</div>
+          <div class="si-metric-bar"><div class="si-metric-fill" style="--fill: 80%"></div></div>
+        </div>
+        <div class="si-metric" data-metric="accountability">
+          <div class="si-metric-rank">05</div>
+          <div class="si-metric-name">ACCOUNTABILITY</div>
+          <div class="si-metric-desc">Do you own your training? Logging, tracking, communicating, adjusting. The system works when you work with it.</div>
+          <div class="si-metric-bar"><div class="si-metric-fill" style="--fill: 78%"></div></div>
+        </div>
+        <div class="si-metric" data-metric="repeatability">
+          <div class="si-metric-rank">06</div>
+          <div class="si-metric-name">REPEATABILITY</div>
+          <div class="si-metric-desc">Can you reproduce performance on demand? One good day means nothing. Consistent excellence under varying conditions — that is the standard.</div>
+          <div class="si-metric-bar"><div class="si-metric-fill" style="--fill: 83%"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="env-transition" aria-hidden="true"></div>
 
   <!-- ============================================================
        SECTION 4 — PROOF ENGINE
@@ -998,12 +1186,62 @@
           </div>
         </div>
       </div>
+
+      <!-- PROOF CHAMBER — PERFORMANCE FILES -->
+      <div class="section-label reveal-up" style="margin-top:80px">THE PROOF CHAMBER</div>
+      <h3 class="section-title reveal-up" style="font-size:clamp(1.4rem,3vw,2rem);margin-bottom:32px">
+        Open the File.<br />
+        <span class="accent">See the Process.</span>
+      </h3>
+
+      <div class="pc-file reveal-up">
+        <div class="pc-file-header">
+          <div class="pc-file-id">PPF-ATH-0147</div>
+          <div class="pc-file-status">VERIFIED</div>
+        </div>
+        <div class="pc-file-grid">
+          <div><div class="pc-file-block-label">BEFORE STATE</div><div class="pc-file-block-value">4.98s 40-yard, poor hip position at start, compensating with upper body lean</div></div>
+          <div><div class="pc-file-block-label">COACH INTERVENTION</div><div class="pc-file-block-value">Rebuilt shin angle at drive phase, loaded glute-ham emphasis 3×/week, sprint mechanics 2×/week</div></div>
+          <div><div class="pc-file-block-label">TIMELINE</div><div class="pc-file-block-value">14 weeks — 3 benchmark retests — consistent attendance 94%</div></div>
+          <div><div class="pc-file-block-label">OUTCOME</div><div class="pc-file-block-value">4.61s 40-yard, D1 offer received, scholarship athlete — built from the ground up</div></div>
+        </div>
+        <div class="pc-file-quote">"Richard didn't just make me faster. He taught me how to run. I didn't know what real coaching was until I trained here." — Marcus T., Athlete Path</div>
+      </div>
+
+      <div class="pc-file reveal-up">
+        <div class="pc-file-header">
+          <div class="pc-file-id">PPF-ADL-0289</div>
+          <div class="pc-file-status">VERIFIED</div>
+        </div>
+        <div class="pc-file-grid">
+          <div><div class="pc-file-block-label">BEFORE STATE</div><div class="pc-file-block-value">Sedentary 5+ years, lower back pain, 0 structured training history</div></div>
+          <div><div class="pc-file-block-label">COACH INTERVENTION</div><div class="pc-file-block-value">Mobility-first protocol, progressive deadlift coaching, accountable 3×/week schedule</div></div>
+          <div><div class="pc-file-block-label">TIMELINE</div><div class="pc-file-block-value">22 weeks — 4 benchmark retests — zero missed scheduled sessions</div></div>
+          <div><div class="pc-file-block-label">OUTCOME</div><div class="pc-file-block-value">Deadlifting 1.5× bodyweight, pain-free, body composition improved 18%, energy transformed</div></div>
+        </div>
+        <div class="pc-file-quote">"I came in thinking I was too old. They showed me I was just untrained. This is not a gym — it is a system that actually works." — David R., Adult Path</div>
+      </div>
+
+      <div class="pc-file reveal-up">
+        <div class="pc-file-header">
+          <div class="pc-file-id">PPF-INT-0063</div>
+          <div class="pc-file-status">VERIFIED</div>
+        </div>
+        <div class="pc-file-grid">
+          <div><div class="pc-file-block-label">BEFORE STATE</div><div class="pc-file-block-value">Low motor coordination, limited independence, withdrawn in group settings</div></div>
+          <div><div class="pc-file-block-label">COACH INTERVENTION</div><div class="pc-file-block-value">Adapted 1:1 coaching, sensory-aware programming, task-independence progression model</div></div>
+          <div><div class="pc-file-block-label">TIMELINE</div><div class="pc-file-block-value">30 weeks — continuous milestone tracking — family-integrated sessions</div></div>
+          <div><div class="pc-file-block-label">OUTCOME</div><div class="pc-file-block-value">Completing 5 exercises independently, voluntary peer interaction, family reports transformed home confidence</div></div>
+        </div>
+        <div class="pc-file-quote">"Rebecca sees my son as an athlete. Not a diagnosis. That changed everything for our family." — Sandra J., Integrated Path</div>
+      </div>
     </div>
   </section>
 
   <!-- ============================================================
        PPF FILM ROOM — MOVEMENT BREAKDOWN SYSTEM
   ============================================================ -->
+  <div class="env-transition" aria-hidden="true"></div>
   <section class="section film-room-section" id="filmRoom">
     <div class="container">
       <div class="section-label reveal-up">THE FILM ROOM</div>
@@ -1214,6 +1452,94 @@
   </section>
 
   <!-- ============================================================
+       PATH DECODER — PREMIUM DECISION ENGINE
+  ============================================================ -->
+  <div class="env-transition" aria-hidden="true"></div>
+  <section class="section path-decoder-section" id="pathDecoder">
+    <div class="pd-container">
+      <div class="pd-header">
+        <div class="section-label reveal-up">PATH DECODER</div>
+        <h2 class="section-title reveal-up">
+          We'll Find Your Lane.<br />
+          <span class="accent">You Just Answer.</span>
+        </h2>
+        <p class="section-intro reveal-up">Five questions. No fluff. The site reconfigures around your result.</p>
+      </div>
+
+      <div class="pd-progress">
+        <div class="pd-pip pd-pip-current"></div>
+        <div class="pd-pip"></div>
+        <div class="pd-pip"></div>
+        <div class="pd-pip"></div>
+        <div class="pd-pip"></div>
+      </div>
+
+      <!-- Q1 -->
+      <div class="pd-question pd-active" data-step="1">
+        <div class="pd-q-text">WHAT DRIVES YOU INTO A TRAINING FACILITY?</div>
+        <div class="pd-options">
+          <div class="pd-option" data-value="athlete"><span class="pd-option-icon">⚡</span><span class="pd-option-label">Competitive Edge</span></div>
+          <div class="pd-option" data-value="adult"><span class="pd-option-icon">◆</span><span class="pd-option-label">Strength & Health</span></div>
+          <div class="pd-option" data-value="integrated"><span class="pd-option-icon">●</span><span class="pd-option-label">Independence & Growth</span></div>
+          <div class="pd-option" data-value="adult"><span class="pd-option-icon">▲</span><span class="pd-option-label">Accountability</span></div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="pd-question" data-step="2">
+        <div class="pd-q-text">HOW DO YOU DEFINE A SUCCESSFUL TRAINING SESSION?</div>
+        <div class="pd-options">
+          <div class="pd-option" data-value="athlete"><span class="pd-option-icon">⚡</span><span class="pd-option-label">I Got Faster or Stronger</span></div>
+          <div class="pd-option" data-value="adult"><span class="pd-option-icon">◆</span><span class="pd-option-label">I Pushed Past a Limit</span></div>
+          <div class="pd-option" data-value="integrated"><span class="pd-option-icon">●</span><span class="pd-option-label">I Did Something New</span></div>
+          <div class="pd-option" data-value="athlete"><span class="pd-option-icon">▲</span><span class="pd-option-label">The Coach Saw Improvement</span></div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="pd-question" data-step="3">
+        <div class="pd-q-text">WHAT DO YOU NEED MOST FROM A COACH?</div>
+        <div class="pd-options">
+          <div class="pd-option" data-value="athlete"><span class="pd-option-icon">⚡</span><span class="pd-option-label">Technical Precision</span></div>
+          <div class="pd-option" data-value="adult"><span class="pd-option-icon">◆</span><span class="pd-option-label">Structure & Discipline</span></div>
+          <div class="pd-option" data-value="integrated"><span class="pd-option-icon">●</span><span class="pd-option-label">Patience & Adaptation</span></div>
+          <div class="pd-option" data-value="adult"><span class="pd-option-icon">▲</span><span class="pd-option-label">Honest Feedback</span></div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="pd-question" data-step="4">
+        <div class="pd-q-text">WHAT DOES YOUR IDEAL TRAINING WEEK LOOK LIKE?</div>
+        <div class="pd-options">
+          <div class="pd-option" data-value="athlete"><span class="pd-option-icon">⚡</span><span class="pd-option-label">4-5 Days, Sport-Specific</span></div>
+          <div class="pd-option" data-value="adult"><span class="pd-option-icon">◆</span><span class="pd-option-label">3-4 Days, Full-Body</span></div>
+          <div class="pd-option" data-value="integrated"><span class="pd-option-icon">●</span><span class="pd-option-label">2-3 Days, Coached & Adapted</span></div>
+          <div class="pd-option" data-value="adult"><span class="pd-option-icon">▲</span><span class="pd-option-label">Whatever Gets Results</span></div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="pd-question" data-step="5">
+        <div class="pd-q-text">WHAT DOES SUCCESS LOOK LIKE IN 90 DAYS?</div>
+        <div class="pd-options">
+          <div class="pd-option" data-value="athlete"><span class="pd-option-icon">⚡</span><span class="pd-option-label">A Measurable Performance Gain</span></div>
+          <div class="pd-option" data-value="adult"><span class="pd-option-icon">◆</span><span class="pd-option-label">A Body That Works Better</span></div>
+          <div class="pd-option" data-value="integrated"><span class="pd-option-icon">●</span><span class="pd-option-label">More Confidence & Independence</span></div>
+          <div class="pd-option" data-value="athlete"><span class="pd-option-icon">▲</span><span class="pd-option-label">A Coach Who Knows My Name</span></div>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="pd-result" id="pdResult">
+        <div class="pd-result-path" data-path="">YOUR PATH</div>
+        <div class="pd-result-desc"></div>
+        <a href="#start" class="pd-result-cta">CLAIM YOUR 3-DAY EXPERIENCE →</a>
+      </div>
+    </div>
+  </section>
+  <div class="env-transition" aria-hidden="true"></div>
+
+  <!-- ============================================================
        CARRYOVER VISION — PPF Signature System
   ============================================================ -->
   <section class="section carryover-section" id="carryover">
@@ -1283,6 +1609,41 @@
             <div class="trail-connector"></div>
             <div class="trail-node trail-node-final" data-step="5"><span class="tn-label">A Transformed Life</span></div>
           </div>
+        </div>
+      </div>
+
+      <!-- CARRYOVER ENGINE — HOW COACHING BECOMES OUTCOME -->
+      <div class="section-label reveal-up" style="margin-top:72px">THE CARRYOVER ENGINE</div>
+      <h3 class="section-title reveal-up" style="font-size:clamp(1.4rem,3vw,2rem);margin-bottom:32px">
+        Correction → Progression → Retest → <span class="accent">Transfer.</span>
+      </h3>
+      <div class="ce-pipeline">
+        <div class="ce-row">
+          <div class="ce-stage"><div class="ce-stage-label">CORRECTION</div><div class="ce-stage-title">Coach identifies a fault in movement or motor pattern</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">PROGRESSION</div><div class="ce-stage-title">Targeted drills build the correction into the body</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">RETEST</div><div class="ce-stage-title">Benchmark confirms the correction holds under load</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">TRANSFER</div><div class="ce-stage-title">The gain shows up in sport, in life, in confidence</div></div>
+        </div>
+        <div class="ce-row">
+          <div class="ce-stage"><div class="ce-stage-label">EXAMPLE: ATHLETE</div><div class="ce-stage-title">Hip position at sprint start is too high</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">COACHED</div><div class="ce-stage-title">Wall drives, sled marches, angled starts 3×/week</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">RETESTED</div><div class="ce-stage-title">10-yard split drops from 1.72s to 1.54s</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">TRANSFERRED</div><div class="ce-stage-title">Faster off the line on game day — college scouts notice</div></div>
+        </div>
+        <div class="ce-row">
+          <div class="ce-stage"><div class="ce-stage-label">EXAMPLE: ADULT</div><div class="ce-stage-title">Cannot hinge without lower back compensation</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">COACHED</div><div class="ce-stage-title">RDLs, hip CARs, bracing drills, tempo work</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">RETESTED</div><div class="ce-stage-title">Pain-free deadlift at 1.5× bodyweight in 16 weeks</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">TRANSFERRED</div><div class="ce-stage-title">Plays with kids without pain for the first time in years</div></div>
         </div>
       </div>
     </div>
@@ -1423,9 +1784,148 @@
     </div>
   </section>
 
+  <!-- ============================================================
+       SESSION ATMOSPHERE — FEEL THE ROOM BEFORE YOU ENTER IT
+  ============================================================ -->
+  <div class="env-transition" aria-hidden="true"></div>
+  <section class="section atmosphere-section" id="atmosphere">
+    <div class="atm-bg"></div>
+    <div class="atm-vignette"></div>
+    <div class="atm-content">
+      <div class="atm-lines">
+        <div class="atm-line">
+          <div class="atm-line-text">THE LIGHTS ARE LOW.</div>
+          <div class="atm-line-sub">But the standard is not.</div>
+          <div class="atm-divider"></div>
+        </div>
+        <div class="atm-line">
+          <div class="atm-line-text">EVERY REP HAS A CUE.</div>
+          <div class="atm-line-sub">No one trains unsupervised.</div>
+          <div class="atm-divider"></div>
+        </div>
+        <div class="atm-line">
+          <div class="atm-line-text">THE MUSIC DOES NOT SET THE TEMPO.</div>
+          <div class="atm-line-sub">The coaching does.</div>
+          <div class="atm-divider"></div>
+        </div>
+        <div class="atm-line">
+          <div class="atm-line-text">THE FLOOR IS QUIET UNTIL IT’S NOT.</div>
+          <div class="atm-line-sub">Controlled intensity. Earned volume.</div>
+          <div class="atm-divider"></div>
+        </div>
+        <div class="atm-line">
+          <div class="atm-line-text">THIS IS THE ROOM.</div>
+          <div class="atm-line-sub">And it does not apologize.</div>
+          <div class="atm-divider"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ============================================================
+       STANDARD ARCHIVES — ARTIFACTS OF THE WORK
+  ============================================================ -->
+  <div class="env-transition" aria-hidden="true"></div>
+  <section class="section archives-section" id="standardArchives">
+    <div class="sa-container">
+      <div class="sa-header">
+        <div class="section-label reveal-up">THE ARCHIVES</div>
+        <h2 class="section-title reveal-up">
+          The Work<br />
+          <span class="accent">Leaves Evidence.</span>
+        </h2>
+        <p class="section-intro reveal-up">This is not a highlight reel. These are artifacts from inside the system — handwritten boards, benchmark cards, progression notes, and moments that define what coaching actually looks like.</p>
+      </div>
+      <div class="sa-vault">
+        <div class="sa-artifact">
+          <div class="sa-artifact-type">BENCHMARK CARD</div>
+          <div class="sa-artifact-title">40-Yard Testing Day</div>
+          <div class="sa-artifact-desc">Time-stamped sprint results from a Saturday athlete combine. Every split accounted for. Every name on the board earned it.</div>
+          <div class="sa-artifact-stamp">PPF ARCHIVE · 2024</div>
+        </div>
+        <div class="sa-artifact">
+          <div class="sa-artifact-type">WHITEBOARD CAPTURE</div>
+          <div class="sa-artifact-title">Tuesday Program Board</div>
+          <div class="sa-artifact-desc">The day’s programming written by hand. Warm-up blocks, working sets, coached progressions, and time domains — all visible before the session starts.</div>
+          <div class="sa-artifact-stamp">PPF ARCHIVE · WEEKLY</div>
+        </div>
+        <div class="sa-artifact">
+          <div class="sa-artifact-type">PROGRESS NOTE</div>
+          <div class="sa-artifact-title">Athlete Advancement Log</div>
+          <div class="sa-artifact-desc">A coach-written note documenting a 14-year-old’s progression from a 5.1s to 4.7s 40-yard dash over 12 weeks.</div>
+          <div class="sa-artifact-stamp">PPF ARCHIVE · Q3 2024</div>
+        </div>
+        <div class="sa-artifact">
+          <div class="sa-artifact-type">MILESTONE MOMENT</div>
+          <div class="sa-artifact-title">First Independent Exercise</div>
+          <div class="sa-artifact-desc">An integrated member completing a goblet squat without assistance for the first time. The room noticed. The coach documented it. The family celebrated.</div>
+          <div class="sa-artifact-stamp">PPF ARCHIVE · INTEGRATED</div>
+        </div>
+        <div class="sa-artifact">
+          <div class="sa-artifact-type">TRAINING PLAN</div>
+          <div class="sa-artifact-title">12-Week Adult Protocol</div>
+          <div class="sa-artifact-desc">A structured periodized plan moving an adult member from zero lifting history to a confident, coached deadlift at 1.5× bodyweight in 12 weeks.</div>
+          <div class="sa-artifact-stamp">PPF ARCHIVE · ADULT PATH</div>
+        </div>
+        <div class="sa-artifact">
+          <div class="sa-artifact-type">COACH COMMENT</div>
+          <div class="sa-artifact-title">“She’s Ready to Move Up”</div>
+          <div class="sa-artifact-desc">A handwritten note from Rebecca on a session debrief sheet. A quiet recognition that a member met the internal criteria to progress.</div>
+          <div class="sa-artifact-stamp">PPF ARCHIVE · INTERNAL</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-
+  <!-- ============================================================
+       FIRST VISIT SIMULATOR — PREVIEW YOUR FIRST 10 MINUTES
+  ============================================================ -->
+  <div class="env-transition" aria-hidden="true"></div>
+  <section class="section visit-sim-section" id="visitSim">
+    <div class="vs-container">
+      <div class="vs-header">
+        <div class="section-label reveal-up">FIRST VISIT SIMULATOR</div>
+        <h2 class="section-title reveal-up">
+          Your First 10 Minutes.<br />
+          <span class="accent">Before You Walk In.</span>
+        </h2>
+        <p class="section-intro reveal-up">No surprises. No intimidation. Here is exactly what your first visit to PPF looks like, minute by minute.</p>
+      </div>
+      <div class="vs-timeline">
+        <div class="vs-moment">
+          <div class="vs-moment-time">MINUTE 0:00</div>
+          <div class="vs-moment-title">YOU ARRIVE</div>
+          <div class="vs-moment-desc">You walk in and a coach greets you by name. Not a front desk. Not a kiosk. A coach who already reviewed your intake form and knows your path.</div>
+        </div>
+        <div class="vs-moment">
+          <div class="vs-moment-time">MINUTE 1:00</div>
+          <div class="vs-moment-title">THE WALK-THROUGH</div>
+          <div class="vs-moment-desc">Your coach walks you through the facility: sprint lane, platforms, conditioning bay, assessment station.</div>
+        </div>
+        <div class="vs-moment">
+          <div class="vs-moment-time">MINUTE 3:00</div>
+          <div class="vs-moment-title">GOAL CONVERSATION</div>
+          <div class="vs-moment-desc">Not a questionnaire — a real conversation. Your coach asks what brought you in, what you’ve tried before, and what you want to feel like in 90 days.</div>
+        </div>
+        <div class="vs-moment">
+          <div class="vs-moment-time">MINUTE 5:00</div>
+          <div class="vs-moment-title">MOVEMENT EVALUATION</div>
+          <div class="vs-moment-desc">A coach-led screen of how you move. Squat pattern, hinge, single-leg stability, upper body mobility. No judgment — just data.</div>
+        </div>
+        <div class="vs-moment">
+          <div class="vs-moment-time">MINUTE 8:00</div>
+          <div class="vs-moment-title">FIRST COACHED SET</div>
+          <div class="vs-moment-desc">You complete your first coached exercise. The coach cues, corrects, and watches your response. This is the difference between a gym and a coaching system.</div>
+        </div>
+        <div class="vs-moment">
+          <div class="vs-moment-time">MINUTE 10:00</div>
+          <div class="vs-moment-title">YOU UNDERSTAND</div>
+          <div class="vs-moment-desc">In ten minutes, you know your starting point, your path recommendation, and what the standard expects. The next session is already scheduled.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="env-transition" aria-hidden="true"></div>
 
   <!-- ============================================================
        SECTION 6 — LEADERSHIP: THE AUTHORITY SYSTEM
@@ -1441,6 +1941,16 @@
       </h2>
       <p class="section-intro reveal-up">
         The PPF standard exists because of the people who protect it every single day. These are not instructors filling time slots. These are coaches who built this system and will defend it.
+      </p>
+    </div>
+
+    <!-- LEADERSHIP PRESENCE — CINEMATIC INTRO -->
+    <div class="ldr-presence-intro">
+      <p class="ldr-presence-text">
+        They did not inherit this standard.<br />
+        They <em>built</em> it. They <em>protect</em> it.<br />
+        And every person who walks through that door<br />
+        meets it through <em>them</em>.
       </p>
     </div>
 
@@ -1962,6 +2472,29 @@
         </div>
       </div>
 
+      <!-- COMMITMENT METER — INTERACTIVE DEPTH VISUALIZATION -->
+      <div class="cm-visual reveal-up">
+        <div class="cm-track">
+          <div class="cm-fill"></div>
+          <div class="cm-handle"></div>
+        </div>
+        <div class="cm-levels">
+          <span class="cm-level-label cm-level-active">ENTRY</span>
+          <span class="cm-level-label">COMMITTED</span>
+          <span class="cm-level-label">INVESTED</span>
+          <span class="cm-level-label">ALL-IN</span>
+        </div>
+        <div class="cm-benefits">
+          <div class="cm-benefit cm-unlocked"><span class="cm-benefit-dot"></span><span class="cm-benefit-text">Coach-led group training in your lane</span></div>
+          <div class="cm-benefit"><span class="cm-benefit-dot"></span><span class="cm-benefit-text">Structured programming and accountability</span></div>
+          <div class="cm-benefit"><span class="cm-benefit-dot"></span><span class="cm-benefit-text">Benchmark tracking and retest cycles</span></div>
+          <div class="cm-benefit"><span class="cm-benefit-dot"></span><span class="cm-benefit-text">Private coaching sessions for accelerated growth</span></div>
+          <div class="cm-benefit"><span class="cm-benefit-dot"></span><span class="cm-benefit-text">Custom programming tailored to your goals</span></div>
+          <div class="cm-benefit"><span class="cm-benefit-dot"></span><span class="cm-benefit-text">Priority scheduling and direct coach access</span></div>
+          <div class="cm-benefit"><span class="cm-benefit-dot"></span><span class="cm-benefit-text">Full performance system — the complete PPF experience</span></div>
+        </div>
+      </div>
+
       <!-- ═══ LANE A: MONTHLY GROUP TRAINING ═══ -->
       <div class="ms-lane ms-lane-memberships active" id="laneMemberships">
         <div class="membership-grid">
@@ -2475,5 +3008,6 @@
   <script src="js/ppf-systems.js"></script>
   <script src="js/ppf-ground-response.js"></script>
   <script src="js/ppf-session-sequence.js"></script>
+  <script src="js/ppf-elite-experience.js"></script>
 </body>
 </html>
