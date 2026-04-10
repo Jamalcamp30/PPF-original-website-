@@ -1184,11 +1184,7 @@
   margin: 0 auto;
 }
 
-.path-page__content {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 0 24px 80px;
-}
+/* Path page content uses path-section class from page-level styles */
 
 /* ============================================================
    15. MEMBER EXPERIENCE LAYER

@@ -8,10 +8,17 @@
   var qs = function (sel, ctx) { return (ctx || document).querySelector(sel); };
   var qsa = function (sel, ctx) { return Array.from((ctx || document).querySelectorAll(sel)); };
 
+  /* ── Reduced-motion check ────────────────────────── */
+  var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   /* ── 11. Signature Intro — metrics boot in Pulse Vault ── */
   function initSignatureIntro() {
     var metricsEl = qs('.pv-metrics-boot');
     if (!metricsEl) return;
+    if (prefersReducedMotion) {
+      metricsEl.classList.add('active');
+      return;
+    }
     /* Show metrics briefly during Pulse Vault sequence */
     setTimeout(function () {
       metricsEl.classList.add('active');
@@ -22,24 +29,55 @@
   }
 
   /* ── 12. Live Standard Board — rotating entries ────── */
+  var liveBoardInterval = null;
+
   function initLiveBoard() {
     var entries = qsa('.live-board__entry');
     if (entries.length === 0) return;
 
+    /* Initialize: all visible with transition */
+    entries.forEach(function (e) { e.style.transition = 'opacity 0.5s ease'; });
+
+    if (prefersReducedMotion) return;
+
     var idx = 0;
-    setInterval(function () {
+    liveBoardInterval = setInterval(function () {
       entries.forEach(function (e) { e.style.opacity = '0.5'; });
-      entries[idx].style.opacity = '1';
+      if (entries[idx]) {
+        entries[idx].style.opacity = '1';
+      }
       idx = (idx + 1) % entries.length;
     }, 3000);
 
-    /* Initialize: all visible */
-    entries.forEach(function (e) { e.style.transition = 'opacity 0.5s ease'; });
+    /* Pause cycling when section not visible to save resources */
+    if ('IntersectionObserver' in window) {
+      var board = qs('.live-board');
+      if (board) {
+        var boardObserver = new IntersectionObserver(function (observedEntries) {
+          var entry = observedEntries[0];
+          if (!entry.isIntersecting && liveBoardInterval) {
+            clearInterval(liveBoardInterval);
+            liveBoardInterval = null;
+          } else if (entry.isIntersecting && !liveBoardInterval) {
+            idx = 0;
+            liveBoardInterval = setInterval(function () {
+              entries.forEach(function (e) { e.style.opacity = '0.5'; });
+              if (entries[idx]) {
+                entries[idx].style.opacity = '1';
+              }
+              idx = (idx + 1) % entries.length;
+            }, 3000);
+          }
+        }, { threshold: 0.1 });
+        boardObserver.observe(board);
+      }
+    }
   }
 
   /* ── 13. Interactive Facility — zone expansion ─────── */
   function initInteractiveFacility() {
     var zones = qsa('.fm-zone');
+    if (zones.length === 0) return;
     zones.forEach(function (zone) {
       zone.addEventListener('click', function () {
         var isActive = zone.classList.contains('active');
@@ -58,7 +96,7 @@
     );
     if (targets.length === 0) return;
 
-    if (!('IntersectionObserver' in window)) {
+    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
       targets.forEach(function (t) { t.style.opacity = '1'; });
       return;
     }
