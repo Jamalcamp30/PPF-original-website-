@@ -1,0 +1,920 @@
+/* =====================================================
+   PPF MEMBERSHIP SECTION
+   Premium pricing & membership tiers
+   Tabs · Pricing Cards · Coaching · Nutrition · Perks
+   ===================================================== */
+
+
+/* ── SECTION WRAPPER ────────────────────────────────── */
+
+.ppf-ms {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-base);
+  padding: var(--section-pad) 0;
+}
+
+/* Performance grid animated background */
+.ppf-ms__grid-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      transparent,
+      transparent 60px,
+      rgba(255, 85, 0, 0.015) 60px,
+      rgba(255, 85, 0, 0.015) 61px
+    );
+  animation: ppfMsGridMove 30s linear infinite;
+  will-change: transform;
+}
+
+.ppf-ms .container {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ── HEADER ─────────────────────────────────────────── */
+
+.ppf-ms__header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 56px;
+}
+
+.ppf-ms__top-label {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 16px;
+}
+
+.ppf-ms__headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  line-height: 1;
+  color: var(--white);
+  letter-spacing: 0.04em;
+  margin-bottom: 20px;
+}
+
+.ppf-ms__subline {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--gray-300);
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+
+/* ── TAB BAR ────────────────────────────────────────── */
+
+.ppf-ms__tabs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: sticky;
+  top: var(--nav-h);
+  z-index: 10;
+  background: var(--bg-base);
+  padding: 16px 0 12px;
+  margin-bottom: 48px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ppf-ms__tab {
+  position: relative;
+  background: none;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  white-space: nowrap;
+}
+
+.ppf-ms__tab:hover {
+  color: var(--gray-300);
+}
+
+.ppf-ms__tab.active {
+  color: var(--white);
+}
+
+/* Animated orange underline that slides to active tab */
+.ppf-ms__tab-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--orange);
+  border-radius: 1px;
+  transition: left var(--transition-med), width var(--transition-med);
+  box-shadow: 0 0 8px var(--orange-glow), 0 0 20px var(--orange-glow);
+  pointer-events: none;
+}
+
+
+/* ── PANELS ─────────────────────────────────────────── */
+
+.ppf-ms__panels {
+  position: relative;
+  min-height: 480px;
+}
+
+/* Hidden by default */
+.ppf-ms__panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Active panel — fade in + slide up */
+.ppf-ms__panel.active {
+  position: relative;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s var(--ease-out-expo);
+}
+
+/* Exit animation — slight downward shift + fade */
+.ppf-ms__panel.exiting {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+
+/* ── PIF SAVINGS STRIP ──────────────────────────────── */
+
+.ppf-ms__pif-strip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 auto 32px;
+  padding: 10px 24px;
+  border: 1px solid var(--orange);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  background: rgba(255, 85, 0, 0.04);
+  animation: ppfMsPulse 3s ease-in-out infinite;
+  text-align: center;
+}
+
+
+/* ── PRICING CARDS ──────────────────────────────────── */
+
+.ppf-ms__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.ppf-ms__card {
+  background: rgba(14, 14, 14, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 36px 28px 32px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform var(--transition-med),
+    border-color var(--transition-med),
+    box-shadow var(--transition-med);
+  animation: ppfMsCardRise 0.6s var(--ease-out-expo) both;
+}
+
+.ppf-ms__card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background: var(--orange);
+  opacity: 0;
+  transition: opacity var(--transition-med);
+  box-shadow: 0 0 12px var(--orange-glow);
+  border-radius: 1px;
+}
+
+.ppf-ms__card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.ppf-ms__card:hover::after {
+  opacity: 1;
+}
+
+/* Card entrance stagger — 0.08s increments */
+.ppf-ms__card:nth-child(1) { animation-delay: 0s; }
+.ppf-ms__card:nth-child(2) { animation-delay: 0.08s; }
+.ppf-ms__card:nth-child(3) { animation-delay: 0.16s; }
+.ppf-ms__card:nth-child(4) { animation-delay: 0.24s; }
+.ppf-ms__card:nth-child(5) { animation-delay: 0.32s; }
+.ppf-ms__card:nth-child(6) { animation-delay: 0.4s; }
+
+/* Featured card — brighter border + orange gradient top */
+.ppf-ms__card.featured {
+  border-color: rgba(255, 85, 0, 0.25);
+}
+
+.ppf-ms__card.featured::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--orange), transparent);
+}
+
+/* Badge — top-right ribbon */
+.ppf-ms__card-badge {
+  position: absolute;
+  top: 16px;
+  right: -30px;
+  background: var(--orange);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 40px;
+  transform: rotate(35deg);
+  white-space: nowrap;
+}
+
+.ppf-ms__card-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.ppf-ms__card-price {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--orange);
+  letter-spacing: 0.02em;
+  margin-bottom: 4px;
+}
+
+.ppf-ms__card-period {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  margin-bottom: 12px;
+}
+
+.ppf-ms__card-total {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--gray-300);
+  margin-bottom: 8px;
+}
+
+.ppf-ms__card-detail {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.ppf-ms__card-cta {
+  width: 100%;
+}
+
+
+/* ── INCLUDED FEATURES (Adult tab) ──────────────────── */
+
+.ppf-ms__included {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.ppf-ms__included-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--gray-100);
+  padding: 12px 16px;
+  background: var(--bg-elevated);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.ppf-ms__included-item svg,
+.ppf-ms__included-item img {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--orange);
+}
+
+
+/* ── SCHEDULE BLOCK (Athlete tab) ───────────────────── */
+
+.ppf-ms__schedule {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.ppf-ms__sched-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 28px 24px;
+  text-align: center;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+  animation: ppfMsCardRise 0.5s var(--ease-out-expo) both;
+}
+
+.ppf-ms__sched-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 85, 0, 0.15);
+}
+
+.ppf-ms__sched-time {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--orange);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.ppf-ms__sched-label {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gray-300);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+
+/* ── COACHING SPOTLIGHT (1-on-1 tab) ────────────────── */
+
+.ppf-ms__spotlight {
+  max-width: 640px;
+  margin: 0 auto;
+  background: rgba(14, 14, 14, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 56px 48px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: ppfMsSpotlight 0.8s var(--ease-out-expo) both;
+}
+
+/* Radial spotlight glow behind the card */
+.ppf-ms__spotlight::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  width: 120%;
+  height: 100%;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center top,
+    rgba(255, 85, 0, 0.06) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+}
+
+.ppf-ms__spotlight-features {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 32px 0 36px;
+  text-align: left;
+}
+
+.ppf-ms__spotlight-features li,
+.ppf-ms__spotlight-features div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--gray-100);
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+}
+
+.ppf-ms__spotlight-cta {
+  margin-top: 8px;
+}
+
+
+/* ── NUTRITION TAB ──────────────────────────────────── */
+
+.ppf-ms__nutrition-card {
+  max-width: 640px;
+  margin: 0 auto;
+  background: rgba(14, 14, 14, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 48px 40px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  text-align: center;
+}
+
+.ppf-ms__nutrition-checks {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 28px 0 32px;
+  text-align: left;
+}
+
+.ppf-ms__nutrition-checks li,
+.ppf-ms__nutrition-checks div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: var(--gray-100);
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 6px;
+}
+
+
+/* ── PERKS TAB ──────────────────────────────────────── */
+
+.ppf-ms__perks-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.ppf-ms__perk {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: 32px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.ppf-ms__perk::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle at top right, var(--orange-glow), transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.ppf-ms__perk:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 85, 0, 0.12);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.3);
+}
+
+.ppf-ms__perk:hover::after {
+  opacity: 1;
+}
+
+.ppf-ms__perk:hover .ppf-ms__perk-icon {
+  transform: scale(1.12);
+}
+
+.ppf-ms__perk-icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 16px;
+  color: var(--orange);
+  transition: transform var(--transition-fast);
+  animation: ppfMsIconPop 0.5s var(--ease-out-expo) both;
+}
+
+.ppf-ms__perk-icon img,
+.ppf-ms__perk-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ppf-ms__perk h4,
+.ppf-ms__perk-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.ppf-ms__perk p,
+.ppf-ms__perk-desc {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--gray-300);
+  line-height: 1.55;
+}
+
+
+/* ── BUTTONS ────────────────────────────────────────── */
+
+.ppf-ms__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 36px;
+  background: var(--orange);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.ppf-ms__btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(255, 85, 0, 0.25);
+  background: var(--orange-dim);
+}
+
+/* Glow travel effect on hover */
+.ppf-ms__btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.12),
+    transparent
+  );
+  transition: left 0.5s var(--ease-out-expo);
+  pointer-events: none;
+}
+
+.ppf-ms__btn:hover::before {
+  left: 100%;
+}
+
+/* Outlined variant */
+.ppf-ms__btn--outline {
+  background: transparent;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+}
+
+.ppf-ms__btn--outline:hover {
+  background: rgba(255, 85, 0, 0.08);
+  color: var(--white);
+  box-shadow: 0 4px 18px rgba(255, 85, 0, 0.15);
+}
+
+
+/* ── CTA STRIP ──────────────────────────────────────── */
+
+.ppf-ms__cta-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 64px;
+  flex-wrap: wrap;
+}
+
+
+/* ── CLOSING STATEMENT ──────────────────────────────── */
+
+.ppf-ms__closing {
+  text-align: center;
+  max-width: 600px;
+  margin: 56px auto 0;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--gray-300);
+}
+
+
+/* ── COUNTED STATE (for price count-up JS) ──────────── */
+
+.ppf-ms__card-price.counted {
+  opacity: 1;
+}
+
+
+/* ── TRACK-IN ENTRANCE LINE ─────────────────────────── */
+
+.ppf-ms__track-in {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: ppfMsTrackIn 0.8s var(--ease-out-expo) 0.2s both;
+}
+
+
+/* ── KEYFRAME ANIMATIONS ────────────────────────────── */
+
+/* Orange line sweeps across section top on entrance */
+@keyframes ppfMsTrackIn {
+  0%   { transform: scaleX(0); opacity: 1; }
+  60%  { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+
+/* Cards rise from below with fade */
+@keyframes ppfMsCardRise {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Subtle glow pulse for PIF badge */
+@keyframes ppfMsPulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(255, 85, 0, 0); }
+  50%      { box-shadow: 0 0 16px rgba(255, 85, 0, 0.12); }
+}
+
+/* Background grid subtle movement */
+@keyframes ppfMsGridMove {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(40px, 40px); }
+}
+
+/* Radial spotlight fade-in for 1-on-1 tab */
+@keyframes ppfMsSpotlight {
+  0% {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Icons scale from 0.8 to 1 with slight overshoot */
+@keyframes ppfMsIconPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  70% {
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* ── RESPONSIVE: 1100px ─────────────────────────────── */
+
+@media (max-width: 1100px) {
+  .ppf-ms__cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ppf-ms__tabs {
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .ppf-ms__tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .ppf-ms__tab {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+}
+
+
+/* ── RESPONSIVE: 768px ──────────────────────────────── */
+
+@media (max-width: 768px) {
+  .ppf-ms {
+    padding: 80px 0;
+  }
+
+  .ppf-ms__cards {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ppf-ms__perks-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ppf-ms__spotlight,
+  .ppf-ms__nutrition-card {
+    padding: 40px 28px;
+  }
+
+  .ppf-ms__cta-strip {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ppf-ms__cta-strip .ppf-ms__btn {
+    width: 100%;
+  }
+}
+
+
+/* ── RESPONSIVE: 480px ──────────────────────────────── */
+
+@media (max-width: 480px) {
+  .ppf-ms {
+    padding: 60px 0;
+  }
+
+  .ppf-ms__header {
+    margin-bottom: 36px;
+  }
+
+  .ppf-ms__tab {
+    font-size: 0.62rem;
+    padding: 8px 14px;
+    letter-spacing: 0.12em;
+  }
+
+  .ppf-ms__perks-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ppf-ms__included {
+    grid-template-columns: 1fr;
+  }
+
+  .ppf-ms__schedule {
+    grid-template-columns: 1fr;
+  }
+
+  .ppf-ms__card-price {
+    font-size: 2.4rem;
+  }
+
+  .ppf-ms__spotlight,
+  .ppf-ms__nutrition-card {
+    padding: 32px 20px;
+  }
+
+  .ppf-ms__btn {
+    padding: 14px 28px;
+    font-size: 0.72rem;
+  }
+}
+
+
+/* ── PREFERS REDUCED MOTION ─────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .ppf-ms__grid-bg {
+    animation: none;
+  }
+
+  .ppf-ms__card {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .ppf-ms__card:hover {
+    transform: none;
+  }
+
+  .ppf-ms__sched-card {
+    animation: none;
+  }
+
+  .ppf-ms__spotlight {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .ppf-ms__perk-icon {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .ppf-ms__perk:hover .ppf-ms__perk-icon {
+    transform: none;
+  }
+
+  .ppf-ms__panel,
+  .ppf-ms__panel.active,
+  .ppf-ms__panel.exiting {
+    transition: none;
+  }
+
+  .ppf-ms__tab-line {
+    transition: none;
+  }
+
+  .ppf-ms__pif-strip {
+    animation: none;
+  }
+
+  .ppf-ms__track-in {
+    animation: none;
+    opacity: 0;
+  }
+
+  .ppf-ms__btn::before {
+    display: none;
+  }
+
+  .ppf-ms__btn:hover {
+    transform: none;
+  }
+}

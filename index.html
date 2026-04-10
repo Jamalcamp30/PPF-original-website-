@@ -34,6 +34,7 @@
   <link rel="stylesheet" href="css/ppf-ground-response.css" />
   <link rel="stylesheet" href="css/ppf-session-sequence.css" />
   <link rel="stylesheet" href="css/ppf-elite-experience.css" />
+  <link rel="stylesheet" href="css/ppf-membership.css" />
 
   <!-- Structured Data: SportsActivityLocation -->
   <script type="application/ld+json">
@@ -2419,206 +2420,290 @@
   </section>
 
   <!-- ============================================================
-       SECTION — MEMBERSHIP PATHS
+       SECTION — MEMBERSHIP BUILT WITH PURPOSE
   ============================================================ -->
-  <section class="section memberships-section" id="memberships">
-    <!-- Performance Grid Background -->
-    <div class="ms-perf-grid"></div>
+  <section class="section ppf-ms" id="memberships">
+    <!-- Entrance line -->
+    <div class="ppf-ms__track-in"></div>
+    <!-- Performance grid background -->
+    <div class="ppf-ms__grid-bg"></div>
+
     <div class="container">
-      <!-- Top Block: 12-col grid -->
-      <div class="ms-top-block">
-        <div class="ms-top-left">
-          <div class="section-label reveal-up">MEMBERSHIPS</div>
-          <h2 class="section-title reveal-up">
-            Choose Your<br />
-            <span class="accent">Coaching Depth.</span>
-          </h2>
-          <p class="section-intro reveal-up">
-            Every path runs through the same PPF standard. Your commitment level changes how much structure, accountability, momentum, and carryover you build over time.
-          </p>
-        </div>
-        <div class="ms-top-right reveal-up">
-          <div class="ms-trust-stack">
-            <div class="ms-trust-chip"><span class="ms-chip-dot"></span>COACH-LED</div>
-            <div class="ms-trust-chip"><span class="ms-chip-dot"></span>STRUCTURE BUILT IN</div>
-            <div class="ms-trust-chip"><span class="ms-chip-dot"></span>RESULTS STACK OVER TIME</div>
-          </div>
-          <!-- Commitment Depth Meter -->
-          <div class="ms-depth-meter">
-            <div class="ms-dm-track">
-              <div class="ms-dm-fill" data-level="0"></div>
-            </div>
-            <div class="ms-dm-labels">
-              <span class="ms-dm-label" data-level="1">START</span>
-              <span class="ms-dm-label" data-level="2">BUILD</span>
-              <span class="ms-dm-label" data-level="3">DEVELOP</span>
-              <span class="ms-dm-label" data-level="4">TRANSFORM</span>
-            </div>
-          </div>
-        </div>
+      <!-- ── Header ──────────────────────────────────── -->
+      <div class="ppf-ms__header">
+        <span class="ppf-ms__top-label">COACHED ACCESS. CLEAR STRUCTURE. REAL VALUE.</span>
+        <h2 class="ppf-ms__headline">MEMBERSHIP BUILT&nbsp;WITH&nbsp;PURPOSE</h2>
+        <p class="ppf-ms__subline">Every membership at PPF is structured for a reason. Whether the goal is performance, consistency, personal coaching, or nutrition support, each path is designed to give people a clear starting point and a real standard to grow into.</p>
       </div>
 
-      <!-- Controls Row -->
-      <div class="ms-controls reveal-up">
-        <div class="ms-controls-row ms-path-filters">
-          <button class="ms-filter-btn active" data-path="all">All Paths</button>
-          <button class="ms-filter-btn" data-path="athlete">Athlete</button>
-          <button class="ms-filter-btn" data-path="adult">Adult</button>
-          <button class="ms-filter-btn" data-path="integrated">Integrated</button>
+      <!-- ── Tab Bar (sticky) ────────────────────────── -->
+      <nav class="ppf-ms__tabs" aria-label="Membership categories">
+        <button class="ppf-ms__tab active" data-tab="adult" type="button">Adult Membership</button>
+        <button class="ppf-ms__tab" data-tab="athlete" type="button">Athlete Training</button>
+        <button class="ppf-ms__tab" data-tab="coaching" type="button">1-on-1 Coaching</button>
+        <button class="ppf-ms__tab" data-tab="nutrition" type="button">Nutrition Coaching</button>
+        <button class="ppf-ms__tab" data-tab="perks" type="button">Member Perks</button>
+        <!-- Sliding orange underline -->
+        <span class="ppf-ms__tab-line" aria-hidden="true"></span>
+      </nav>
+
+      <!-- ── Panels ──────────────────────────────────── -->
+      <div class="ppf-ms__panels">
+
+        <!-- ═══ ADULT MEMBERSHIP ═══ -->
+        <div class="ppf-ms__panel active" data-panel="adult">
+          <h3 class="ppf-ms__headline" style="font-size:clamp(2rem,4vw,3.4rem);margin-bottom:12px">ADULT MEMBERSHIP</h3>
+          <p class="ppf-ms__subline" style="margin-bottom:32px">Built for adults who want more than access. This membership is designed for people who want coaching, accountability, structure, and a professional training environment that keeps progress moving. Every option includes unlimited classes, open gym access, and full use of the facility amenities.</p>
+
+          <!-- PIF strip -->
+          <div style="text-align:center">
+            <div class="ppf-ms__pif-strip">&#9733; PAY IN FULL AND SAVE 15%</div>
+          </div>
+
+          <!-- Pricing cards -->
+          <div class="ppf-ms__cards">
+            <!-- Month to Month -->
+            <div class="ppf-ms__card">
+              <span class="ppf-ms__card-badge" style="background:var(--gray-500)">FLEXIBLE</span>
+              <div class="ppf-ms__card-name">Month to Month</div>
+              <div class="ppf-ms__card-price" data-count-target="150" data-count-prefix="$">$150</div>
+              <div class="ppf-ms__card-period">/month</div>
+              <div class="ppf-ms__card-detail">30-day notice to cancel. No long-term commitment required.</div>
+              <a href="#start" class="ppf-ms__btn ppf-ms__card-cta">START HERE</a>
+            </div>
+
+            <!-- 3 Month Commitment -->
+            <div class="ppf-ms__card">
+              <div class="ppf-ms__card-name">3 Month Commitment</div>
+              <div class="ppf-ms__card-price" data-count-target="179" data-count-prefix="$">$179</div>
+              <div class="ppf-ms__card-period">/month</div>
+              <div class="ppf-ms__card-total">$537 total</div>
+              <div class="ppf-ms__card-detail">Short-term structure. Full coaching access from day one.</div>
+              <a href="#start" class="ppf-ms__btn ppf-ms__card-cta">GET STARTED</a>
+            </div>
+
+            <!-- 6 Month Commitment -->
+            <div class="ppf-ms__card featured">
+              <span class="ppf-ms__card-badge">POPULAR</span>
+              <div class="ppf-ms__card-name">6 Month Commitment</div>
+              <div class="ppf-ms__card-price" data-count-target="179" data-count-prefix="$">$179</div>
+              <div class="ppf-ms__card-period">/month</div>
+              <div class="ppf-ms__card-total">$954 total</div>
+              <div class="ppf-ms__card-detail">The most chosen plan. Enough time to see real, measurable change.</div>
+              <a href="#start" class="ppf-ms__btn ppf-ms__card-cta">COMMIT NOW</a>
+            </div>
+
+            <!-- 12 Month Commitment -->
+            <div class="ppf-ms__card featured">
+              <span class="ppf-ms__card-badge">BEST VALUE</span>
+              <div class="ppf-ms__card-name">12 Month Commitment</div>
+              <div class="ppf-ms__card-price" data-count-target="159" data-count-prefix="$">$159</div>
+              <div class="ppf-ms__card-period">/month</div>
+              <div class="ppf-ms__card-total">$1,908 total</div>
+              <div class="ppf-ms__card-detail">Maximum commitment. Lowest monthly rate. Built for long-term development.</div>
+              <a href="#start" class="ppf-ms__btn ppf-ms__card-cta">LOCK IN</a>
+            </div>
+
+            <!-- Buddy Rate -->
+            <div class="ppf-ms__card">
+              <span class="ppf-ms__card-badge" style="background:#1a8a5a">PARTNER</span>
+              <div class="ppf-ms__card-name">Buddy Rate</div>
+              <div class="ppf-ms__card-price" data-count-target="169" data-count-prefix="$">$169</div>
+              <div class="ppf-ms__card-period">/month per person</div>
+              <div class="ppf-ms__card-total">6 Month Commitment</div>
+              <div class="ppf-ms__card-detail">Train with a partner. Shared accountability, individual results.</div>
+              <a href="#start" class="ppf-ms__btn ppf-ms__card-cta">BRING A PARTNER</a>
+            </div>
+
+            <!-- Family Rate -->
+            <div class="ppf-ms__card">
+              <span class="ppf-ms__card-badge" style="background:#1a8a5a">FAMILY</span>
+              <div class="ppf-ms__card-name">Family Rate</div>
+              <div class="ppf-ms__card-price" data-count-target="349" data-count-prefix="$">$349</div>
+              <div class="ppf-ms__card-period">/month</div>
+              <div class="ppf-ms__card-total">6 Month Commitment</div>
+              <div class="ppf-ms__card-detail">One membership for the household. Train together under one standard.</div>
+              <a href="#start" class="ppf-ms__btn ppf-ms__card-cta">START FAMILY PLAN</a>
+            </div>
+          </div>
+
+          <!-- Included with every membership -->
+          <div class="ppf-ms__included">
+            <div class="ppf-ms__included-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Unlimited classes</div>
+            <div class="ppf-ms__included-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Full facility access during open gym hours</div>
+            <div class="ppf-ms__included-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Towel service</div>
+            <div class="ppf-ms__included-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Shower access</div>
+            <div class="ppf-ms__included-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Locker room access</div>
+            <div class="ppf-ms__included-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Coaching-led training environment</div>
+            <div class="ppf-ms__included-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Professional facility experience</div>
+          </div>
         </div>
-        <div class="ms-controls-row ms-lane-toggle">
-          <button class="ms-lane-btn active" data-lane="memberships">Memberships</button>
-          <button class="ms-lane-btn" data-lane="private">Private Coaching</button>
+
+        <!-- ═══ ATHLETE TRAINING ═══ -->
+        <div class="ppf-ms__panel" data-panel="athlete">
+          <h3 class="ppf-ms__headline" style="font-size:clamp(2rem,4vw,3.4rem);margin-bottom:12px">ATHLETE TRAINING</h3>
+          <p class="ppf-ms__subline" style="margin-bottom:32px">This path is built for athletes who need structure, energy, and real training volume. From youth development to high school and college performance, the goal is simple: create a schedule athletes can live in and improve through consistently.</p>
+
+          <!-- Schedule block -->
+          <h4 style="font-family:var(--font-display);font-size:1.4rem;letter-spacing:0.1em;color:var(--orange);margin-bottom:20px;text-align:center">TRAINING SCHEDULE</h4>
+          <div class="ppf-ms__schedule">
+            <div class="ppf-ms__sched-card">
+              <div class="ppf-ms__sched-time">4:15 PM</div>
+              <div class="ppf-ms__sched-label">High School / College</div>
+              <div style="font-size:0.72rem;color:var(--gray-500);margin-top:6px">Monday – Friday</div>
+            </div>
+            <div class="ppf-ms__sched-card">
+              <div class="ppf-ms__sched-time">5:30 PM</div>
+              <div class="ppf-ms__sched-label">Elementary / Middle School</div>
+              <div style="font-size:0.72rem;color:var(--gray-500);margin-top:6px">Monday – Thursday</div>
+            </div>
+            <div class="ppf-ms__sched-card">
+              <div class="ppf-ms__sched-time">6:30 PM</div>
+              <div class="ppf-ms__sched-label">Elementary / Middle School</div>
+              <div style="font-size:0.72rem;color:var(--gray-500);margin-top:6px">Monday – Thursday</div>
+            </div>
+            <div class="ppf-ms__sched-card">
+              <div class="ppf-ms__sched-time">VARIES</div>
+              <div class="ppf-ms__sched-label">Team Training</div>
+              <div style="font-size:0.72rem;color:var(--gray-500);margin-top:6px">Contact for scheduling</div>
+            </div>
+          </div>
+
+          <!-- Rates -->
+          <h4 style="font-family:var(--font-display);font-size:1.4rem;letter-spacing:0.1em;color:var(--orange);margin:40px 0 20px;text-align:center">ATHLETE RATES</h4>
+          <div class="ppf-ms__cards" style="grid-template-columns:repeat(3,1fr)">
+            <!-- Unlimited Training -->
+            <div class="ppf-ms__card featured">
+              <span class="ppf-ms__card-badge">CORE PLAN</span>
+              <div class="ppf-ms__card-name">Unlimited Training</div>
+              <div class="ppf-ms__card-price" data-count-target="175" data-count-prefix="$">$175</div>
+              <div class="ppf-ms__card-period">/month</div>
+              <div class="ppf-ms__card-detail">Full access to every scheduled session. Consistent development, every week.</div>
+              <a href="#start" class="ppf-ms__btn ppf-ms__card-cta">START TRAINING</a>
+            </div>
+
+            <!-- Unlimited 3 Month PIF -->
+            <div class="ppf-ms__card">
+              <div class="ppf-ms__card-name">Unlimited 3 Month PIF</div>
+              <div class="ppf-ms__card-price" data-count-target="495" data-count-prefix="$">$495</div>
+              <div class="ppf-ms__card-period">total</div>
+              <div class="ppf-ms__card-total">Discounted to $165/month</div>
+              <div class="ppf-ms__card-detail">Pay in full. Three months of structured training at a reduced rate.</div>
+              <a href="#start" class="ppf-ms__btn ppf-ms__card-cta">PAY IN FULL</a>
+            </div>
+
+            <!-- Unlimited 6 Month PIF -->
+            <div class="ppf-ms__card featured">
+              <span class="ppf-ms__card-badge">BEST VALUE</span>
+              <div class="ppf-ms__card-name">Unlimited 6 Month PIF</div>
+              <div class="ppf-ms__card-price" data-count-target="930" data-count-prefix="$">$930</div>
+              <div class="ppf-ms__card-period">total</div>
+              <div class="ppf-ms__card-total">Discounted to $155/month</div>
+              <div class="ppf-ms__card-detail">Maximum commitment at the lowest rate. Built for consistent development.</div>
+              <a href="#start" class="ppf-ms__btn ppf-ms__card-cta">LOCK IN</a>
+            </div>
+          </div>
+
+          <p style="text-align:center;font-size:0.85rem;color:var(--gray-500);margin-top:24px;letter-spacing:0.08em">Structured sessions. Consistent coaching. Real development.</p>
         </div>
+
+        <!-- ═══ 1-ON-1 COACHING ═══ -->
+        <div class="ppf-ms__panel" data-panel="coaching">
+          <div class="ppf-ms__spotlight">
+            <h3 class="ppf-ms__headline" style="font-size:clamp(2rem,4vw,3.4rem);margin-bottom:12px;text-align:center">1-ON-1 COACHING</h3>
+            <p class="ppf-ms__subline" style="margin-bottom:0;text-align:center">For athletes and adults who want a more individualized coaching experience, 1-on-1 training provides direct attention, customized programming, and a focused coaching environment built around specific goals, needs, and performance priorities.</p>
+
+            <div class="ppf-ms__spotlight-features">
+              <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Individualized coaching sessions</div>
+              <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Goal-specific programming</div>
+              <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Technique correction and movement coaching</div>
+              <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Greater accountability and direct feedback</div>
+              <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Built for performance, body composition, or personal progression</div>
+            </div>
+
+            <div class="ppf-ms__spotlight-cta" style="text-align:center">
+              <a href="#start" class="ppf-ms__btn">INQUIRE FOR 1-ON-1 AVAILABILITY</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ NUTRITION COACHING ═══ -->
+        <div class="ppf-ms__panel" data-panel="nutrition">
+          <div class="ppf-ms__nutrition-card">
+            <h3 class="ppf-ms__headline" style="font-size:clamp(2rem,4vw,3.4rem);margin-bottom:12px;text-align:center">NUTRITION COACHING</h3>
+            <p class="ppf-ms__subline" style="margin-bottom:8px;text-align:center">Training moves better when nutrition is aligned with the goal. This coaching option is built to simplify the process, provide structure, and help members stay consistent with a plan that supports real progress.</p>
+
+            <div class="ppf-ms__card-price" style="text-align:center;margin:24px 0 4px" data-count-target="150" data-count-prefix="$">$150</div>
+            <div class="ppf-ms__card-period" style="text-align:center;margin-bottom:24px">one-time investment</div>
+
+            <div class="ppf-ms__nutrition-checks">
+              <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Consultation</div>
+              <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Personalized meal plan</div>
+              <div><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Four weeks of coaching</div>
+            </div>
+
+            <p style="font-size:0.82rem;color:var(--gray-500);margin-bottom:28px;letter-spacing:0.1em;text-align:center">Simple. Practical. Goal-driven.</p>
+
+            <div style="text-align:center">
+              <a href="#start" class="ppf-ms__btn">START NUTRITION COACHING</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ MEMBER PERKS ═══ -->
+        <div class="ppf-ms__panel" data-panel="perks">
+          <h3 class="ppf-ms__headline" style="font-size:clamp(2rem,4vw,3.4rem);margin-bottom:12px;text-align:center">WHAT COMES WITH PPF</h3>
+          <p class="ppf-ms__subline" style="margin-bottom:40px;text-align:center">Every membership is backed by more than access. The experience is built to feel organized, professional, and performance-driven from the moment someone walks in.</p>
+
+          <div class="ppf-ms__perks-grid">
+            <!-- Perk 1 -->
+            <div class="ppf-ms__perk">
+              <div class="ppf-ms__perk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+              <h4>Unlimited Classes</h4>
+              <p>Train as often as your membership path allows.</p>
+            </div>
+            <!-- Perk 2 -->
+            <div class="ppf-ms__perk">
+              <div class="ppf-ms__perk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg></div>
+              <h4>Open Gym Access</h4>
+              <p>Full use of the facility during open gym hours.</p>
+            </div>
+            <!-- Perk 3 -->
+            <div class="ppf-ms__perk">
+              <div class="ppf-ms__perk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/></svg></div>
+              <h4>Towel Service</h4>
+              <p>A cleaner, more professional training experience.</p>
+            </div>
+            <!-- Perk 4 -->
+            <div class="ppf-ms__perk">
+              <div class="ppf-ms__perk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 20v-8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8"/><path d="M12 10V4"/><circle cx="12" cy="4" r="2"/></svg></div>
+              <h4>Showers</h4>
+              <p>Built for people training before work, after work, or between commitments.</p>
+            </div>
+            <!-- Perk 5 -->
+            <div class="ppf-ms__perk">
+              <div class="ppf-ms__perk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16M10 4v16"/></svg></div>
+              <h4>Locker Room Access</h4>
+              <p>A complete facility experience, not just a workout floor.</p>
+            </div>
+            <!-- Perk 6 -->
+            <div class="ppf-ms__perk">
+              <div class="ppf-ms__perk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+              <h4>Coached Environment</h4>
+              <p>PPF is structured, supervised, and purpose-driven.</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /panels -->
+
+      <!-- ── Bottom CTA Strip ────────────────────────── -->
+      <div class="ppf-ms__closing">
+        <p>PPF memberships are built to give every person a clear place to start, a structure to follow, and an environment that supports real progress.</p>
       </div>
-
-      <!-- COMMITMENT METER — INTERACTIVE DEPTH VISUALIZATION -->
-      <div class="cm-visual reveal-up">
-        <div class="cm-track">
-          <div class="cm-fill"></div>
-          <div class="cm-handle"></div>
-        </div>
-        <div class="cm-levels">
-          <span class="cm-level-label cm-level-active">ENTRY</span>
-          <span class="cm-level-label">COMMITTED</span>
-          <span class="cm-level-label">INVESTED</span>
-          <span class="cm-level-label">ALL-IN</span>
-        </div>
-        <div class="cm-benefits">
-          <div class="cm-benefit cm-unlocked"><span class="cm-benefit-dot"></span><span class="cm-benefit-text">Coach-led group training in your lane</span></div>
-          <div class="cm-benefit"><span class="cm-benefit-dot"></span><span class="cm-benefit-text">Structured programming and accountability</span></div>
-          <div class="cm-benefit"><span class="cm-benefit-dot"></span><span class="cm-benefit-text">Benchmark tracking and retest cycles</span></div>
-          <div class="cm-benefit"><span class="cm-benefit-dot"></span><span class="cm-benefit-text">Private coaching sessions for accelerated growth</span></div>
-          <div class="cm-benefit"><span class="cm-benefit-dot"></span><span class="cm-benefit-text">Custom programming tailored to your goals</span></div>
-          <div class="cm-benefit"><span class="cm-benefit-dot"></span><span class="cm-benefit-text">Priority scheduling and direct coach access</span></div>
-          <div class="cm-benefit"><span class="cm-benefit-dot"></span><span class="cm-benefit-text">Full performance system — the complete PPF experience</span></div>
-        </div>
-      </div>
-
-      <!-- ═══ LANE A: MONTHLY GROUP TRAINING ═══ -->
-      <div class="ms-lane ms-lane-memberships active" id="laneMemberships">
-        <div class="membership-grid">
-          <!-- CARD — Monthly Group Training -->
-          <div class="membership-card reveal-up" data-tier="monthly">
-            <div class="mc-tier-tag mc-tag-accent">GROUP TRAINING</div>
-            <div class="mc-header">
-              <h3 class="mc-name">Monthly Group Training</h3>
-              <div class="mc-price"><span class="mc-currency">$</span><span class="mc-amount">159</span><span class="mc-period">/month</span></div>
-              <div class="mc-savings">One-time $25 processing fee at sign-up</div>
-            </div>
-            <p class="mc-description" data-default="Get inside the system and train inside a coached environment built on structure, accountability, and real progression." data-athlete="Get inside the system and train inside a coached environment built on structure, accountability, and real progression." data-adult="Get inside the system and train inside a coached environment built on structure, accountability, and real progression." data-integrated="Get inside the system and train inside a coached environment built on structure, accountability, and real progression.">Get inside the system and train inside a coached environment built on structure, accountability, and real progression.</p>
-            <div class="mc-best-for" data-default="Best for: members who want consistent weekly training inside a coached, performance-based environment" data-athlete="Best for: athletes who want consistent weekly training inside a coached, performance-based environment" data-adult="Best for: adults who want consistent weekly training inside a coached, performance-based environment" data-integrated="Best for: members who want consistent weekly training inside a coached, supportive environment"><span class="mc-bf-label">BEST FOR:</span> <span class="mc-bf-text">members who want consistent weekly training inside a coached, performance-based environment</span></div>
-            <ul class="mc-features">
-              <li><span class="mc-check">&#10003;</span> Coach-led group training</li>
-              <li><span class="mc-check">&#10003;</span> Structured programming</li>
-              <li><span class="mc-check">&#10003;</span> Performance-based environment</li>
-              <li><span class="mc-check">&#10003;</span> Ongoing coaching and accountability</li>
-              <li><span class="mc-check">&#10003;</span> Path placement support</li>
-            </ul>
-            <div class="mc-commitment-signal">THE STANDARD</div>
-            <div class="ppf-cta is-rest" data-cta-tier="2" data-section="memberships">
-              <div class="cta-shell">
-                <a href="#start" class="cta-action">
-                  <span class="cta-label">START GROUP TRAINING</span>
-                  <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-              </div>
-            </div>
-            <!-- Hover Drawer -->
-            <div class="mc-drawer">
-              <div class="mc-drawer-title">WHAT THIS UNLOCKS</div>
-              <ul class="mc-drawer-list">
-                <li>Immediate floor access</li>
-                <li>Coaching voice and structure</li>
-                <li>Clear path placement</li>
-                <li>Consistent progression</li>
-              </ul>
-            </div>
-            <div class="mc-unlock-dots">
-              <span class="mc-dot"></span><span class="mc-dot"></span><span class="mc-dot"></span><span class="mc-dot"></span><span class="mc-dot"></span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Commitment Runway -->
-        <div class="ms-commitment-runway reveal-up">
-          <div class="ms-runway-track">
-            <div class="ms-runway-stage active" data-stage="monthly">
-              <div class="ms-runway-fill" style="--fill-width: 100%"></div>
-              <div class="ms-runway-label">THE STANDARD</div>
-              <div class="ms-runway-desc">Train inside the system</div>
-            </div>
-          </div>
-          <!-- Commitment pulse line -->
-          <div class="ms-runway-pulse"></div>
-        </div>
-      </div>
-
-      <!-- ═══ LANE B: PRIVATE COACHING ═══ -->
-      <div class="ms-lane ms-lane-private" id="lanePrivate">
-        <div class="ms-pc-header">
-          <div class="section-label reveal-up">PRIVATE COACHING</div>
-          <h3 class="ms-pc-headline reveal-up">Precision. Correction. Direct Development.</h3>
-          <p class="ms-pc-subheadline reveal-up">All private coaching is sold in 10-session bundles only. Choose the coaching depth that matches the work.</p>
-        </div>
-
-        <!-- Session Benefits Strip -->
-        <div class="ms-pc-benefits reveal-up">
-          <div class="ms-pc-benefit"><span class="ms-pc-benefit-icon">&#9201;</span> 30- or 60-minute private sessions</div>
-          <div class="ms-pc-benefit"><span class="ms-pc-benefit-icon">&#9998;</span> Hands-on technical coaching</div>
-          <div class="ms-pc-benefit"><span class="ms-pc-benefit-icon">&#10003;</span> Individualized strength and conditioning</div>
-          <div class="ms-pc-benefit"><span class="ms-pc-benefit-icon">&#8634;</span> Movement correction and body alignment</div>
-          <div class="ms-pc-benefit"><span class="ms-pc-benefit-icon">&#9650;</span> Measurable progression</div>
-        </div>
-
-        <!-- Private Coaching Cards -->
-        <div class="ms-pc-grid">
-          <!-- 30-Minute Session Bundle -->
-          <div class="ms-pc-card reveal-up" data-pkg="thirty">
-            <div class="ms-pc-badge">10-SESSION BUNDLE</div>
-            <div class="ms-pc-name">30-Minute Sessions</div>
-            <div class="ms-pc-price"><span class="pt-currency">$</span>45<span class="ms-pc-per">/session</span></div>
-            <div class="ms-pc-bundle-price">10-session bundle: $450</div>
-            <div class="ms-pc-line">Focused technical coaching. Sharp corrections. Efficient development.</div>
-            <div class="ppf-cta is-rest" data-cta-tier="2" data-section="memberships">
-              <div class="cta-shell">
-                <a href="#start" class="cta-action">
-                  <span class="cta-label">BOOK 10 × 30-MIN SESSIONS</span>
-                  <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- 60-Minute Session Bundle -->
-          <div class="ms-pc-card reveal-up" data-pkg="sixty">
-            <div class="ms-pc-badge ms-pc-badge--accent">10-SESSION BUNDLE</div>
-            <div class="ms-pc-name">60-Minute Sessions</div>
-            <div class="ms-pc-price"><span class="pt-currency">$</span>65<span class="ms-pc-per">/session</span></div>
-            <div class="ms-pc-bundle-price">10-session bundle: $650</div>
-            <div class="ms-pc-line">Full one-on-one coaching with more time for progression, instruction, and measurable carryover.</div>
-            <div class="ppf-cta is-rest" data-cta-tier="2" data-section="memberships">
-              <div class="cta-shell">
-                <a href="#start" class="cta-action">
-                  <span class="cta-label">BOOK 10 × 60-MIN SESSIONS</span>
-                  <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Final CTA -->
-      <div class="ms-final-cta reveal-up">
-        <div class="ppf-cta is-rest" data-cta-tier="1" data-section="memberships">
-          <div class="cta-shell">
-            <a href="#start" class="cta-action">
-              <span class="cta-label">START YOUR 3-DAY EXPERIENCE</span>
-              <svg class="cta-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-          </div>
-        </div>
+      <div class="ppf-ms__cta-strip">
+        <a href="#memberships" class="ppf-ms__btn">VIEW MEMBERSHIP OPTIONS</a>
+        <a href="#start" class="ppf-ms__btn ppf-ms__btn--outline">START HERE</a>
       </div>
     </div>
   </section>
@@ -3009,5 +3094,6 @@
   <script src="js/ppf-ground-response.js"></script>
   <script src="js/ppf-session-sequence.js"></script>
   <script src="js/ppf-elite-experience.js"></script>
+  <script src="js/ppf-membership.js"></script>
 </body>
 </html>
