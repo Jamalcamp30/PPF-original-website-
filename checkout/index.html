@@ -38,7 +38,7 @@
     if (!planId || !PPF_STRIPE.getPlan(planId)) {
       page.innerHTML =
         '<div class="ppf-co-notfound">' +
-          '<div class="ppf-co-notfound__icon">\u26A0</div>' +
+          '<div class="ppf-co-notfound__icon" aria-hidden="true">\u26A0</div>' +
           '<div class="ppf-co-notfound__title">Plan Not Found</div>' +
           '<p class="ppf-co-notfound__body">We couldn\u2019t find the membership plan you\u2019re looking for. Please return to the memberships page and try again.</p>' +
           '<a href="../index.html#memberships" class="ppf-co-btn" style="max-width:340px;margin:0 auto">VIEW MEMBERSHIPS</a>' +
@@ -96,7 +96,7 @@
     } else {
       ctaHtml =
         '<div class="ppf-co-setup-notice">' +
-          '<div class="ppf-co-setup-notice__icon">\uD83D\uDD12</div>' +
+          '<div class="ppf-co-setup-notice__icon" aria-hidden="true">\uD83D\uDD12</div>' +
           '<div class="ppf-co-setup-notice__title">STRIPE CHECKOUT COMING SOON</div>' +
           '<p class="ppf-co-setup-notice__body">Online checkout for this plan is being configured. To get started today, contact a PPF coach directly or submit your application below.</p>' +
         '</div>' +
