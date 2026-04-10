@@ -1,0 +1,223 @@
+{
+  "schemaVersion": "1.0.0",
+  "currency": "usd",
+  "stripe": {
+    "publishableKeyEnv": "STRIPE_PUBLISHABLE_KEY",
+    "secretKeyEnv": "STRIPE_SECRET_KEY",
+    "webhookSecretEnv": "STRIPE_WEBHOOK_SECRET",
+    "customerPortalConfigurationEnv": "STRIPE_PORTAL_CONFIGURATION_ID",
+    "customerPortalReturnUrl": "/member/dashboard.html",
+    "defaultPaymentMethodPriority": [
+      "us_bank_account",
+      "card",
+      "link",
+      "apple_pay",
+      "google_pay"
+    ],
+    "optionalExternalWallets": {
+      "paypal": {
+        "enabled": false,
+        "notes": "Keep PayPal separate from Stripe product mapping unless you decide to build dedicated PayPal checkout paths."
+      }
+    }
+  },
+  "checkoutDefaults": {
+    "allowPromotionCodes": false,
+    "collectPhoneNumber": true,
+    "billingAddressCollection": "auto",
+    "customerCreation": "always",
+    "cancelUrlByCategory": {
+      "adult": "/paths/adult.html",
+      "athlete": "/paths/athlete.html",
+      "nutrition": "/#memberships"
+    }
+  },
+  "products": {
+    "adult_monthly_flexible": {
+      "category": "adult",
+      "displayName": "Adult Membership — Month to Month",
+      "description": "Flexible month-to-month adult membership.",
+      "checkoutRoute": "/checkout/adult-monthly",
+      "successRoute": "/success/adult-monthly",
+      "mode": "subscription",
+      "amount": 15000,
+      "displayPrice": "$150/month",
+      "recurring": { "interval": "month", "intervalCount": 1 },
+      "commitmentMonths": 0,
+      "accessTags": ["adult", "coached_classes", "open_gym"],
+      "stripeRefs": {
+        "productIdEnv": "STRIPE_PRODUCT_ADULT_MONTHLY",
+        "priceIdEnv": "STRIPE_PRICE_ADULT_MONTHLY"
+      }
+    },
+    "adult_3_month_commitment": {
+      "category": "adult",
+      "displayName": "Adult Membership — 3-Month Commitment",
+      "description": "Adult membership with 3-month commitment.",
+      "checkoutRoute": "/checkout/adult-3-month",
+      "successRoute": "/success/adult-3-month",
+      "mode": "subscription",
+      "amount": 17900,
+      "displayPrice": "$179/month",
+      "recurring": { "interval": "month", "intervalCount": 1 },
+      "commitmentMonths": 3,
+      "commitmentTotal": 53700,
+      "accessTags": ["adult", "coached_classes", "open_gym"],
+      "stripeRefs": {
+        "productIdEnv": "STRIPE_PRODUCT_ADULT_3_MONTH",
+        "priceIdEnv": "STRIPE_PRICE_ADULT_3_MONTH"
+      }
+    },
+    "adult_6_month_commitment": {
+      "category": "adult",
+      "displayName": "Adult Membership — 6-Month Commitment",
+      "description": "Adult membership with 6-month commitment.",
+      "checkoutRoute": "/checkout/adult-6-month",
+      "successRoute": "/success/adult-6-month",
+      "mode": "subscription",
+      "amount": 17900,
+      "displayPrice": "$179/month",
+      "recurring": { "interval": "month", "intervalCount": 1 },
+      "commitmentMonths": 6,
+      "commitmentTotal": 107400,
+      "accessTags": ["adult", "coached_classes", "open_gym"],
+      "stripeRefs": {
+        "productIdEnv": "STRIPE_PRODUCT_ADULT_6_MONTH",
+        "priceIdEnv": "STRIPE_PRICE_ADULT_6_MONTH"
+      }
+    },
+    "adult_12_month_commitment": {
+      "category": "adult",
+      "displayName": "Adult Membership — 12-Month Commitment",
+      "description": "Adult membership with 12-month commitment.",
+      "checkoutRoute": "/checkout/adult-12-month",
+      "successRoute": "/success/adult-12-month",
+      "mode": "subscription",
+      "amount": 15900,
+      "displayPrice": "$159/month",
+      "recurring": { "interval": "month", "intervalCount": 1 },
+      "commitmentMonths": 12,
+      "commitmentTotal": 190800,
+      "accessTags": ["adult", "coached_classes", "open_gym"],
+      "stripeRefs": {
+        "productIdEnv": "STRIPE_PRODUCT_ADULT_12_MONTH",
+        "priceIdEnv": "STRIPE_PRICE_ADULT_12_MONTH"
+      }
+    },
+    "adult_buddy_6_month": {
+      "category": "adult",
+      "displayName": "Adult Membership — Buddy Plan",
+      "description": "Adult buddy plan billed per person with partner details collected after checkout.",
+      "checkoutRoute": "/checkout/adult-buddy",
+      "successRoute": "/success/adult-buddy",
+      "mode": "subscription",
+      "amount": 16900,
+      "displayPrice": "$169/month per person",
+      "recurring": { "interval": "month", "intervalCount": 1 },
+      "commitmentMonths": 6,
+      "commitmentTotal": 101400,
+      "accessTags": ["adult", "buddy", "coached_classes", "open_gym"],
+      "requiredPostCheckoutData": ["partner_name", "partner_email"],
+      "stripeRefs": {
+        "productIdEnv": "STRIPE_PRODUCT_ADULT_BUDDY",
+        "priceIdEnv": "STRIPE_PRICE_ADULT_BUDDY"
+      }
+    },
+    "adult_family_6_month": {
+      "category": "adult",
+      "displayName": "Adult Membership — Family Plan",
+      "description": "Family membership with household details collected after checkout.",
+      "checkoutRoute": "/checkout/adult-family",
+      "successRoute": "/success/adult-family",
+      "mode": "subscription",
+      "amount": 34900,
+      "displayPrice": "$349/month",
+      "recurring": { "interval": "month", "intervalCount": 1 },
+      "commitmentMonths": 6,
+      "commitmentTotal": 209400,
+      "accessTags": ["adult", "family", "coached_classes", "open_gym"],
+      "requiredPostCheckoutData": ["household_members"],
+      "stripeRefs": {
+        "productIdEnv": "STRIPE_PRODUCT_ADULT_FAMILY",
+        "priceIdEnv": "STRIPE_PRICE_ADULT_FAMILY"
+      }
+    },
+    "athlete_unlimited_monthly": {
+      "category": "athlete",
+      "displayName": "Athlete Training — Unlimited Monthly",
+      "description": "Unlimited athlete training billed monthly.",
+      "checkoutRoute": "/checkout/athlete-monthly",
+      "successRoute": "/success/athlete-monthly",
+      "mode": "subscription",
+      "amount": 17500,
+      "displayPrice": "$175/month",
+      "recurring": { "interval": "month", "intervalCount": 1 },
+      "commitmentMonths": 0,
+      "accessTags": ["athlete", "training", "testing"],
+      "stripeRefs": {
+        "productIdEnv": "STRIPE_PRODUCT_ATHLETE_MONTHLY",
+        "priceIdEnv": "STRIPE_PRICE_ATHLETE_MONTHLY"
+      }
+    },
+    "athlete_3_month_pif": {
+      "category": "athlete",
+      "displayName": "Athlete Training — 3 Months Paid in Full",
+      "description": "Three-month athlete training block paid in full.",
+      "checkoutRoute": "/checkout/athlete-3-month-pif",
+      "successRoute": "/success/athlete-3-month-pif",
+      "mode": "payment",
+      "amount": 49500,
+      "displayPrice": "$495 one-time",
+      "termMonths": 3,
+      "accessTags": ["athlete", "training", "testing"],
+      "stripeRefs": {
+        "productIdEnv": "STRIPE_PRODUCT_ATHLETE_3_MONTH_PIF",
+        "priceIdEnv": "STRIPE_PRICE_ATHLETE_3_MONTH_PIF"
+      }
+    },
+    "athlete_6_month_pif": {
+      "category": "athlete",
+      "displayName": "Athlete Training — 6 Months Paid in Full",
+      "description": "Six-month athlete training block paid in full.",
+      "checkoutRoute": "/checkout/athlete-6-month-pif",
+      "successRoute": "/success/athlete-6-month-pif",
+      "mode": "payment",
+      "amount": 93000,
+      "displayPrice": "$930 one-time",
+      "termMonths": 6,
+      "accessTags": ["athlete", "training", "testing"],
+      "stripeRefs": {
+        "productIdEnv": "STRIPE_PRODUCT_ATHLETE_6_MONTH_PIF",
+        "priceIdEnv": "STRIPE_PRICE_ATHLETE_6_MONTH_PIF"
+      }
+    },
+    "nutrition_consult_package": {
+      "category": "nutrition",
+      "displayName": "Nutrition Coaching",
+      "description": "Nutrition consultation, personalized meal plan, and four weeks of coaching support.",
+      "checkoutRoute": "/checkout/nutrition",
+      "successRoute": "/success/nutrition",
+      "mode": "payment",
+      "amount": 15000,
+      "displayPrice": "$150 one-time",
+      "termWeeks": 4,
+      "accessTags": ["nutrition", "consult", "coaching"],
+      "stripeRefs": {
+        "productIdEnv": "STRIPE_PRODUCT_NUTRITION",
+        "priceIdEnv": "STRIPE_PRICE_NUTRITION"
+      }
+    }
+  },
+  "routeToProductKey": {
+    "/checkout/adult-monthly": "adult_monthly_flexible",
+    "/checkout/adult-3-month": "adult_3_month_commitment",
+    "/checkout/adult-6-month": "adult_6_month_commitment",
+    "/checkout/adult-12-month": "adult_12_month_commitment",
+    "/checkout/adult-buddy": "adult_buddy_6_month",
+    "/checkout/adult-family": "adult_family_6_month",
+    "/checkout/athlete-monthly": "athlete_unlimited_monthly",
+    "/checkout/athlete-3-month-pif": "athlete_3_month_pif",
+    "/checkout/athlete-6-month-pif": "athlete_6_month_pif",
+    "/checkout/nutrition": "nutrition_consult_package"
+  }
+}

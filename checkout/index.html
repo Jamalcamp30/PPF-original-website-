@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — PPF Athletics</title>
+  <meta name="description" content="Complete your PPF Athletics membership checkout. Secure payment powered by Stripe." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/ppf-checkout.css" />
+</head>
+<body>
+  <!-- Nav -->
+  <nav class="ppf-co-nav">
+    <a href="../index.html" class="ppf-co-nav__logo">PPF ATHLETICS</a>
+    <a href="../index.html#memberships" class="ppf-co-nav__back">&larr; BACK TO MEMBERSHIPS</a>
+  </nav>
+
+  <!-- Page container — filled by JS -->
+  <main class="ppf-co-page" id="checkoutPage">
+    <!-- Loading state -->
+    <div style="text-align:center;padding:80px 0">
+      <div class="ppf-co-headline" style="font-size:1.4rem;color:rgba(255,255,255,0.3)">Loading plan details&hellip;</div>
+    </div>
+  </main>
+
+  <script src="../js/ppf-stripe-config.js"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    /* ── Read plan ID from query string ──────────────────────── */
+    var params = new URLSearchParams(window.location.search);
+    var planId = params.get('plan');
+    var page = document.getElementById('checkoutPage');
+
+    if (!planId || typeof PPF_STRIPE === 'undefined' || !PPF_STRIPE.getPlan(planId)) {
+      page.innerHTML =
+        '<div class="ppf-co-notfound">' +
+          '<div class="ppf-co-notfound__icon" aria-hidden="true">\u26A0</div>' +
+          '<div class="ppf-co-notfound__title">Plan Not Found</div>' +
+          '<p class="ppf-co-notfound__body">We couldn\u2019t find the membership plan you\u2019re looking for. Please return to the memberships page and try again.</p>' +
+          '<a href="../index.html#memberships" class="ppf-co-btn" style="max-width:340px;margin:0 auto">VIEW MEMBERSHIPS</a>' +
+        '</div>';
+      document.title = 'Plan Not Found — PPF Athletics';
+      return;
+    }
+
+    var plan = PPF_STRIPE.getPlan(planId);
+    document.title = plan.name + ' — PPF Athletics';
+
+    /* ── Check icon SVG ──────────────────────────────────────── */
+    var checkSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>';
+
+    /* ── Build included features list ────────────────────────── */
+    var includesHtml = '';
+    if (plan.includes && plan.includes.length) {
+      includesHtml = '<div class="ppf-co-includes"><div class="ppf-co-includes__title">WHAT\u2019S INCLUDED</div>';
+      for (var i = 0; i < plan.includes.length; i++) {
+        includesHtml += '<div class="ppf-co-includes__item">' + checkSvg + '<span>' + plan.includes[i] + '</span></div>';
+      }
+      includesHtml += '</div>';
+    }
+
+    /* ── Badge ────────────────────────────────────────────────── */
+    var badgeHtml = '';
+    if (plan.badge) {
+      badgeHtml = '<span class="ppf-co-badge"' + (plan.badgeColor ? ' style="background:' + plan.badgeColor + '"' : '') + '>' + plan.badge + '</span>';
+    }
+
+    /* ── Total line ──────────────────────────────────────────── */
+    var totalHtml = plan.total ? '<div class="ppf-co-total">' + plan.total + '</div>' : '';
+
+    /* ── ACH badge for subscriptions ─────────────────────────── */
+    var achHtml = '';
+    if (plan.mode === 'subscription') {
+      achHtml =
+        '<div class="ppf-co-ach-badge">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>' +
+          'BEST VALUE: BANK ACCOUNT AUTOPAY' +
+        '</div>';
+    }
+
+    /* ── Stripe Payment Link availability ────────────────────── */
+    var hasPaymentLink = plan.stripePaymentLink && plan.stripePaymentLink.length > 0;
+
+    var ctaHtml;
+    if (hasPaymentLink) {
+      ctaHtml =
+        '<a href="' + plan.stripePaymentLink + '" class="ppf-co-btn" id="stripeCheckoutBtn">' +
+          (plan.mode === 'subscription' ? 'START MEMBERSHIP' : 'COMPLETE PURCHASE') +
+        '</a>' +
+        '<div class="ppf-co-divider">OR</div>' +
+        '<a href="../index.html#start" class="ppf-co-btn ppf-co-btn--secondary">SPEAK WITH A COACH FIRST</a>';
+    } else {
+      ctaHtml =
+        '<div class="ppf-co-setup-notice">' +
+          '<div class="ppf-co-setup-notice__icon" aria-hidden="true">\uD83D\uDD12</div>' +
+          '<div class="ppf-co-setup-notice__title">STRIPE CHECKOUT COMING SOON</div>' +
+          '<p class="ppf-co-setup-notice__body">Online checkout for this plan is being configured. To get started today, contact a PPF coach directly or submit your application below.</p>' +
+        '</div>' +
+        '<a href="../index.html#start" class="ppf-co-btn">SUBMIT YOUR APPLICATION</a>' +
+        '<div class="ppf-co-divider">OR CONTACT US DIRECTLY</div>' +
+        '<a href="tel:+16789389668" class="ppf-co-btn ppf-co-btn--secondary">CALL REBECCA &mdash; (678) 938-9668</a>' +
+        '<a href="tel:+16789103080" class="ppf-co-btn ppf-co-btn--secondary">CALL RICHARD &mdash; (678) 910-3080</a>';
+    }
+
+    /* ── Assemble page ───────────────────────────────────────── */
+    page.innerHTML =
+      badgeHtml +
+      '<h1 class="ppf-co-headline">' + plan.name + '</h1>' +
+      '<div class="ppf-co-price-row">' +
+        '<span class="ppf-co-price">' + plan.price + '</span>' +
+        '<span class="ppf-co-period">' + plan.period + '</span>' +
+      '</div>' +
+      totalHtml +
+      '<p class="ppf-co-intro">' + plan.checkoutIntro + '</p>' +
+      includesHtml +
+      '<div class="ppf-co-terms">' + plan.terms + '</div>' +
+      '<div class="ppf-co-pay-section">' +
+        '<div class="ppf-co-pay-title">Choose Your Payment Method</div>' +
+        '<p class="ppf-co-pay-sub">Pay with card, debit, digital wallet, or bank account. Bank account autopay is the best option for recurring memberships and long-term billing.</p>' +
+        achHtml +
+      '</div>' +
+      ctaHtml +
+      '<div class="ppf-co-trust">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>' +
+        '<div class="ppf-co-trust__text"><strong>Secure checkout powered by Stripe.</strong> Your payment information is encrypted and never stored on our servers. Stripe processes payments for millions of businesses worldwide.</div>' +
+      '</div>';
+  })();
+  </script>
+</body>
+</html>

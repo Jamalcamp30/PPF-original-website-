@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Success — PPF Athletics</title>
+  <meta name="description" content="Your PPF Athletics membership or purchase is confirmed." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/ppf-checkout.css" />
+  <link rel="stylesheet" href="../css/ppf-membership-pulse.css" />
+</head>
+<body>
+  <!-- Nav -->
+  <nav class="ppf-co-nav">
+    <a href="../index.html" class="ppf-co-nav__logo">PPF ATHLETICS</a>
+    <a href="../index.html" class="ppf-co-nav__back">&larr; RETURN HOME</a>
+  </nav>
+
+  <!-- Page container — filled by JS -->
+  <main class="ppf-co-page" id="successPage">
+    <div style="text-align:center;padding:80px 0">
+      <div class="ppf-co-headline" style="font-size:1.4rem;color:rgba(255,255,255,0.3)">Loading&hellip;</div>
+    </div>
+  </main>
+
+  <script src="../js/ppf-stripe-config.js"></script>
+  <script src="../js/ppf-membership-pulse.js"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    var params = new URLSearchParams(window.location.search);
+    var planId = params.get('plan');
+    var page = document.getElementById('successPage');
+
+    /* ── Resolve success data from paid plans or consult plans ── */
+    var data = null;
+    var paid = null;
+    if (typeof PPF_STRIPE !== 'undefined') {
+      paid = planId ? PPF_STRIPE.getPlan(planId) : null;
+    }
+    if (paid) {
+      data = {
+        eyebrow: paid.successEyebrow,
+        headline: paid.successHeadline,
+        body: paid.successBody,
+        primary: paid.successPrimary,
+        secondary: paid.successSecondary
+      };
+    } else {
+      var consult = (typeof PPF_STRIPE !== 'undefined' && planId) ? PPF_STRIPE.getConsultPlan(planId) : null;
+      if (consult) {
+        data = {
+          eyebrow: consult.successEyebrow,
+          headline: consult.successHeadline,
+          body: consult.successBody,
+          primary: consult.successPrimary,
+          secondary: consult.successSecondary
+        };
+      }
+    }
+
+    /* ── Not found ───────────────────────────────────────────── */
+    if (!data) {
+      page.innerHTML =
+        '<div class="ppf-co-notfound">' +
+          '<div class="ppf-co-notfound__icon" aria-hidden="true">\u26A0</div>' +
+          '<div class="ppf-co-notfound__title">Page Not Found</div>' +
+          '<p class="ppf-co-notfound__body">We couldn\u2019t find what you\u2019re looking for. Please return to the home page.</p>' +
+          '<a href="../index.html" class="ppf-co-btn" style="max-width:340px;margin:0 auto">RETURN HOME</a>' +
+        '</div>';
+      return;
+    }
+
+    document.title = data.headline + ' — PPF Athletics';
+
+    /* ── Resolve relative links ──────────────────────────────── */
+    function resolveHref(href) {
+      if (!href) return '../index.html';
+      if (href.charAt(0) === '/') return '..' + href;
+      if (href.indexOf('http') === 0 || href.indexOf('tel:') === 0 || href.indexOf('mailto:') === 0) return href;
+      return '../' + href;
+    }
+
+    /* ── Activation sequence container (only for paid plans) ── */
+    var activationHtml = paid
+      ? '<div id="mpActivation" style="margin-bottom:32px"></div>'
+      : '';
+
+    /* ── Build page ──────────────────────────────────────────── */
+    page.innerHTML =
+      '<div class="ppf-su-checkmark">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg>' +
+      '</div>' +
+      '<div class="ppf-su-eyebrow">' + data.eyebrow + '</div>' +
+      '<h1 class="ppf-su-headline">' + data.headline + '</h1>' +
+      '<p class="ppf-su-body">' + data.body + '</p>' +
+      activationHtml +
+      '<div class="ppf-su-actions">' +
+        '<a href="' + resolveHref(data.primary.href) + '" class="ppf-co-btn">' + data.primary.text + '</a>' +
+        '<a href="' + resolveHref(data.secondary.href) + '" class="ppf-co-btn ppf-co-btn--secondary">' + data.secondary.text + '</a>' +
+      '</div>';
+
+    /* ── Boot activation sequence for paid plans ──────────── */
+    if (paid && typeof PPFPulse !== 'undefined') {
+      var actEl = document.getElementById('mpActivation');
+      if (actEl) {
+        PPFPulse.initActivation(actEl, paid.name);
+      }
+
+      /* Save membership state so dashboard reflects new plan */
+      var state = PPFPulse.getState();
+      state.plan = paid.name;
+      state.status = 'active';
+      state.paymentStatus = 'healthy';
+      state.lastPayment = new Date().toISOString().split('T')[0];
+      PPFPulse.saveState(state);
+    }
+  })();
+  </script>
+</body>
+</html>

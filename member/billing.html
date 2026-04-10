@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Billing — PPF Athletics Member Portal</title>
+  <meta name="description" content="Manage your PPF Athletics membership billing, payment methods, invoices, and subscription." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/ppf-checkout.css" />
+  <link rel="stylesheet" href="../css/ppf-membership-pulse.css" />
+</head>
+<body>
+  <!-- Nav -->
+  <nav class="ppf-co-nav">
+    <a href="dashboard.html" class="ppf-co-nav__logo">PPF MEMBER OS</a>
+    <a href="dashboard.html" class="ppf-co-nav__back">&larr; DASHBOARD</a>
+  </nav>
+
+  <main class="ppf-co-page ppf-co-page--wide">
+    <!-- Header -->
+    <div class="ppf-bi-header">
+      <h1 class="ppf-bi-headline">Billing &amp; Membership Management</h1>
+      <p class="ppf-bi-sub">Manage your payment method, view invoices, update billing details, and stay on top of your membership from one place.</p>
+    </div>
+
+    <!-- Payment status (Membership Pulse) -->
+    <div id="mpPaymentStatus"></div>
+
+    <!-- Billing action cards -->
+    <div class="ppf-bi-grid">
+      <!-- Manage Billing -->
+      <div class="ppf-bi-card">
+        <svg class="ppf-bi-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+        </svg>
+        <div class="ppf-bi-card__title">MANAGE BILLING</div>
+        <div class="ppf-bi-card__desc">Access your Stripe billing portal to update payment methods, view subscription details, and manage your membership.</div>
+        <a href="#" class="ppf-bi-card__btn" id="portalBtn">OPEN BILLING PORTAL</a>
+      </div>
+
+      <!-- View Invoices -->
+      <div class="ppf-bi-card">
+        <svg class="ppf-bi-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+        <div class="ppf-bi-card__title">VIEW INVOICES</div>
+        <div class="ppf-bi-card__desc">Access your full invoice history, download receipts, and review past payments through the billing portal.</div>
+        <a href="#" class="ppf-bi-card__btn" id="invoicesBtn">VIEW INVOICES</a>
+      </div>
+
+      <!-- Update Payment Method -->
+      <div class="ppf-bi-card">
+        <svg class="ppf-bi-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        <div class="ppf-bi-card__title">UPDATE PAYMENT METHOD</div>
+        <div class="ppf-bi-card__desc">Switch between card, bank account, or digital wallet. Bank account autopay offers the lowest recurring fees.</div>
+        <a href="#" class="ppf-bi-card__btn" id="paymentBtn">UPDATE PAYMENT</a>
+      </div>
+    </div>
+
+    <!-- Quick actions -->
+    <div style="display:flex;flex-direction:column;gap:12px;max-width:400px;margin:0 auto 40px">
+      <a href="../checkout/?plan=nutrition" class="ppf-co-btn ppf-co-btn--secondary" style="text-align:center">BUY NUTRITION COACHING</a>
+      <a href="../index.html#memberships" class="ppf-co-btn ppf-co-btn--secondary" style="text-align:center">UPGRADE MEMBERSHIP</a>
+    </div>
+
+    <!-- ACH promotion -->
+    <div class="ppf-co-trust" style="max-width:600px;margin:0 auto">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:24px;height:24px;color:#22c55e;flex-shrink:0">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+      <div class="ppf-co-trust__text"><strong style="color:#22c55e">Save on every payment.</strong> Bank account autopay (ACH) has the lowest processing fees for recurring memberships. Switch in the billing portal to save on every billing cycle.</div>
+    </div>
+  </main>
+
+  <script src="../js/ppf-stripe-config.js"></script>
+  <script src="../js/ppf-membership-pulse.js"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    /* ── Stripe portal setup ─────────────────────────────────── */
+    var portalUrl = (typeof PPF_STRIPE !== 'undefined') ? PPF_STRIPE.STRIPE_PORTAL_URL : '';
+    var isConfigured = portalUrl && portalUrl.indexOf('REPLACE') === -1;
+
+    function handlePortalClick(e) {
+      if (!isConfigured) {
+        e.preventDefault();
+        window.alert('Billing portal is being set up. Please contact a PPF coach for billing questions in the meantime.');
+      }
+    }
+
+    var buttons = ['portalBtn', 'invoicesBtn', 'paymentBtn'];
+    for (var i = 0; i < buttons.length; i++) {
+      var btn = document.getElementById(buttons[i]);
+      if (btn) {
+        if (isConfigured) {
+          btn.href = portalUrl;
+        } else {
+          btn.href = '#';
+          btn.addEventListener('click', handlePortalClick);
+        }
+      }
+    }
+
+    /* ── Membership Pulse: Payment Status ────────────────────── */
+    if (typeof PPFPulse !== 'undefined') {
+      var statusEl = document.getElementById('mpPaymentStatus');
+      if (statusEl) PPFPulse.initBilling(statusEl);
+    }
+  })();
+  </script>
+</body>
+</html>
