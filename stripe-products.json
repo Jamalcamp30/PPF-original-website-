@@ -6,7 +6,7 @@
     "secretKeyEnv": "STRIPE_SECRET_KEY",
     "webhookSecretEnv": "STRIPE_WEBHOOK_SECRET",
     "customerPortalConfigurationEnv": "STRIPE_PORTAL_CONFIGURATION_ID",
-    "customerPortalReturnUrl": "/member/index.html",
+    "customerPortalReturnUrl": "/member/dashboard.html",
     "defaultPaymentMethodPriority": [
       "us_bank_account",
       "card",

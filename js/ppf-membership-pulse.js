@@ -52,7 +52,8 @@
 
   function getDateInDays(n) {
     var d = new Date();
-    d.setDate(d.getDate() + n);
+    d.setHours(0, 0, 0, 0);
+    d.setTime(d.getTime() + n * 86400000);
     return d.toISOString().split('T')[0];
   }
 
@@ -94,6 +95,12 @@
 
     var html =
       '<div class="mp-perim-glow" id="mpPerimGlow"></div>' +
+      '<div class="mp-perim-run">' +
+        '<span class="mp-perim-run__edge mp-perim-run__edge--top"></span>' +
+        '<span class="mp-perim-run__edge mp-perim-run__edge--right"></span>' +
+        '<span class="mp-perim-run__edge mp-perim-run__edge--bottom"></span>' +
+        '<span class="mp-perim-run__edge mp-perim-run__edge--left"></span>' +
+      '</div>' +
       '<div class="mp-hero__top">' +
         '<div>' +
           '<div class="mp-hero__plan-label">CURRENT PLAN</div>' +
@@ -214,12 +221,9 @@
      3. TOAST NOTIFICATION SYSTEM
      ═════════════════════════════════════════════════════════════════ */
   var toastContainer = null;
-  var toastQueue = [];
-  var toastActive = 0;
-  var MAX_VISIBLE_TOASTS = 3;
 
   function ensureToastContainer() {
-    if (toastContainer) return;
+    if (toastContainer && toastContainer.parentNode) return;
     toastContainer = ce('div', 'mp-toast-container');
     document.body.appendChild(toastContainer);
   }
@@ -262,16 +266,18 @@
 
     toastContainer.appendChild(toast);
 
-    // Animate in
+    // Animate in with double-rAF to guarantee the browser has painted
+    // the initial off-screen position before transitioning
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
         toast.classList.add('mp-toast--visible');
-        toastActive++;
 
-        // Settle older toasts
+        // Settle older toasts (skip any that are already dismissing)
         var children = toastContainer.children;
         for (var i = 0; i < children.length - 1; i++) {
-          children[i].classList.add('mp-toast--settling');
+          if (!children[i].classList.contains('mp-toast--dismissing')) {
+            children[i].classList.add('mp-toast--settling');
+          }
         }
         setTimeout(function () {
           for (var j = 0; j < children.length; j++) {
@@ -281,11 +287,14 @@
       });
     });
 
-    // Dismiss handler
+    // Dismiss handler with guard against double-fire
+    var dismissed = false;
     function dismiss() {
+      if (dismissed) return;
+      dismissed = true;
+
       toast.classList.remove('mp-toast--visible');
       toast.classList.add('mp-toast--dismissing');
-      toastActive--;
       if (opts.id) {
         var s = getState();
         if (!s.dismissedToasts) s.dismissedToasts = [];
@@ -297,11 +306,16 @@
       }, 500);
     }
 
+    // Close button click — use contains() so child SVG/span clicks
+    // also register as close-button clicks
     var closeBtn = qs('.mp-toast__close', toast);
-    if (closeBtn) closeBtn.addEventListener('click', dismiss);
-    toast.addEventListener('click', function (e) {
-      if (e.target !== closeBtn) dismiss();
-    });
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        dismiss();
+      });
+    }
+    toast.addEventListener('click', dismiss);
 
     // Auto-dismiss
     var dur = opts.duration !== undefined ? opts.duration : 8000;
@@ -336,13 +350,14 @@
     setTimeout(function () {
       container.classList.add('mp-activation--booting');
 
-      // Reveal steps sequentially
+      // Reveal steps sequentially after the scan line completes
+      // Scan starts at 600ms delay and runs 800ms, so steps begin at ~1500ms
       for (var j = 0; j < steps.length; j++) {
         (function (idx) {
           setTimeout(function () {
             var step = qs('#mpActStep' + idx, container);
             if (step) step.classList.add('mp-activation__step--revealed');
-          }, 1200 + (idx * 500));
+          }, 1500 + (idx * 500));
         })(j);
       }
     }, 100);
@@ -389,16 +404,26 @@
   }
 
   /* ═════════════════════════════════════════════════════════════════
-     6. PERIMETER RUN (trigger manually)
+     6. PERIMETER RUN / GLOW (trigger manually)
      ═════════════════════════════════════════════════════════════════ */
   function triggerPerimeterGlow(selector) {
     var el = typeof selector === 'string' ? qs(selector) : selector;
     if (!el) return;
+
+    /* ── Conic sweep glow ── */
     var glow = qs('.mp-perim-glow', el);
     if (glow) {
       glow.classList.remove('mp-perim-glow--active');
-      void glow.offsetWidth; // reflow
+      void glow.offsetWidth; // reflow to restart animation
       glow.classList.add('mp-perim-glow--active');
+    }
+
+    /* ── 4-edge perimeter run ── */
+    var run = qs('.mp-perim-run', el);
+    if (run) {
+      run.classList.remove('mp-perim-run--active');
+      void run.offsetWidth; // reflow to restart animation
+      run.classList.add('mp-perim-run--active');
     }
   }
 

@@ -26,7 +26,7 @@ var PPF_STRIPE = (function () {
   'use strict';
 
   /* ── Stripe Keys ─────────────────────────────────────────────── */
-  var PUBLISHABLE_KEY = 'pk_live_REPLACE_WITH_YOUR_KEY';
+  var PUBLISHABLE_KEY = 'pk_test_REPLACE_WITH_YOUR_KEY';
 
   /* ── Stripe Customer Portal URL ──────────────────────────────── */
   var STRIPE_PORTAL_URL = 'https://billing.stripe.com/p/login/REPLACE_WITH_YOUR_PORTAL_ID';
