@@ -99,7 +99,11 @@
   }
 
   function initVolumeMeter(section, meter) {
+    var rafId = null;
+    var isVisible = false;
+
     function updateMeter() {
+      if (!isVisible) return;
       var rect = section.getBoundingClientRect();
       var vh = window.innerHeight;
       var sectionTop = rect.top;
@@ -110,21 +114,29 @@
       ));
       var level = Math.round(progress * 100);
       meter.style.setProperty('--volume-level', level + '%');
-      requestAnimationFrame(updateMeter);
+      rafId = requestAnimationFrame(updateMeter);
     }
-    requestAnimationFrame(updateMeter);
+
+    var meterObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          isVisible = true;
+          if (!rafId) rafId = requestAnimationFrame(updateMeter);
+        } else {
+          isVisible = false;
+          if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+        }
+      });
+    }, { threshold: 0 });
+    meterObserver.observe(section);
   }
 
 
   /* ══════════════════════════════════════════════════════
-     2. COACHING TEMPO SCROLL SYNC
-     Scroll speed affects animation sharpness
-     ══════════════════════════════════════════════════════ */
-  /* (Handled by the pressure reveal delay system above) */
-
-
-  /* ══════════════════════════════════════════════════════
-     3. LEADERSHIP SECTION ANIMATIONS
+     2. LEADERSHIP SECTION ANIMATIONS
      ══════════════════════════════════════════════════════ */
   function initLeadershipAnimations() {
     var section = qs('#leadership');

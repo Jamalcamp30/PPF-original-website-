@@ -769,4 +769,18 @@
   .atm-line[data-cue-lock].atm-cue-locked .atm-line-text::after {
     animation: none;
   }
+
+  /* Disable floor glow pulse */
+  .atmosphere-section.atm-entered .atm-floor-glow::after {
+    animation: none;
+  }
+
+  /* Disable parallax transforms on leadership cards */
+  .ldr-card[data-parallax-x] .ldr-card-bg {
+    transform: scale(1.05);
+  }
+
+  .ldr-card[data-parallax-x] .ldr-card-initial {
+    transform: translate(-50%, -50%);
+  }
 }
