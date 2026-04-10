@@ -5,6 +5,11 @@
 -- ══════════════════════════════════════════════════════════════
 
 -- 1. Profiles
+-- Roles: member = athlete user, coach = training coach,
+--        admin = PPF staff, family = family viewer (limited),
+--        agent = sports agent/representative (limited).
+-- Family and agent roles map to visibility_access.access_type
+-- for scoped metric sharing without full platform access.
 create table profiles (
   id uuid primary key,
   email text unique,

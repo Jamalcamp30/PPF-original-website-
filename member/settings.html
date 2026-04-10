@@ -1527,7 +1527,7 @@
         profile = PPFMember.getProfile();
       }
       if (profile) {
-        state.account.email = profile.email || '\u2014';
+        state.account.email = profile.email || '—';
         if (profile.joinDate) {
           var d = new Date(profile.joinDate);
           var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -1603,11 +1603,11 @@
       var syncEl = document.getElementById('sync-health-value');
       var syncSub = document.getElementById('sync-health-sub');
       if (connCount === 0) {
-        if (syncEl) { syncEl.textContent = '\u2014'; syncEl.style.color = 'var(--muted)'; }
+        if (syncEl) { syncEl.textContent = '—'; syncEl.style.color = 'var(--muted)'; }
         if (syncSub) syncSub.textContent = 'No sources connected yet.';
         var statusEl = document.getElementById('ppf-status-value');
         var statusSub = document.getElementById('ppf-status-sub');
-        if (statusEl) { statusEl.textContent = '\u2014'; statusEl.style.color = 'var(--muted)'; }
+        if (statusEl) { statusEl.textContent = '—'; statusEl.style.color = 'var(--muted)'; }
         if (statusSub) statusSub.textContent = 'Connect a device to see readiness.';
       } else {
         if (syncEl) { syncEl.textContent = 'Healthy'; syncEl.style.color = 'var(--success)'; }
