@@ -757,7 +757,7 @@
   .ppf-ms__tabs {
     justify-content: flex-start;
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
+    scroll-snap-type: x proximity;
     -ms-overflow-style: none;
     scrollbar-width: none;
     padding-left: 20px;
