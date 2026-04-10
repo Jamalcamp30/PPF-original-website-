@@ -271,7 +271,7 @@
      ══════════════════════════════════════════════════════ */
   function boot() {
     initRoomAnimations();
-    initLeadershipAnimations();
+    /* Leadership animations now handled by ppf-leadership.js */
   }
 
   if (document.readyState === 'loading') {

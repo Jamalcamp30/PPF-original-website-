@@ -35,6 +35,7 @@
   <link rel="stylesheet" href="css/ppf-session-sequence.css" />
   <link rel="stylesheet" href="css/ppf-elite-experience.css" />
   <link rel="stylesheet" href="css/ppf-membership.css" />
+  <link rel="stylesheet" href="css/ppf-leadership.css" />
   <link rel="stylesheet" href="css/ppf-premium-animations.css" />
 
   <!-- Structured Data: SportsActivityLocation -->
@@ -1934,67 +1935,263 @@
   ============================================================ -->
   <section class="section leadership-section" id="leadership">
 
-    <!-- SECTION HEADER -->
+    <!-- FORGE TEXTURE OVERLAY — dark steel/turf grain -->
+    <div class="ldr-forge-overlay" aria-hidden="true">
+      <div class="ldr-forge-texture"></div>
+      <div class="ldr-forge-weld ldr-forge-weld--top"></div>
+      <div class="ldr-forge-weld ldr-forge-weld--left"></div>
+      <div class="ldr-forge-weld ldr-forge-weld--right"></div>
+      <div class="ldr-forge-weld ldr-forge-weld--bottom"></div>
+    </div>
+
+    <!-- 1. FORGED HEADLINE -->
     <div class="container ldr-header">
       <div class="section-label reveal-up">LEADERSHIP</div>
-      <h2 class="section-title ldr-title reveal-up">
-        The Standard Starts With<br />
-        <span class="accent">Who Leads It.</span>
+      <h2 class="ldr-forge-headline" aria-label="They did not inherit this standard. They built it. They protect it. And every person who walks through that door meets it through them.">
+        <span class="ldr-forge-line" data-forge="1">THEY DID NOT INHERIT THIS STANDARD.</span>
+        <span class="ldr-forge-line" data-forge="2">THEY <em>BUILT</em> IT. THEY <em>PROTECT</em> IT.</span>
+        <span class="ldr-forge-line" data-forge="3">AND EVERY PERSON WHO WALKS THROUGH THAT DOOR</span>
+        <span class="ldr-forge-line" data-forge="4">MEETS IT THROUGH <em>THEM</em>.</span>
       </h2>
-      <p class="section-intro ldr-body reveal-up">
-        The PPF standard exists because of the people who protect it every single day. These are not instructors filling time slots. These are the leaders who built the system, hold the line, and set the tone for every athlete, every session, and every rep that happens inside this room.
+      <div class="ldr-subheadline">
+        <span class="ldr-sub-text">THE STANDARD STARTS WITH WHO LEADS IT.</span>
+      </div>
+    </div>
+
+    <!-- 2. INTRO PARAGRAPH — rises through dark field -->
+    <div class="ldr-intro-field">
+      <p class="ldr-intro-body">
+        The PPF standard did not appear by accident. It was built through discipline, experience, sacrifice, service, and a refusal to lower the level. What happens inside this room is a direct reflection of the people who lead it. The coaching, the structure, the communication, the accountability, the environment, and the expectation behind every rep all trace back to Richard and Rebecca Camp. They did not build PPF to simply open a gym. They built it to create a place where purpose is felt, standards are visible, and development is taken seriously every single day.
       </p>
     </div>
 
-    <!-- LEADERSHIP PRESENCE — CINEMATIC INTRO -->
-    <div class="ldr-presence-intro">
-      <p class="ldr-presence-text">
-        They did not inherit this standard.<br />
-        They <em>built</em> it. They <em>protect</em> it.<br />
-        And every person who walks through that door<br />
-        meets it through <em>them</em>.
+    <!-- "NOT INSTRUCTORS. FOUNDERS." STATEMENT -->
+    <div class="ldr-founders-statement">
+      <p class="ldr-founders-statement-text">
+        They are not instructors filling a schedule.<br />
+        They are the founders who built the system, set the tone,<br />
+        and still protect the standard that defines the room.
       </p>
     </div>
 
-    <!-- SIGNATURE STANDARD LINE connecting headline to leaders -->
+    <!-- SIGNATURE STANDARD LINE -->
     <div class="ldr-standard-line" aria-hidden="true">
       <div class="ldr-std-line-v"></div>
       <div class="ldr-std-line-h"></div>
     </div>
 
-    <!-- TWO LEADERS — SIDE BY SIDE -->
-    <div class="ldr-leaders" id="ldrLeaders">
-      <!-- RICHARD -->
+    <!-- 3. DUAL-FOUNDER SPLIT CURRENT -->
+    <div class="ldr-split-current" id="ldrLeaders">
+
+      <!-- ENERGY DIVIDER — center line that becomes tagline -->
+      <div class="ldr-split-divider" aria-hidden="true">
+        <div class="ldr-split-line"></div>
+        <span class="ldr-split-phrase">BUILT TOGETHER. LED DIFFERENTLY. HELD TO ONE STANDARD.</span>
+      </div>
+
+      <!-- RICHARD — sharp, disciplined motion side -->
       <div class="ldr-card ldr-richard" data-leader="richard">
+        <!-- Blueprint wireframe layer -->
+        <div class="ldr-card-blueprint" aria-hidden="true">
+          <svg class="ldr-bp-svg" viewBox="0 0 400 500" preserveAspectRatio="none">
+            <rect x="10" y="10" width="380" height="480" fill="none" stroke="rgba(255,85,0,0.1)" stroke-width="0.5" stroke-dasharray="4 4"/>
+            <line x1="10" y1="200" x2="390" y2="200" stroke="rgba(255,85,0,0.06)" stroke-width="0.5"/>
+            <line x1="200" y1="10" x2="200" y2="490" stroke="rgba(255,85,0,0.06)" stroke-width="0.5"/>
+          </svg>
+        </div>
+
         <div class="ldr-card-portrait">
           <div class="ldr-card-bg" aria-hidden="true"></div>
           <div class="ldr-card-halo" aria-hidden="true"></div>
           <div class="ldr-card-initial" aria-hidden="true">R</div>
           <div class="ldr-card-overlay"></div>
         </div>
+
         <div class="ldr-card-info">
           <h3 class="ldr-card-name">Richard Camp</h3>
-          <div class="ldr-card-role">Performance Leadership</div>
+          <div class="ldr-card-role">Founder &bull; Performance Leadership</div>
+          <div class="ldr-card-creds">
+            <span class="ldr-cred-chip">CSCS</span>
+            <span class="ldr-cred-chip">Founder</span>
+            <span class="ldr-cred-chip">25+ Years Experience</span>
+            <span class="ldr-cred-chip">Military Background</span>
+            <span class="ldr-cred-chip">Bodybuilding</span>
+          </div>
+          <div class="ldr-card-bio">
+            <p>Richard Camp comes from a background shaped by discipline, physical development, and real-world performance. From military experience to bodybuilding to building PPF from the ground up, his path has always centered on hard work, structure, and results that can be seen and felt. He built the performance side of PPF around coaching that is direct, intentional, and measurable — where every rep has purpose, every session has direction, and every athlete is expected to move with discipline.</p>
+            <p>His standard comes from years of experience, high-level performance leadership, and a belief that training should always produce something real: better movement, better output, better discipline, and better results. The tone he sets is demanding, clear, and accountable, which is exactly why the work inside PPF carries weight.</p>
+          </div>
+          <div class="ldr-card-divider" aria-hidden="true"></div>
+        </div>
+
+        <!-- TIMELINE IN THE FLOOR — Richard -->
+        <div class="ldr-timeline" aria-hidden="true">
+          <div class="ldr-timeline-track">
+            <span class="ldr-timeline-marker" data-label="Military">
+              <span class="ldr-tm-dot"></span>
+              <span class="ldr-tm-pulse"></span>
+            </span>
+            <span class="ldr-timeline-marker" data-label="Bodybuilding">
+              <span class="ldr-tm-dot"></span>
+              <span class="ldr-tm-pulse"></span>
+            </span>
+            <span class="ldr-timeline-marker" data-label="Coaching">
+              <span class="ldr-tm-dot"></span>
+              <span class="ldr-tm-pulse"></span>
+            </span>
+            <span class="ldr-timeline-marker" data-label="Building PPF">
+              <span class="ldr-tm-dot"></span>
+              <span class="ldr-tm-pulse"></span>
+            </span>
+          </div>
         </div>
       </div>
 
-      <!-- REBECCA -->
+      <!-- REBECCA — smooth, environmental motion side -->
       <div class="ldr-card ldr-rebecca" data-leader="rebecca">
+        <!-- Blueprint wireframe layer -->
+        <div class="ldr-card-blueprint" aria-hidden="true">
+          <svg class="ldr-bp-svg" viewBox="0 0 400 500" preserveAspectRatio="none">
+            <rect x="10" y="10" width="380" height="480" fill="none" stroke="rgba(255,85,0,0.1)" stroke-width="0.5" stroke-dasharray="4 4"/>
+            <line x1="10" y1="200" x2="390" y2="200" stroke="rgba(255,85,0,0.06)" stroke-width="0.5"/>
+            <line x1="200" y1="10" x2="200" y2="490" stroke="rgba(255,85,0,0.06)" stroke-width="0.5"/>
+          </svg>
+        </div>
+
         <div class="ldr-card-portrait">
           <div class="ldr-card-bg" aria-hidden="true"></div>
           <div class="ldr-card-halo" aria-hidden="true"></div>
           <div class="ldr-card-initial" aria-hidden="true">R</div>
           <div class="ldr-card-overlay"></div>
         </div>
+
         <div class="ldr-card-info">
           <h3 class="ldr-card-name">Rebecca Camp</h3>
-          <div class="ldr-card-role">Operations &amp; Culture</div>
+          <div class="ldr-card-role">Founder &bull; Operations &amp; Culture</div>
+          <div class="ldr-card-creds">
+            <span class="ldr-cred-chip">Founder</span>
+            <span class="ldr-cred-chip">18+ Years in Education</span>
+            <span class="ldr-cred-chip">Special Education Background</span>
+            <span class="ldr-cred-chip">Culture Builder</span>
+            <span class="ldr-cred-chip">Experience Leader</span>
+          </div>
+          <div class="ldr-card-bio">
+            <p>Rebecca Camp brings a leadership background built on service, consistency, and purpose. After more than 18 years working in the school system, particularly in special education, she developed a deep understanding of people, communication, and the importance of meeting individuals where they are while still helping them grow. That experience now shows up throughout PPF in the way the environment is led, the way people are cared for, and the way standards are carried out with consistency.</p>
+            <p>Rebecca built the operational and cultural side of PPF so the experience matches the standard. She shapes the communication, consistency, and environment around the work, helping ensure that every athlete and member walks into a space that feels personal, dependable, and professionally led. Her belief is simple: everything should have a reason, and how you do anything is how you do everything. That mindset is part of what gives PPF its structure, its identity, and its standard.</p>
+          </div>
+          <div class="ldr-card-divider" aria-hidden="true"></div>
+        </div>
+
+        <!-- TIMELINE IN THE FLOOR — Rebecca -->
+        <div class="ldr-timeline" aria-hidden="true">
+          <div class="ldr-timeline-track">
+            <span class="ldr-timeline-marker" data-label="Education">
+              <span class="ldr-tm-dot"></span>
+              <span class="ldr-tm-pulse"></span>
+            </span>
+            <span class="ldr-timeline-marker" data-label="Special Ed">
+              <span class="ldr-tm-dot"></span>
+              <span class="ldr-tm-pulse"></span>
+            </span>
+            <span class="ldr-timeline-marker" data-label="Culture">
+              <span class="ldr-tm-dot"></span>
+              <span class="ldr-tm-pulse"></span>
+            </span>
+            <span class="ldr-timeline-marker" data-label="Operations">
+              <span class="ldr-tm-dot"></span>
+              <span class="ldr-tm-pulse"></span>
+            </span>
+            <span class="ldr-timeline-marker" data-label="PPF">
+              <span class="ldr-tm-dot"></span>
+              <span class="ldr-tm-pulse"></span>
+            </span>
+          </div>
         </div>
       </div>
     </div>
 
+    <!-- CLOSING — "Together" line -->
     <div class="ldr-closing" aria-hidden="true">
-      <span class="ldr-closing-text">Two leaders. One standard.</span>
+      <span class="ldr-closing-text">They did not just build a facility. They built a way of doing things — and they protect it every day.</span>
+    </div>
+
+    <!-- 4. "WHY THEY STARTED IT" — PRESSURE CHAMBER -->
+    <div class="ldr-pressure-chamber">
+      <div class="ldr-chamber-inner">
+        <h3 class="ldr-chamber-label">WHY THEY STARTED IT</h3>
+        <p class="ldr-chamber-body">
+          PPF was built from a belief that too many people were settling for environments with no real structure, no real accountability, and no real coaching behind the work. Richard and Rebecca did not want to create another room full of noise, random effort, or empty motivation. They wanted to build a place where fitness and teaching meet, where coaching actually guides the work, where standards are protected, and where every person who walks through the door knows they are stepping into something intentional.
+        </p>
+        <p class="ldr-chamber-body">
+          They built PPF to be the kind of place they believed should exist: a place where intensity is controlled, purpose is clear, leadership is visible, and development is taken seriously. A place where the standard is not something written on the wall — it is something felt in every session.
+        </p>
+        <div class="ldr-chamber-pressure-line" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <!-- 5. "WHAT STARTS WITH THEM" — SPLIT PANEL -->
+    <div class="ldr-starts-panel">
+      <div class="ldr-starts-col ldr-starts-richard">
+        <h4 class="ldr-starts-label">WHAT STARTS WITH RICHARD</h4>
+        <ul class="ldr-starts-list">
+          <li>Performance tone</li>
+          <li>Coaching standard</li>
+          <li>Session intensity</li>
+          <li>Strength &amp; movement expectations</li>
+          <li>Athlete accountability</li>
+        </ul>
+      </div>
+      <div class="ldr-starts-divider" aria-hidden="true"></div>
+      <div class="ldr-starts-col ldr-starts-rebecca">
+        <h4 class="ldr-starts-label">WHAT STARTS WITH REBECCA</h4>
+        <ul class="ldr-starts-list">
+          <li>Operational consistency</li>
+          <li>Member experience</li>
+          <li>Communication flow</li>
+          <li>Culture &amp; environment</li>
+          <li>Daily professionalism</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 6. "WHAT THEY PROTECT DAILY" — animated tiles -->
+    <div class="ldr-protect-daily">
+      <h3 class="ldr-protect-label">WHAT THEY PROTECT DAILY</h3>
+      <div class="ldr-protect-tiles">
+        <div class="ldr-protect-tile">
+          <span class="ldr-protect-icon" aria-hidden="true">&#9670;</span>
+          <span class="ldr-protect-text">Coaching over chaos</span>
+        </div>
+        <div class="ldr-protect-tile">
+          <span class="ldr-protect-icon" aria-hidden="true">&#9670;</span>
+          <span class="ldr-protect-text">Standards over shortcuts</span>
+        </div>
+        <div class="ldr-protect-tile">
+          <span class="ldr-protect-icon" aria-hidden="true">&#9670;</span>
+          <span class="ldr-protect-text">Accountability over excuses</span>
+        </div>
+        <div class="ldr-protect-tile">
+          <span class="ldr-protect-icon" aria-hidden="true">&#9670;</span>
+          <span class="ldr-protect-text">Structure over randomness</span>
+        </div>
+        <div class="ldr-protect-tile">
+          <span class="ldr-protect-icon" aria-hidden="true">&#9670;</span>
+          <span class="ldr-protect-text">Real development over empty effort</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. FOUNDER PHILOSOPHY STRIP — lock-in sequence -->
+    <div class="ldr-philosophy-strip">
+      <div class="ldr-phil-line" data-phil="1">BUILT ON DISCIPLINE.</div>
+      <div class="ldr-phil-line" data-phil="2">LED WITH PURPOSE.</div>
+      <div class="ldr-phil-line" data-phil="3">COACHED WITH INTENTION.</div>
+      <div class="ldr-phil-line" data-phil="4">PROTECTED DAILY.</div>
+    </div>
+
+    <!-- 8. LEGACY PULSE EXIT — light travels upward -->
+    <div class="ldr-legacy-pulse" aria-hidden="true">
+      <div class="ldr-legacy-line"></div>
     </div>
 
   </section>
@@ -2758,6 +2955,7 @@
   <script src="js/ppf-session-sequence.js"></script>
   <script src="js/ppf-elite-experience.js"></script>
   <script src="js/ppf-membership.js"></script>
+  <script src="js/ppf-leadership.js"></script>
   <script src="js/ppf-premium-animations.js"></script>
 </body>
 </html>
