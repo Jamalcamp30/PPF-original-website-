@@ -717,13 +717,13 @@
   margin: 0 auto;
   padding: 0 40px;
   opacity: 0;
-  transform: translateZ(-20px) scale(0.98);
+  transform: translateY(10px) scale(0.98);
   transition: opacity 1s ease, transform 1s ease;
 }
 
 .ldr-pressure-chamber.ldr-chamber-active .ldr-chamber-inner {
   opacity: 1;
-  transform: translateZ(0) scale(1);
+  transform: translateY(0) scale(1);
 }
 
 .ldr-chamber-label {

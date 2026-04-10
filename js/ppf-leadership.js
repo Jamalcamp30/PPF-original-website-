@@ -328,9 +328,10 @@
     });
 
     // After all lines lock, settle the strip
+    var settleDelay = prefersReduced ? 0 : (lines.length * delay + 600);
     setTimeout(function () {
       strip.classList.add('ldr-phil-settled');
-    }, lines.length * (prefersReduced ? 0 : delay) + 600);
+    }, settleDelay);
   }
 
   /* ══════════════════════════════════════════════════════
