@@ -402,6 +402,472 @@
       .pos-slider-wrap input[type="range"] {
         width: 140px;
       }
+      .pos-connection-card {
+        padding: 1rem !important;
+      }
+      .pos-conn-header {
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+      .pos-conn-metrics {
+        flex-wrap: wrap;
+      }
+      .pos-conn-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .pos-checkin-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .pos-mode-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .pos-quiet-row {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 0.5rem;
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════════════
+       Connection Cards — Integration Hub
+    ══════════════════════════════════════════════════════════════ */
+    .pos-connection-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      transition: border-color .3s;
+    }
+    .pos-connection-card:hover {
+      border-color: rgba(255,255,255,.15);
+    }
+    .pos-connection-card[data-status="connected"] {
+      border-color: rgba(34,197,94,.25);
+    }
+    .pos-connection-card[data-status="error"] {
+      border-color: rgba(239,68,68,.3);
+    }
+    .pos-conn-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .pos-conn-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .pos-conn-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .pos-conn-icon--apple {
+      background: linear-gradient(135deg, #ff2d55, #ff6b6b);
+    }
+    .pos-conn-icon--whoop {
+      background: linear-gradient(135deg, #00d1ff, #0090ff);
+    }
+    .pos-conn-icon--google {
+      background: linear-gradient(135deg, #34a853, #4caf50);
+    }
+    .pos-conn-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .pos-conn-provider {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,.4);
+      margin-top: 0.1rem;
+    }
+    .pos-conn-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .pos-conn-status--not-connected {
+      background: rgba(255,255,255,.06);
+      color: rgba(255,255,255,.45);
+    }
+    .pos-conn-status--connected {
+      background: rgba(34,197,94,.12);
+      color: #4ade80;
+    }
+    .pos-conn-status--error {
+      background: rgba(239,68,68,.12);
+      color: #f87171;
+    }
+    .pos-conn-status--pending {
+      background: rgba(234,179,8,.12);
+      color: #facc15;
+    }
+    .pos-conn-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .pos-conn-status--connected .pos-conn-status-dot { background: #4ade80; }
+    .pos-conn-status--not-connected .pos-conn-status-dot { background: rgba(255,255,255,.3); }
+    .pos-conn-status--error .pos-conn-status-dot { background: #f87171; }
+    .pos-conn-status--pending .pos-conn-status-dot { background: #facc15; }
+
+    .pos-conn-sync-info {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,.35);
+      margin-bottom: 0.75rem;
+    }
+    .pos-conn-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .pos-metric-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.65rem;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,.55);
+      cursor: pointer;
+      transition: all .2s;
+      user-select: none;
+    }
+    .pos-metric-chip.active {
+      background: rgba(255,85,0,.12);
+      border-color: rgba(255,85,0,.3);
+      color: #ff8844;
+    }
+    .pos-metric-chip input {
+      display: none;
+    }
+    .pos-conn-footer {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .pos-conn-btn {
+      padding: 0.45rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #fff;
+      background: #ff5500;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background .2s, transform .15s;
+    }
+    .pos-conn-btn:hover {
+      background: #cc4400;
+      transform: translateY(-1px);
+    }
+    .pos-conn-btn--secondary {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+    .pos-conn-btn--secondary:hover {
+      background: rgba(255,85,0,.15);
+      border-color: #ff5500;
+    }
+    .pos-conn-btn--danger {
+      background: transparent;
+      border: 1px solid rgba(239,68,68,.25);
+      color: #f87171;
+    }
+    .pos-conn-btn--danger:hover {
+      background: rgba(239,68,68,.1);
+      border-color: #ef4444;
+    }
+    .pos-conn-note {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      color: rgba(255,255,255,.3);
+      font-style: italic;
+      line-height: 1.4;
+      margin-top: 0.5rem;
+    }
+
+    /* ── Section Divider ── */
+    .pos-section-divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,.06);
+      margin: 1rem 0;
+    }
+
+    .pos-section-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.3);
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── Body Check-in ── */
+    .pos-checkin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .pos-checkin-item {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 8px;
+      padding: 0.75rem;
+    }
+    .pos-checkin-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.7);
+      margin-bottom: 0.4rem;
+    }
+    .pos-checkin-slider {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .pos-checkin-slider input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      flex: 1;
+      height: 4px;
+      background: rgba(255,255,255,.12);
+      border-radius: 2px;
+      outline: none;
+    }
+    .pos-checkin-slider input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #ff5500;
+      cursor: pointer;
+    }
+    .pos-checkin-slider input[type="range"]::-moz-range-thumb {
+      width: 14px;
+      height: 14px;
+      border: none;
+      border-radius: 50%;
+      background: #ff5500;
+      cursor: pointer;
+    }
+    .pos-checkin-value {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #ff5500;
+      min-width: 2ch;
+      text-align: center;
+    }
+
+    /* ── Quiet Hours ── */
+    .pos-quiet-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+    }
+    .pos-quiet-row input[type="time"] {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 6px;
+      padding: 0.35rem 0.6rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      color: #fff;
+      outline: none;
+    }
+    .pos-quiet-row input[type="time"]:focus {
+      border-color: #ff5500;
+    }
+    .pos-quiet-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,.5);
+    }
+
+    /* ── Performance Mode Cards ── */
+    .pos-mode-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .pos-mode-card {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 10px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all .25s;
+      user-select: none;
+      position: relative;
+    }
+    .pos-mode-card:hover {
+      border-color: rgba(255,85,0,.25);
+      background: rgba(255,255,255,.04);
+    }
+    .pos-mode-card.active {
+      border-color: rgba(255,85,0,.5);
+      background: rgba(255,85,0,.06);
+    }
+    .pos-mode-card input {
+      display: none;
+    }
+    .pos-mode-icon {
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+    }
+    .pos-mode-name {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.15rem;
+    }
+    .pos-mode-desc {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.68rem;
+      color: rgba(255,255,255,.4);
+      line-height: 1.35;
+    }
+    .pos-mode-badge {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ff5500;
+      opacity: 0;
+      transition: opacity .25s;
+    }
+    .pos-mode-card.active .pos-mode-badge {
+      opacity: 1;
+    }
+
+    /* ── Delivery Channel Chips ── */
+    .pos-channel-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .pos-channel-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.35rem 0.7rem;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,.5);
+      cursor: pointer;
+      transition: all .2s;
+      user-select: none;
+    }
+    .pos-channel-chip.active {
+      background: rgba(255,85,0,.12);
+      border-color: rgba(255,85,0,.3);
+      color: #ff8844;
+    }
+    .pos-channel-chip input { display: none; }
+
+    /* ── Readiness Preview Bar ── */
+    .pos-readiness-preview {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .pos-readiness-bar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .pos-readiness-indicator {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .pos-readiness-indicator--green { background: rgba(34,197,94,.2); border: 2px solid #22c55e; }
+    .pos-readiness-indicator--yellow { background: rgba(234,179,8,.2); border: 2px solid #eab308; }
+    .pos-readiness-indicator--red { background: rgba(239,68,68,.2); border: 2px solid #ef4444; }
+    .pos-readiness-text {
+      flex: 1;
+    }
+    .pos-readiness-status {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fff;
+    }
+    .pos-readiness-message {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,.45);
+      margin-top: 0.1rem;
+    }
+    .pos-readiness-scores {
+      display: flex;
+      gap: 1.25rem;
+      margin-top: 0.75rem;
+    }
+    .pos-score-item {
+      text-align: center;
+    }
+    .pos-score-value {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      color: #fff;
+      line-height: 1;
+    }
+    .pos-score-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.6rem;
+      color: rgba(255,255,255,.35);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 0.15rem;
     }
   </style>
 </head>
@@ -583,7 +1049,7 @@
       </section>
 
       <!-- ══════════════════════════════════════════════════════════
-           3. Recovery & Readiness
+           3. Recovery & Readiness — Integration Hub
       ══════════════════════════════════════════════════════════ -->
       <section class="pos-settings-group" id="settingsRecovery">
         <button type="button" class="pos-settings-group-header" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">
@@ -591,29 +1057,153 @@
         </button>
         <div class="pos-settings-group-body">
 
+          <!-- ── Readiness Preview ── -->
+          <div class="pos-readiness-preview" id="readinessPreview">
+            <div class="pos-readiness-bar">
+              <div class="pos-readiness-indicator pos-readiness-indicator--green" id="readinessIndicator">—</div>
+              <div class="pos-readiness-text">
+                <div class="pos-readiness-status" id="readinessStatusText">No sources connected</div>
+                <div class="pos-readiness-message" id="readinessMessage">Connect a device to see your daily readiness score.</div>
+              </div>
+            </div>
+            <div class="pos-readiness-scores" id="readinessScores" style="display:none">
+              <div class="pos-score-item"><div class="pos-score-value" id="scoreSleep">—</div><div class="pos-score-label">Sleep</div></div>
+              <div class="pos-score-item"><div class="pos-score-value" id="scoreRecovery">—</div><div class="pos-score-label">Recovery</div></div>
+              <div class="pos-score-item"><div class="pos-score-value" id="scoreLoad">—</div><div class="pos-score-label">Load</div></div>
+              <div class="pos-score-item"><div class="pos-score-value" id="scoreTrend">—</div><div class="pos-score-label">Trend</div></div>
+              <div class="pos-score-item"><div class="pos-score-value" id="scoreBody">—</div><div class="pos-score-label">Body</div></div>
+            </div>
+          </div>
+
+          <!-- ── Connected Sources ── -->
+          <p class="pos-section-label">Connected Sources</p>
+
+          <!-- Apple Health Card -->
+          <div class="pos-connection-card" id="cardAppleHealth" data-provider="apple_health" data-status="not_connected">
+            <div class="pos-conn-header">
+              <div class="pos-conn-brand">
+                <div class="pos-conn-icon pos-conn-icon--apple" aria-hidden="true">♥</div>
+                <div>
+                  <div class="pos-conn-name">Apple Health</div>
+                  <div class="pos-conn-provider">via PPF iPhone App &middot; HealthKit</div>
+                </div>
+              </div>
+              <span class="pos-conn-status pos-conn-status--not-connected" id="statusAppleHealth">
+                <span class="pos-conn-status-dot" aria-hidden="true"></span>
+                Not Connected
+              </span>
+            </div>
+            <div class="pos-conn-sync-info" id="syncAppleHealth">Last sync: Never</div>
+            <div class="pos-conn-metrics">
+              <label class="pos-metric-chip"><input type="checkbox" id="ah_sleep" checked /><span>Sleep</span></label>
+              <label class="pos-metric-chip"><input type="checkbox" id="ah_hrv" checked /><span>HRV</span></label>
+              <label class="pos-metric-chip"><input type="checkbox" id="ah_rhr" checked /><span>Resting HR</span></label>
+              <label class="pos-metric-chip"><input type="checkbox" id="ah_workouts" checked /><span>Workouts</span></label>
+              <label class="pos-metric-chip"><input type="checkbox" id="ah_steps" /><span>Steps</span></label>
+              <label class="pos-metric-chip"><input type="checkbox" id="ah_hr_trends" /><span>HR Trends</span></label>
+            </div>
+            <div class="pos-conn-footer">
+              <button type="button" class="pos-conn-btn" id="btnAppleHealth" data-action="connect">Connect via App</button>
+              <button type="button" class="pos-conn-btn pos-conn-btn--danger" id="btnDisconnectApple" data-action="disconnect" style="display:none">Disconnect</button>
+            </div>
+            <p class="pos-conn-note">Apple Health requires the PPF iPhone companion app. Tap Connect to open or download the app, then grant HealthKit permissions.</p>
+          </div>
+
+          <!-- WHOOP Card -->
+          <div class="pos-connection-card" id="cardWhoop" data-provider="whoop" data-status="not_connected">
+            <div class="pos-conn-header">
+              <div class="pos-conn-brand">
+                <div class="pos-conn-icon pos-conn-icon--whoop" aria-hidden="true">W</div>
+                <div>
+                  <div class="pos-conn-name">WHOOP</div>
+                  <div class="pos-conn-provider">OAuth &middot; Webhooks &middot; Direct API</div>
+                </div>
+              </div>
+              <span class="pos-conn-status pos-conn-status--not-connected" id="statusWhoop">
+                <span class="pos-conn-status-dot" aria-hidden="true"></span>
+                Not Connected
+              </span>
+            </div>
+            <div class="pos-conn-sync-info" id="syncWhoop">Last sync: Never</div>
+            <div class="pos-conn-metrics">
+              <label class="pos-metric-chip"><input type="checkbox" id="wh_recovery" checked /><span>Recovery</span></label>
+              <label class="pos-metric-chip"><input type="checkbox" id="wh_hrv" checked /><span>HRV</span></label>
+              <label class="pos-metric-chip"><input type="checkbox" id="wh_rhr" checked /><span>Resting HR</span></label>
+              <label class="pos-metric-chip"><input type="checkbox" id="wh_sleep" checked /><span>Sleep</span></label>
+              <label class="pos-metric-chip"><input type="checkbox" id="wh_strain" checked /><span>Strain</span></label>
+              <label class="pos-metric-chip"><input type="checkbox" id="wh_workouts" /><span>Workouts</span></label>
+            </div>
+            <div class="pos-conn-footer">
+              <button type="button" class="pos-conn-btn" id="btnWhoop" data-action="connect">Connect WHOOP</button>
+              <button type="button" class="pos-conn-btn pos-conn-btn--danger" id="btnDisconnectWhoop" data-action="disconnect" style="display:none">Disconnect</button>
+            </div>
+            <p class="pos-conn-note">WHOOP connects via secure OAuth. You'll authorize PPF to read recovery, sleep, strain, and workout data. Webhooks keep your readiness score current in real time.</p>
+          </div>
+
+          <!-- Fitbit / Google Health Card -->
+          <div class="pos-connection-card" id="cardGoogleHealth" data-provider="google_health" data-status="not_connected">
+            <div class="pos-conn-header">
+              <div class="pos-conn-brand">
+                <div class="pos-conn-icon pos-conn-icon--google" aria-hidden="true">G</div>
+                <div>
+                  <div class="pos-conn-name">Fitbit / Google Health</div>
+                  <div class="pos-conn-provider">Google Health API &middot; Google OAuth</div>
+                </div>
+              </div>
+              <span class="pos-conn-status pos-conn-status--not-connected" id="statusGoogleHealth">
+                <span class="pos-conn-status-dot" aria-hidden="true"></span>
+                Not Connected
+              </span>
+            </div>
+            <div class="pos-conn-sync-info" id="syncGoogleHealth">Last sync: Never</div>
+            <div class="pos-conn-metrics">
+              <label class="pos-metric-chip"><input type="checkbox" id="gh_sleep" checked /><span>Sleep</span></label>
+              <label class="pos-metric-chip"><input type="checkbox" id="gh_hr" checked /><span>Heart Rate</span></label>
+              <label class="pos-metric-chip"><input type="checkbox" id="gh_hrv" checked /><span>HRV</span></label>
+              <label class="pos-metric-chip"><input type="checkbox" id="gh_rhr" checked /><span>Resting HR</span></label>
+              <label class="pos-metric-chip"><input type="checkbox" id="gh_exercise" checked /><span>Exercise</span></label>
+              <label class="pos-metric-chip"><input type="checkbox" id="gh_spo2" /><span>SpO₂</span></label>
+              <label class="pos-metric-chip"><input type="checkbox" id="gh_vo2max" /><span>VO₂ Max</span></label>
+            </div>
+            <div class="pos-conn-footer">
+              <button type="button" class="pos-conn-btn" id="btnGoogleHealth" data-action="connect">Continue with Google</button>
+              <button type="button" class="pos-conn-btn pos-conn-btn--danger" id="btnDisconnectGoogle" data-action="disconnect" style="display:none">Disconnect</button>
+            </div>
+            <p class="pos-conn-note">Fitbit data now flows through Google Health API. You'll sign in with your Google account to authorize health data access. Legacy Fitbit tokens require re-consent.</p>
+          </div>
+
+          <hr class="pos-section-divider" />
+
+          <!-- ── Readiness Source Priority ── -->
+          <p class="pos-section-label">Readiness Source Priority</p>
           <div class="pos-setting-row">
             <div class="pos-setting-info">
-              <span class="pos-setting-label">Connect Apple Health</span>
-              <span class="pos-setting-desc">Sync recovery data from Apple Health</span>
+              <span class="pos-setting-label">Preferred readiness source</span>
+              <span class="pos-setting-desc">Which device takes priority when multiple sources report</span>
             </div>
-            <button type="button" class="pos-setting-btn" id="btnAppleHealth" onclick="alert('Coming Soon')">Connect</button>
+            <div class="pos-radio-group">
+              <label class="pos-radio"><input type="radio" name="readinessSource" id="readinessAuto" value="auto" checked /><span>Auto</span></label>
+              <label class="pos-radio"><input type="radio" name="readinessSource" id="readinessWhoop" value="whoop" /><span>WHOOP</span></label>
+              <label class="pos-radio"><input type="radio" name="readinessSource" id="readinessApple" value="apple" /><span>Apple</span></label>
+              <label class="pos-radio"><input type="radio" name="readinessSource" id="readinessGoogle" value="google" /><span>Google</span></label>
+            </div>
           </div>
 
           <div class="pos-setting-row">
             <div class="pos-setting-info">
-              <span class="pos-setting-label">Connect Fitbit</span>
-              <span class="pos-setting-desc">Sync recovery data from Fitbit</span>
+              <span class="pos-setting-label">Fallback scoring</span>
+              <span class="pos-setting-desc">Use 3-day rolling average when today's data is missing</span>
             </div>
-            <button type="button" class="pos-setting-btn" id="btnFitbit" onclick="alert('Coming Soon')">Connect</button>
+            <label class="pos-toggle">
+              <input type="checkbox" id="fallbackScoring" checked />
+              <span class="pos-toggle-track"></span>
+            </label>
           </div>
 
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Connect Whoop</span>
-              <span class="pos-setting-desc">Sync recovery data from Whoop</span>
-            </div>
-            <button type="button" class="pos-setting-btn" id="btnWhoop" onclick="alert('Coming Soon')">Connect</button>
-          </div>
+          <hr class="pos-section-divider" />
+
+          <!-- ── Data Import Toggles ── -->
+          <p class="pos-section-label">Data Import Controls</p>
 
           <div class="pos-setting-row">
             <div class="pos-setting-info">
@@ -621,7 +1211,7 @@
               <span class="pos-setting-desc">Automatically import sleep data from connected devices</span>
             </div>
             <label class="pos-toggle">
-              <input type="checkbox" id="sleepImport" />
+              <input type="checkbox" id="sleepImport" checked />
               <span class="pos-toggle-track"></span>
             </label>
           </div>
@@ -629,13 +1219,31 @@
           <div class="pos-setting-row">
             <div class="pos-setting-info">
               <span class="pos-setting-label">HRV / Readiness display</span>
-              <span class="pos-setting-desc">Show heart-rate variability and readiness scores</span>
+              <span class="pos-setting-desc">Show heart-rate variability and readiness scores on dashboard</span>
             </div>
             <label class="pos-toggle">
-              <input type="checkbox" id="hrvDisplay" />
+              <input type="checkbox" id="hrvDisplay" checked />
               <span class="pos-toggle-track"></span>
             </label>
           </div>
+
+          <div class="pos-setting-row">
+            <div class="pos-setting-info">
+              <span class="pos-setting-label">Readiness visibility</span>
+              <span class="pos-setting-desc">Who can see your readiness data</span>
+            </div>
+            <div class="pos-radio-group">
+              <label class="pos-radio"><input type="radio" name="readinessVisibility" id="readinessVisMe" value="member_only" checked /><span>Me Only</span></label>
+              <label class="pos-radio"><input type="radio" name="readinessVisibility" id="readinessVisCoach" value="member_coach" /><span>+ Coach</span></label>
+              <label class="pos-radio"><input type="radio" name="readinessVisibility" id="readinessVisFamily" value="family" /><span>+ Family</span></label>
+              <label class="pos-radio"><input type="radio" name="readinessVisibility" id="readinessVisAgent" value="agent" /><span>+ Agent</span></label>
+            </div>
+          </div>
+
+          <hr class="pos-section-divider" />
+
+          <!-- ── Manual Body Check-In ── -->
+          <p class="pos-section-label">Daily Body Check-In</p>
 
           <div class="pos-setting-row">
             <div class="pos-setting-info">
@@ -643,9 +1251,40 @@
               <span class="pos-setting-desc">Prompt for daily soreness and body status reports</span>
             </div>
             <label class="pos-toggle">
-              <input type="checkbox" id="sorenessCheckins" />
+              <input type="checkbox" id="sorenessCheckins" checked />
               <span class="pos-toggle-track"></span>
             </label>
+          </div>
+
+          <div class="pos-checkin-grid" id="checkinGrid">
+            <div class="pos-checkin-item">
+              <div class="pos-checkin-label">Soreness</div>
+              <div class="pos-checkin-slider">
+                <input type="range" id="checkinSoreness" min="1" max="10" value="3" />
+                <span class="pos-checkin-value" id="checkinSorenessVal">3</span>
+              </div>
+            </div>
+            <div class="pos-checkin-item">
+              <div class="pos-checkin-label">Fatigue</div>
+              <div class="pos-checkin-slider">
+                <input type="range" id="checkinFatigue" min="1" max="10" value="3" />
+                <span class="pos-checkin-value" id="checkinFatigueVal">3</span>
+              </div>
+            </div>
+            <div class="pos-checkin-item">
+              <div class="pos-checkin-label">Hydration</div>
+              <div class="pos-checkin-slider">
+                <input type="range" id="checkinHydration" min="1" max="10" value="7" />
+                <span class="pos-checkin-value" id="checkinHydrationVal">7</span>
+              </div>
+            </div>
+            <div class="pos-checkin-item">
+              <div class="pos-checkin-label">Mood</div>
+              <div class="pos-checkin-slider">
+                <input type="range" id="checkinMood" min="1" max="10" value="7" />
+                <span class="pos-checkin-value" id="checkinMoodVal">7</span>
+              </div>
+            </div>
           </div>
 
           <div class="pos-setting-row">
@@ -654,7 +1293,7 @@
               <span class="pos-setting-desc">Receive periodic reminders to stay hydrated</span>
             </div>
             <label class="pos-toggle">
-              <input type="checkbox" id="hydrationReminders" />
+              <input type="checkbox" id="hydrationReminders" checked />
               <span class="pos-toggle-track"></span>
             </label>
           </div>
