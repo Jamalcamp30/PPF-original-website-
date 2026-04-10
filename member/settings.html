@@ -8,1549 +8,1705 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/ppf-member.css" />
   <style>
     /* ══════════════════════════════════════════════════════════════
-       Performance Controls — pos-* scoped styles
+       PPF Member OS — Performance Controls
+       Premium Settings Page — Full Integration Hub
     ══════════════════════════════════════════════════════════════ */
-
-    /* ── Page Header ── */
-    .pos-controls-header {
-      text-align: center;
-      padding: 3.5rem 1.5rem 2rem;
-    }
-    .pos-controls-header .section-heading {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.8rem, 6vw, 4.5rem);
-      letter-spacing: 0.04em;
-      color: #fff;
-      margin: 0 0 0.25rem;
-    }
-    .pos-controls-subtitle {
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      color: rgba(255,255,255,.5);
-      margin: 0 0 1.25rem;
-    }
-    .pos-status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 999px;
-      padding: 0.35rem 1rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #4ade80;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-    .pos-status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #4ade80;
-      animation: pos-pulse 2s ease-in-out infinite;
-    }
-    @keyframes pos-pulse {
-      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74,222,128,.5); }
-      50%       { opacity: .7; box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+    :root {
+      --bg: #07090d;
+      --bg-elev: #0d1118;
+      --panel: rgba(17, 23, 33, 0.9);
+      --panel-2: rgba(11, 15, 22, 0.9);
+      --stroke: rgba(255,255,255,0.08);
+      --stroke-strong: rgba(255,255,255,0.14);
+      --text: #f4f7fb;
+      --muted: #9ba6b7;
+      --muted-2: #7f8897;
+      --accent: #ff6a00;
+      --accent-soft: rgba(255,106,0,0.18);
+      --success: #2fe08f;
+      --success-soft: rgba(47,224,143,0.18);
+      --warn: #ffbd59;
+      --warn-soft: rgba(255,189,89,0.18);
+      --danger: #ff5f73;
+      --danger-soft: rgba(255,95,115,0.18);
+      --shadow: 0 24px 70px rgba(0,0,0,0.42);
+      --radius-xl: 26px;
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --radius-sm: 999px;
+      --max: 1440px;
     }
 
-    /* ── Settings Container ── */
-    .pos-settings-container {
-      max-width: 780px;
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255,106,0,0.12), transparent 28%),
+        radial-gradient(circle at 90% 15%, rgba(255,255,255,0.05), transparent 20%),
+        linear-gradient(180deg, #090b10 0%, #05070a 100%);
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+
+    /* ── Shell ── */
+    .settings-shell {
+      width: min(calc(100% - 40px), var(--max));
       margin: 0 auto;
-      padding: 0 1.5rem 3rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      padding: 28px 0 56px;
     }
 
-    /* ── Accordion Group ── */
-    .pos-settings-group {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.07);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: border-color .25s;
-    }
-    .pos-settings-group:hover {
-      border-color: rgba(255,85,0,.25);
-    }
-    .pos-settings-group-header {
+    /* ── Topbar ── */
+    .topbar {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      padding: 1.15rem 1.5rem;
-      cursor: pointer;
-      user-select: none;
-      background: transparent;
-      border: none;
-      width: 100%;
-      text-align: left;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.35rem;
-      letter-spacing: 0.05em;
-      color: #fff;
-    }
-    .pos-settings-group-header:hover {
-      background: rgba(255,255,255,.03);
-    }
-    .pos-settings-group-header::after {
-      content: '+';
-      font-family: 'Inter', sans-serif;
-      font-size: 1.25rem;
-      font-weight: 300;
-      color: rgba(255,255,255,.35);
-      transition: transform .25s;
-    }
-    .pos-settings-group.open .pos-settings-group-header::after {
-      content: '−';
-    }
-    .pos-settings-group-body {
-      display: none;
-      padding: 0.25rem 1.5rem 1.5rem;
-    }
-    .pos-settings-group.open .pos-settings-group-body {
-      display: block;
-    }
-
-    /* ── Setting Row ── */
-    .pos-setting-row {
-      display: flex;
       justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      padding: 0.9rem 0;
-      border-bottom: 1px solid rgba(255,255,255,.05);
+      gap: 18px;
+      padding: 0 0 24px;
     }
-    .pos-setting-row:last-child {
-      border-bottom: none;
-    }
-    .pos-setting-info {
+    .topbar__brand {
       display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-      flex: 1;
-      min-width: 0;
+      align-items: center;
+      gap: 14px;
     }
-    .pos-setting-label {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #fff;
-    }
-    .pos-setting-desc {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.75rem;
-      color: rgba(255,255,255,.4);
-    }
-
-    /* ── Toggle ── */
-    .pos-toggle {
-      position: relative;
-      display: inline-block;
+    .topbar__logo {
       width: 44px;
-      height: 24px;
-      flex-shrink: 0;
-      cursor: pointer;
-    }
-    .pos-toggle input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-      position: absolute;
-    }
-    .pos-toggle-track {
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,.12);
-      border-radius: 999px;
-      transition: background .25s;
-    }
-    .pos-toggle-track::after {
-      content: '';
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 18px;
-      height: 18px;
-      background: #fff;
-      border-radius: 50%;
-      transition: transform .25s;
-    }
-    .pos-toggle input:checked + .pos-toggle-track {
-      background: #ff5500;
-    }
-    .pos-toggle input:checked + .pos-toggle-track::after {
-      transform: translateX(20px);
-    }
-
-    /* ── Radio Group ── */
-    .pos-radio-group {
-      display: flex;
-      gap: 0;
-      flex-shrink: 0;
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .pos-radio {
-      cursor: pointer;
-      position: relative;
-    }
-    .pos-radio input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-      position: absolute;
-    }
-    .pos-radio span {
-      display: block;
-      padding: 0.4rem 0.75rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 500;
-      color: rgba(255,255,255,.45);
-      background: transparent;
-      transition: background .2s, color .2s;
-      white-space: nowrap;
-      border-right: 1px solid rgba(255,255,255,.07);
-    }
-    .pos-radio:last-child span {
-      border-right: none;
-    }
-    .pos-radio input:checked + span {
-      background: #ff5500;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 16px;
       color: #fff;
+      background: linear-gradient(135deg, var(--accent), #ff9432);
+      box-shadow: 0 12px 26px rgba(255,106,0,0.35);
+    }
+    .topbar__meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .topbar__eyebrow {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .topbar__title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+    .topbar__actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
     /* ── Buttons ── */
-    .pos-setting-btn {
-      flex-shrink: 0;
-      padding: 0.5rem 1.1rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.78rem;
+    .btn {
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.02);
+      color: var(--text);
+      padding: 11px 15px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 14px;
       font-weight: 600;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease, opacity .18s ease;
+    }
+    .btn:hover { transform: translateY(-1px); border-color: var(--stroke-strong); }
+    .btn--primary {
+      background: linear-gradient(135deg, #ff7d1f, var(--accent));
+      border-color: transparent;
       color: #fff;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background .2s, border-color .2s;
+      box-shadow: 0 14px 30px rgba(255,106,0,0.28);
     }
-    .pos-setting-btn:hover {
-      background: rgba(255,85,0,.2);
-      border-color: #ff5500;
+    .btn--secondary { background: rgba(255,255,255,0.04); }
+    .btn--ghost { background: transparent; }
+    .btn--danger {
+      color: #fff;
+      background: rgba(255,95,115,0.12);
+      border-color: rgba(255,95,115,0.24);
     }
-    .pos-setting-btn--danger {
-      color: #ff4444;
-      border-color: rgba(255,68,68,.25);
-    }
-    .pos-setting-btn--danger:hover {
-      background: rgba(255,68,68,.15);
-      border-color: #ff4444;
-    }
-    .pos-setting-btn--signout {
-      color: rgba(255,255,255,.6);
-    }
+    .btn:disabled { opacity: .55; cursor: default; transform: none; }
 
-    /* ── Slider ── */
-    .pos-slider-wrap {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      flex-shrink: 0;
-    }
-    .pos-slider-wrap input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 110px;
-      height: 4px;
-      background: rgba(255,255,255,.12);
-      border-radius: 2px;
-      outline: none;
-    }
-    .pos-slider-wrap input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: #ff5500;
-      cursor: pointer;
-    }
-    .pos-slider-wrap input[type="range"]::-moz-range-thumb {
-      width: 16px;
-      height: 16px;
-      border: none;
-      border-radius: 50%;
-      background: #ff5500;
-      cursor: pointer;
-    }
-    .pos-slider-value {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: #ff5500;
-      min-width: 3ch;
-      text-align: right;
-    }
-
-    /* ── Read-Only Field ── */
-    .pos-setting-readonly {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.82rem;
-      color: rgba(255,255,255,.45);
-      flex-shrink: 0;
-    }
-
-    /* ── PRO Badge ── */
-    .pos-badge-pro {
-      display: inline-block;
-      padding: 0.15rem 0.45rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: #080808;
-      background: #ff5500;
-      border-radius: 4px;
-      margin-left: 0.4rem;
-      vertical-align: middle;
-    }
-
-    /* ── Theme Swatches ── */
-    .pos-swatch-group {
-      display: flex;
-      gap: 0;
-      flex-shrink: 0;
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .pos-swatch-label {
-      cursor: pointer;
+    /* ── Hero ── */
+    .settings-hero {
       position: relative;
+      overflow: hidden;
+      border: 1px solid var(--stroke);
+      border-radius: 30px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015)),
+        linear-gradient(135deg, rgba(255,106,0,0.12), rgba(255,255,255,0.03));
+      box-shadow: var(--shadow);
+      padding: 30px;
+      margin-bottom: 24px;
     }
-    .pos-swatch-label input {
-      opacity: 0;
-      width: 0;
-      height: 0;
+    .settings-hero::after {
+      content: "";
       position: absolute;
+      inset: auto -8% -30% auto;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(255,106,0,0.18), transparent 66%);
+      pointer-events: none;
     }
-    .pos-swatch-label span {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.4rem 0.65rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 500;
-      color: rgba(255,255,255,.45);
-      background: transparent;
-      transition: background .2s, color .2s;
-      white-space: nowrap;
-      border-right: 1px solid rgba(255,255,255,.07);
-    }
-    .pos-swatch-label:last-child span {
-      border-right: none;
-    }
-    .pos-swatch-label input:checked + span {
-      background: rgba(255,85,0,.2);
-      color: #fff;
-    }
-    .pos-swatch-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      display: inline-block;
-      flex-shrink: 0;
-    }
-
-    /* ── Auto-save Indicator ── */
-    .pos-autosave {
-      text-align: center;
-      padding: 1.5rem 1rem 0;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.78rem;
-      color: rgba(255,255,255,.35);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-    }
-    .pos-autosave-check {
-      color: #4ade80;
-      font-size: 0.9rem;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 600px) {
-      .pos-setting-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.65rem;
-      }
-      .pos-radio-group,
-      .pos-swatch-group {
-        flex-wrap: wrap;
-      }
-      .pos-slider-wrap input[type="range"] {
-        width: 140px;
-      }
-      .pos-connection-card {
-        padding: 1rem !important;
-      }
-      .pos-conn-header {
-        flex-direction: column;
-        gap: 0.75rem;
-      }
-      .pos-conn-metrics {
-        flex-wrap: wrap;
-      }
-      .pos-conn-footer {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      .pos-checkin-grid {
-        grid-template-columns: 1fr !important;
-      }
-      .pos-mode-grid {
-        grid-template-columns: 1fr !important;
-      }
-      .pos-quiet-row {
-        flex-direction: column;
-        align-items: flex-start !important;
-        gap: 0.5rem;
-      }
-    }
-
-    /* ══════════════════════════════════════════════════════════════
-       Connection Cards — Integration Hub
-    ══════════════════════════════════════════════════════════════ */
-    .pos-connection-card {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 10px;
-      padding: 1.25rem;
-      margin-bottom: 1rem;
-      transition: border-color .3s;
-    }
-    .pos-connection-card:hover {
-      border-color: rgba(255,255,255,.15);
-    }
-    .pos-connection-card[data-status="connected"] {
-      border-color: rgba(34,197,94,.25);
-    }
-    .pos-connection-card[data-status="error"] {
-      border-color: rgba(239,68,68,.3);
-    }
-    .pos-conn-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 0.75rem;
-    }
-    .pos-conn-brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .pos-conn-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-    .pos-conn-icon--apple {
-      background: linear-gradient(135deg, #ff2d55, #ff6b6b);
-    }
-    .pos-conn-icon--whoop {
-      background: linear-gradient(135deg, #00d1ff, #0090ff);
-    }
-    .pos-conn-icon--google {
-      background: linear-gradient(135deg, #34a853, #4caf50);
-    }
-    .pos-conn-name {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: #fff;
-    }
-    .pos-conn-provider {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.7rem;
-      color: rgba(255,255,255,.4);
-      margin-top: 0.1rem;
-    }
-    .pos-conn-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
+    .settings-hero__eyebrow {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
-      flex-shrink: 0;
+      margin-bottom: 12px;
     }
-    .pos-conn-status--not-connected {
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.45);
+    .settings-hero__title {
+      margin: 0;
+      font-size: clamp(34px, 6vw, 58px);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+      max-width: 700px;
     }
-    .pos-conn-status--connected {
-      background: rgba(34,197,94,.12);
-      color: #4ade80;
+    .settings-hero__subtitle {
+      margin: 14px 0 20px;
+      color: var(--muted);
+      max-width: 720px;
+      font-size: 16px;
+      line-height: 1.55;
     }
-    .pos-conn-status--error {
-      background: rgba(239,68,68,.12);
-      color: #f87171;
-    }
-    .pos-conn-status--pending {
-      background: rgba(234,179,8,.12);
-      color: #facc15;
-    }
-    .pos-conn-status-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      flex-shrink: 0;
-    }
-    .pos-conn-status--connected .pos-conn-status-dot { background: #4ade80; }
-    .pos-conn-status--not-connected .pos-conn-status-dot { background: rgba(255,255,255,.3); }
-    .pos-conn-status--error .pos-conn-status-dot { background: #f87171; }
-    .pos-conn-status--pending .pos-conn-status-dot { background: #facc15; }
-
-    .pos-conn-sync-info {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.72rem;
-      color: rgba(255,255,255,.35);
-      margin-bottom: 0.75rem;
-    }
-    .pos-conn-metrics {
+    .settings-hero__status {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
+      gap: 10px;
     }
-    .pos-metric-chip {
+
+    /* ── Status Pills ── */
+    .status-pill {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
-      padding: 0.3rem 0.65rem;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 6px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.7rem;
-      color: rgba(255,255,255,.55);
-      cursor: pointer;
-      transition: all .2s;
-      user-select: none;
-    }
-    .pos-metric-chip.active {
-      background: rgba(255,85,0,.12);
-      border-color: rgba(255,85,0,.3);
-      color: #ff8844;
-    }
-    .pos-metric-chip input {
-      display: none;
-    }
-    .pos-conn-footer {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .pos-conn-btn {
-      padding: 0.45rem 1rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #fff;
-      background: #ff5500;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background .2s, transform .15s;
-    }
-    .pos-conn-btn:hover {
-      background: #cc4400;
-      transform: translateY(-1px);
-    }
-    .pos-conn-btn--secondary {
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.12);
-    }
-    .pos-conn-btn--secondary:hover {
-      background: rgba(255,85,0,.15);
-      border-color: #ff5500;
-    }
-    .pos-conn-btn--danger {
-      background: transparent;
-      border: 1px solid rgba(239,68,68,.25);
-      color: #f87171;
-    }
-    .pos-conn-btn--danger:hover {
-      background: rgba(239,68,68,.1);
-      border-color: #ef4444;
-    }
-    .pos-conn-note {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.68rem;
-      color: rgba(255,255,255,.3);
-      font-style: italic;
-      line-height: 1.4;
-      margin-top: 0.5rem;
-    }
-
-    /* ── Section Divider ── */
-    .pos-section-divider {
-      border: none;
-      border-top: 1px solid rgba(255,255,255,.06);
-      margin: 1rem 0;
-    }
-
-    .pos-section-label {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.72rem;
+      gap: 8px;
+      min-height: 34px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
       font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.3);
-      margin-bottom: 0.75rem;
+      letter-spacing: 0.02em;
+      border: 1px solid var(--stroke);
+      color: var(--text);
+      background: rgba(255,255,255,0.03);
     }
-
-    /* ── Body Check-in ── */
-    .pos-checkin-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-    }
-    .pos-checkin-item {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.06);
-      border-radius: 8px;
-      padding: 0.75rem;
-    }
-    .pos-checkin-label {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: rgba(255,255,255,.7);
-      margin-bottom: 0.4rem;
-    }
-    .pos-checkin-slider {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .pos-checkin-slider input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      flex: 1;
-      height: 4px;
-      background: rgba(255,255,255,.12);
-      border-radius: 2px;
-      outline: none;
-    }
-    .pos-checkin-slider input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #ff5500;
-      cursor: pointer;
-    }
-    .pos-checkin-slider input[type="range"]::-moz-range-thumb {
-      width: 14px;
-      height: 14px;
-      border: none;
-      border-radius: 50%;
-      background: #ff5500;
-      cursor: pointer;
-    }
-    .pos-checkin-value {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #ff5500;
-      min-width: 2ch;
-      text-align: center;
-    }
-
-    /* ── Quiet Hours ── */
-    .pos-quiet-row {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.5rem 0;
-    }
-    .pos-quiet-row input[type="time"] {
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.1);
-      border-radius: 6px;
-      padding: 0.35rem 0.6rem;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.78rem;
-      color: #fff;
-      outline: none;
-    }
-    .pos-quiet-row input[type="time"]:focus {
-      border-color: #ff5500;
-    }
-    .pos-quiet-label {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.78rem;
-      color: rgba(255,255,255,.5);
-    }
-
-    /* ── Performance Mode Cards ── */
-    .pos-mode-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-    }
-    .pos-mode-card {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 10px;
-      padding: 1rem;
-      cursor: pointer;
-      transition: all .25s;
-      user-select: none;
-      position: relative;
-    }
-    .pos-mode-card:hover {
-      border-color: rgba(255,85,0,.25);
-      background: rgba(255,255,255,.04);
-    }
-    .pos-mode-card.active {
-      border-color: rgba(255,85,0,.5);
-      background: rgba(255,85,0,.06);
-    }
-    .pos-mode-card input {
-      display: none;
-    }
-    .pos-mode-icon {
-      font-size: 1.3rem;
-      margin-bottom: 0.4rem;
-    }
-    .pos-mode-name {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 0.15rem;
-    }
-    .pos-mode-desc {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.68rem;
-      color: rgba(255,255,255,.4);
-      line-height: 1.35;
-    }
-    .pos-mode-badge {
-      position: absolute;
-      top: 0.6rem;
-      right: 0.6rem;
+    .status-pill::before {
+      content: "";
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: #ff5500;
-      opacity: 0;
-      transition: opacity .25s;
+      background: currentColor;
+      box-shadow: 0 0 12px currentColor;
     }
-    .pos-mode-card.active .pos-mode-badge {
-      opacity: 1;
+    .status-pill--live { color: var(--success); background: var(--success-soft); border-color: rgba(47,224,143,0.22); }
+    .status-pill--autosave { color: #d5dde9; }
+    .status-pill--connected { color: var(--success); background: var(--success-soft); border-color: rgba(47,224,143,0.2); }
+    .status-pill--warning { color: var(--warn); background: var(--warn-soft); border-color: rgba(255,189,89,0.24); }
+    .status-pill--error { color: var(--danger); background: var(--danger-soft); border-color: rgba(255,95,115,0.24); }
+
+    /* ── Grid Layout ── */
+    .settings-grid {
+      display: grid;
+      grid-template-columns: 360px minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
     }
 
-    /* ── Delivery Channel Chips ── */
-    .pos-channel-group {
+    /* ── Rail ── */
+    .settings-rail {
+      position: sticky;
+      top: 22px;
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius-xl);
+      background: rgba(10,14,20,0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .settings-rail__title {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .settings-nav {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .settings-nav__link {
       display: flex;
-      gap: 0.5rem;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 14px;
+      border-radius: 14px;
+      border: 1px solid transparent;
+      color: #dce3ee;
+      font-size: 14px;
+      font-weight: 600;
+      background: rgba(255,255,255,0.02);
+      transition: background .18s ease, border-color .18s ease, transform .18s ease;
+    }
+    .settings-nav__link:hover,
+    .settings-nav__link.is-active {
+      background: rgba(255,255,255,0.05);
+      border-color: rgba(255,106,0,0.2);
+      transform: translateX(2px);
+    }
+    .settings-nav__tag {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    .rail-health {
+      border-top: 1px solid var(--stroke);
+      padding-top: 16px;
+      display: grid;
+      gap: 10px;
+    }
+    .rail-health__card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      padding: 14px;
+    }
+    .rail-health__label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.12em; }
+    .rail-health__value { margin-top: 10px; font-size: 25px; font-weight: 800; letter-spacing: -0.04em; }
+    .rail-health__sub { margin-top: 6px; color: var(--muted); font-size: 13px; }
+
+    /* ── Content ── */
+    .settings-content {
+      display: grid;
+      gap: 20px;
+    }
+
+    /* ── Panels ── */
+    .settings-panel {
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius-xl);
+      background: rgba(10,14,20,0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .settings-panel--priority { border-color: rgba(255,106,0,0.2); }
+    .panel-head {
+      padding: 22px 22px 18px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+    }
+    .panel-head h2 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+    }
+    .panel-head p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .panel-body {
+      padding: 18px 22px 22px;
+    }
+    .panel-body--stack {
+      display: grid;
+      gap: 16px;
+    }
+
+    /* ── Cards ── */
+    .settings-card {
+      position: relative;
+      border: 1px solid var(--stroke);
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+      overflow: hidden;
+    }
+    .settings-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 3px;
+      background: rgba(255,255,255,0.08);
+    }
+    .settings-card--connected::before { background: linear-gradient(180deg, var(--success), transparent); }
+    .settings-card--warning::before { background: linear-gradient(180deg, var(--warn), transparent); }
+    .settings-card--error::before { background: linear-gradient(180deg, var(--danger), transparent); }
+    .card-head {
+      padding: 18px 18px 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .card-head h3 {
+      margin: 0 0 6px;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+    }
+    .card-head p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      max-width: 740px;
+    }
+    .card-body {
+      padding: 16px 18px 18px;
+    }
+    .card-meta {
+      display: flex;
+      gap: 10px;
       flex-wrap: wrap;
-    }
-    .pos-channel-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.35rem 0.7rem;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.08);
-      border-radius: 6px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.72rem;
-      color: rgba(255,255,255,.5);
-      cursor: pointer;
-      transition: all .2s;
-      user-select: none;
-    }
-    .pos-channel-chip.active {
-      background: rgba(255,85,0,.12);
-      border-color: rgba(255,85,0,.3);
-      color: #ff8844;
-    }
-    .pos-channel-chip input { display: none; }
-
-    /* ── Readiness Preview Bar ── */
-    .pos-readiness-preview {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(255,255,255,.06);
-      border-radius: 10px;
-      padding: 1rem 1.25rem;
-      margin-bottom: 1rem;
-    }
-    .pos-readiness-bar {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-    .pos-readiness-indicator {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 800;
-      color: #fff;
+      justify-content: flex-end;
       flex-shrink: 0;
     }
-    .pos-readiness-indicator--green { background: rgba(34,197,94,.2); border: 2px solid #22c55e; }
-    .pos-readiness-indicator--yellow { background: rgba(234,179,8,.2); border: 2px solid #eab308; }
-    .pos-readiness-indicator--red { background: rgba(239,68,68,.2); border: 2px solid #ef4444; }
-    .pos-readiness-text {
-      flex: 1;
+
+    /* ── Integration List ── */
+    .integration-list {
+      display: grid;
+      gap: 14px;
+      padding: 16px 18px 18px;
     }
-    .pos-readiness-status {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
+    .integration-row {
+      display: grid;
+      grid-template-columns: 60px minmax(0,1fr) auto;
+      gap: 14px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.03);
+      align-items: center;
+    }
+    .integration-row--connected {
+      border-color: rgba(47,224,143,0.16);
+      background: linear-gradient(180deg, rgba(47,224,143,0.07), rgba(255,255,255,0.03));
+    }
+    .integration-row--warning {
+      border-color: rgba(255,189,89,0.2);
+      background: linear-gradient(180deg, rgba(255,189,89,0.07), rgba(255,255,255,0.03));
+    }
+    .integration-row--error {
+      border-color: rgba(255,95,115,0.18);
+      background: linear-gradient(180deg, rgba(255,95,115,0.07), rgba(255,255,255,0.03));
+    }
+    .integration-row__brand {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--stroke);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      font-weight: 900;
+      font-size: 16px;
+      letter-spacing: 0.08em;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+    .integration-row__title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      letter-spacing: 0.01em;
+    }
+    .integration-row__desc {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .integration-row__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+    .integration-row__actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .sync-indicator,
+    .trend-chip {
+      padding: 8px 11px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      border: 1px solid var(--stroke);
+      color: #d8dfeb;
+      background: rgba(255,255,255,0.03);
+    }
+    .sync-indicator--live { border-color: rgba(47,224,143,0.18); }
+    .sync-indicator--error { border-color: rgba(255,95,115,0.2); color: #ffc0ca; }
+    .trend-chip--up { border-color: rgba(255,106,0,0.22); }
+
+    /* ── Settings List + Row ── */
+    .settings-list {
+      display: grid;
+      gap: 10px;
+    }
+    .settings-row {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) auto;
+      gap: 16px;
+      align-items: center;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.02);
+    }
+    .settings-row__title {
+      font-size: 15px;
       font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .settings-row__desc {
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+    .settings-row__helper {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--muted-2);
+    }
+
+    /* ── Toggle ── */
+    .toggle {
+      width: 58px;
+      height: 34px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.06);
+      position: relative;
+      cursor: pointer;
+      transition: background .18s ease, border-color .18s ease;
+      flex-shrink: 0;
+    }
+    .toggle::after {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #fff;
+      transition: transform .18s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+    .toggle[aria-checked="true"] {
+      background: linear-gradient(135deg, #ff7d1f, var(--accent));
+      border-color: rgba(255,106,0,0.2);
+    }
+    .toggle[aria-checked="true"]::after {
+      transform: translateX(24px);
+    }
+
+    /* ── Segmented Control ── */
+    .segmented-control {
+      display: inline-flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+    .segmented-control__option {
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,0.04);
+      color: #dfe7f2;
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background .18s ease, border-color .18s ease, transform .18s ease;
+    }
+    .segmented-control__option:hover { transform: translateY(-1px); }
+    .segmented-control__option--active {
+      border-color: rgba(255,106,0,0.24);
+      background: rgba(255,106,0,0.14);
       color: #fff;
     }
-    .pos-readiness-message {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.72rem;
-      color: rgba(255,255,255,.45);
-      margin-top: 0.1rem;
+
+    .settings-row__select {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--stroke);
+      color: var(--text);
+      padding: 10px 12px;
+      border-radius: 12px;
+      min-width: 180px;
     }
-    .pos-readiness-scores {
+
+    /* ── Footer Actions ── */
+    .footer-actions {
       display: flex;
-      gap: 1.25rem;
-      margin-top: 0.75rem;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 18px;
     }
-    .pos-score-item {
+    .footer-actions__note {
+      color: var(--muted);
+      line-height: 1.55;
+      max-width: 760px;
+      font-size: 13px;
+    }
+
+    /* ── Micro Banner ── */
+    .micro-banner {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(47,224,143,0.18);
+      background: linear-gradient(180deg, rgba(47,224,143,0.10), rgba(255,255,255,0.03));
+    }
+    .micro-banner.is-visible { display: flex; }
+    .micro-banner__title { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.14em; }
+    .micro-banner__value { font-size: 20px; font-weight: 900; letter-spacing: -0.04em; margin-top: 5px; }
+
+    /* ── Danger Zone ── */
+    .danger-zone {
+      display: grid;
+      gap: 10px;
+    }
+    .danger-zone .settings-row { border-color: rgba(255,95,115,0.14); background: rgba(255,95,115,0.05); }
+
+    /* ── Footer Bar ── */
+    .footer-bar {
+      padding: 18px 4px 0;
+      color: var(--muted);
+      font-size: 13px;
       text-align: center;
     }
-    .pos-score-value {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      color: #fff;
-      line-height: 1;
+
+    /* ── Responsive ── */
+    @media (max-width: 1180px) {
+      .settings-grid { grid-template-columns: 1fr; }
+      .settings-rail { position: static; }
     }
-    .pos-score-label {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.6rem;
-      color: rgba(255,255,255,.35);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-top: 0.15rem;
+    @media (max-width: 860px) {
+      .settings-shell { width: min(calc(100% - 24px), var(--max)); padding-top: 18px; }
+      .settings-hero { padding: 22px; }
+      .panel-head, .panel-body { padding-left: 16px; padding-right: 16px; }
+      .integration-row { grid-template-columns: 1fr; }
+      .integration-row__actions { justify-content: flex-start; }
+      .card-head { flex-direction: column; }
+      .settings-row { grid-template-columns: 1fr; }
+      .segmented-control { justify-content: flex-start; }
+      .settings-row__select { min-width: 0; width: 100%; }
+      .topbar { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
-<body class="ppf-profile-body">
+<body>
+  <div class="settings-shell">
 
-  <!-- ============================================================
-       TOP NAV
-  ============================================================ -->
-  <nav class="dash-nav">
-    <a href="dashboard.html" class="dash-nav-logo">
-      <span class="dash-logo-mark">PPF</span>
-      <span class="dash-logo-tag">PERFORMANCE OS</span>
-    </a>
-    <div class="dash-nav-actions">
-      <a href="dashboard.html" class="profile-back-link">← Dashboard</a>
-    </div>
-  </nav>
-
-  <!-- ============================================================
-       MAIN CONTENT
-  ============================================================ -->
-  <main class="dash-main">
-
-    <!-- ─── Page Header ─── -->
-    <header class="pos-controls-header">
-      <h1 class="section-heading">PERFORMANCE CONTROLS</h1>
-      <p class="pos-controls-subtitle">Your environment. Your rules. Your system.</p>
-      <span class="pos-status-pill">
-        <span class="pos-status-dot" aria-hidden="true"></span>
-        System Active
-      </span>
+    <!-- ════════════════════════════════════════════════════════
+         TOPBAR
+    ════════════════════════════════════════════════════════ -->
+    <header class="topbar">
+      <div class="topbar__brand">
+        <div class="topbar__logo">P</div>
+        <div class="topbar__meta">
+          <div class="topbar__eyebrow">PPF Performance OS</div>
+          <div class="topbar__title">Member Settings</div>
+        </div>
+      </div>
+      <div class="topbar__actions">
+        <a class="btn btn--secondary" href="dashboard.html">&larr; Dashboard</a>
+        <button class="btn btn--primary" id="test-readiness-btn">Preview Readiness Update</button>
+      </div>
     </header>
 
-    <!-- ─── Settings Container ─── -->
-    <div class="pos-settings-container">
-
-      <!-- ══════════════════════════════════════════════════════════
-           1. Training Experience
-      ══════════════════════════════════════════════════════════ -->
-      <section class="pos-settings-group open" id="settingsTraining">
-        <button type="button" class="pos-settings-group-header" aria-expanded="true" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">
-          Training Experience
-        </button>
-        <div class="pos-settings-group-body">
-
-          <!-- Preferred workout view -->
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Preferred workout view</span>
-              <span class="pos-setting-desc">Choose how training sessions are displayed</span>
-            </div>
-            <div class="pos-radio-group">
-              <label class="pos-radio"><input type="radio" name="workoutView" id="workoutViewSimple" value="simple" checked /><span>Simple</span></label>
-              <label class="pos-radio"><input type="radio" name="workoutView" id="workoutViewDetailed" value="detailed" /><span>Detailed</span></label>
-              <label class="pos-radio"><input type="radio" name="workoutView" id="workoutViewCoach" value="coach" /><span>Coach Mode</span></label>
-            </div>
-          </div>
-
-          <!-- Rest timer style -->
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Rest timer style</span>
-              <span class="pos-setting-desc">Control how rest periods are timed between sets</span>
-            </div>
-            <div class="pos-radio-group">
-              <label class="pos-radio"><input type="radio" name="restTimer" id="restTimerStandard" value="standard" checked /><span>Standard</span></label>
-              <label class="pos-radio"><input type="radio" name="restTimer" id="restTimerAuto" value="auto" /><span>Auto</span></label>
-              <label class="pos-radio"><input type="radio" name="restTimer" id="restTimerCompetition" value="competition" /><span>Competition</span></label>
-            </div>
-          </div>
-
-          <!-- Music mode sync -->
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Music mode sync</span>
-              <span class="pos-setting-desc">Sync training phases with your music player</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="musicSync" />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-          <!-- Motivational language level -->
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Motivational language level</span>
-              <span class="pos-setting-desc">Intensity of encouragement prompts during sessions</span>
-            </div>
-            <div class="pos-radio-group">
-              <label class="pos-radio"><input type="radio" name="motivationLevel" id="motivationSubtle" value="subtle" /><span>Subtle</span></label>
-              <label class="pos-radio"><input type="radio" name="motivationLevel" id="motivationStandard" value="standard" checked /><span>Standard</span></label>
-              <label class="pos-radio"><input type="radio" name="motivationLevel" id="motivationIntense" value="intense" /><span>Intense</span></label>
-            </div>
-          </div>
-
-          <!-- Session reminder intensity -->
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Session reminder intensity</span>
-              <span class="pos-setting-desc">How aggressively you're reminded about upcoming sessions</span>
-            </div>
-            <div class="pos-radio-group">
-              <label class="pos-radio"><input type="radio" name="reminderIntensity" id="reminderOff" value="off" /><span>Off</span></label>
-              <label class="pos-radio"><input type="radio" name="reminderIntensity" id="reminderLight" value="light" /><span>Light</span></label>
-              <label class="pos-radio"><input type="radio" name="reminderIntensity" id="reminderStandard" value="standard" checked /><span>Standard</span></label>
-              <label class="pos-radio"><input type="radio" name="reminderIntensity" id="reminderAggressive" value="aggressive" /><span>Aggressive</span></label>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ══════════════════════════════════════════════════════════
-           2. Coaching Communication
-      ══════════════════════════════════════════════════════════ -->
-      <section class="pos-settings-group" id="settingsCoaching">
-        <button type="button" class="pos-settings-group-header" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">
-          Coaching Communication
-        </button>
-        <div class="pos-settings-group-body">
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Receive direct coach notes</span>
-              <span class="pos-setting-desc">Get in-app notes and feedback from your coach</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="coachNotes" checked />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Weekly progress recap</span>
-              <span class="pos-setting-desc">Receive a weekly summary of your training metrics</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="weeklyRecap" checked />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Video breakdown alerts</span>
-              <span class="pos-setting-desc">Notify when new video analysis is available</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="videoAlerts" checked />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Testing reminders</span>
-              <span class="pos-setting-desc">Get reminded about upcoming performance tests</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="testingReminders" checked />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Goal milestone celebrations</span>
-              <span class="pos-setting-desc">Celebrate when you hit training milestones</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="milestones" checked />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ══════════════════════════════════════════════════════════
-           3. Recovery & Readiness — Integration Hub
-      ══════════════════════════════════════════════════════════ -->
-      <section class="pos-settings-group" id="settingsRecovery">
-        <button type="button" class="pos-settings-group-header" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">
-          Recovery &amp; Readiness
-        </button>
-        <div class="pos-settings-group-body">
-
-          <!-- ── Readiness Preview ── -->
-          <div class="pos-readiness-preview" id="readinessPreview">
-            <div class="pos-readiness-bar">
-              <div class="pos-readiness-indicator pos-readiness-indicator--green" id="readinessIndicator">—</div>
-              <div class="pos-readiness-text">
-                <div class="pos-readiness-status" id="readinessStatusText">No sources connected</div>
-                <div class="pos-readiness-message" id="readinessMessage">Connect a device to see your daily readiness score.</div>
-              </div>
-            </div>
-            <div class="pos-readiness-scores" id="readinessScores" style="display:none">
-              <div class="pos-score-item"><div class="pos-score-value" id="scoreSleep">—</div><div class="pos-score-label">Sleep</div></div>
-              <div class="pos-score-item"><div class="pos-score-value" id="scoreRecovery">—</div><div class="pos-score-label">Recovery</div></div>
-              <div class="pos-score-item"><div class="pos-score-value" id="scoreLoad">—</div><div class="pos-score-label">Load</div></div>
-              <div class="pos-score-item"><div class="pos-score-value" id="scoreTrend">—</div><div class="pos-score-label">Trend</div></div>
-              <div class="pos-score-item"><div class="pos-score-value" id="scoreBody">—</div><div class="pos-score-label">Body</div></div>
-            </div>
-          </div>
-
-          <!-- ── Connected Sources ── -->
-          <p class="pos-section-label">Connected Sources</p>
-
-          <!-- Apple Health Card -->
-          <div class="pos-connection-card" id="cardAppleHealth" data-provider="apple_health" data-status="not_connected">
-            <div class="pos-conn-header">
-              <div class="pos-conn-brand">
-                <div class="pos-conn-icon pos-conn-icon--apple" aria-hidden="true">♥</div>
-                <div>
-                  <div class="pos-conn-name">Apple Health</div>
-                  <div class="pos-conn-provider">via PPF iPhone App &middot; HealthKit</div>
-                </div>
-              </div>
-              <span class="pos-conn-status pos-conn-status--not-connected" id="statusAppleHealth">
-                <span class="pos-conn-status-dot" aria-hidden="true"></span>
-                Not Connected
-              </span>
-            </div>
-            <div class="pos-conn-sync-info" id="syncAppleHealth">Last sync: Never</div>
-            <div class="pos-conn-metrics">
-              <label class="pos-metric-chip"><input type="checkbox" id="ah_sleep" checked /><span>Sleep</span></label>
-              <label class="pos-metric-chip"><input type="checkbox" id="ah_hrv" checked /><span>HRV</span></label>
-              <label class="pos-metric-chip"><input type="checkbox" id="ah_rhr" checked /><span>Resting HR</span></label>
-              <label class="pos-metric-chip"><input type="checkbox" id="ah_workouts" checked /><span>Workouts</span></label>
-              <label class="pos-metric-chip"><input type="checkbox" id="ah_steps" /><span>Steps</span></label>
-              <label class="pos-metric-chip"><input type="checkbox" id="ah_hr_trends" /><span>HR Trends</span></label>
-            </div>
-            <div class="pos-conn-footer">
-              <button type="button" class="pos-conn-btn" id="btnAppleHealth" data-action="connect">Connect via App</button>
-              <button type="button" class="pos-conn-btn pos-conn-btn--danger" id="btnDisconnectApple" data-action="disconnect" style="display:none">Disconnect</button>
-            </div>
-            <p class="pos-conn-note">Apple Health requires the PPF iPhone companion app. Tap Connect to open or download the app, then grant HealthKit permissions.</p>
-          </div>
-
-          <!-- WHOOP Card -->
-          <div class="pos-connection-card" id="cardWhoop" data-provider="whoop" data-status="not_connected">
-            <div class="pos-conn-header">
-              <div class="pos-conn-brand">
-                <div class="pos-conn-icon pos-conn-icon--whoop" aria-hidden="true">W</div>
-                <div>
-                  <div class="pos-conn-name">WHOOP</div>
-                  <div class="pos-conn-provider">OAuth &middot; Webhooks &middot; Direct API</div>
-                </div>
-              </div>
-              <span class="pos-conn-status pos-conn-status--not-connected" id="statusWhoop">
-                <span class="pos-conn-status-dot" aria-hidden="true"></span>
-                Not Connected
-              </span>
-            </div>
-            <div class="pos-conn-sync-info" id="syncWhoop">Last sync: Never</div>
-            <div class="pos-conn-metrics">
-              <label class="pos-metric-chip"><input type="checkbox" id="wh_recovery" checked /><span>Recovery</span></label>
-              <label class="pos-metric-chip"><input type="checkbox" id="wh_hrv" checked /><span>HRV</span></label>
-              <label class="pos-metric-chip"><input type="checkbox" id="wh_rhr" checked /><span>Resting HR</span></label>
-              <label class="pos-metric-chip"><input type="checkbox" id="wh_sleep" checked /><span>Sleep</span></label>
-              <label class="pos-metric-chip"><input type="checkbox" id="wh_strain" checked /><span>Strain</span></label>
-              <label class="pos-metric-chip"><input type="checkbox" id="wh_workouts" /><span>Workouts</span></label>
-            </div>
-            <div class="pos-conn-footer">
-              <button type="button" class="pos-conn-btn" id="btnWhoop" data-action="connect">Connect WHOOP</button>
-              <button type="button" class="pos-conn-btn pos-conn-btn--danger" id="btnDisconnectWhoop" data-action="disconnect" style="display:none">Disconnect</button>
-            </div>
-            <p class="pos-conn-note">WHOOP connects via secure OAuth. You'll authorize PPF to read recovery, sleep, strain, and workout data. Webhooks keep your readiness score current in real time.</p>
-          </div>
-
-          <!-- Fitbit / Google Health Card -->
-          <div class="pos-connection-card" id="cardGoogleHealth" data-provider="google_health" data-status="not_connected">
-            <div class="pos-conn-header">
-              <div class="pos-conn-brand">
-                <div class="pos-conn-icon pos-conn-icon--google" aria-hidden="true">G</div>
-                <div>
-                  <div class="pos-conn-name">Fitbit / Google Health</div>
-                  <div class="pos-conn-provider">Google Health API &middot; Google OAuth</div>
-                </div>
-              </div>
-              <span class="pos-conn-status pos-conn-status--not-connected" id="statusGoogleHealth">
-                <span class="pos-conn-status-dot" aria-hidden="true"></span>
-                Not Connected
-              </span>
-            </div>
-            <div class="pos-conn-sync-info" id="syncGoogleHealth">Last sync: Never</div>
-            <div class="pos-conn-metrics">
-              <label class="pos-metric-chip"><input type="checkbox" id="gh_sleep" checked /><span>Sleep</span></label>
-              <label class="pos-metric-chip"><input type="checkbox" id="gh_hr" checked /><span>Heart Rate</span></label>
-              <label class="pos-metric-chip"><input type="checkbox" id="gh_hrv" checked /><span>HRV</span></label>
-              <label class="pos-metric-chip"><input type="checkbox" id="gh_rhr" checked /><span>Resting HR</span></label>
-              <label class="pos-metric-chip"><input type="checkbox" id="gh_exercise" checked /><span>Exercise</span></label>
-              <label class="pos-metric-chip"><input type="checkbox" id="gh_spo2" /><span>SpO₂</span></label>
-              <label class="pos-metric-chip"><input type="checkbox" id="gh_vo2max" /><span>VO₂ Max</span></label>
-            </div>
-            <div class="pos-conn-footer">
-              <button type="button" class="pos-conn-btn" id="btnGoogleHealth" data-action="connect">Continue with Google</button>
-              <button type="button" class="pos-conn-btn pos-conn-btn--danger" id="btnDisconnectGoogle" data-action="disconnect" style="display:none">Disconnect</button>
-            </div>
-            <p class="pos-conn-note">Fitbit data now flows through Google Health API. You'll sign in with your Google account to authorize health data access. Legacy Fitbit tokens require re-consent.</p>
-          </div>
-
-          <hr class="pos-section-divider" />
-
-          <!-- ── Readiness Source Priority ── -->
-          <p class="pos-section-label">Readiness Source Priority</p>
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Preferred readiness source</span>
-              <span class="pos-setting-desc">Which device takes priority when multiple sources report</span>
-            </div>
-            <div class="pos-radio-group">
-              <label class="pos-radio"><input type="radio" name="readinessSource" id="readinessAuto" value="auto" checked /><span>Auto</span></label>
-              <label class="pos-radio"><input type="radio" name="readinessSource" id="readinessWhoop" value="whoop" /><span>WHOOP</span></label>
-              <label class="pos-radio"><input type="radio" name="readinessSource" id="readinessApple" value="apple" /><span>Apple</span></label>
-              <label class="pos-radio"><input type="radio" name="readinessSource" id="readinessGoogle" value="google" /><span>Google</span></label>
-            </div>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Fallback scoring</span>
-              <span class="pos-setting-desc">Use 3-day rolling average when today's data is missing</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="fallbackScoring" checked />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-          <hr class="pos-section-divider" />
-
-          <!-- ── Data Import Toggles ── -->
-          <p class="pos-section-label">Data Import Controls</p>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Sleep import</span>
-              <span class="pos-setting-desc">Automatically import sleep data from connected devices</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="sleepImport" checked />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">HRV / Readiness display</span>
-              <span class="pos-setting-desc">Show heart-rate variability and readiness scores on dashboard</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="hrvDisplay" checked />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Readiness visibility</span>
-              <span class="pos-setting-desc">Who can see your readiness data</span>
-            </div>
-            <div class="pos-radio-group">
-              <label class="pos-radio"><input type="radio" name="readinessVisibility" id="readinessVisMe" value="member_only" checked /><span>Me Only</span></label>
-              <label class="pos-radio"><input type="radio" name="readinessVisibility" id="readinessVisCoach" value="member_coach" /><span>+ Coach</span></label>
-              <label class="pos-radio"><input type="radio" name="readinessVisibility" id="readinessVisFamily" value="family" /><span>+ Family</span></label>
-              <label class="pos-radio"><input type="radio" name="readinessVisibility" id="readinessVisAgent" value="agent" /><span>+ Agent</span></label>
-            </div>
-          </div>
-
-          <hr class="pos-section-divider" />
-
-          <!-- ── Manual Body Check-In ── -->
-          <p class="pos-section-label">Daily Body Check-In</p>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Soreness check-ins</span>
-              <span class="pos-setting-desc">Prompt for daily soreness and body status reports</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="sorenessCheckins" checked />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-          <div class="pos-checkin-grid" id="checkinGrid">
-            <div class="pos-checkin-item">
-              <div class="pos-checkin-label">Soreness</div>
-              <div class="pos-checkin-slider">
-                <input type="range" id="checkinSoreness" min="1" max="10" value="3" />
-                <span class="pos-checkin-value" id="checkinSorenessVal">3</span>
-              </div>
-            </div>
-            <div class="pos-checkin-item">
-              <div class="pos-checkin-label">Fatigue</div>
-              <div class="pos-checkin-slider">
-                <input type="range" id="checkinFatigue" min="1" max="10" value="3" />
-                <span class="pos-checkin-value" id="checkinFatigueVal">3</span>
-              </div>
-            </div>
-            <div class="pos-checkin-item">
-              <div class="pos-checkin-label">Hydration</div>
-              <div class="pos-checkin-slider">
-                <input type="range" id="checkinHydration" min="1" max="10" value="7" />
-                <span class="pos-checkin-value" id="checkinHydrationVal">7</span>
-              </div>
-            </div>
-            <div class="pos-checkin-item">
-              <div class="pos-checkin-label">Mood</div>
-              <div class="pos-checkin-slider">
-                <input type="range" id="checkinMood" min="1" max="10" value="7" />
-                <span class="pos-checkin-value" id="checkinMoodVal">7</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Hydration reminders</span>
-              <span class="pos-setting-desc">Receive periodic reminders to stay hydrated</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="hydrationReminders" checked />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ══════════════════════════════════════════════════════════
-           4. Identity & Visibility
-      ══════════════════════════════════════════════════════════ -->
-      <section class="pos-settings-group" id="settingsIdentity">
-        <button type="button" class="pos-settings-group-header" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">
-          Identity &amp; Visibility
-        </button>
-        <div class="pos-settings-group-body">
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Public athlete card</span>
-              <span class="pos-setting-desc">Make your athlete identity card visible to others</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="publicCard" />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Shareable progress profile</span>
-              <span class="pos-setting-desc">Allow your progress profile to be shared via link</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="shareableProfile" />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Recruiting-ready profile mode <span class="pos-badge-pro">PRO</span></span>
-              <span class="pos-setting-desc">Optimize your profile for recruiters and scouts</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="recruitingMode" />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Family-view access</span>
-              <span class="pos-setting-desc">Allow family members to view a simplified dashboard</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="familyView" />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Agent-view access</span>
-              <span class="pos-setting-desc">Grant agents or representatives access to your metrics</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="agentView" />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Privacy level for metrics</span>
-              <span class="pos-setting-desc">Who can see your performance data</span>
-            </div>
-            <div class="pos-radio-group">
-              <label class="pos-radio"><input type="radio" name="privacyLevel" id="privacyPrivate" value="private" checked /><span>Private</span></label>
-              <label class="pos-radio"><input type="radio" name="privacyLevel" id="privacyTeam" value="team" /><span>Team</span></label>
-              <label class="pos-radio"><input type="radio" name="privacyLevel" id="privacyPublic" value="public" /><span>Public</span></label>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ══════════════════════════════════════════════════════════
-           5. Environment Personalization
-      ══════════════════════════════════════════════════════════ -->
-      <section class="pos-settings-group" id="settingsEnvironment">
-        <button type="button" class="pos-settings-group-header" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">
-          Environment Personalization
-        </button>
-        <div class="pos-settings-group-body">
-
-          <!-- Visual mode -->
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Visual mode</span>
-              <span class="pos-setting-desc">Overall visual style of the interface</span>
-            </div>
-            <div class="pos-radio-group">
-              <label class="pos-radio"><input type="radio" name="visualMode" id="visualPerformance" value="performance" checked /><span>Performance</span></label>
-              <label class="pos-radio"><input type="radio" name="visualMode" id="visualMinimal" value="minimal" /><span>Minimal</span></label>
-              <label class="pos-radio"><input type="radio" name="visualMode" id="visualCinematic" value="cinematic" /><span>Cinematic</span></label>
-            </div>
-          </div>
-
-          <!-- Dashboard density -->
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Dashboard density</span>
-              <span class="pos-setting-desc">How much information is packed into each view</span>
-            </div>
-            <div class="pos-radio-group">
-              <label class="pos-radio"><input type="radio" name="dashDensity" id="densityCompact" value="compact" /><span>Compact</span></label>
-              <label class="pos-radio"><input type="radio" name="dashDensity" id="densityStandard" value="standard" checked /><span>Standard</span></label>
-              <label class="pos-radio"><input type="radio" name="dashDensity" id="densityExpanded" value="expanded" /><span>Expanded</span></label>
-            </div>
-          </div>
-
-          <!-- Font scale -->
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Font scale</span>
-              <span class="pos-setting-desc">Adjust the base font size across the interface</span>
-            </div>
-            <div class="pos-slider-wrap">
-              <input type="range" id="fontScale" min="80" max="120" value="100" step="5" oninput="document.getElementById('fontScaleValue').textContent=this.value+'%'" />
-              <span class="pos-slider-value" id="fontScaleValue">100%</span>
-            </div>
-          </div>
-
-          <!-- Motion intensity -->
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Motion intensity</span>
-              <span class="pos-setting-desc">Control animation and transition levels</span>
-            </div>
-            <div class="pos-radio-group">
-              <label class="pos-radio"><input type="radio" name="motionIntensity" id="motionOff" value="off" /><span>Off</span></label>
-              <label class="pos-radio"><input type="radio" name="motionIntensity" id="motionSubtle" value="subtle" checked /><span>Subtle</span></label>
-              <label class="pos-radio"><input type="radio" name="motionIntensity" id="motionFull" value="full" /><span>Full</span></label>
-            </div>
-          </div>
-
-          <!-- Sound effects -->
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Sound effects</span>
-              <span class="pos-setting-desc">Play audio cues for interactions and achievements</span>
-            </div>
-            <label class="pos-toggle">
-              <input type="checkbox" id="soundEffects" />
-              <span class="pos-toggle-track"></span>
-            </label>
-          </div>
-
-          <!-- Training theme -->
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Training theme</span>
-              <span class="pos-setting-desc">Set the color atmosphere for training sessions</span>
-            </div>
-            <div class="pos-swatch-group">
-              <label class="pos-swatch-label"><input type="radio" name="trainingTheme" id="themeTurf" value="turf" checked /><span><span class="pos-swatch-dot" style="background:#22c55e" aria-hidden="true"></span>Turf</span></label>
-              <label class="pos-swatch-label"><input type="radio" name="trainingTheme" id="themeLab" value="lab" /><span><span class="pos-swatch-dot" style="background:#3b82f6" aria-hidden="true"></span>Lab</span></label>
-              <label class="pos-swatch-label"><input type="radio" name="trainingTheme" id="themeBlackout" value="blackout" /><span><span class="pos-swatch-dot" style="background:#1a1a1a;border:1px solid rgba(255,255,255,.2)" aria-hidden="true"></span>Blackout</span></label>
-              <label class="pos-swatch-label"><input type="radio" name="trainingTheme" id="themeCombine" value="combine" /><span><span class="pos-swatch-dot" style="background:#ff5500" aria-hidden="true"></span>Combine</span></label>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ══════════════════════════════════════════════════════════
-           6. Account & System
-      ══════════════════════════════════════════════════════════ -->
-      <section class="pos-settings-group" id="settingsAccount">
-        <button type="button" class="pos-settings-group-header" aria-expanded="false" onclick="this.parentElement.classList.toggle('open');this.setAttribute('aria-expanded',this.parentElement.classList.contains('open'))">
-          Account &amp; System
-        </button>
-        <div class="pos-settings-group-body">
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Email</span>
-              <span class="pos-setting-desc">Your registered email address</span>
-            </div>
-            <span class="pos-setting-readonly" id="settingsEmail">—</span>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Member since</span>
-              <span class="pos-setting-desc">When you joined PPF Athletics</span>
-            </div>
-            <span class="pos-setting-readonly" id="settingsSince">—</span>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Membership path</span>
-              <span class="pos-setting-desc">Your current membership tier</span>
-            </div>
-            <span class="pos-setting-readonly" id="settingsPath">—</span>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Export my data</span>
-              <span class="pos-setting-desc">Download all your training and profile data</span>
-            </div>
-            <button type="button" class="pos-setting-btn" id="btnExportData">Export Data</button>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Sign out</span>
-              <span class="pos-setting-desc">End your current session</span>
-            </div>
-            <button type="button" class="pos-setting-btn pos-setting-btn--signout" id="settingsLogout">Sign Out</button>
-          </div>
-
-          <div class="pos-setting-row">
-            <div class="pos-setting-info">
-              <span class="pos-setting-label">Delete account</span>
-              <span class="pos-setting-desc">Permanently delete your account and all data</span>
-            </div>
-            <button type="button" class="pos-setting-btn pos-setting-btn--danger" id="btnDeleteAccount" onclick="if(confirm('Are you sure you want to delete your account? This action cannot be undone.'))alert('Account deletion requested.')">Delete Account</button>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ─── Auto-save Indicator ─── -->
-      <div class="pos-autosave">
-        <span class="pos-autosave-check" aria-hidden="true">✓</span>
-        Changes auto-save
+    <!-- ════════════════════════════════════════════════════════
+         HERO
+    ════════════════════════════════════════════════════════ -->
+    <section class="settings-hero">
+      <div class="settings-hero__eyebrow">Performance Controls</div>
+      <h1 class="settings-hero__title">Your environment. Your rules. Your system.</h1>
+      <p class="settings-hero__subtitle">
+        Connected wearables, readiness intelligence, coach visibility, and elite notification control — all in one PPF Member OS settings system.
+      </p>
+      <div class="settings-hero__status">
+        <span class="status-pill status-pill--live" id="system-status-pill">System Active</span>
+        <span class="status-pill status-pill--autosave" id="autosave-pill">Changes auto-save</span>
       </div>
+    </section>
 
+    <!-- ════════════════════════════════════════════════════════
+         GRID: RAIL + CONTENT
+    ════════════════════════════════════════════════════════ -->
+    <div class="settings-grid">
+
+      <!-- ── Sticky Rail ── -->
+      <aside class="settings-rail">
+        <div class="settings-rail__title">Navigation</div>
+        <nav class="settings-nav">
+          <a class="settings-nav__link is-active" href="#training-experience"><span>Training Experience</span><span class="settings-nav__tag">01</span></a>
+          <a class="settings-nav__link" href="#coaching-communication"><span>Coaching Communication</span><span class="settings-nav__tag">02</span></a>
+          <a class="settings-nav__link" href="#recovery-readiness"><span>Recovery &amp; Readiness</span><span class="settings-nav__tag">03</span></a>
+          <a class="settings-nav__link" href="#identity-visibility"><span>Identity &amp; Visibility</span><span class="settings-nav__tag">04</span></a>
+          <a class="settings-nav__link" href="#environment-personalization"><span>Environment Personalization</span><span class="settings-nav__tag">05</span></a>
+          <a class="settings-nav__link" href="#account-system"><span>Account &amp; System</span><span class="settings-nav__tag">06</span></a>
+        </nav>
+        <div class="rail-health">
+          <div class="rail-health__card">
+            <div class="rail-health__label">Connected Sources</div>
+            <div class="rail-health__value" id="connected-count">0 / 3</div>
+            <div class="rail-health__sub">Apple Health, WHOOP, and Google Health readiness layer.</div>
+          </div>
+          <div class="rail-health__card">
+            <div class="rail-health__label">Today's PPF Status</div>
+            <div class="rail-health__value" id="ppf-status-value" style="color:var(--success)">—</div>
+            <div class="rail-health__sub" id="ppf-status-sub">Connect a device to see readiness.</div>
+          </div>
+          <div class="rail-health__card">
+            <div class="rail-health__label">Sync Health</div>
+            <div class="rail-health__value" id="sync-health-value">—</div>
+            <div class="rail-health__sub" id="sync-health-sub">No sources connected yet.</div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ── Main Content ── -->
+      <div class="settings-content">
+
+        <!-- ═══════════════════════════════════════════════════
+             1. TRAINING EXPERIENCE
+        ═══════════════════════════════════════════════════ -->
+        <section class="settings-panel" id="training-experience">
+          <div class="panel-head">
+            <h2>Training Experience</h2>
+            <p>Control how sessions look, feel, and guide the athlete through each phase of work.</p>
+          </div>
+          <div class="panel-body">
+            <div class="settings-list" id="training-list"></div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════
+             2. COACHING COMMUNICATION
+        ═══════════════════════════════════════════════════ -->
+        <section class="settings-panel" id="coaching-communication">
+          <div class="panel-head">
+            <h2>Coaching Communication</h2>
+            <p>Manage how PPF coaches the athlete before, during, and after the session.</p>
+          </div>
+          <div class="panel-body">
+            <div class="settings-list" id="coaching-list"></div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════
+             3. RECOVERY & READINESS — Integration Hub
+        ═══════════════════════════════════════════════════ -->
+        <section class="settings-panel settings-panel--priority" id="recovery-readiness">
+          <div class="panel-head">
+            <h2>Recovery &amp; Readiness</h2>
+            <p>Connect recovery sources, define readiness inputs, and control how Member OS turns wearable data into coaching decisions.</p>
+          </div>
+          <div class="panel-body panel-body--stack">
+
+            <!-- Micro Banner -->
+            <div class="micro-banner" id="readiness-banner" aria-live="polite">
+              <div>
+                <div class="micro-banner__title">Readiness Updated</div>
+                <div class="micro-banner__value" id="readiness-banner-value">Today: Green</div>
+              </div>
+              <span class="status-pill status-pill--live">Sync Complete</span>
+            </div>
+
+            <!-- Card 1: Connected Recovery Sources -->
+            <article class="settings-card" id="card-connected-sources">
+              <div class="card-head">
+                <div>
+                  <h3>Connected Recovery Sources</h3>
+                  <p>Sync Apple Health, WHOOP, and Fitbit/Google Health into one PPF readiness profile.</p>
+                </div>
+                <div class="card-meta">
+                  <span class="status-pill status-pill--live">Integration Hub</span>
+                </div>
+              </div>
+              <div class="integration-list" id="integration-list"></div>
+            </article>
+
+            <!-- Card 2: Readiness Inputs -->
+            <article class="settings-card" id="card-readiness-metrics">
+              <div class="card-head">
+                <div>
+                  <h3>Readiness Inputs</h3>
+                  <p>Choose which metrics contribute to the PPF readiness score and daily session modifications.</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="settings-list" id="readiness-inputs-list"></div>
+                <div style="margin-top:12px;font-size:12px;color:var(--muted-2);line-height:1.5">
+                  Your PPF readiness score uses connected recovery sources plus optional manual check-ins to build daily coaching decisions.
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 3: Readiness Display -->
+            <article class="settings-card" id="card-readiness-display">
+              <div class="card-head">
+                <div>
+                  <h3>Readiness Display</h3>
+                  <p>Keep the experience coached, clean, and source-agnostic — or expose deeper detail when needed.</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="settings-list" id="readiness-display-list"></div>
+                <div style="margin-top:12px;font-size:12px;color:var(--muted-2);line-height:1.5">
+                  PPF score only keeps the experience coached, clean, and source-agnostic.
+                </div>
+              </div>
+            </article>
+
+            <!-- Card 4: Notification Intelligence -->
+            <article class="settings-card" id="card-notification-intelligence">
+              <div class="card-head">
+                <div>
+                  <h3>Recovery Notification Intelligence</h3>
+                  <p>Notifications should feel like coaching, not noise.</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="settings-list" id="notification-list"></div>
+              </div>
+            </article>
+
+            <!-- Card 5: Coach Visibility -->
+            <article class="settings-card" id="card-coach-visibility">
+              <div class="card-head">
+                <div>
+                  <h3>Coach Visibility</h3>
+                  <p>Choose how much of the readiness profile coaches can use when guiding training.</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="settings-list" id="coach-visibility-list"></div>
+              </div>
+            </article>
+
+            <!-- Card 6: Family / Agent Sharing -->
+            <article class="settings-card" id="card-shared-access">
+              <div class="card-head">
+                <div>
+                  <h3>Family / Agent Sharing</h3>
+                  <p>Share the right summary with the right audience without exposing everything.</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="settings-list" id="shared-access-list"></div>
+              </div>
+            </article>
+
+            <!-- Card 7: Connection Health -->
+            <article class="settings-card" id="card-connection-health">
+              <div class="card-head">
+                <div>
+                  <h3>Connection Health</h3>
+                  <p>Monitor sync quality, permissions, and reconnect needs before they affect daily scoring.</p>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="settings-list" id="connection-health-list"></div>
+              </div>
+            </article>
+
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════
+             4. IDENTITY & VISIBILITY
+        ═══════════════════════════════════════════════════ -->
+        <section class="settings-panel" id="identity-visibility">
+          <div class="panel-head">
+            <h2>Identity &amp; Visibility</h2>
+            <p>Control profile sharing, family access, agent access, and recruiting mode.</p>
+          </div>
+          <div class="panel-body">
+            <div class="settings-list" id="identity-list"></div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════
+             5. ENVIRONMENT PERSONALIZATION
+        ═══════════════════════════════════════════════════ -->
+        <section class="settings-panel" id="environment-personalization">
+          <div class="panel-head">
+            <h2>Environment Personalization</h2>
+            <p>Adjust visual density, motion, audio, and interface atmosphere.</p>
+          </div>
+          <div class="panel-body">
+            <div class="settings-list" id="environment-list"></div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════
+             6. ACCOUNT & SYSTEM
+        ═══════════════════════════════════════════════════ -->
+        <section class="settings-panel" id="account-system">
+          <div class="panel-head">
+            <h2>Account &amp; System</h2>
+            <p>Manage account identity, exports, sign out actions, and critical account controls.</p>
+          </div>
+          <div class="panel-body">
+            <div class="settings-list" id="account-list"></div>
+            <div class="danger-zone" id="danger-zone" style="margin-top:14px"></div>
+            <div class="footer-actions">
+              <div class="footer-actions__note">
+                Apple Health requires a companion iPhone app for real HealthKit sync. WHOOP and Google Health connect through server-side OAuth. All wearable data feeds into one PPF readiness engine for daily coaching decisions.
+              </div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <button class="btn btn--secondary" id="btn-export">Export Data</button>
+                <button class="btn btn--ghost" id="btn-signout">Sign Out</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════
+             INTEGRATION HOOKS (dev reference)
+        ═══════════════════════════════════════════════════ -->
+        <section class="settings-panel" id="integration-hooks">
+          <div class="panel-head">
+            <h2>Integration Hooks</h2>
+            <p>Front-end route targets for production wiring.</p>
+          </div>
+          <div class="panel-body">
+            <div class="settings-list" id="hook-list"></div>
+          </div>
+        </section>
+
+      </div>
     </div>
 
-    <!-- ─── Footer ─── -->
-    <footer class="dash-footer">
-      <p>&copy; 2025 PPF Athletics. Built for progress. Proven daily.</p>
-      <p class="dash-footer-tagline">Every person who enters PPF should feel recognized, guided, and connected.</p>
-    </footer>
-  </main>
+    <div class="footer-bar">&copy; 2026 PPF Athletics. Built for performance. Proven by results.</div>
+  </div>
 
+  <!-- ════════════════════════════════════════════════════════
+       PPF MEMBER OS — SETTINGS ENGINE
+  ════════════════════════════════════════════════════════ -->
   <script src="../js/ppf-member.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof PPFMember !== 'undefined' && PPFMember.initSettings) {
-        PPFMember.initSettings();
+  (function () {
+    'use strict';
+
+    /* ═══════════════════════════════════════════════════════
+       API ROUTES (production wiring targets)
+    ═══════════════════════════════════════════════════════ */
+    var API = {
+      settings:                '/api/member/settings',
+      notificationPreferences: '/api/notifications/preferences',
+      readinessToday:          '/api/readiness/today',
+      readinessTrend:          '/api/readiness/trend?days=7',
+      readinessCheckin:        '/api/readiness/checkin',
+      connectionHealth:        '/api/member/settings/connection-health',
+      whoopConnect:            '/api/integrations/whoop/connect',
+      whoopCallback:           '/api/integrations/whoop/callback',
+      whoopWebhook:            '/api/integrations/whoop/webhook',
+      whoopDisconnect:         '/api/integrations/whoop/disconnect',
+      whoopStatus:             '/api/integrations/whoop/status',
+      appleLink:               '/api/integrations/apple-health/link-session',
+      appleSync:               '/api/integrations/apple-health/sync',
+      appleDisconnect:         '/api/integrations/apple-health/disconnect',
+      appleStatus:             '/api/integrations/apple-health/status',
+      googleHealthConnect:     '/api/integrations/google-health/connect',
+      googleHealthCallback:    '/api/integrations/google-health/callback',
+      googleHealthDisconnect:  '/api/integrations/google-health/disconnect',
+      googleHealthStatus:      '/api/integrations/google-health/status'
+    };
+
+    /* ═══════════════════════════════════════════════════════
+       STATE
+    ═══════════════════════════════════════════════════════ */
+    var STORAGE_KEY = 'ppf_member_settings_v2';
+    var saveTimer = null;
+
+    var defaultState = {
+      training: {
+        workoutView:             'Coach Mode',
+        restTimerStyle:          'Standard',
+        musicSync:               false,
+        motivationalLanguage:    'Standard',
+        sessionReminderIntensity:'Standard'
+      },
+      coaching: {
+        directCoachNotes:        true,
+        weeklyProgressRecap:     true,
+        videoBreakdownAlerts:    true,
+        testingReminders:        true,
+        milestoneCelebrations:   true,
+        preSessionPulse:         true,
+        sessionAdjustmentAlerts: true,
+        missedRecoveryWarning:   true,
+        weeklyReadinessReport:   true
+      },
+      providers: {
+        apple_health: {
+          name: 'Apple Health',
+          mark: 'AH',
+          state: 'not_connected',
+          description: 'Sync sleep, HRV, resting heart rate, workouts, and recovery trends from Apple Health.',
+          statusText: 'Not Connected',
+          meta: 'Requires PPF iPhone companion app with HealthKit.',
+          sync: 'Last sync: Never',
+          metrics: '0 metrics active'
+        },
+        whoop: {
+          name: 'WHOOP',
+          mark: 'W',
+          state: 'not_connected',
+          description: 'Sync recovery, strain, sleep, HRV, and resting heart rate from WHOOP.',
+          statusText: 'Not Connected',
+          meta: 'OAuth + webhooks for real-time recovery updates.',
+          sync: 'Last sync: Never',
+          metrics: '0 metrics active'
+        },
+        google_health: {
+          name: 'Fitbit / Google Health',
+          mark: 'GH',
+          state: 'not_connected',
+          description: 'Sync Fitbit metrics through Google Health for sleep, heart rate, HRV, and exercise.',
+          statusText: 'Not Connected',
+          meta: 'Google Health API with Google OAuth consent.',
+          sync: 'Last sync: Never',
+          metrics: '0 metrics active'
+        }
+      },
+      readinessInputs: {
+        sleepDuration:    true,
+        sleepQuality:     true,
+        hrv:              true,
+        restingHeartRate: true,
+        workoutsLoad:     true,
+        spo2:             false,
+        vo2max:           false,
+        sorenessCheckin:  true,
+        fatigueCheckin:   true,
+        hydrationCheckin: true,
+        moodStatus:       false
+      },
+      readinessDisplay: {
+        showPpfScore:          true,
+        showStatusColor:       true,
+        showExplanation:       true,
+        show7DayTrend:         true,
+        showSourceContribution:false,
+        showSessionAdjustment: true,
+        showVendorScores:      false
+      },
+      notifications: {
+        morningReadiness:           true,
+        preSessionPerformancePulse: true,
+        sessionAutoAdjust:          true,
+        sleepComplianceWarning:     true,
+        hydrationReminders:         true,
+        milestoneMoments:           true,
+        coachInterventionNotices:   true,
+        urgentBypassQuietHours:     false,
+        quietHoursStart:            '22:00',
+        quietHoursEnd:              '06:00'
+      },
+      coachVisibility: {
+        readinessColorOnly:         false,
+        fullPpfReadinessProfile:    true,
+        sleepMetrics:               true,
+        hrvRestingHr:               true,
+        sorenessCheckins:           true,
+        trendHistory:               true,
+        sessionAdjustments:         true
+      },
+      sharedAccess: {
+        familyWeeklySummary:             true,
+        familyReadinessColor:            false,
+        familyAttendanceComplianceOnly:  false,
+        agentWeeklySummary:              false,
+        agentTestingWeekStatus:          false,
+        agentRecruitingReadySummary:     false
+      },
+      identity: {
+        publicAthleteCard:       false,
+        shareableProgressProfile:false,
+        recruitingMode:          false,
+        familyViewAccess:        true,
+        agentViewAccess:         false,
+        privacyLevel:            'Private'
+      },
+      environment: {
+        visualMode:        'Performance',
+        dashboardDensity:  'Standard',
+        fontScale:         '100%',
+        motionIntensity:   'Subtle',
+        soundEffects:      false,
+        trainingTheme:     'Turf'
+      },
+      account: {
+        email:           '—',
+        memberSince:     '—',
+        membershipPath:  '—'
       }
+    };
+
+    var state = loadState();
+
+    function loadState() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          var parsed = JSON.parse(raw);
+          // Merge with defaults so new keys are always present
+          return mergeDeep(JSON.parse(JSON.stringify(defaultState)), parsed);
+        }
+        return JSON.parse(JSON.stringify(defaultState));
+      } catch (e) {
+        return JSON.parse(JSON.stringify(defaultState));
+      }
+    }
+
+    function mergeDeep(target, source) {
+      for (var key in source) {
+        if (source.hasOwnProperty(key)) {
+          if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])
+              && target[key] && typeof target[key] === 'object') {
+            mergeDeep(target[key], source[key]);
+          } else {
+            target[key] = source[key];
+          }
+        }
+      }
+      return target;
+    }
+
+    function saveState() {
+      var pill = document.getElementById('autosave-pill');
+      if (pill) pill.textContent = 'Saving\u2026';
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function () {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) { /* storage unavailable */ }
+        if (pill) pill.textContent = 'Changes auto-save';
+      }, 500);
+    }
+
+    function toggleValue(section, key) {
+      state[section][key] = !state[section][key];
+      render();
+      saveState();
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       RENDER HELPERS
+    ═══════════════════════════════════════════════════════ */
+    function h(tag, attrs, children) {
+      var el = document.createElement(tag);
+      if (attrs) {
+        for (var k in attrs) {
+          if (k === 'className') el.className = attrs[k];
+          else if (k === 'style' && typeof attrs[k] === 'object') Object.assign(el.style, attrs[k]);
+          else if (k.indexOf('on') === 0) el.addEventListener(k.slice(2).toLowerCase(), attrs[k]);
+          else el.setAttribute(k, attrs[k]);
+        }
+      }
+      if (children) {
+        if (!Array.isArray(children)) children = [children];
+        children.forEach(function (c) {
+          if (typeof c === 'string') el.appendChild(document.createTextNode(c));
+          else if (c) el.appendChild(c);
+        });
+      }
+      return el;
+    }
+
+    function makeToggle(section, key) {
+      var val = state[section][key];
+      var btn = h('button', {
+        className: 'toggle',
+        role: 'switch',
+        'aria-checked': String(!!val),
+        onClick: function () { toggleValue(section, key); }
+      });
+      return btn;
+    }
+
+    function makeRow(title, desc, control, helper) {
+      var content = h('div', null, [
+        h('div', { className: 'settings-row__title' }, title),
+        h('div', { className: 'settings-row__desc' }, desc)
+      ]);
+      if (helper) content.appendChild(h('div', { className: 'settings-row__helper' }, helper));
+      return h('div', { className: 'settings-row' }, [content, control]);
+    }
+
+    function makeSegmented(section, key, options) {
+      var current = state[section][key];
+      var wrap = h('div', { className: 'segmented-control' });
+      options.forEach(function (opt) {
+        var cls = 'segmented-control__option' + (current === opt ? ' segmented-control__option--active' : '');
+        wrap.appendChild(h('button', {
+          className: cls,
+          onClick: function () {
+            state[section][key] = opt;
+            render();
+            saveState();
+          }
+        }, opt));
+      });
+      return wrap;
+    }
+
+    function fillList(id, items) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      el.innerHTML = '';
+      items.forEach(function (item) { el.appendChild(item); });
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       INTEGRATION ROW BUILDER
+    ═══════════════════════════════════════════════════════ */
+    function buildIntegrationRow(providerId) {
+      var p = state.providers[providerId];
+      var stateClass = p.state === 'connected' ? ' integration-row--connected'
+                     : p.state === 'warning'   ? ' integration-row--warning'
+                     : p.state === 'error'     ? ' integration-row--error'
+                     : '';
+      var pillClass = p.state === 'connected' ? 'status-pill--connected'
+                    : p.state === 'warning'   ? 'status-pill--warning'
+                    : p.state === 'error'     ? 'status-pill--error'
+                    : '';
+
+      var brand = h('div', { className: 'integration-row__brand' }, p.mark);
+
+      var meta = h('div', { className: 'integration-row__meta' }, [
+        pillClass ? h('span', { className: 'status-pill ' + pillClass }, p.statusText) : null,
+        h('span', { className: 'sync-indicator' + (p.state === 'connected' ? ' sync-indicator--live' : '') }, p.sync),
+        h('span', { className: 'trend-chip trend-chip--up' }, p.metrics)
+      ]);
+
+      var content = h('div', null, [
+        h('div', { className: 'integration-row__title' }, p.name),
+        h('div', { className: 'integration-row__desc' }, p.description),
+        meta
+      ]);
+
+      var actions = h('div', { className: 'integration-row__actions' });
+      if (p.state === 'not_connected') {
+        var connectLabel = providerId === 'apple_health' ? 'Connect via App'
+                         : providerId === 'google_health' ? 'Continue with Google'
+                         : 'Connect WHOOP';
+        actions.appendChild(h('button', {
+          className: 'btn btn--primary',
+          onClick: function () { simulateConnect(providerId); }
+        }, connectLabel));
+      } else {
+        actions.appendChild(h('button', {
+          className: 'btn btn--secondary',
+          onClick: function () { simulateConnect(providerId); }
+        }, p.state === 'warning' || p.state === 'error' ? 'Reconnect' : 'Manage'));
+        actions.appendChild(h('button', {
+          className: 'btn btn--danger',
+          onClick: function () { simulateDisconnect(providerId); }
+        }, 'Disconnect'));
+      }
+
+      return h('div', { className: 'integration-row' + stateClass, 'data-provider': providerId }, [brand, content, actions]);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       CONNECT / DISCONNECT SIMULATION
+    ═══════════════════════════════════════════════════════ */
+    function simulateConnect(providerId) {
+      var p = state.providers[providerId];
+      p.state = 'connected';
+      p.statusText = 'Connected';
+      var now = new Date();
+      var h12 = now.getHours() % 12 || 12;
+      var mins = ('0' + now.getMinutes()).slice(-2);
+      var ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+      p.sync = 'Last sync: ' + h12 + ':' + mins + ' ' + ampm;
+
+      if (providerId === 'apple_health') {
+        p.meta = 'Sleep, HRV, resting HR, and workouts active.';
+        p.metrics = '4 metrics active';
+      } else if (providerId === 'whoop') {
+        p.meta = 'Recovery, sleep, strain, HRV, and resting HR active.';
+        p.metrics = '5 metrics active';
+      } else {
+        p.meta = 'Sleep, heart rate, HRV, and exercise active.';
+        p.metrics = '4 metrics active';
+      }
+
+      render();
+      saveState();
+      flashBanner();
+    }
+
+    function simulateDisconnect(providerId) {
+      var p = state.providers[providerId];
+      p.state = 'not_connected';
+      p.statusText = 'Not Connected';
+      p.sync = 'Last sync: Never';
+      p.metrics = '0 metrics active';
+      p.meta = providerId === 'apple_health' ? 'Requires PPF iPhone companion app with HealthKit.'
+             : providerId === 'whoop' ? 'OAuth + webhooks for real-time recovery updates.'
+             : 'Google Health API with Google OAuth consent.';
+      render();
+      saveState();
+    }
+
+    function flashBanner() {
+      var banner = document.getElementById('readiness-banner');
+      if (!banner) return;
+      var statuses = ['Green', 'Yellow', 'Red'];
+      var colors = { Green: 'var(--success)', Yellow: 'var(--warn)', Red: 'var(--danger)' };
+      var pick = statuses[Math.floor(Math.random() * 3)];
+      // Bias toward green for demo
+      if (Math.random() > 0.4) pick = 'Green';
+
+      var val = document.getElementById('readiness-banner-value');
+      if (val) { val.textContent = 'Today: ' + pick; val.style.color = colors[pick]; }
+      banner.classList.add('is-visible');
+      setTimeout(function () { banner.classList.remove('is-visible'); }, 4000);
+
+      // Update rail
+      updateRailStatus(pick);
+    }
+
+    function updateRailStatus(status) {
+      var colors = { Green: 'var(--success)', Yellow: 'var(--warn)', Red: 'var(--danger)' };
+      var messages = {
+        Green: 'Explosive output window is open.',
+        Yellow: 'Train sharp. Quality over unnecessary volume.',
+        Red: 'Recovery emphasis today. Restore, move, reset.'
+      };
+      var el = document.getElementById('ppf-status-value');
+      var sub = document.getElementById('ppf-status-sub');
+      if (el) { el.textContent = status; el.style.color = colors[status] || 'var(--success)'; }
+      if (sub) sub.textContent = messages[status] || '';
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       RENDER ALL SECTIONS
+    ═══════════════════════════════════════════════════════ */
+    function render() {
+      renderTraining();
+      renderCoaching();
+      renderIntegrations();
+      renderReadinessInputs();
+      renderReadinessDisplay();
+      renderNotifications();
+      renderCoachVisibility();
+      renderSharedAccess();
+      renderConnectionHealth();
+      renderIdentity();
+      renderEnvironment();
+      renderAccount();
+      renderHooks();
+      renderRail();
+      renderCardStates();
+    }
+
+    /* ── Training Experience ── */
+    function renderTraining() {
+      fillList('training-list', [
+        makeRow('Preferred workout view', 'Choose how training sessions are displayed.',
+          makeSegmented('training', 'workoutView', ['Simple', 'Detailed', 'Coach Mode'])),
+        makeRow('Rest timer style', 'Control how rest periods are timed between sets.',
+          makeSegmented('training', 'restTimerStyle', ['Standard', 'Auto', 'Competition'])),
+        makeRow('Music mode sync', 'Sync training phases with your music player.',
+          makeToggle('training', 'musicSync')),
+        makeRow('Motivational language level', 'Intensity of encouragement prompts during sessions.',
+          makeSegmented('training', 'motivationalLanguage', ['Subtle', 'Standard', 'Intense'])),
+        makeRow('Session reminder intensity', 'How aggressively you are reminded about upcoming sessions.',
+          makeSegmented('training', 'sessionReminderIntensity', ['Off', 'Light', 'Standard', 'Aggressive']))
+      ]);
+    }
+
+    /* ── Coaching Communication ── */
+    function renderCoaching() {
+      fillList('coaching-list', [
+        makeRow('Direct coach notes', 'Get in-app notes and feedback from your coach.', makeToggle('coaching', 'directCoachNotes')),
+        makeRow('Weekly progress recap', 'Receive a weekly summary of your training metrics.', makeToggle('coaching', 'weeklyProgressRecap')),
+        makeRow('Video breakdown alerts', 'Notify when new video analysis is available.', makeToggle('coaching', 'videoBreakdownAlerts')),
+        makeRow('Testing reminders', 'Get reminded about upcoming performance tests.', makeToggle('coaching', 'testingReminders')),
+        makeRow('Goal milestone celebrations', 'Celebrate when you hit training milestones.', makeToggle('coaching', 'milestoneCelebrations')),
+        makeRow('Pre-session performance pulse', 'Hydrate, fuel, and open your plan 60\u201390 min before training.', makeToggle('coaching', 'preSessionPulse')),
+        makeRow('Session adjustment alerts', 'Notify when readiness data changes your assigned plan.', makeToggle('coaching', 'sessionAdjustmentAlerts')),
+        makeRow('Missed recovery warning', 'Alert when sleep or recovery trends fall below target.', makeToggle('coaching', 'missedRecoveryWarning')),
+        makeRow('Weekly readiness report', 'Receive a weekly readiness trend and coaching summary.', makeToggle('coaching', 'weeklyReadinessReport'))
+      ]);
+    }
+
+    /* ── Integration List ── */
+    function renderIntegrations() {
+      var list = document.getElementById('integration-list');
+      if (!list) return;
+      list.innerHTML = '';
+      ['apple_health', 'whoop', 'google_health'].forEach(function (id) {
+        list.appendChild(buildIntegrationRow(id));
+      });
+    }
+
+    /* ── Readiness Inputs ── */
+    function renderReadinessInputs() {
+      var ri = state.readinessInputs;
+      fillList('readiness-inputs-list', [
+        makeRow('Sleep duration', 'Total hours of sleep from connected devices.', makeToggle('readinessInputs', 'sleepDuration')),
+        makeRow('Sleep quality', 'Sleep efficiency and stage depth.', makeToggle('readinessInputs', 'sleepQuality')),
+        makeRow('HRV', 'Heart rate variability as a recovery signal.', makeToggle('readinessInputs', 'hrv')),
+        makeRow('Resting heart rate', 'Daily resting HR trend.', makeToggle('readinessInputs', 'restingHeartRate')),
+        makeRow('Workouts / load', 'Training strain and volume from connected devices.', makeToggle('readinessInputs', 'workoutsLoad')),
+        makeRow('SpO\u2082', 'Blood oxygen saturation levels.', makeToggle('readinessInputs', 'spo2')),
+        makeRow('VO\u2082 Max', 'Cardiovascular fitness estimate.', makeToggle('readinessInputs', 'vo2max')),
+        makeRow('Daily soreness check-in', 'Manual soreness input contributes to body status score.', makeToggle('readinessInputs', 'sorenessCheckin')),
+        makeRow('Daily fatigue check-in', 'Manual fatigue input for recovery weighting.', makeToggle('readinessInputs', 'fatigueCheckin')),
+        makeRow('Hydration check-in', 'Manual hydration input for coaching prompts.', makeToggle('readinessInputs', 'hydrationCheckin')),
+        makeRow('Mood / body status', 'Subjective readiness input.', makeToggle('readinessInputs', 'moodStatus'))
+      ]);
+    }
+
+    /* ── Readiness Display ── */
+    function renderReadinessDisplay() {
+      fillList('readiness-display-list', [
+        makeRow('Show PPF readiness score', 'Display the normalized 0\u2013100 PPF score.', makeToggle('readinessDisplay', 'showPpfScore')),
+        makeRow('Show green / yellow / red status', 'Color-coded readiness status on dashboard.', makeToggle('readinessDisplay', 'showStatusColor')),
+        makeRow('Show readiness explanation', 'Why you are green, yellow, or red today.', makeToggle('readinessDisplay', 'showExplanation')),
+        makeRow('Show 7-day trend', 'Readiness trend vs baseline.', makeToggle('readinessDisplay', 'show7DayTrend')),
+        makeRow('Show source contribution', 'Which providers contributed to today\u2019s score.', makeToggle('readinessDisplay', 'showSourceContribution')),
+        makeRow('Show session adjustment note', 'Display when readiness data modified today\u2019s plan.', makeToggle('readinessDisplay', 'showSessionAdjustment')),
+        makeRow('Show vendor scores', 'Expose raw WHOOP recovery, Apple Health data, etc.', makeToggle('readinessDisplay', 'showVendorScores'),
+          'Recommended off \u2014 PPF score keeps the experience coached and source-agnostic.')
+      ]);
+    }
+
+    /* ── Notifications ── */
+    function renderNotifications() {
+      fillList('notification-list', [
+        makeRow('Morning readiness alert', 'Green: attack. Yellow: train sharp. Red: recover smart.', makeToggle('notifications', 'morningReadiness')),
+        makeRow('Pre-session performance pulse', 'Hydrate, fuel, open plan \u2014 60\u201390 min before training.', makeToggle('notifications', 'preSessionPerformancePulse')),
+        makeRow('Session auto-adjust alert', 'Notify when recovery data changes the session plan.', makeToggle('notifications', 'sessionAutoAdjust')),
+        makeRow('Sleep compliance warning', 'Alert after 2 consecutive nights below sleep target.', makeToggle('notifications', 'sleepComplianceWarning')),
+        makeRow('Hydration reminders', 'Periodic prompts to stay hydrated.', makeToggle('notifications', 'hydrationReminders')),
+        makeRow('Milestone moments', 'Celebrate readiness peaks, check-in streaks, and PRs.', makeToggle('notifications', 'milestoneMoments')),
+        makeRow('Coach intervention notices', 'Alert when coach flags readiness or compliance concern.', makeToggle('notifications', 'coachInterventionNotices')),
+        makeRow('Urgent alerts bypass quiet hours', 'Allow critical coach and readiness alerts even during quiet hours.', makeToggle('notifications', 'urgentBypassQuietHours')),
+        makeRow('Quiet hours', 'Suppress non-urgent notifications during this window.',
+          h('div', { style: { display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' } }, [
+            h('input', { type: 'time', value: state.notifications.quietHoursStart, style: { background: 'rgba(255,255,255,0.05)', border: '1px solid var(--stroke)', color: 'var(--text)', padding: '8px 10px', borderRadius: '10px' },
+              onInput: function (e) { state.notifications.quietHoursStart = e.target.value; saveState(); } }),
+            h('span', { style: { color: 'var(--muted)', fontSize: '13px' } }, 'to'),
+            h('input', { type: 'time', value: state.notifications.quietHoursEnd, style: { background: 'rgba(255,255,255,0.05)', border: '1px solid var(--stroke)', color: 'var(--text)', padding: '8px 10px', borderRadius: '10px' },
+              onInput: function (e) { state.notifications.quietHoursEnd = e.target.value; saveState(); } })
+          ]))
+      ]);
+    }
+
+    /* ── Coach Visibility ── */
+    function renderCoachVisibility() {
+      fillList('coach-visibility-list', [
+        makeRow('Readiness color only', 'Coach sees green/yellow/red but no detail.', makeToggle('coachVisibility', 'readinessColorOnly')),
+        makeRow('Full PPF readiness profile', 'Coach sees full score breakdown and inputs.', makeToggle('coachVisibility', 'fullPpfReadinessProfile')),
+        makeRow('Sleep metrics', 'Coach can view sleep duration, efficiency, and stages.', makeToggle('coachVisibility', 'sleepMetrics')),
+        makeRow('HRV / resting HR', 'Coach can view heart rate variability and resting HR trends.', makeToggle('coachVisibility', 'hrvRestingHr')),
+        makeRow('Soreness check-ins', 'Coach can view daily soreness and body status reports.', makeToggle('coachVisibility', 'sorenessCheckins')),
+        makeRow('Trend history', 'Coach can view 7-day and 14-day readiness trends.', makeToggle('coachVisibility', 'trendHistory')),
+        makeRow('Allow coach-led session adjustments', 'Coach can modify assigned session based on readiness data.', makeToggle('coachVisibility', 'sessionAdjustments'))
+      ]);
+    }
+
+    /* ── Shared Access ── */
+    function renderSharedAccess() {
+      fillList('shared-access-list', [
+        makeRow('Family weekly summary', 'Family receives a simple weekly compliance and wellness summary.', makeToggle('sharedAccess', 'familyWeeklySummary')),
+        makeRow('Family daily readiness color', 'Family sees daily green/yellow/red status.', makeToggle('sharedAccess', 'familyReadinessColor')),
+        makeRow('Family attendance + compliance only', 'Family sees only session attendance and compliance.', makeToggle('sharedAccess', 'familyAttendanceComplianceOnly')),
+        makeRow('Agent weekly performance summary', 'Agent receives weekly readiness and performance rollup.', makeToggle('sharedAccess', 'agentWeeklySummary')),
+        makeRow('Agent testing-week status', 'Agent sees testing-week preparation and readiness.', makeToggle('sharedAccess', 'agentTestingWeekStatus')),
+        makeRow('Agent recruiting-ready summary', 'Agent sees clean measurable-status reporting.', makeToggle('sharedAccess', 'agentRecruitingReadySummary'),
+          'No raw personal health data \u2014 clean performance reporting only.')
+      ]);
+    }
+
+    /* ── Connection Health ── */
+    function renderConnectionHealth() {
+      var providers = state.providers;
+      var items = [];
+      var connCount = 0;
+      var failCount = 0;
+
+      ['apple_health', 'whoop', 'google_health'].forEach(function (id) {
+        var p = providers[id];
+        var isConn = p.state === 'connected';
+        var isErr = p.state === 'error' || p.state === 'warning';
+        if (isConn) connCount++;
+        if (isErr) failCount++;
+
+        var syncClass = isConn ? 'var(--success)' : isErr ? 'var(--danger)' : 'var(--muted)';
+        var tokenText = isConn ? 'Valid' : isErr ? 'Needs refresh' : 'N/A';
+        var permsText = isConn ? 'Healthy' : isErr ? 'Revoked or missing' : 'N/A';
+
+        items.push(makeRow(p.name, p.sync,
+          h('span', { className: 'status-pill ' + (isConn ? 'status-pill--connected' : isErr ? 'status-pill--warning' : '') },
+            isConn ? 'Healthy' : isErr ? 'Needs Attention' : 'Not Connected')
+        ));
+      });
+
+      items.push(makeRow('Overall sync status',
+        connCount + ' of 3 sources connected. ' + failCount + ' need attention.',
+        h('span', { style: { fontWeight: '800', fontSize: '18px', color: failCount > 0 ? 'var(--warn)' : connCount > 0 ? 'var(--success)' : 'var(--muted)' } },
+          failCount > 0 ? 'Degraded' : connCount > 0 ? 'Healthy' : 'Offline')));
+
+      items.push(makeRow('Failed imports (7 days)', 'No failed imports detected in the last 7 days.',
+        h('span', { style: { fontWeight: '800', fontSize: '18px', color: 'var(--success)' } }, '0')));
+
+      fillList('connection-health-list', items);
+    }
+
+    /* ── Identity ── */
+    function renderIdentity() {
+      fillList('identity-list', [
+        makeRow('Public athlete card', 'Make your athlete identity card visible to others.', makeToggle('identity', 'publicAthleteCard')),
+        makeRow('Shareable progress profile', 'Allow your progress profile to be shared via link.', makeToggle('identity', 'shareableProgressProfile')),
+        makeRow('Recruiting-ready profile mode', 'Optimize your profile for recruiters and scouts.', makeToggle('identity', 'recruitingMode')),
+        makeRow('Family-view access', 'Allow family members to view a simplified dashboard.', makeToggle('identity', 'familyViewAccess')),
+        makeRow('Agent-view access', 'Grant agents or representatives access to your metrics.', makeToggle('identity', 'agentViewAccess')),
+        makeRow('Privacy level for metrics', 'Who can see your performance data.',
+          makeSegmented('identity', 'privacyLevel', ['Private', 'Team', 'Public']))
+      ]);
+    }
+
+    /* ── Environment ── */
+    function renderEnvironment() {
+      fillList('environment-list', [
+        makeRow('Visual mode', 'Overall visual style of the interface.',
+          makeSegmented('environment', 'visualMode', ['Performance', 'Minimal', 'Cinematic'])),
+        makeRow('Dashboard density', 'How much information is packed into each view.',
+          makeSegmented('environment', 'dashboardDensity', ['Compact', 'Standard', 'Expanded'])),
+        makeRow('Font scale', 'Adjust the base font size across the interface.',
+          makeSegmented('environment', 'fontScale', ['80%', '90%', '100%', '110%', '120%'])),
+        makeRow('Motion intensity', 'Control animation and transition levels.',
+          makeSegmented('environment', 'motionIntensity', ['Off', 'Subtle', 'Full'])),
+        makeRow('Sound effects', 'Play audio cues for interactions and achievements.',
+          makeToggle('environment', 'soundEffects')),
+        makeRow('Training theme', 'Set the color atmosphere for training sessions.',
+          makeSegmented('environment', 'trainingTheme', ['Turf', 'Lab', 'Blackout', 'Combine']))
+      ]);
+    }
+
+    /* ── Account ── */
+    function renderAccount() {
+      // Load from PPFMember if available
+      var profile = null;
+      if (typeof PPFMember !== 'undefined' && PPFMember.getProfile) {
+        profile = PPFMember.getProfile();
+      }
+      if (profile) {
+        state.account.email = profile.email || '\u2014';
+        if (profile.joinDate) {
+          var d = new Date(profile.joinDate);
+          var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+          state.account.memberSince = months[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+        }
+        var pathNames = { athlete: 'Athlete Performance', adult: 'Adult Performance', integrated: 'Integrated Program', guest: 'Guest Exploration' };
+        state.account.membershipPath = pathNames[profile.path] || 'Athlete Performance';
+      }
+
+      fillList('account-list', [
+        makeRow('Email', 'Your registered email address.',
+          h('span', { style: { color: 'var(--muted)', fontSize: '14px', fontWeight: '600' } }, state.account.email)),
+        makeRow('Member since', 'When you joined PPF Athletics.',
+          h('span', { style: { color: 'var(--muted)', fontSize: '14px', fontWeight: '600' } }, state.account.memberSince)),
+        makeRow('Membership path', 'Your current membership tier.',
+          h('span', { style: { color: 'var(--muted)', fontSize: '14px', fontWeight: '600' } }, state.account.membershipPath))
+      ]);
+
+      var dz = document.getElementById('danger-zone');
+      if (dz) {
+        dz.innerHTML = '';
+        dz.appendChild(makeRow('Delete account', 'Permanently delete your account and all data.',
+          h('button', { className: 'btn btn--danger', onClick: function () {
+            if (confirm('Are you sure you want to delete your account? This cannot be undone.')) {
+              localStorage.removeItem(STORAGE_KEY);
+              localStorage.removeItem('ppf_member_profile');
+              localStorage.removeItem('ppf_member_settings');
+              window.location.href = 'index.html';
+            }
+          }}, 'Delete Account')));
+      }
+    }
+
+    /* ── Integration Hooks (dev reference) ── */
+    function renderHooks() {
+      var routes = [
+        ['WHOOP Connect',           'GET  ' + API.whoopConnect],
+        ['WHOOP Callback',          'GET  ' + API.whoopCallback],
+        ['WHOOP Webhook',           'POST ' + API.whoopWebhook],
+        ['WHOOP Disconnect',        'POST ' + API.whoopDisconnect],
+        ['WHOOP Status',            'GET  ' + API.whoopStatus],
+        ['Apple Health Link',       'POST ' + API.appleLink],
+        ['Apple Health Sync',       'POST ' + API.appleSync],
+        ['Apple Health Disconnect', 'POST ' + API.appleDisconnect],
+        ['Apple Health Status',     'GET  ' + API.appleStatus],
+        ['Google Health Connect',   'GET  ' + API.googleHealthConnect],
+        ['Google Health Callback',  'GET  ' + API.googleHealthCallback],
+        ['Google Health Disconnect','POST ' + API.googleHealthDisconnect],
+        ['Google Health Status',    'GET  ' + API.googleHealthStatus],
+        ['Readiness Today',         'GET  ' + API.readinessToday],
+        ['Readiness Trend',         'GET  ' + API.readinessTrend],
+        ['Readiness Check-in',      'POST ' + API.readinessCheckin],
+        ['Connection Health',       'GET  ' + API.connectionHealth],
+        ['Notification Prefs',      'GET  ' + API.notificationPreferences]
+      ];
+      fillList('hook-list', routes.map(function (r) {
+        return makeRow(r[0], r[1],
+          h('span', { style: { fontSize: '11px', color: 'var(--muted-2)', fontFamily: 'monospace' } }, 'route'));
+      }));
+    }
+
+    /* ── Rail Sidebar ── */
+    function renderRail() {
+      var providers = state.providers;
+      var connCount = 0;
+      ['apple_health', 'whoop', 'google_health'].forEach(function (id) {
+        if (providers[id].state === 'connected') connCount++;
+      });
+
+      var countEl = document.getElementById('connected-count');
+      if (countEl) countEl.textContent = connCount + ' / 3';
+
+      var syncEl = document.getElementById('sync-health-value');
+      var syncSub = document.getElementById('sync-health-sub');
+      if (connCount === 0) {
+        if (syncEl) { syncEl.textContent = '\u2014'; syncEl.style.color = 'var(--muted)'; }
+        if (syncSub) syncSub.textContent = 'No sources connected yet.';
+        var statusEl = document.getElementById('ppf-status-value');
+        var statusSub = document.getElementById('ppf-status-sub');
+        if (statusEl) { statusEl.textContent = '\u2014'; statusEl.style.color = 'var(--muted)'; }
+        if (statusSub) statusSub.textContent = 'Connect a device to see readiness.';
+      } else {
+        if (syncEl) { syncEl.textContent = 'Healthy'; syncEl.style.color = 'var(--success)'; }
+        if (syncSub) syncSub.textContent = 'No failed imports in the last 24 hours.';
+      }
+    }
+
+    /* ── Card Border States ── */
+    function renderCardStates() {
+      var card = document.getElementById('card-connected-sources');
+      if (!card) return;
+      var providers = state.providers;
+      var hasConn = false;
+      var hasWarn = false;
+      ['apple_health', 'whoop', 'google_health'].forEach(function (id) {
+        if (providers[id].state === 'connected') hasConn = true;
+        if (providers[id].state === 'warning' || providers[id].state === 'error') hasWarn = true;
+      });
+      card.className = 'settings-card' + (hasWarn ? ' settings-card--warning' : hasConn ? ' settings-card--connected' : '');
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       NAV HIGHLIGHT
+    ═══════════════════════════════════════════════════════ */
+    function initNavHighlight() {
+      var links = document.querySelectorAll('.settings-nav__link');
+      var sections = [];
+      links.forEach(function (link) {
+        var href = link.getAttribute('href');
+        if (href && href.charAt(0) === '#') {
+          var target = document.getElementById(href.slice(1));
+          if (target) sections.push({ link: link, el: target });
+        }
+      });
+
+      function updateActive() {
+        var scrollY = window.scrollY + 120;
+        var active = null;
+        sections.forEach(function (s) {
+          if (s.el.offsetTop <= scrollY) active = s;
+        });
+        links.forEach(function (l) { l.classList.remove('is-active'); });
+        if (active) active.link.classList.add('is-active');
+      }
+
+      window.addEventListener('scroll', updateActive, { passive: true });
+      updateActive();
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       BUTTON HANDLERS
+    ═══════════════════════════════════════════════════════ */
+    function initButtons() {
+      var testBtn = document.getElementById('test-readiness-btn');
+      if (testBtn) {
+        testBtn.addEventListener('click', function () {
+          flashBanner();
+        });
+      }
+
+      var exportBtn = document.getElementById('btn-export');
+      if (exportBtn) {
+        exportBtn.addEventListener('click', function () {
+          var profile = null;
+          if (typeof PPFMember !== 'undefined' && PPFMember.getProfile) profile = PPFMember.getProfile();
+          var data = JSON.stringify({ profile: profile, settings: state }, null, 2);
+          var blob = new Blob([data], { type: 'application/json' });
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = 'ppf-member-data.json';
+          a.click();
+          URL.revokeObjectURL(url);
+          exportBtn.textContent = 'Exported \u2713';
+          setTimeout(function () { exportBtn.textContent = 'Export Data'; }, 2000);
+        });
+      }
+
+      var signoutBtn = document.getElementById('btn-signout');
+      if (signoutBtn) {
+        signoutBtn.addEventListener('click', function () {
+          localStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem('ppf_member_profile');
+          localStorage.removeItem('ppf_member_settings');
+          window.location.href = 'index.html';
+        });
+      }
+    }
+
+    /* ═══════════════════════════════════════════════════════
+       BOOT
+    ═══════════════════════════════════════════════════════ */
+    document.addEventListener('DOMContentLoaded', function () {
+      render();
+      initNavHighlight();
+      initButtons();
     });
+
+  })();
   </script>
 </body>
 </html>
