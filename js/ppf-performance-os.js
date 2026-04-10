@@ -231,11 +231,27 @@
       label.style.opacity = '';
     }, 3000);
 
-    // Cycle text every 12 seconds
-    setInterval(function () {
+    // Cycle text every 12 seconds (store for cleanup)
+    var posLabelInterval = setInterval(function () {
       idx = (idx + 1) % labels.length;
       span.textContent = labels[idx];
     }, 12000);
+
+    // Pause when not visible to prevent background timer waste
+    if ('IntersectionObserver' in window && label) {
+      var posLabelObs = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) {
+          clearInterval(posLabelInterval);
+          posLabelInterval = null;
+        } else if (!posLabelInterval) {
+          posLabelInterval = setInterval(function () {
+            idx = (idx + 1) % labels.length;
+            span.textContent = labels[idx];
+          }, 12000);
+        }
+      }, { threshold: 0 });
+      posLabelObs.observe(label);
+    }
   })();
 
   // ------------------------------------------------------------------
@@ -957,7 +973,7 @@
       ensureRelative(microData);
       microData.appendChild(statusEl);
 
-      setInterval(function () {
+      var statusInterval = setInterval(function () {
         statusEl.style.opacity = '0';
         setTimeout(function () {
           labelIdx = (labelIdx + 1) % statusLabels.length;
@@ -970,9 +986,10 @@
     // Fluctuate reaction time (41ms → 43ms → 39ms → 42ms)
     var reactionValues = [42, 41, 43, 39, 44, 40, 42, 38];
     var reactionIdx = 0;
+    var reactionInterval = null;
 
     if (reactionEl) {
-      setInterval(function () {
+      reactionInterval = setInterval(function () {
         reactionIdx = (reactionIdx + 1) % reactionValues.length;
         reactionEl.textContent = reactionValues[reactionIdx] + 'ms';
       }, 3000);
@@ -980,11 +997,48 @@
 
     // Creep output percentage (93% → 94% → 95%)
     var outputBase = 93;
+    var outputInterval = null;
     if (outputEl) {
-      setInterval(function () {
+      outputInterval = setInterval(function () {
         outputBase = outputBase >= 97 ? 93 : outputBase + 1;
         outputEl.textContent = outputBase + '%';
       }, 5000);
+    }
+
+    // Pause hero HUD intervals when hero is not in viewport
+    var heroSection = qs('#hero');
+    if (heroSection && 'IntersectionObserver' in window) {
+      var heroHudObs = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) {
+          if (statusInterval) { clearInterval(statusInterval); statusInterval = null; }
+          if (reactionInterval) { clearInterval(reactionInterval); reactionInterval = null; }
+          if (outputInterval) { clearInterval(outputInterval); outputInterval = null; }
+        } else {
+          if (!statusInterval && statusEl) {
+            statusInterval = setInterval(function () {
+              statusEl.style.opacity = '0';
+              setTimeout(function () {
+                labelIdx = (labelIdx + 1) % statusLabels.length;
+                statusEl.textContent = statusLabels[labelIdx];
+                statusEl.style.opacity = '1';
+              }, 300);
+            }, 4000);
+          }
+          if (!reactionInterval && reactionEl) {
+            reactionInterval = setInterval(function () {
+              reactionIdx = (reactionIdx + 1) % reactionValues.length;
+              reactionEl.textContent = reactionValues[reactionIdx] + 'ms';
+            }, 3000);
+          }
+          if (!outputInterval && outputEl) {
+            outputInterval = setInterval(function () {
+              outputBase = outputBase >= 97 ? 93 : outputBase + 1;
+              outputEl.textContent = outputBase + '%';
+            }, 5000);
+          }
+        }
+      }, { threshold: 0 });
+      heroHudObs.observe(heroSection);
     }
   })();
 

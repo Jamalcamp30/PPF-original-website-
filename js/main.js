@@ -1316,13 +1316,32 @@
   /* ── HERO MICRO-DATA LIVE UPDATE ─────────────────── */
   const microReaction = qs('#microReaction');
   const microOutput = qs('#microOutput');
+  let heroMicroInterval = null;
   if (microReaction && microOutput && !isReduced) {
-    setInterval(() => {
+    heroMicroInterval = setInterval(() => {
       const r = (38 + Math.random() * 8).toFixed(0);
       microReaction.textContent = r + 'ms';
       const o = (90 + Math.random() * 9).toFixed(0);
       microOutput.textContent = o + '%';
     }, 2500);
+
+    // Pause when hero not visible
+    const heroForMicro = qs('#hero');
+    if (heroForMicro && 'IntersectionObserver' in window) {
+      const microObs = new IntersectionObserver((entries) => {
+        if (!entries[0].isIntersecting) {
+          if (heroMicroInterval) { clearInterval(heroMicroInterval); heroMicroInterval = null; }
+        } else if (!heroMicroInterval) {
+          heroMicroInterval = setInterval(() => {
+            const r2 = (38 + Math.random() * 8).toFixed(0);
+            microReaction.textContent = r2 + 'ms';
+            const o2 = (90 + Math.random() * 9).toFixed(0);
+            microOutput.textContent = o2 + '%';
+          }, 2500);
+        }
+      }, { threshold: 0 });
+      microObs.observe(heroForMicro);
+    }
   }
 
   /* ── LIVE METRIC STRIP ───────────────────────────── */

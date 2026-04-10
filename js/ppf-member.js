@@ -151,9 +151,10 @@ var PPFMember = (function () {
 
     // Rotating coach line
     var coachLine = qs('#entryCoachLine');
+    var coachLineInterval = null;
     if (coachLine) {
       coachLine.textContent = randomCommand();
-      setInterval(function () {
+      coachLineInterval = setInterval(function () {
         coachLine.style.opacity = '0';
         setTimeout(function () {
           coachLine.textContent = randomCommand();

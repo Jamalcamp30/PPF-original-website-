@@ -11,7 +11,7 @@
 .pulse-vault {
   position: fixed;
   inset: 0;
-  z-index: 99999;
+  z-index: 10100;
   background: #000;
   display: flex;
   align-items: center;
