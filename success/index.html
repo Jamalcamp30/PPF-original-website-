@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/ppf-checkout.css" />
+  <link rel="stylesheet" href="../css/ppf-membership-pulse.css" />
 </head>
 <body>
   <!-- Nav -->
@@ -25,6 +26,7 @@
   </main>
 
   <script src="../js/ppf-stripe-config.js"></script>
+  <script src="../js/ppf-membership-pulse.js"></script>
   <script>
   (function () {
     'use strict';
@@ -35,7 +37,10 @@
 
     /* ── Resolve success data from paid plans or consult plans ── */
     var data = null;
-    var paid = planId ? PPF_STRIPE.getPlan(planId) : null;
+    var paid = null;
+    if (typeof PPF_STRIPE !== 'undefined') {
+      paid = planId ? PPF_STRIPE.getPlan(planId) : null;
+    }
     if (paid) {
       data = {
         eyebrow: paid.successEyebrow,
@@ -45,7 +50,7 @@
         secondary: paid.successSecondary
       };
     } else {
-      var consult = planId ? PPF_STRIPE.getConsultPlan(planId) : null;
+      var consult = (typeof PPF_STRIPE !== 'undefined' && planId) ? PPF_STRIPE.getConsultPlan(planId) : null;
       if (consult) {
         data = {
           eyebrow: consult.successEyebrow,
@@ -79,6 +84,11 @@
       return '../' + href;
     }
 
+    /* ── Activation sequence container (only for paid plans) ── */
+    var activationHtml = paid
+      ? '<div id="mpActivation" style="margin-bottom:32px"></div>'
+      : '';
+
     /* ── Build page ──────────────────────────────────────────── */
     page.innerHTML =
       '<div class="ppf-su-checkmark">' +
@@ -87,10 +97,27 @@
       '<div class="ppf-su-eyebrow">' + data.eyebrow + '</div>' +
       '<h1 class="ppf-su-headline">' + data.headline + '</h1>' +
       '<p class="ppf-su-body">' + data.body + '</p>' +
+      activationHtml +
       '<div class="ppf-su-actions">' +
         '<a href="' + resolveHref(data.primary.href) + '" class="ppf-co-btn">' + data.primary.text + '</a>' +
         '<a href="' + resolveHref(data.secondary.href) + '" class="ppf-co-btn ppf-co-btn--secondary">' + data.secondary.text + '</a>' +
       '</div>';
+
+    /* ── Boot activation sequence for paid plans ──────────── */
+    if (paid && typeof PPFPulse !== 'undefined') {
+      var actEl = document.getElementById('mpActivation');
+      if (actEl) {
+        PPFPulse.initActivation(actEl, paid.name);
+      }
+
+      /* Save membership state so dashboard reflects new plan */
+      var state = PPFPulse.getState();
+      state.plan = paid.name;
+      state.status = 'active';
+      state.paymentStatus = 'healthy';
+      state.lastPayment = new Date().toISOString().split('T')[0];
+      PPFPulse.saveState(state);
+    }
   })();
   </script>
 </body>

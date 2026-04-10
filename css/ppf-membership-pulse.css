@@ -1,0 +1,859 @@
+/* ═══════════════════════════════════════════════════════════════════
+   MEMBERSHIP PULSE SYSTEM — CSS
+   Premium billing/membership animation system for PPF member portal.
+   Prefix: .mp-
+   Design: dark glass, orange edge glow, restrained motion
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── SHARED TOKENS ─────────────────────────────────────────────── */
+:root {
+  --mp-orange: #ff5500;
+  --mp-amber: #f59e0b;
+  --mp-green: #22c55e;
+  --mp-red: #ef4444;
+  --mp-bg: #0a0a0a;
+  --mp-surface: rgba(255,255,255,0.03);
+  --mp-glass: rgba(255,255,255,0.05);
+  --mp-glass-border: rgba(255,255,255,0.08);
+  --mp-text: rgba(255,255,255,0.92);
+  --mp-text-mid: rgba(255,255,255,0.6);
+  --mp-text-dim: rgba(255,255,255,0.35);
+  --mp-font-display: 'Bebas Neue', 'Impact', sans-serif;
+  --mp-font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mp-radius: 12px;
+  --mp-radius-sm: 6px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   1. MEMBERSHIP STATUS HERO CARD
+   ═══════════════════════════════════════════════════════════════════ */
+.mp-hero {
+  position: relative;
+  background: var(--mp-surface);
+  border: 1px solid var(--mp-glass-border);
+  border-radius: var(--mp-radius);
+  padding: 32px 28px 28px;
+  margin-bottom: 24px;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+}
+
+/* Orange perimeter glow — resting state */
+.mp-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--mp-radius);
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255,85,0,0.3), transparent 50%, rgba(255,85,0,0.15));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Financial heartbeat — subtle breathing glow */
+.mp-hero::after {
+  content: '';
+  position: absolute;
+  top: -1px; left: -1px; right: -1px; bottom: -1px;
+  border-radius: var(--mp-radius);
+  box-shadow: 0 0 20px rgba(255,85,0,0.08);
+  animation: mpHeartbeat 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes mpHeartbeat {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+.mp-hero__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.mp-hero__plan-label {
+  font-family: var(--mp-font-display);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: var(--mp-text-dim);
+  margin-bottom: 6px;
+}
+
+.mp-hero__plan-name {
+  font-family: var(--mp-font-display);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  letter-spacing: 0.04em;
+  color: var(--mp-text);
+  line-height: 1.1;
+}
+
+/* ── Status Pill ─────────────────────────────────────────────── */
+.mp-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-family: var(--mp-font-display);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mp-status-pill__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transition: background 0.6s;
+}
+
+/* Status variants */
+.mp-status-pill[data-status="active"] {
+  background: rgba(34,197,94,0.12);
+  color: var(--mp-green);
+}
+.mp-status-pill[data-status="active"] .mp-status-pill__dot {
+  background: var(--mp-green);
+  animation: mpDotPulse 2s ease-in-out infinite;
+}
+
+.mp-status-pill[data-status="renewing"] {
+  background: rgba(255,85,0,0.12);
+  color: var(--mp-orange);
+}
+.mp-status-pill[data-status="renewing"] .mp-status-pill__dot {
+  background: var(--mp-orange);
+  animation: mpDotPulse 1.5s ease-in-out infinite;
+}
+
+.mp-status-pill[data-status="renewed"] {
+  background: rgba(34,197,94,0.15);
+  color: var(--mp-green);
+}
+.mp-status-pill[data-status="renewed"] .mp-status-pill__dot {
+  background: var(--mp-green);
+}
+
+.mp-status-pill[data-status="action-needed"] {
+  background: rgba(245,158,11,0.15);
+  color: var(--mp-amber);
+}
+.mp-status-pill[data-status="action-needed"] .mp-status-pill__dot {
+  background: var(--mp-amber);
+  animation: mpDotPulse 1s ease-in-out infinite;
+}
+
+.mp-status-pill[data-status="failed"] {
+  background: rgba(239,68,68,0.12);
+  color: var(--mp-red);
+}
+.mp-status-pill[data-status="failed"] .mp-status-pill__dot {
+  background: var(--mp-red);
+  animation: mpDotPulse 0.8s ease-in-out infinite;
+}
+
+@keyframes mpDotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ── Hero metrics row ────────────────────────────────────────── */
+.mp-hero__metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.mp-hero__metric {
+  background: var(--mp-glass);
+  border: 1px solid var(--mp-glass-border);
+  border-radius: var(--mp-radius-sm);
+  padding: 16px;
+}
+
+.mp-hero__metric-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--mp-text-dim);
+  margin-bottom: 6px;
+  font-family: var(--mp-font-display);
+}
+
+.mp-hero__metric-value {
+  font-family: var(--mp-font-display);
+  font-size: 1.3rem;
+  letter-spacing: 0.06em;
+  color: var(--mp-text);
+}
+
+.mp-hero__metric-value--masked {
+  color: var(--mp-text-dim);
+  font-size: 0.9rem;
+}
+
+/* ── Hero CTA ────────────────────────────────────────────────── */
+.mp-hero__cta {
+  display: inline-block;
+  padding: 12px 28px;
+  font-family: var(--mp-font-display);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  color: var(--mp-bg);
+  background: var(--mp-orange);
+  border-radius: var(--mp-radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.mp-hero__cta:hover {
+  background: #e64d00;
+  box-shadow: 0 0 20px rgba(255,85,0,0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   2. RENEWAL COUNTDOWN CARD
+   ═══════════════════════════════════════════════════════════════════ */
+.mp-renewal {
+  position: relative;
+  background: var(--mp-surface);
+  border: 1px solid var(--mp-glass-border);
+  border-radius: var(--mp-radius);
+  padding: 28px 24px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  overflow: hidden;
+  flex-wrap: wrap;
+}
+
+/* Countdown ring */
+.mp-renewal__ring-wrap {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+}
+
+.mp-renewal__ring {
+  width: 80px;
+  height: 80px;
+  transform: rotate(-90deg);
+}
+
+.mp-renewal__ring-bg {
+  fill: none;
+  stroke: rgba(255,255,255,0.06);
+  stroke-width: 4;
+}
+
+.mp-renewal__ring-fill {
+  fill: none;
+  stroke: var(--mp-orange);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 226;
+  stroke-dashoffset: 226;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+              stroke 0.6s;
+  filter: drop-shadow(0 0 6px rgba(255,85,0,0.3));
+}
+
+/* Urgency levels */
+.mp-renewal[data-urgency="low"] .mp-renewal__ring-fill {
+  stroke: var(--mp-green);
+  filter: drop-shadow(0 0 4px rgba(34,197,94,0.2));
+}
+
+.mp-renewal[data-urgency="medium"] .mp-renewal__ring-fill {
+  stroke: var(--mp-orange);
+  filter: drop-shadow(0 0 6px rgba(255,85,0,0.3));
+}
+
+.mp-renewal[data-urgency="high"] .mp-renewal__ring-fill {
+  stroke: var(--mp-orange);
+  filter: drop-shadow(0 0 10px rgba(255,85,0,0.5));
+  animation: mpRingPulse 2s ease-in-out infinite;
+}
+
+.mp-renewal[data-urgency="critical"] .mp-renewal__ring-fill {
+  stroke: var(--mp-amber);
+  filter: drop-shadow(0 0 12px rgba(245,158,11,0.6));
+  animation: mpRingPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes mpRingPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.mp-renewal__ring-days {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.mp-renewal__ring-num {
+  display: block;
+  font-family: var(--mp-font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.04em;
+  color: var(--mp-text);
+  line-height: 1;
+}
+
+.mp-renewal__ring-unit {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: var(--mp-text-dim);
+  font-family: var(--mp-font-display);
+}
+
+.mp-renewal__info { flex: 1; min-width: 180px; }
+
+.mp-renewal__title {
+  font-family: var(--mp-font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+.mp-renewal__body {
+  font-size: 0.82rem;
+  color: var(--mp-text-mid);
+  line-height: 1.6;
+  margin-bottom: 4px;
+}
+
+.mp-renewal__safe {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--mp-green);
+  margin-top: 8px;
+}
+
+.mp-renewal__safe svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   3. NOTIFICATION TOAST STACK
+   ═══════════════════════════════════════════════════════════════════ */
+.mp-toast-container {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+  max-width: 360px;
+  width: 100%;
+}
+
+.mp-toast {
+  position: relative;
+  background: rgba(18,18,18,0.95);
+  border: 1px solid var(--mp-glass-border);
+  border-radius: var(--mp-radius-sm);
+  padding: 16px 20px;
+  backdrop-filter: blur(12px);
+  pointer-events: auto;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  transform: translateX(120%);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.4s;
+}
+
+.mp-toast.mp-toast--visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.mp-toast.mp-toast--settling {
+  transform: translateX(0) scale(0.97);
+}
+
+.mp-toast.mp-toast--dismissing {
+  transform: translateX(120%);
+  opacity: 0;
+}
+
+/* Toast icon */
+.mp-toast__icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.mp-toast__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.mp-toast__icon--success {
+  background: rgba(34,197,94,0.15);
+  color: var(--mp-green);
+}
+.mp-toast__icon--warning {
+  background: rgba(245,158,11,0.15);
+  color: var(--mp-amber);
+}
+.mp-toast__icon--error {
+  background: rgba(239,68,68,0.15);
+  color: var(--mp-red);
+}
+.mp-toast__icon--info {
+  background: rgba(255,85,0,0.15);
+  color: var(--mp-orange);
+}
+
+.mp-toast__content { flex: 1; }
+
+.mp-toast__title {
+  font-family: var(--mp-font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 3px;
+}
+
+.mp-toast__body {
+  font-size: 0.76rem;
+  color: var(--mp-text-mid);
+  line-height: 1.5;
+}
+
+.mp-toast__close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--mp-text-dim);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+.mp-toast__close:hover { color: var(--mp-text); }
+
+/* Border accent by type */
+.mp-toast--success { border-left: 2px solid var(--mp-green); }
+.mp-toast--warning { border-left: 2px solid var(--mp-amber); }
+.mp-toast--error { border-left: 2px solid var(--mp-red); }
+.mp-toast--info { border-left: 2px solid var(--mp-orange); }
+
+/* ═══════════════════════════════════════════════════════════════════
+   4. ORANGE PERIMETER RUN ANIMATION
+   Reusable for renewal success, activation, plan upgrade
+   ═══════════════════════════════════════════════════════════════════ */
+.mp-perim-run {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.mp-perim-run::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--mp-orange), transparent);
+  border-radius: 2px;
+  opacity: 0;
+}
+
+.mp-perim-run.mp-perim-run--active::before {
+  animation: mpPerimTop 0.4s 0s ease-out forwards,
+             mpPerimRight 0.4s 0.4s ease-out forwards,
+             mpPerimBottom 0.4s 0.8s ease-out forwards,
+             mpPerimLeft 0.4s 1.2s ease-out forwards,
+             mpPerimFade 0.6s 1.6s ease-out forwards;
+}
+
+@keyframes mpPerimTop {
+  0% { top: 0; left: -60px; opacity: 0; }
+  10% { opacity: 1; }
+  100% { top: 0; left: calc(100% + 60px); opacity: 1; }
+}
+
+@keyframes mpPerimRight {
+  0% { top: -60px; left: auto; right: 0; width: 2px; height: 60px; opacity: 1; }
+  100% { top: calc(100% + 60px); right: 0; width: 2px; height: 60px; opacity: 1; }
+}
+
+@keyframes mpPerimBottom {
+  0% { bottom: 0; top: auto; left: calc(100% + 60px); height: 2px; width: 60px; opacity: 1; }
+  100% { bottom: 0; top: auto; left: -60px; height: 2px; width: 60px; opacity: 1; }
+}
+
+@keyframes mpPerimLeft {
+  0% { top: calc(100% + 60px); left: 0; width: 2px; height: 60px; opacity: 1; }
+  100% { top: -60px; left: 0; width: 2px; height: 60px; opacity: 1; }
+}
+
+@keyframes mpPerimFade {
+  to { opacity: 0; }
+}
+
+/* Simpler perimeter glow — single conic sweep */
+.mp-perim-glow {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.mp-perim-glow--active {
+  opacity: 1;
+  background: conic-gradient(from 0deg, transparent, rgba(255,85,0,0.4), transparent 30%);
+  animation: mpGlowSweep 1.4s ease-out forwards;
+}
+
+@keyframes mpGlowSweep {
+  0% { transform: rotate(0deg); opacity: 1; }
+  100% { transform: rotate(360deg); opacity: 0; }
+}
+
+/* Card settle glow after perimeter run */
+.mp-hero.mp-hero--confirmed::after {
+  box-shadow: 0 0 30px rgba(255,85,0,0.2);
+  animation: mpSettleGlow 2s ease-out forwards;
+}
+
+@keyframes mpSettleGlow {
+  0% { box-shadow: 0 0 40px rgba(255,85,0,0.4); }
+  100% { box-shadow: 0 0 20px rgba(255,85,0,0.08); }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   5. ACTIVATION SEQUENCE (Success pages)
+   ═══════════════════════════════════════════════════════════════════ */
+.mp-activation {
+  position: relative;
+  max-width: 480px;
+  margin: 0 auto 40px;
+  background: var(--mp-surface);
+  border: 1px solid var(--mp-glass-border);
+  border-radius: var(--mp-radius);
+  padding: 36px 28px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s 0.3s, transform 0.6s 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mp-activation.mp-activation--booting {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scan line */
+.mp-activation__scan {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent 40%, rgba(255,85,0,0.08) 50%, transparent 60%);
+  pointer-events: none;
+}
+
+.mp-activation--booting .mp-activation__scan {
+  animation: mpScanLine 0.8s 0.6s ease-out forwards;
+}
+
+@keyframes mpScanLine {
+  0% { left: -100%; }
+  100% { left: 100%; }
+}
+
+/* Activation steps */
+.mp-activation__step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.4s, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mp-activation__step.mp-activation__step--revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.mp-activation__step-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,85,0,0.1);
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+
+.mp-activation__step--revealed .mp-activation__step-icon {
+  background: rgba(34,197,94,0.15);
+}
+
+.mp-activation__step-icon svg {
+  width: 12px;
+  height: 12px;
+  color: var(--mp-orange);
+  transition: color 0.3s;
+}
+
+.mp-activation__step--revealed .mp-activation__step-icon svg {
+  color: var(--mp-green);
+}
+
+.mp-activation__step-text {
+  font-family: var(--mp-font-display);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: var(--mp-text-dim);
+  transition: color 0.3s;
+}
+
+.mp-activation__step--revealed .mp-activation__step-text {
+  color: var(--mp-text);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   6. PAYMENT STATE CARDS (Billing page)
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Healthy state */
+.mp-pay-healthy {
+  background: var(--mp-surface);
+  border: 1px solid rgba(34,197,94,0.2);
+  border-radius: var(--mp-radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mp-pay-healthy__shield {
+  width: 44px;
+  height: 44px;
+  color: var(--mp-green);
+  animation: mpShieldGlow 3s ease-in-out infinite;
+}
+
+@keyframes mpShieldGlow {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(34,197,94,0.2)); opacity: 0.8; }
+  50% { filter: drop-shadow(0 0 10px rgba(34,197,94,0.4)); opacity: 1; }
+}
+
+.mp-pay-healthy__text { flex: 1; }
+
+.mp-pay-healthy__title {
+  font-family: var(--mp-font-display);
+  font-size: 0.88rem;
+  letter-spacing: 0.12em;
+  color: var(--mp-green);
+  margin-bottom: 4px;
+}
+
+.mp-pay-healthy__body {
+  font-size: 0.78rem;
+  color: var(--mp-text-mid);
+  line-height: 1.5;
+}
+
+/* Failed payment state */
+.mp-pay-failed {
+  background: var(--mp-surface);
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: var(--mp-radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mp-pay-failed::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(239,68,68,0.04), transparent);
+  pointer-events: none;
+}
+
+.mp-pay-failed__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.mp-pay-failed__icon {
+  width: 36px;
+  height: 36px;
+  color: var(--mp-amber);
+  animation: mpFlicker 2s ease-in-out infinite;
+}
+
+@keyframes mpFlicker {
+  0%, 100% { opacity: 1; }
+  30% { opacity: 0.4; }
+  35% { opacity: 1; }
+  60% { opacity: 0.6; }
+  65% { opacity: 1; }
+}
+
+.mp-pay-failed__title {
+  font-family: var(--mp-font-display);
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  color: var(--mp-amber);
+}
+
+.mp-pay-failed__body {
+  font-size: 0.82rem;
+  color: var(--mp-text-mid);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.mp-pay-failed__cta {
+  display: inline-block;
+  padding: 12px 28px;
+  font-family: var(--mp-font-display);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  color: var(--mp-bg);
+  background: var(--mp-orange);
+  border: none;
+  border-radius: var(--mp-radius-sm);
+  cursor: pointer;
+  animation: mpCtaGlow 2s ease-in-out infinite;
+}
+
+@keyframes mpCtaGlow {
+  0%, 100% { box-shadow: 0 0 12px rgba(255,85,0,0.2); }
+  50% { box-shadow: 0 0 24px rgba(255,85,0,0.45); }
+}
+
+/* Card expiring */
+.mp-pay-expiring {
+  background: var(--mp-surface);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: var(--mp-radius);
+  padding: 24px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mp-pay-expiring__icon {
+  width: 36px;
+  height: 36px;
+  color: var(--mp-amber);
+  animation: mpShimmer 2.5s ease-in-out infinite;
+}
+
+@keyframes mpShimmer {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; filter: drop-shadow(0 0 8px rgba(245,158,11,0.3)); }
+}
+
+.mp-pay-expiring__text { flex: 1; }
+
+.mp-pay-expiring__title {
+  font-family: var(--mp-font-display);
+  font-size: 0.88rem;
+  letter-spacing: 0.12em;
+  color: var(--mp-amber);
+  margin-bottom: 4px;
+}
+
+.mp-pay-expiring__body {
+  font-size: 0.78rem;
+  color: var(--mp-text-mid);
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   7. NUMBER ROLL-UP
+   ═══════════════════════════════════════════════════════════════════ */
+.mp-roll-up {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.mp-roll-up__inner {
+  display: inline-block;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   8. RESPONSIVE
+   ═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .mp-hero { padding: 24px 16px 20px; }
+  .mp-hero__top { flex-direction: column; gap: 12px; }
+  .mp-hero__metrics { grid-template-columns: 1fr 1fr; }
+  .mp-renewal { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .mp-toast-container { right: 10px; left: 10px; max-width: none; }
+  .mp-activation { padding: 28px 16px; margin: 0 auto 28px; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   9. REDUCED MOTION
+   ═══════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .mp-hero::after,
+  .mp-status-pill__dot,
+  .mp-renewal__ring-fill,
+  .mp-pay-healthy__shield,
+  .mp-pay-failed__icon,
+  .mp-pay-failed__cta,
+  .mp-pay-expiring__icon,
+  .mp-perim-glow--active,
+  .mp-perim-run--active::before {
+    animation: none !important;
+  }
+  .mp-activation__scan { animation: none !important; }
+  .mp-toast { transition-duration: 0.01s !important; }
+  .mp-activation { transition-duration: 0.01s !important; }
+  .mp-activation__step { transition-duration: 0.01s !important; }
+}

@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/ppf-checkout.css" />
+  <link rel="stylesheet" href="../css/ppf-membership-pulse.css" />
 </head>
 <body>
   <!-- Nav -->
@@ -23,6 +24,9 @@
       <h1 class="ppf-bi-headline">Billing &amp; Membership Management</h1>
       <p class="ppf-bi-sub">Manage your payment method, view invoices, update billing details, and stay on top of your membership from one place.</p>
     </div>
+
+    <!-- Payment status (Membership Pulse) -->
+    <div id="mpPaymentStatus"></div>
 
     <!-- Billing action cards -->
     <div class="ppf-bi-grid">
@@ -73,11 +77,13 @@
   </main>
 
   <script src="../js/ppf-stripe-config.js"></script>
+  <script src="../js/ppf-membership-pulse.js"></script>
   <script>
   (function () {
     'use strict';
 
-    var portalUrl = PPF_STRIPE.STRIPE_PORTAL_URL;
+    /* ── Stripe portal setup ─────────────────────────────────── */
+    var portalUrl = (typeof PPF_STRIPE !== 'undefined') ? PPF_STRIPE.STRIPE_PORTAL_URL : '';
     var isConfigured = portalUrl && portalUrl.indexOf('REPLACE') === -1;
 
     function handlePortalClick(e) {
@@ -98,6 +104,12 @@
           btn.addEventListener('click', handlePortalClick);
         }
       }
+    }
+
+    /* ── Membership Pulse: Payment Status ────────────────────── */
+    if (typeof PPFPulse !== 'undefined') {
+      var statusEl = document.getElementById('mpPaymentStatus');
+      if (statusEl) PPFPulse.initBilling(statusEl);
     }
   })();
   </script>

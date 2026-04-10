@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../css/ppf-member.css" />
+  <link rel="stylesheet" href="../css/ppf-membership-pulse.css" />
 </head>
 <body class="ppf-dashboard-body">
 
@@ -91,6 +92,12 @@
         </div>
       </div>
     </section>
+
+    <!-- ─── Membership Pulse: Status Hero Card ─── -->
+    <div id="mpHeroCard"></div>
+
+    <!-- ─── Membership Pulse: Renewal Countdown ─── -->
+    <div id="mpRenewalCard"></div>
 
     <!-- ─── Coach Command ─── -->
     <div class="coach-command-strip" id="coachCommandStrip">
@@ -538,10 +545,36 @@
   </main>
 
   <script src="../js/ppf-member.js"></script>
+  <script src="../js/ppf-membership-pulse.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       if (typeof PPFMember !== 'undefined') {
         PPFMember.initDashboard();
+      }
+
+      /* ── Membership Pulse ── */
+      if (typeof PPFPulse !== 'undefined') {
+        var heroEl = document.getElementById('mpHeroCard');
+        var renewalEl = document.getElementById('mpRenewalCard');
+
+        /* Sync plan name from PPFMember profile if available */
+        if (typeof PPFMember !== 'undefined') {
+          var profile = PPFMember.getProfile();
+          if (profile && profile.path) {
+            var state = PPFPulse.getState();
+            var pathMap = {
+              athlete: 'Athlete Training — Unlimited Monthly',
+              adult: 'Adult Membership — Month to Month',
+              integrated: 'Integrated Fitness'
+            };
+            if (pathMap[profile.path]) {
+              state.plan = pathMap[profile.path];
+              PPFPulse.saveState(state);
+            }
+          }
+        }
+
+        PPFPulse.initDashboard(heroEl, renewalEl);
       }
     });
   </script>

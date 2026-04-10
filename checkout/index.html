@@ -35,7 +35,7 @@
     var planId = params.get('plan');
     var page = document.getElementById('checkoutPage');
 
-    if (!planId || !PPF_STRIPE.getPlan(planId)) {
+    if (!planId || typeof PPF_STRIPE === 'undefined' || !PPF_STRIPE.getPlan(planId)) {
       page.innerHTML =
         '<div class="ppf-co-notfound">' +
           '<div class="ppf-co-notfound__icon" aria-hidden="true">\u26A0</div>' +
