@@ -403,12 +403,89 @@ button {
   background: var(--bg-base);
 }
 
+/* ── HERO BACKGROUND VIDEO ──────────────────────── */
+.hero-video-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%) scale(1.05);
+  object-fit: cover;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Cinematic dark overlay on top of video for text contrast */
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg,
+      rgba(8, 8, 8, 0.70) 0%,
+      rgba(8, 8, 8, 0.35) 35%,
+      rgba(8, 8, 8, 0.40) 65%,
+      rgba(8, 8, 8, 0.80) 100%
+    ),
+    radial-gradient(ellipse 60% 60% at 50% 50%,
+      transparent 0%,
+      rgba(8, 8, 8, 0.50) 100%
+    );
+  z-index: 1;
+}
+
+/* Subtle film-grain texture for cinematic feel */
+.hero-video-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* Mobile: poster image fallback — save bandwidth on small screens */
+@media (max-width: 768px) {
+  .hero-video {
+    display: none;
+  }
+  .hero-video-wrap {
+    background: url('../media/hero-poster.jpg') center/cover no-repeat var(--bg-base);
+  }
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .hero-video {
+    display: none;
+  }
+  .hero-video-wrap {
+    background: url('../media/hero-poster.jpg') center/cover no-repeat var(--bg-base);
+  }
+  .hero-video-grain {
+    display: none;
+  }
+}
+
+/* Canvas sits on top of video for blended grid effect */
 .hero-canvas {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
+  z-index: 3;
+  mix-blend-mode: screen;
+  opacity: 0.4;
 }
 
 .hero-overlay {
@@ -419,12 +496,12 @@ button {
     rgba(8, 8, 8, 0.6) 50%,
     rgba(8, 8, 8, 0.95) 100%
   );
-  z-index: 1;
+  z-index: 4;
 }
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 5;
   padding: 0 40px;
   max-width: 900px;
   margin-left: calc((100vw - var(--container-w)) / 2);
@@ -511,7 +588,7 @@ button {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 2;
+  z-index: 5;
   display: flex;
   align-items: center;
   background: rgba(14, 14, 14, 0.9);
@@ -4938,7 +5015,7 @@ button {
 .hero-scanline {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 4;
   pointer-events: none;
   background: repeating-linear-gradient(
     0deg,
@@ -4967,7 +5044,7 @@ button {
   right: 40px;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 3;
+  z-index: 5;
   display: flex;
   flex-direction: column;
   gap: 20px;

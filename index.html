@@ -233,6 +233,21 @@
        SECTION 1 — HERO: IMPACT SEQUENCE
   ============================================================ -->
   <section class="hero" id="hero">
+    <!-- Background Video — autoplays muted, loops, covers full hero -->
+    <div class="hero-video-wrap" id="heroVideoWrap">
+      <video class="hero-video" id="heroVideo"
+             autoplay muted loop playsinline
+             preload="auto"
+             poster="media/hero-poster.jpg">
+        <!-- Replace these src paths with your exported/combined training clip -->
+        <source src="media/ppf-hero.mp4"  type="video/mp4">
+        <source src="media/ppf-hero.webm" type="video/webm">
+      </video>
+      <!-- Cinematic overlays for readability -->
+      <div class="hero-video-overlay"></div>
+      <div class="hero-video-grain"></div>
+    </div>
+
     <canvas class="hero-canvas" id="heroCanvas"></canvas>
     <div class="hero-scanline"></div>
 
@@ -3638,6 +3653,7 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/ppf-hero-video.js"></script>
   <script src="js/command-trigger.js"></script>
   <script src="js/world-class-animations.js"></script>
   <script src="js/ppf-performance-os.js"></script>
