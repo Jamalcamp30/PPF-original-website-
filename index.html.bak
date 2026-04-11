@@ -273,7 +273,7 @@
       </h1>
 
       <p class="hero-sub reveal-up">
-        Coach-led performance training for athletes, adults, and adaptive members in Cumming, GA.<br />
+        Athlete development. Adult performance. Integrated fitness.<br />
         <strong>One coaching standard. One environment built to move people forward.</strong>
       </p>
 
@@ -343,23 +343,6 @@
         <div class="proof-wall__stat">
           <div class="proof-wall__stat-num">95%</div>
           <div class="proof-wall__stat-label">Return-to-Play Success</div>
-        </div>
-      </div>
-      <div class="proof-wall__evidence">
-        <div class="proof-wall__evidence-item">
-          <span class="proof-wall__evidence-category">SPEED</span>
-          <span class="proof-wall__evidence-result">4.78 → 4.48s 40-Yard</span>
-          <span class="proof-wall__evidence-name">Derek W. · 8 Weeks</span>
-        </div>
-        <div class="proof-wall__evidence-item">
-          <span class="proof-wall__evidence-category">BODY COMP</span>
-          <span class="proof-wall__evidence-result">31% → 22% Body Fat</span>
-          <span class="proof-wall__evidence-name">Lina P. · 9 Months</span>
-        </div>
-        <div class="proof-wall__evidence-item">
-          <span class="proof-wall__evidence-category">MILESTONE</span>
-          <span class="proof-wall__evidence-result">5 Exercises Independent</span>
-          <span class="proof-wall__evidence-name">Emma C. · 6 Months</span>
         </div>
       </div>
       <div class="proof-wall__testimonials">
@@ -498,8 +481,12 @@
         <span class="cw-word" data-explain="Every rep starts from the same position every time. Consistency is not optional — it is the precondition for progress.">RESET</span>
         <span class="cw-word" data-explain="Acceleration is earned through mechanics, not effort alone. We coach the angles, the timing, and the intent behind every drive.">DRIVE</span>
         <span class="cw-word" data-explain="Bracing is the language of control. It protects the spine, organizes force, and separates those who train from those who exercise.">BRACE</span>
+        <span class="cw-word" data-explain="The floor is information. Every ground contact sends a signal. We teach our athletes to own every surface they touch.">CONTACT</span>
+        <span class="cw-word" data-explain="We do not accept reps that simply exist. Every repetition has a purpose, a tempo, and a reason to count.">EARN IT</span>
+        <span class="cw-word" data-explain="Lock means stability before movement. The shoulder locks before the press. The hip locks before the sprint. Sequence matters.">LOCK</span>
         <span class="cw-word" data-explain="Tempo controls adaptation. Slow where it matters, explosive where it counts. This is where coaching separates from counting reps.">TEMPO</span>
         <span class="cw-word" data-explain="Tension is a skill. Maintaining full-body tension under load is what builds resilient, capable athletes and adults.">TENSION</span>
+        <span class="cw-word" data-explain="Posture is position. We cue it, correct it, and hold it to standard because movement quality starts with where you stand.">POSTURE</span>
         <span class="cw-word" data-explain="Transfer means it carries outside these walls. Every exercise has a real-world application — or it does not belong in the program.">TRANSFER</span>
       </div>
       <div class="cw-explainer">
@@ -856,34 +843,46 @@
       <div class="si-header">
         <div class="section-label reveal-up">THE STANDARD INDEX</div>
         <h2 class="section-title reveal-up">
-          We Measure<br />
-          <span class="accent">What Matters.</span>
+          We Don't Just Count Reps.<br />
+          <span class="accent">We Measure What Matters.</span>
         </h2>
-        <p class="section-intro reveal-up">Four dimensions PPF holds every member accountable to. Not vanity metrics. The real indicators of coached progression.</p>
+        <p class="section-intro reveal-up">These are the six dimensions PPF holds every member accountable to. Not vanity metrics. Not before-and-after photos. The real indicators of coached progression.</p>
       </div>
       <div class="si-grid">
         <div class="si-metric" data-metric="consistency">
           <div class="si-metric-rank">01</div>
           <div class="si-metric-name">CONSISTENCY</div>
-          <div class="si-metric-desc">Show up when it's scheduled. The foundation of everything PPF builds.</div>
+          <div class="si-metric-desc">Show up. Not when it's convenient — when it's scheduled. The foundation of everything PPF builds is built on presence.</div>
           <div class="si-metric-bar"><div class="si-metric-fill" style="--fill: 92%"></div></div>
         </div>
-        <div class="si-metric" data-metric="movement-quality">
+        <div class="si-metric" data-metric="coaching-response">
           <div class="si-metric-rank">02</div>
+          <div class="si-metric-name">COACHING RESPONSE</div>
+          <div class="si-metric-desc">How quickly a member applies a coaching cue. Not compliance — internalization. The cue becomes the habit.</div>
+          <div class="si-metric-bar"><div class="si-metric-fill" style="--fill: 85%"></div></div>
+        </div>
+        <div class="si-metric" data-metric="movement-quality">
+          <div class="si-metric-rank">03</div>
           <div class="si-metric-name">MOVEMENT QUALITY</div>
-          <div class="si-metric-desc">Can you move correctly under load, under fatigue, under pressure?</div>
+          <div class="si-metric-desc">Can you move correctly under load, under fatigue, under pressure? That's what separates trained from untrained.</div>
           <div class="si-metric-bar"><div class="si-metric-fill" style="--fill: 88%"></div></div>
         </div>
         <div class="si-metric" data-metric="output">
-          <div class="si-metric-rank">03</div>
+          <div class="si-metric-rank">04</div>
           <div class="si-metric-name">OUTPUT</div>
-          <div class="si-metric-desc">What you produce when it counts — watts, velocity, load, time. Measurable and repeatable.</div>
+          <div class="si-metric-desc">What you produce when it counts — watts, velocity, load, time. Measurable, repeatable, coachable.</div>
           <div class="si-metric-bar"><div class="si-metric-fill" style="--fill: 80%"></div></div>
         </div>
+        <div class="si-metric" data-metric="accountability">
+          <div class="si-metric-rank">05</div>
+          <div class="si-metric-name">ACCOUNTABILITY</div>
+          <div class="si-metric-desc">Do you own your training? Logging, tracking, communicating, adjusting. The system works when you work with it.</div>
+          <div class="si-metric-bar"><div class="si-metric-fill" style="--fill: 78%"></div></div>
+        </div>
         <div class="si-metric" data-metric="repeatability">
-          <div class="si-metric-rank">04</div>
+          <div class="si-metric-rank">06</div>
           <div class="si-metric-name">REPEATABILITY</div>
-          <div class="si-metric-desc">One good day means nothing. Consistent excellence under varying conditions — that is the standard.</div>
+          <div class="si-metric-desc">Can you reproduce performance on demand? One good day means nothing. Consistent excellence under varying conditions — that is the standard.</div>
           <div class="si-metric-bar"><div class="si-metric-fill" style="--fill: 83%"></div></div>
         </div>
       </div>
@@ -907,33 +906,30 @@
       </div>
 
       <div class="ppf-authority__records">
-        <div class="ppf-authority__records-header">
-          <span class="ppf-authority__records-verified">✓ Verified Testing · Updated April 2025</span>
-        </div>
         <div class="ppf-authority__record">
           <div class="ppf-authority__record-value">4.38s</div>
           <div class="ppf-authority__record-metric">Best 40-Yard Dash</div>
-          <div class="ppf-authority__record-context">PPF Athlete Record · Speed · Verified 2024</div>
+          <div class="ppf-authority__record-context">PPF Athlete Record · Verified 2024</div>
         </div>
         <div class="ppf-authority__record">
           <div class="ppf-authority__record-value">34.5"</div>
           <div class="ppf-authority__record-metric">Best Vertical Leap</div>
-          <div class="ppf-authority__record-context">PPF Athlete Record · Power · Verified 2024</div>
+          <div class="ppf-authority__record-context">PPF Athlete Record · Verified 2024</div>
         </div>
         <div class="ppf-authority__record">
           <div class="ppf-authority__record-value">4.08s</div>
           <div class="ppf-authority__record-metric">Best Pro Agility</div>
-          <div class="ppf-authority__record-context">PPF Athlete Record · Speed · Verified 2024</div>
+          <div class="ppf-authority__record-context">PPF Athlete Record · Verified 2024</div>
         </div>
         <div class="ppf-authority__record">
           <div class="ppf-authority__record-value">405 lbs</div>
           <div class="ppf-authority__record-metric">Best Squat (HS Athlete)</div>
-          <div class="ppf-authority__record-context">PPF Athlete Record · Strength · Verified 2024</div>
+          <div class="ppf-authority__record-context">PPF Athlete Record · Verified 2024</div>
         </div>
         <div class="ppf-authority__record">
           <div class="ppf-authority__record-value">1.48s</div>
           <div class="ppf-authority__record-metric">Best 10-Yard Split</div>
-          <div class="ppf-authority__record-context">PPF Athlete Record · Speed · Verified 2024</div>
+          <div class="ppf-authority__record-context">PPF Athlete Record · Verified 2024</div>
         </div>
         <div class="ppf-authority__record">
           <div class="ppf-authority__record-value">D1</div>
@@ -1681,7 +1677,93 @@
     </div>
   </section>
 
-  <!-- Path Decoder removed — functionality covered by Performance Passport above -->
+  <!-- ============================================================
+       PATH DECODER — PREMIUM DECISION ENGINE
+  ============================================================ -->
+  <div class="env-transition" aria-hidden="true"></div>
+  <section class="section path-decoder-section" id="pathDecoder">
+    <div class="pd-container">
+      <div class="pd-header">
+        <div class="section-label reveal-up">PATH DECODER</div>
+        <h2 class="section-title reveal-up">
+          We'll Find Your Lane.<br />
+          <span class="accent">You Just Answer.</span>
+        </h2>
+        <p class="section-intro reveal-up">Five questions. No fluff. The site reconfigures around your result.</p>
+      </div>
+
+      <div class="pd-progress">
+        <div class="pd-pip pd-pip-current"></div>
+        <div class="pd-pip"></div>
+        <div class="pd-pip"></div>
+        <div class="pd-pip"></div>
+        <div class="pd-pip"></div>
+      </div>
+
+      <!-- Q1 -->
+      <div class="pd-question pd-active" data-step="1">
+        <div class="pd-q-text">WHAT DRIVES YOU INTO A TRAINING FACILITY?</div>
+        <div class="pd-options">
+          <div class="pd-option" data-value="athlete"><span class="pd-option-icon">⚡</span><span class="pd-option-label">Competitive Edge</span></div>
+          <div class="pd-option" data-value="adult"><span class="pd-option-icon">◆</span><span class="pd-option-label">Strength & Health</span></div>
+          <div class="pd-option" data-value="integrated"><span class="pd-option-icon">●</span><span class="pd-option-label">Independence & Growth</span></div>
+          <div class="pd-option" data-value="adult"><span class="pd-option-icon">▲</span><span class="pd-option-label">Accountability</span></div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div class="pd-question" data-step="2">
+        <div class="pd-q-text">HOW DO YOU DEFINE A SUCCESSFUL TRAINING SESSION?</div>
+        <div class="pd-options">
+          <div class="pd-option" data-value="athlete"><span class="pd-option-icon">⚡</span><span class="pd-option-label">I Got Faster or Stronger</span></div>
+          <div class="pd-option" data-value="adult"><span class="pd-option-icon">◆</span><span class="pd-option-label">I Pushed Past a Limit</span></div>
+          <div class="pd-option" data-value="integrated"><span class="pd-option-icon">●</span><span class="pd-option-label">I Did Something New</span></div>
+          <div class="pd-option" data-value="athlete"><span class="pd-option-icon">▲</span><span class="pd-option-label">The Coach Saw Improvement</span></div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="pd-question" data-step="3">
+        <div class="pd-q-text">WHAT DO YOU NEED MOST FROM A COACH?</div>
+        <div class="pd-options">
+          <div class="pd-option" data-value="athlete"><span class="pd-option-icon">⚡</span><span class="pd-option-label">Technical Precision</span></div>
+          <div class="pd-option" data-value="adult"><span class="pd-option-icon">◆</span><span class="pd-option-label">Structure & Discipline</span></div>
+          <div class="pd-option" data-value="integrated"><span class="pd-option-icon">●</span><span class="pd-option-label">Patience & Adaptation</span></div>
+          <div class="pd-option" data-value="adult"><span class="pd-option-icon">▲</span><span class="pd-option-label">Honest Feedback</span></div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div class="pd-question" data-step="4">
+        <div class="pd-q-text">WHAT DOES YOUR IDEAL TRAINING WEEK LOOK LIKE?</div>
+        <div class="pd-options">
+          <div class="pd-option" data-value="athlete"><span class="pd-option-icon">⚡</span><span class="pd-option-label">4-5 Days, Sport-Specific</span></div>
+          <div class="pd-option" data-value="adult"><span class="pd-option-icon">◆</span><span class="pd-option-label">3-4 Days, Full-Body</span></div>
+          <div class="pd-option" data-value="integrated"><span class="pd-option-icon">●</span><span class="pd-option-label">2-3 Days, Coached & Adapted</span></div>
+          <div class="pd-option" data-value="adult"><span class="pd-option-icon">▲</span><span class="pd-option-label">Whatever Gets Results</span></div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div class="pd-question" data-step="5">
+        <div class="pd-q-text">WHAT DOES SUCCESS LOOK LIKE IN 90 DAYS?</div>
+        <div class="pd-options">
+          <div class="pd-option" data-value="athlete"><span class="pd-option-icon">⚡</span><span class="pd-option-label">A Measurable Performance Gain</span></div>
+          <div class="pd-option" data-value="adult"><span class="pd-option-icon">◆</span><span class="pd-option-label">A Body That Works Better</span></div>
+          <div class="pd-option" data-value="integrated"><span class="pd-option-icon">●</span><span class="pd-option-label">More Confidence & Independence</span></div>
+          <div class="pd-option" data-value="athlete"><span class="pd-option-icon">▲</span><span class="pd-option-label">A Coach Who Knows My Name</span></div>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div class="pd-result" id="pdResult">
+        <div class="pd-result-path" data-path="">YOUR PATH</div>
+        <div class="pd-result-desc"></div>
+        <a href="#start" class="pd-result-cta">CLAIM YOUR 3-DAY EXPERIENCE →</a>
+      </div>
+    </div>
+  </section>
+  <div class="env-transition" aria-hidden="true"></div>
 
   <!-- ============================================================
        CARRYOVER VISION — PPF Signature System
@@ -1753,6 +1835,41 @@
             <div class="trail-connector"></div>
             <div class="trail-node trail-node-final" data-step="5"><span class="tn-label">A Transformed Life</span></div>
           </div>
+        </div>
+      </div>
+
+      <!-- CARRYOVER ENGINE — HOW COACHING BECOMES OUTCOME -->
+      <div class="section-label reveal-up" style="margin-top:72px">THE CARRYOVER ENGINE</div>
+      <h3 class="section-title reveal-up" style="font-size:clamp(1.4rem,3vw,2rem);margin-bottom:32px">
+        Correction → Progression → Retest → <span class="accent">Transfer.</span>
+      </h3>
+      <div class="ce-pipeline">
+        <div class="ce-row">
+          <div class="ce-stage"><div class="ce-stage-label">CORRECTION</div><div class="ce-stage-title">Coach identifies a fault in movement or motor pattern</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">PROGRESSION</div><div class="ce-stage-title">Targeted drills build the correction into the body</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">RETEST</div><div class="ce-stage-title">Benchmark confirms the correction holds under load</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">TRANSFER</div><div class="ce-stage-title">The gain shows up in sport, in life, in confidence</div></div>
+        </div>
+        <div class="ce-row">
+          <div class="ce-stage"><div class="ce-stage-label">EXAMPLE: ATHLETE</div><div class="ce-stage-title">Hip position at sprint start is too high</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">COACHED</div><div class="ce-stage-title">Wall drives, sled marches, angled starts 3×/week</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">RETESTED</div><div class="ce-stage-title">10-yard split drops from 1.72s to 1.54s</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">TRANSFERRED</div><div class="ce-stage-title">Faster off the line on game day — college scouts notice</div></div>
+        </div>
+        <div class="ce-row">
+          <div class="ce-stage"><div class="ce-stage-label">EXAMPLE: ADULT</div><div class="ce-stage-title">Cannot hinge without lower back compensation</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">COACHED</div><div class="ce-stage-title">RDLs, hip CARs, bracing drills, tempo work</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">RETESTED</div><div class="ce-stage-title">Pain-free deadlift at 1.5× bodyweight in 16 weeks</div></div>
+          <div class="ce-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+          <div class="ce-stage"><div class="ce-stage-label">TRANSFERRED</div><div class="ce-stage-title">Plays with kids without pain for the first time in years</div></div>
         </div>
       </div>
     </div>
@@ -1953,8 +2070,43 @@
     </div>
   </section>
 
-  <!-- Atmosphere section removed — brand tone established in Standard + Coaching Language -->
-
+  <!-- ============================================================
+       SESSION ATMOSPHERE — FEEL THE ROOM BEFORE YOU ENTER IT
+  ============================================================ -->
+  <div class="env-transition" aria-hidden="true"></div>
+  <section class="section atmosphere-section" id="atmosphere">
+    <div class="atm-bg"></div>
+    <div class="atm-vignette"></div>
+    <div class="atm-content">
+      <div class="atm-lines">
+        <div class="atm-line">
+          <div class="atm-line-text">THE LIGHTS ARE LOW.</div>
+          <div class="atm-line-sub">But the standard is not.</div>
+          <div class="atm-divider"></div>
+        </div>
+        <div class="atm-line">
+          <div class="atm-line-text">EVERY REP HAS A CUE.</div>
+          <div class="atm-line-sub">No one trains unsupervised.</div>
+          <div class="atm-divider"></div>
+        </div>
+        <div class="atm-line">
+          <div class="atm-line-text">THE MUSIC DOES NOT SET THE TEMPO.</div>
+          <div class="atm-line-sub">The coaching does.</div>
+          <div class="atm-divider"></div>
+        </div>
+        <div class="atm-line">
+          <div class="atm-line-text">THE FLOOR IS QUIET UNTIL IT’S NOT.</div>
+          <div class="atm-line-sub">Controlled intensity. Earned volume.</div>
+          <div class="atm-divider"></div>
+        </div>
+        <div class="atm-line">
+          <div class="atm-line-text">THIS IS THE ROOM.</div>
+          <div class="atm-line-sub">It does not apologize.</div>
+          <div class="atm-divider"></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- ============================================================
        STANDARD ARCHIVES — ARTIFACTS OF THE WORK
@@ -1968,33 +2120,97 @@
           The Work<br />
           <span class="accent">Leaves Evidence.</span>
         </h2>
-        <p class="section-intro reveal-up">Artifacts from inside the system — handwritten boards, benchmark cards, and moments that define what coaching actually looks like.</p>
+        <p class="section-intro reveal-up">This is not a highlight reel. These are artifacts from inside the system — handwritten boards, benchmark cards, progression notes, and moments that define what coaching actually looks like.</p>
       </div>
       <div class="sa-vault">
-        <div class="sa-artifact" data-media-needed="photo of real handwritten whiteboard with day programming">
-          <div class="sa-artifact-type">WHITEBOARD CAPTURE</div>
-          <div class="sa-artifact-title">Tuesday Program Board</div>
-          <div class="sa-artifact-desc">The day’s programming written by hand. Warm-up blocks, working sets, coached progressions, and time domains — all visible before the session starts.</div>
-          <div class="sa-artifact-stamp">PPF ARCHIVE · WEEKLY</div>
-        </div>
-        <div class="sa-artifact" data-media-needed="photo of real sprint results sheet from testing day">
+        <div class="sa-artifact">
           <div class="sa-artifact-type">BENCHMARK CARD</div>
           <div class="sa-artifact-title">40-Yard Testing Day</div>
           <div class="sa-artifact-desc">Time-stamped sprint results from a Saturday athlete combine. Every split accounted for. Every name on the board earned it.</div>
           <div class="sa-artifact-stamp">PPF ARCHIVE · 2024</div>
         </div>
-        <div class="sa-artifact" data-media-needed="photo or short clip of integrated member milestone moment">
+        <div class="sa-artifact">
+          <div class="sa-artifact-type">WHITEBOARD CAPTURE</div>
+          <div class="sa-artifact-title">Tuesday Program Board</div>
+          <div class="sa-artifact-desc">The day’s programming written by hand. Warm-up blocks, working sets, coached progressions, and time domains — all visible before the session starts.</div>
+          <div class="sa-artifact-stamp">PPF ARCHIVE · WEEKLY</div>
+        </div>
+        <div class="sa-artifact">
+          <div class="sa-artifact-type">PROGRESS NOTE</div>
+          <div class="sa-artifact-title">Athlete Advancement Log</div>
+          <div class="sa-artifact-desc">A coach-written note documenting a 14-year-old’s progression from a 5.1s to 4.7s 40-yard dash over 12 weeks.</div>
+          <div class="sa-artifact-stamp">PPF ARCHIVE · Q3 2024</div>
+        </div>
+        <div class="sa-artifact">
           <div class="sa-artifact-type">MILESTONE MOMENT</div>
           <div class="sa-artifact-title">First Independent Exercise</div>
           <div class="sa-artifact-desc">An integrated member completing a goblet squat without assistance for the first time. The room noticed. The coach documented it. The family celebrated.</div>
           <div class="sa-artifact-stamp">PPF ARCHIVE · INTEGRATED</div>
         </div>
+        <div class="sa-artifact">
+          <div class="sa-artifact-type">TRAINING PLAN</div>
+          <div class="sa-artifact-title">12-Week Adult Protocol</div>
+          <div class="sa-artifact-desc">A structured periodized plan moving an adult member from zero lifting history to a confident, coached deadlift at 1.5× bodyweight in 12 weeks.</div>
+          <div class="sa-artifact-stamp">PPF ARCHIVE · ADULT PATH</div>
+        </div>
+        <div class="sa-artifact">
+          <div class="sa-artifact-type">COACH COMMENT</div>
+          <div class="sa-artifact-title">“She’s Ready to Move Up”</div>
+          <div class="sa-artifact-desc">A handwritten note from Rebecca on a session debrief sheet. A quiet recognition that a member met the internal criteria to progress.</div>
+          <div class="sa-artifact-stamp">PPF ARCHIVE · INTERNAL</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- First Visit Simulator removed — functionality covered by Visit Logistics section -->
-
+  <!-- ============================================================
+       FIRST VISIT SIMULATOR — PREVIEW YOUR FIRST 10 MINUTES
+  ============================================================ -->
+  <div class="env-transition" aria-hidden="true"></div>
+  <section class="section visit-sim-section" id="visitSim">
+    <div class="vs-container">
+      <div class="vs-header">
+        <div class="section-label reveal-up">FIRST VISIT SIMULATOR</div>
+        <h2 class="section-title reveal-up">
+          Your First 10 Minutes.<br />
+          <span class="accent">Before You Walk In.</span>
+        </h2>
+        <p class="section-intro reveal-up">No surprises. No intimidation. Here is exactly what your first visit to PPF looks like, minute by minute.</p>
+      </div>
+      <div class="vs-timeline">
+        <div class="vs-moment">
+          <div class="vs-moment-time">MINUTE 0:00</div>
+          <div class="vs-moment-title">YOU ARRIVE</div>
+          <div class="vs-moment-desc">You walk in and a coach greets you by name. Not a front desk. Not a kiosk. A coach who already reviewed your intake form and knows your path.</div>
+        </div>
+        <div class="vs-moment">
+          <div class="vs-moment-time">MINUTE 1:00</div>
+          <div class="vs-moment-title">THE WALK-THROUGH</div>
+          <div class="vs-moment-desc">Your coach walks you through the facility: sprint lane, platforms, conditioning bay, assessment station.</div>
+        </div>
+        <div class="vs-moment">
+          <div class="vs-moment-time">MINUTE 3:00</div>
+          <div class="vs-moment-title">GOAL CONVERSATION</div>
+          <div class="vs-moment-desc">Not a questionnaire — a real conversation. Your coach asks what brought you in, what you’ve tried before, and what you want to feel like in 90 days.</div>
+        </div>
+        <div class="vs-moment">
+          <div class="vs-moment-time">MINUTE 5:00</div>
+          <div class="vs-moment-title">MOVEMENT EVALUATION</div>
+          <div class="vs-moment-desc">A coach-led screen of how you move. Squat pattern, hinge, single-leg stability, upper body mobility. No judgment — just data.</div>
+        </div>
+        <div class="vs-moment">
+          <div class="vs-moment-time">MINUTE 8:00</div>
+          <div class="vs-moment-title">FIRST COACHED SET</div>
+          <div class="vs-moment-desc">You complete your first coached exercise. The coach cues, corrects, and watches your response. This is the difference between a gym and a coaching system.</div>
+        </div>
+        <div class="vs-moment">
+          <div class="vs-moment-time">MINUTE 10:00</div>
+          <div class="vs-moment-title">YOU UNDERSTAND</div>
+          <div class="vs-moment-desc">In ten minutes, you know your starting point, your path recommendation, and what the standard expects. The next session is already scheduled.</div>
+        </div>
+      </div>
+    </div>
+  </section>
   <div class="env-transition" aria-hidden="true"></div>
 
   <!-- ============================================================
@@ -2328,8 +2544,26 @@
   </section>
 
   <!-- ============================================================
-  <!-- Founder Origin section removed — content covered in Leadership section -->
-
+       8. FOUNDER BACKGROUND DEPTH — Origin story, philosophy
+  ============================================================ -->
+  <section class="section founder-origin" id="founderOrigin">
+    <div class="founder-origin__inner">
+      <div class="section-label reveal-up">THE ORIGIN</div>
+      <div class="founder-origin__title">Why PPF Exists</div>
+      <p class="founder-origin__text">PPF was not created to be another gym in another strip mall. It was built because Richard and Rebecca Camp saw an industry full of noise, shortcuts, and empty promises — and decided to build the opposite. A place where coaching means something. Where structure creates real outcomes. Where every person, regardless of path, is held to a standard that demands their best.</p>
+      <p class="founder-origin__text">Richard's background in military discipline and competitive bodybuilding gave him the framework: precision, accountability, and measurable results. Rebecca's 18+ years in education and special education gave the facility its soul: communication, dignity, patience, and the understanding that every individual deserves a system designed around them — not the other way around.</p>
+      <p class="founder-origin__text">Together, they built PPF as a facility that bridges performance and purpose. A place where a D1-bound athlete and a first-time adult and an integrated member all train under the same roof, held to the same standard of coaching, and given the same level of intentional development. That is what makes PPF different. That is why it was built.</p>
+      <div class="founder-origin__specialties">
+        <div class="founder-origin__specialty">Military Discipline</div>
+        <div class="founder-origin__specialty">Competitive Bodybuilding</div>
+        <div class="founder-origin__specialty">Special Education</div>
+        <div class="founder-origin__specialty">Youth Development</div>
+        <div class="founder-origin__specialty">Adaptive Coaching</div>
+        <div class="founder-origin__specialty">Performance Systems</div>
+        <div class="founder-origin__specialty">Culture Building</div>
+      </div>
+    </div>
+  </section>
 
   <!-- ============================================================
        6. THIRD-PARTY TRUST MARKERS — External validation
