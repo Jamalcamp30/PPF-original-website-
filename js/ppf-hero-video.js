@@ -16,9 +16,6 @@
         // Autoplay blocked — wait for first user interaction then retry
         function onInteract() {
           video.play();
-          document.removeEventListener('click', onInteract);
-          document.removeEventListener('touchstart', onInteract);
-          document.removeEventListener('scroll', onInteract);
         }
         document.addEventListener('click', onInteract, { once: true, passive: true });
         document.addEventListener('touchstart', onInteract, { once: true, passive: true });
