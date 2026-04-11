@@ -65,7 +65,7 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 0;
+  z-index: 3;
   overflow: hidden;
 }
 .hero-lockon-glow {
@@ -80,7 +80,7 @@
 }
 .hero .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 5;
 }
 
 /* ── 3. COACHING LANGUAGE WALL ──────────────────────── */
