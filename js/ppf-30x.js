@@ -5,6 +5,29 @@
 (function () {
   'use strict';
 
+  /* ── Configuration ─────────────────────────────────── */
+  var CONFIG = {
+    COACHING_HOURS_START: 5,        /* 5 AM */
+    COACHING_HOURS_END: 20,         /* 8 PM */
+    EXIT_COUNTDOWN_SECONDS: 15 * 60, /* 15 minutes */
+    TOAST_FIRST_DELAY: 4000,
+    TOAST_MIN_INTERVAL: 8000,
+    TOAST_MAX_INTERVAL: 20000,
+    ROADMAP_MAX_RATE: 94,           /* % success rate cap */
+    ROADMAP_BASE_RATE: 60,          /* % success rate base */
+    ROADMAP_RATE_PER_ITEM: 4,       /* % added per placed item */
+    LEVEL_MULTIPLIER_BEGINNER: 1.2,
+    LEVEL_MULTIPLIER_INTERMEDIATE: 1.0,
+    LEVEL_MULTIPLIER_ADVANCED: 0.8,
+    FREQ_MULTIPLIER_5PLUS: 1.4,
+    FREQ_MULTIPLIER_4: 1.2,
+    FREQ_MULTIPLIER_3: 1.0,
+    FREQ_MULTIPLIER_LOW: 0.8,
+    VIDEO_MIN_VIEWS: 100,
+    VIDEO_MAX_VIEWS: 600,
+    SATISFACTION_PCT: 99.2
+  };
+
   /* ── Helpers ─────────────────────────────────────── */
   var qs  = function (s, p) { return (p || document).querySelector(s); };
   var qsa = function (s, p) { return [].slice.call((p || document).querySelectorAll(s)); };
@@ -281,12 +304,12 @@
       }, 5000);
 
       /* Schedule next with randomized delay */
-      var delay = 8000 + Math.random() * 12000;
+      var delay = CONFIG.TOAST_MIN_INTERVAL + Math.random() * (CONFIG.TOAST_MAX_INTERVAL - CONFIG.TOAST_MIN_INTERVAL);
       setTimeout(showToast, delay);
     }
 
     /* First toast after 4 seconds */
-    setTimeout(showToast, 4000);
+    setTimeout(showToast, CONFIG.TOAST_FIRST_DELAY);
   }
 
   /* ══════════════════════════════════════════════════════
@@ -297,7 +320,7 @@
     var hour = now.getHours();
     var day = now.getDay();
     var isWeekday = day >= 1 && day <= 5;
-    var isOpen = isWeekday && hour >= 5 && hour < 20;
+    var isOpen = isWeekday && hour >= CONFIG.COACHING_HOURS_START && hour < CONFIG.COACHING_HOURS_END;
 
     var richardStatus = isOpen ? 'available' : 'busy';
     var rebeccaStatus = isOpen ? 'available' : 'busy';
@@ -505,7 +528,7 @@
     document.body.appendChild(overlay);
 
     var countdownEl = qs('#xExitCountdown');
-    var remaining = 900; /* 15 minutes in seconds */
+    var remaining = CONFIG.EXIT_COUNTDOWN_SECONDS;
     var countdownTimer = null;
 
     function startCountdown() {
@@ -864,8 +887,8 @@
     });
 
     function generateProjections(path, goal, days, level) {
-      var multiplier = days >= 5 ? 1.4 : days >= 4 ? 1.2 : days >= 3 ? 1.0 : 0.8;
-      var levelBoost = level === 'beginner' ? 1.2 : level === 'advanced' ? 0.8 : 1.0;
+      var multiplier = days >= 5 ? CONFIG.FREQ_MULTIPLIER_5PLUS : days >= 4 ? CONFIG.FREQ_MULTIPLIER_4 : days >= 3 ? CONFIG.FREQ_MULTIPLIER_3 : CONFIG.FREQ_MULTIPLIER_LOW;
+      var levelBoost = level === 'beginner' ? CONFIG.LEVEL_MULTIPLIER_BEGINNER : level === 'advanced' ? CONFIG.LEVEL_MULTIPLIER_ADVANCED : CONFIG.LEVEL_MULTIPLIER_INTERMEDIATE;
       var base = multiplier * levelBoost;
 
       var result = { milestones: [] };
@@ -1023,7 +1046,7 @@
       placedCount++;
 
       /* Update success rate */
-      var rate = Math.min(94, 60 + placedCount * 4);
+      var rate = Math.min(CONFIG.ROADMAP_MAX_RATE, CONFIG.ROADMAP_BASE_RATE + placedCount * CONFIG.ROADMAP_RATE_PER_ITEM);
       if (successEl) {
         successEl.textContent = '✓ This schedule has a ' + rate + '% success rate based on similar members';
         successEl.style.display = 'block';
@@ -1601,7 +1624,7 @@
     qsa('.media-gallery__item', gallery).forEach(function (item, i) {
       var engagement = document.createElement('div');
       engagement.className = 'x-video-engagement';
-      var views = Math.floor(Math.random() * 500) + 100;
+      var views = Math.floor(Math.random() * (CONFIG.VIDEO_MAX_VIEWS - CONFIG.VIDEO_MIN_VIEWS)) + CONFIG.VIDEO_MIN_VIEWS;
       engagement.innerHTML = '<span class="x-video-views">👁 ' + views + ' views</span>';
       item.appendChild(engagement);
     });

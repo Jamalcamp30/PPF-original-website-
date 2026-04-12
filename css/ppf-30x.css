@@ -1073,7 +1073,7 @@
   transition: stroke-dashoffset 2s var(--x-ease-expo);
 }
 .x-meter-ring.x-visible .x-meter-fill {
-  stroke-dashoffset: 1.5; /* 99.2% of 188 */
+  stroke-dashoffset: calc(188 - 188 * 0.992); /* 99.2% fill */
 }
 .x-meter-val {
   position: absolute;
