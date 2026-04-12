@@ -212,6 +212,20 @@
   <div class="cursor-ring" id="cursorRing"></div>
   <div class="cursor-dot" id="cursorDot"></div>
 
+  <!-- SCROLL PROGRESS BAR -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- SECTION INDICATOR (right-side dots) -->
+  <div class="section-indicator" id="sectionIndicator">
+    <div class="section-indicator__dot" data-section="hero" data-label="Home"></div>
+    <div class="section-indicator__dot" data-section="standard" data-label="Standard"></div>
+    <div class="section-indicator__dot" data-section="paths" data-label="Paths"></div>
+    <div class="section-indicator__dot" data-section="proof" data-label="Proof"></div>
+    <div class="section-indicator__dot" data-section="leadership" data-label="Leadership"></div>
+    <div class="section-indicator__dot" data-section="memberships" data-label="Memberships"></div>
+    <div class="section-indicator__dot" data-section="start" data-label="Start"></div>
+  </div>
+
   <!-- NAVIGATION -->
   <nav class="site-nav" id="siteNav">
     <a href="#hero" class="nav-logo" aria-label="PPF Athletics">
@@ -230,6 +244,10 @@
       <li><a href="#start" class="nav-link nav-cta ppf-nav-trigger">Start Here</a></li>
       <li><a href="member/index.html" class="nav-link nav-member-btn">Member Login</a></li>
     </ul>
+    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
+      <svg class="dm-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="dm-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
   </nav>
 
 

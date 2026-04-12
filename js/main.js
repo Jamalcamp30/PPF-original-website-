@@ -106,25 +106,52 @@
   const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
 
   if (!isTouchDevice() && cursorRing && cursorDot) {
+    /* Ensure cursor elements are always visible and tracking */
+    cursorRing.style.display = '';
+    cursorDot.style.display  = '';
+
     document.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      /* Ensure cursor stays visible whenever mouse moves */
+      if (cursorRing.style.opacity === '0') {
+        cursorRing.style.opacity = '1';
+        cursorDot.style.opacity  = '1';
+      }
     });
 
     document.addEventListener('mousedown', () => cursorRing.classList.add('clicking'));
     document.addEventListener('mouseup',   () => cursorRing.classList.remove('clicking'));
 
-    // Hover effect on interactive elements
-    const hoverEls = qsa('a, button, .path-card, .pillar-card, .proof-metric, .story-card, .force-panel, .ppf-cta');
-    hoverEls.forEach(el => {
-      el.addEventListener('mouseenter', () => cursorRing.classList.add('hovering'));
-      el.addEventListener('mouseleave', () => cursorRing.classList.remove('hovering'));
+    /* Use event delegation so ALL interactive elements (including those
+       inside overlays, popups, and dynamically shown panels) get the
+       cursor hover effect without needing re-binding. */
+    const INTERACTIVE_SELECTOR = 'a, button, input, select, textarea, [role="button"], .path-card, .pillar-card, .proof-metric, .story-card, .force-panel, .ppf-cta, .path-unlock-close, .path-unlock-panel a, .ps-close, .dark-mode-toggle, .section-indicator__dot';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(INTERACTIVE_SELECTOR)) {
+        cursorRing.classList.add('hovering');
+      }
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(INTERACTIVE_SELECTOR)) {
+        cursorRing.classList.remove('hovering');
+      }
+    });
+
+    /* Keep cursor visible when leaving/entering the window */
+    document.addEventListener('mouseleave', () => {
+      cursorRing.style.opacity = '0';
+      cursorDot.style.opacity  = '0';
+    });
+    document.addEventListener('mouseenter', () => {
+      cursorRing.style.opacity = '1';
+      cursorDot.style.opacity  = '1';
     });
   } else {
     if (cursorRing) cursorRing.style.display = 'none';
     if (cursorDot)  cursorDot.style.display  = 'none';
     document.body.style.cursor = 'auto';
-    qsa('button, a').forEach(el => (el.style.cursor = 'pointer'));
+    qsa('a, button, input, select, textarea').forEach(el => (el.style.cursor = 'pointer'));
   }
 
   /* ── NAVIGATION ──────────────────────────────────── */
@@ -2651,4 +2678,91 @@
       quiz.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
+
+  /* ── SCROLL PROGRESS BAR ──────────────────────────── */
+  const scrollProgressBar = qs('#scrollProgress');
+  if (scrollProgressBar) {
+    window.addEventListener('scroll', function () {
+      const winH = document.documentElement.scrollHeight - window.innerHeight;
+      const pct  = winH > 0 ? (window.scrollY / winH) * 100 : 0;
+      scrollProgressBar.style.width = pct + '%';
+    }, { passive: true });
+  }
+
+  /* ── SECTION INDICATOR (RIGHT-SIDE DOTS) ──────────── */
+  const sectionIndicator = qs('#sectionIndicator');
+  if (sectionIndicator) {
+    const indicatorDots = qsa('.section-indicator__dot', sectionIndicator);
+    const trackedSections = [];
+
+    indicatorDots.forEach(dot => {
+      const sectionId = dot.dataset.section;
+      const sectionEl = qs('#' + sectionId);
+      if (sectionEl) trackedSections.push({ el: sectionEl, dot: dot });
+
+      dot.addEventListener('click', () => {
+        if (sectionEl) {
+          const top = sectionEl.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+      });
+    });
+
+    function updateIndicator() {
+      const scrollMid = window.scrollY + window.innerHeight * 0.4;
+      let activeIdx = 0;
+      for (let i = 0; i < trackedSections.length; i++) {
+        if (trackedSections[i].el.offsetTop <= scrollMid) {
+          activeIdx = i;
+        }
+      }
+      indicatorDots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+    }
+
+    window.addEventListener('scroll', updateIndicator, { passive: true });
+    updateIndicator();
+  }
+
+  /* ── DARK MODE TOGGLE ─────────────────────────────── */
+  const dmToggle = qs('#darkModeToggle');
+  if (dmToggle) {
+    const sunIcon  = qs('.dm-icon-sun', dmToggle);
+    const moonIcon = qs('.dm-icon-moon', dmToggle);
+    const savedMode = localStorage.getItem('ppf-color-mode');
+
+    function setMode(isLight) {
+      document.body.classList.toggle('light-mode', isLight);
+      if (sunIcon)  sunIcon.style.display  = isLight ? 'none' : 'block';
+      if (moonIcon) moonIcon.style.display = isLight ? 'block' : 'none';
+      localStorage.setItem('ppf-color-mode', isLight ? 'light' : 'dark');
+    }
+
+    if (savedMode === 'light') setMode(true);
+
+    dmToggle.addEventListener('click', () => {
+      setMode(!document.body.classList.contains('light-mode'));
+    });
+  }
+
+  /* ── MICRO-INTERACTIONS ON SCROLL ─────────────────── */
+  /* Subtle fade-up for section labels and titles that haven't already
+     been tagged with reveal-up (to avoid double-animating). */
+  if ('IntersectionObserver' in window && !isReduced) {
+    const microObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          microObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px 40px 0px' });
+
+    qsa('.media-gallery__item, .proof-metric, .story-card, .eco-social-link, .ppf-ms__card').forEach(el => {
+      if (!el.classList.contains('reveal-up')) {
+        el.classList.add('scroll-scale');
+        microObs.observe(el);
+      }
+    });
+  }
+
 })();

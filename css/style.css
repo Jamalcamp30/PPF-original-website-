@@ -139,7 +139,7 @@ button {
   border: 1.5px solid rgba(255, 85, 0, 0.7);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 999999;
   transform: translate(-50%, -50%);
   transition: width 0.3s var(--ease-out-expo),
               height 0.3s var(--ease-out-expo),
@@ -155,7 +155,7 @@ button {
   background: var(--orange);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 10000;
+  z-index: 999999;
   transform: translate(-50%, -50%);
   transition: transform 0.1s;
 }
@@ -6394,6 +6394,13 @@ body.focus-mode .focus-target {
 
   .nav-links.open { transform: translateX(0); }
 
+  .dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 64px;
+    z-index: 101;
+  }
+
   .nav-link {
     font-size: 14px;
   }
@@ -8845,6 +8852,13 @@ body.light-mode .proof-wall {
 }
 body.light-mode .footer-ambient {
   display: none;
+}
+body.light-mode .nav-links {
+  background: rgba(245, 245, 245, 0.98);
+}
+body.light-mode .dark-mode-toggle {
+  border-color: var(--gray-500);
+  color: var(--gray-300);
 }
 
 /* ── MICRO-INTERACTIONS ON SCROLL — Subtle parallax & fade ───────────── */
