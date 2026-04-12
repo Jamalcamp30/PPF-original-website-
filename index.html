@@ -39,6 +39,7 @@
   <link rel="stylesheet" href="css/ppf-premium-animations.css" />
   <link rel="stylesheet" href="css/ppf-blueprint.css" />
   <link rel="stylesheet" href="css/ppf-iconic.css" />
+  <link rel="stylesheet" href="css/ppf-30x.css" />
 
   <!-- Structured Data: SportsActivityLocation -->
   <script type="application/ld+json">
@@ -3071,6 +3072,142 @@
   </section>
 
   <!-- ============================================================
+       30X — TRANSFORMATION CALCULATOR
+  ============================================================ -->
+  <section class="section x-calc-section" id="xCalcSection">
+    <div class="x-calc-container">
+      <div class="section-label x-reveal">YOUR PROJECTION</div>
+      <h2 class="section-title x-reveal">
+        See Where You'll Be<br />
+        <span class="accent">In 6 Months.</span>
+      </h2>
+      <p class="section-intro x-reveal">Enter your details. Our projection engine uses real PPF member data to show your potential transformation timeline.</p>
+
+      <div class="x-calc-grid">
+        <form class="x-calc-form x-reveal-left" id="xCalcForm">
+          <div class="x-calc-form-title">Your Starting Point</div>
+          <div class="x-calc-field">
+            <label for="xCalcPath">Your Path</label>
+            <select id="xCalcPath" required>
+              <option value="">Choose your path</option>
+              <option value="athlete">Athlete Performance</option>
+              <option value="adult">Adult Performance</option>
+              <option value="integrated">Integrated Fitness</option>
+            </select>
+          </div>
+          <div class="x-calc-field">
+            <label for="xCalcGoal">Primary Goal</label>
+            <select id="xCalcGoal" required>
+              <option value="">Select your goal</option>
+              <option value="speed">Get Faster (Speed &amp; Agility)</option>
+              <option value="strength">Get Stronger (Strength &amp; Power)</option>
+              <option value="health">Better Health (Body Comp &amp; Energy)</option>
+              <option value="independence">Build Independence (Motor Skills)</option>
+            </select>
+          </div>
+          <div class="x-calc-field">
+            <label for="xCalcDays">Training Days Per Week</label>
+            <select id="xCalcDays">
+              <option value="2">2 days</option>
+              <option value="3" selected>3 days</option>
+              <option value="4">4 days</option>
+              <option value="5">5+ days</option>
+            </select>
+          </div>
+          <div class="x-calc-field">
+            <label for="xCalcLevel">Experience Level</label>
+            <select id="xCalcLevel">
+              <option value="beginner">Brand New</option>
+              <option value="intermediate" selected>Some Experience</option>
+              <option value="advanced">Advanced</option>
+            </select>
+          </div>
+          <button type="submit" class="x-calc-submit">Calculate My Projection →</button>
+        </form>
+        <div class="x-calc-results x-reveal-right" id="xCalcResults">
+          <div class="x-calc-results-title">YOUR PROJECTED JOURNEY</div>
+          <p style="color: var(--gray-500); font-size: 14px; text-align: center; padding: 40px 0;">Fill out the form to see your personalized transformation projection.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       30X — 90-DAY ROADMAP BUILDER
+  ============================================================ -->
+  <section class="section x-roadmap-section" id="xRoadmapSection">
+    <div class="x-roadmap-container">
+      <div class="section-label x-reveal">BUILD YOUR PLAN</div>
+      <h2 class="section-title x-reveal">
+        Design Your<br />
+        <span class="accent">First 90 Days.</span>
+      </h2>
+      <p class="section-intro x-reveal">Drag activities into your weekly plan. Build a custom 90-day roadmap based on your path and goals. Members who build a roadmap are 3x more likely to enroll.</p>
+
+      <div class="x-swipe-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Tap activities to add to your plan
+      </div>
+
+      <div class="x-roadmap-builder" id="xRoadmapBuilder">
+        <div class="x-roadmap-palette">
+          <div class="x-roadmap-palette-title">Activities</div>
+          <div class="x-roadmap-item" data-activity="Movement Assessment" draggable="true">
+            <span class="x-roadmap-item-icon">📋</span> Movement Assessment
+          </div>
+          <div class="x-roadmap-item" data-activity="Sprint Mechanics" draggable="true">
+            <span class="x-roadmap-item-icon">⚡</span> Sprint Mechanics
+          </div>
+          <div class="x-roadmap-item" data-activity="Strength Training" draggable="true">
+            <span class="x-roadmap-item-icon">🏋️</span> Strength Training
+          </div>
+          <div class="x-roadmap-item" data-activity="Conditioning" draggable="true">
+            <span class="x-roadmap-item-icon">🔥</span> Conditioning
+          </div>
+          <div class="x-roadmap-item" data-activity="Agility Work" draggable="true">
+            <span class="x-roadmap-item-icon">🏃</span> Agility Work
+          </div>
+          <div class="x-roadmap-item" data-activity="Recovery Day" draggable="true">
+            <span class="x-roadmap-item-icon">🧘</span> Recovery Day
+          </div>
+          <div class="x-roadmap-item" data-activity="Benchmark Test" draggable="true">
+            <span class="x-roadmap-item-icon">📊</span> Benchmark Test
+          </div>
+          <div class="x-roadmap-item" data-activity="1-on-1 Coaching" draggable="true">
+            <span class="x-roadmap-item-icon">👨‍🏫</span> 1-on-1 Coaching
+          </div>
+        </div>
+        <div class="x-roadmap-canvas">
+          <div class="x-roadmap-canvas-title">Your 90-Day Plan (Drag &amp; drop or tap to add)</div>
+          <div class="x-roadmap-weeks">
+            <div class="x-roadmap-week">
+              <div class="x-roadmap-week-label">Weeks 1–3</div>
+              <div class="x-roadmap-week-items"></div>
+            </div>
+            <div class="x-roadmap-week">
+              <div class="x-roadmap-week-label">Weeks 4–6</div>
+              <div class="x-roadmap-week-items"></div>
+            </div>
+            <div class="x-roadmap-week">
+              <div class="x-roadmap-week-label">Weeks 7–9</div>
+              <div class="x-roadmap-week-items"></div>
+            </div>
+            <div class="x-roadmap-week">
+              <div class="x-roadmap-week-label">Weeks 10–12</div>
+              <div class="x-roadmap-week-items"></div>
+            </div>
+          </div>
+          <div class="x-roadmap-success-rate" style="display:none;"></div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:40px;" class="x-reveal">
+        <a href="#start" class="x-calc-cta" style="display:inline-block;">CLAIM YOUR 3-DAY EXPERIENCE →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
        9. CTA BRANCHING BY VISITOR TYPE — Compressed
   ============================================================ -->
   <section class="section cta-branch" id="ctaBranch">
@@ -3497,5 +3634,6 @@
   <script src="js/ppf-leadership.js"></script>
   <script src="js/ppf-premium-animations.js"></script>
   <script src="js/ppf-blueprint.js"></script>
+  <script src="js/ppf-30x.js"></script>
 </body>
 </html>
