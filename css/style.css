@@ -743,7 +743,17 @@ button {
   font-size: 14px;
   line-height: 1.75;
   color: var(--gray-300);
+  margin-bottom: 16px;
+}
+
+.pillar-evidence {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange);
+  line-height: 1.6;
   margin-bottom: 32px;
+  opacity: 0.85;
 }
 
 .pillar-line {
