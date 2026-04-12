@@ -1337,3 +1337,243 @@
 @media (prefers-reduced-motion: reduce) {
   .live-board__pulse-dot { animation: none; }
 }
+
+/* ============================================================
+   PATH PROOF CARDS — Flagship result inside each path card
+   ============================================================ */
+.path-proof-card {
+  margin-top: 16px;
+  padding: 14px 18px;
+  border: 1px solid rgba(255, 85, 0, 0.25);
+  border-radius: 8px;
+  background: rgba(255, 85, 0, 0.06);
+}
+
+.path-proof-card--adult {
+  border-color: rgba(106, 143, 255, 0.25);
+  background: rgba(106, 143, 255, 0.06);
+}
+
+.path-proof-card--integrated {
+  border-color: rgba(80, 200, 120, 0.25);
+  background: rgba(80, 200, 120, 0.06);
+}
+
+.path-proof-card__badge {
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.path-proof-card__result {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.15rem;
+  letter-spacing: 0.06em;
+  color: #ff5500;
+}
+
+.path-proof-card--adult .path-proof-card__result { color: #6a8fff; }
+.path-proof-card--integrated .path-proof-card__result { color: #50c878; }
+
+.path-proof-card__name {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.55);
+  margin-top: 2px;
+}
+
+.path-proof-card__quote {
+  font-size: 0.78rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.45;
+  margin-top: 8px;
+}
+
+/* ============================================================
+   COMPRESSED STANDARD INDEX — Inline metric strip
+   ============================================================ */
+.si-strip {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+
+.si-strip-metric {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border: 1px solid var(--bp-border, rgba(255, 255, 255, 0.08));
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.si-strip-rank {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: 0.08em;
+}
+
+.si-strip-name {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+}
+
+.si-strip-val {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.1rem;
+  color: #ff5500;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 768px) {
+  .si-strip {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .si-strip-metric {
+    justify-content: space-between;
+  }
+}
+
+/* ============================================================
+   COMPRESSED CARRYOVER — Compact single-line lanes
+   ============================================================ */
+.carryover-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.carryover-compact__lane {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 24px;
+  border: 1px solid var(--bp-border, rgba(255, 255, 255, 0.08));
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.carryover-compact__icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  width: 36px;
+  text-align: center;
+}
+
+.carryover-compact__origin {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: #fff;
+  flex-shrink: 0;
+  min-width: 110px;
+}
+
+.carryover-compact__arrow {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.carryover-compact__transfer {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.55);
+  line-height: 1.5;
+  letter-spacing: 0.03em;
+}
+
+.carryover-compact__transfer strong {
+  color: #ff5500;
+}
+
+@media (max-width: 768px) {
+  .carryover-compact__lane {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .carryover-compact__origin {
+    min-width: auto;
+  }
+}
+
+/* ============================================================
+   LIVE BOARD — Date stamps + category tags
+   ============================================================ */
+.live-board__entry-date {
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.3);
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+.live-board__entry-category {
+  font-size: 0.56rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 85, 0, 0.7);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.live-board__updated-stamp {
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 24px;
+}
+
+/* ============================================================
+   BENCH UPDATED STAMP
+   ============================================================ */
+.bench-updated-stamp {
+  text-align: center;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 24px;
+}
+
+/* ============================================================
+   AUTHORITY — Athlete photo placeholders + stat categories
+   ============================================================ */
+.ppf-authority__athlete-photo {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255, 85, 0, 0.1);
+  border: 1px solid rgba(255, 85, 0, 0.2);
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.ppf-authority__stat-category {
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  color: rgba(255, 85, 0, 0.8);
+  margin-right: 6px;
+  font-weight: 600;
+}
+
+/* ============================================================
+   PROOF CHAMBER — Sub-section label and title
+   ============================================================ */
+.proof-chamber__label {
+  margin-top: 80px;
+}
+
+.proof-chamber__title {
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  margin-bottom: 32px;
+}
