@@ -552,8 +552,7 @@ button {
 }
 
 .headline-word:nth-child(1) { animation-delay: 0.5s; }
-.headline-word:nth-child(2) { animation-delay: 0.65s; margin-left: 0.15em; }
-.headline-word:nth-child(3) { animation-delay: 0.8s; }
+.headline-word:nth-child(3) { animation-delay: 0.75s; }
 
 .headline-word.accent { color: var(--orange); }
 
@@ -743,7 +742,44 @@ button {
   font-size: 14px;
   line-height: 1.75;
   color: var(--gray-300);
-  margin-bottom: 32px;
+  margin-bottom: 16px;
+}
+
+.pillar-evidence {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  opacity: 0.85;
+  padding: 10px 0;
+  border-top: 1px solid rgba(255, 85, 0, 0.12);
+  margin-top: 16px;
+}
+
+.pillar-anchor {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 28px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pillar-anchor__num {
+  font-family: var(--font-display);
+  font-size: 36px;
+  line-height: 1;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+
+.pillar-anchor__label {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--gray-400);
+  letter-spacing: 0.02em;
 }
 
 .pillar-line {
@@ -754,6 +790,64 @@ button {
 }
 
 .pillar-card:hover .pillar-line { width: 80px; }
+
+/* Pillar case proof — real verifiable result per pillar */
+.pillar-case-proof {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  background: rgba(255, 85, 0, 0.04);
+  border-radius: 4px;
+  border-left: 2px solid rgba(255, 85, 0, 0.25);
+}
+.pillar-case-proof__icon {
+  font-size: 16px;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+.pillar-case-proof__text {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--gray-300);
+}
+.pillar-case-proof__text strong {
+  color: var(--white);
+}
+
+/* Standard evidence strip — photo placeholders */
+.standard-evidence-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-top: 48px;
+}
+.evidence-strip__item {
+  background: var(--bg-card);
+  padding: 32px 20px;
+  text-align: center;
+  transition: background var(--transition-med);
+}
+.evidence-strip__item:hover {
+  background: var(--bg-card-hover);
+}
+.evidence-strip__placeholder {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 16px;
+  color: var(--gray-600);
+}
+.evidence-strip__placeholder svg {
+  width: 100%;
+  height: 100%;
+}
+.evidence-strip__caption {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
 
 /* =====================================================
    PATHS SECTION — THREE LANES
@@ -1112,6 +1206,84 @@ button {
 .path-card[data-path="athlete"] .path-branded-sub { color: var(--orange); }
 .path-card[data-path="adult"] .path-branded-sub { color: #6a8fff; }
 .path-card[data-path="integrated"] .path-branded-sub { color: #50c878; }
+
+/* ── Path-specific openers — distinct emotional gravity per card ── */
+
+/* Athlete hero metric — big number first */
+.path-hero-metric {
+  margin-bottom: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 85, 0, 0.12);
+}
+.path-hero-metric__num {
+  font-family: var(--font-display);
+  font-size: 42px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--orange);
+}
+.path-hero-metric__label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin-top: 6px;
+}
+
+/* Adult philosophy quote — grounded coaching voice */
+.path-philosophy {
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  border-left: 2px solid #6a8fff;
+  background: rgba(100, 140, 255, 0.04);
+  border-radius: 0 4px 4px 0;
+}
+.path-philosophy__line {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--white);
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+}
+.path-philosophy__attr {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(100, 140, 255, 0.6);
+  margin-top: 8px;
+}
+
+/* Integrated trust statement — warmth and safety first */
+.path-trust-statement {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  background: rgba(80, 200, 120, 0.04);
+  border-radius: 4px;
+  border-left: 2px solid #50c878;
+}
+.path-trust-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: #50c878;
+  margin-top: 2px;
+}
+.path-trust-icon svg {
+  width: 100%;
+  height: 100%;
+}
+.path-trust-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--white);
+  font-style: italic;
+}
 
 /* Signature outcome line */
 .path-outcome {
@@ -1614,20 +1786,71 @@ button {
 
 /* Enhanced per-path visual atmospheres */
 
-/* Athlete: clean background — no decorative pattern overlay */
+/* Athlete: sharp, high-intensity feel */
 .path-card[data-path="athlete"] .path-card-inner {
   background-image: none;
+  border-left: 3px solid rgba(255, 85, 0, 0.2);
 }
 
-/* Adult: clean background — no decorative grid overlay */
+/* Adult: structured, grounded feel */
 .path-card[data-path="adult"] .path-card-inner {
   background-image: none;
   background-size: auto;
+  border-left: 3px solid rgba(100, 140, 255, 0.2);
 }
 
-/* Integrated: clean background — no decorative glow overlay */
+/* Integrated: warm, welcoming feel */
 .path-card[data-path="integrated"] .path-card-inner {
   background-image: none;
+  border-left: 3px solid rgba(80, 200, 120, 0.2);
+}
+
+/* Path proof cards — unique per path */
+.path-proof-card {
+  border-left: 3px solid var(--orange);
+  background: rgba(255, 85, 0, 0.03);
+  padding: 20px 24px;
+  margin: 20px 0;
+  border-radius: 0 4px 4px 0;
+}
+.path-proof-card__badge {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+.path-proof-card__result {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.path-proof-card__name {
+  font-size: 0.78rem;
+  color: var(--gray-400);
+  margin-bottom: 10px;
+}
+.path-proof-card__quote {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--gray-300);
+  line-height: 1.6;
+}
+.path-proof-card--adult {
+  border-left-color: #6a8fff;
+  background: rgba(100, 140, 255, 0.03);
+}
+.path-proof-card--adult .path-proof-card__badge {
+  color: #6a8fff;
+}
+.path-proof-card--integrated {
+  border-left-color: #50c878;
+  background: rgba(80, 200, 120, 0.03);
+}
+.path-proof-card--integrated .path-proof-card__badge {
+  color: #50c878;
 }
 
 /* =====================================================
@@ -2938,6 +3161,24 @@ button {
   font-size: 13px;
   line-height: 1.65;
   color: var(--gray-300);
+}
+
+/* Compact first-visit info (inside whn-timeline) */
+.fv-compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.fv-compact__item {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--gray-400);
+}
+.fv-compact__item strong {
+  color: var(--white);
 }
 
 /* =====================================================
@@ -5580,6 +5821,68 @@ body.focus-mode .focus-target {
 }
 
 /* =====================================================
+   PATH-SPECIFIC BRANDED SUBS — Distinct atmosphere
+   ===================================================== */
+.path-card[data-path="athlete"] .path-branded-sub {
+  color: var(--orange);
+  letter-spacing: 0.2em;
+  font-size: 0.72rem;
+  border-bottom: 1px solid rgba(255, 85, 0, 0.2);
+  padding-bottom: 8px;
+  display: inline-block;
+}
+
+.path-card[data-path="adult"] .path-branded-sub {
+  color: #6a8fff;
+  letter-spacing: 0.15em;
+  font-size: 0.72rem;
+  border-bottom: 1px solid rgba(106, 143, 255, 0.2);
+  padding-bottom: 8px;
+  display: inline-block;
+}
+
+.path-card[data-path="integrated"] .path-branded-sub {
+  color: #50c878;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  border-bottom: 1px solid rgba(80, 200, 120, 0.2);
+  padding-bottom: 8px;
+  display: inline-block;
+}
+
+/* Path-specific badge colors */
+.path-card[data-path="athlete"] .path-badge {
+  border-color: rgba(255, 85, 0, 0.3);
+  color: rgba(255, 85, 0, 0.8);
+}
+
+.path-card[data-path="adult"] .path-badge {
+  border-color: rgba(106, 143, 255, 0.3);
+  color: rgba(106, 143, 255, 0.8);
+}
+
+.path-card[data-path="integrated"] .path-badge {
+  border-color: rgba(80, 200, 120, 0.3);
+  color: rgba(80, 200, 120, 0.8);
+}
+
+/* Path-specific who-for line */
+.path-card[data-path="athlete"] .path-who-for {
+  border-color: rgba(255, 85, 0, 0.15);
+  color: rgba(255, 85, 0, 0.6);
+}
+
+.path-card[data-path="adult"] .path-who-for {
+  border-color: rgba(106, 143, 255, 0.15);
+  color: rgba(106, 143, 255, 0.6);
+}
+
+.path-card[data-path="integrated"] .path-who-for {
+  border-color: rgba(80, 200, 120, 0.15);
+  color: rgba(80, 200, 120, 0.6);
+}
+
+/* =====================================================
    PPF INTRO — PERFORMANCE SYSTEM BOOT-UP
    ===================================================== */
 
@@ -6026,6 +6329,7 @@ body.focus-mode .focus-target {
    ===================================================== */
 @media (max-width: 1100px) {
   .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+  .standard-evidence-strip { grid-template-columns: repeat(2, 1fr); }
   .proof-metrics-grid { grid-template-columns: repeat(2, 1fr); }
   .proof-stories { grid-template-columns: repeat(2, 1fr); }
   .faq-grid { grid-template-columns: 1fr; }
@@ -6229,6 +6533,7 @@ body.focus-mode .focus-target {
   :root { --section-pad: 60px; }
 
   .pillars-grid { grid-template-columns: 1fr; }
+  .standard-evidence-strip { grid-template-columns: 1fr; }
   .proof-metrics-grid { grid-template-columns: 1fr; }
   .proof-tabs { flex-direction: column; border-bottom: none; }
   .proof-tab { border: 1px solid rgba(255, 255, 255, 0.08); border-bottom: none; }

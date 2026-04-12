@@ -1191,6 +1191,32 @@
   letter-spacing: 0.1em;
 }
 
+/* Visual-first media slot — aspect-ratio box ready for real media */
+.fm-zone-media__slot {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px dashed rgba(255, 85, 0, 0.2);
+  border-radius: 6px;
+  background: linear-gradient(135deg, rgba(255, 85, 0, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+  position: relative;
+}
+.fm-zone-media__slot::after {
+  content: '▶';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: rgba(255, 85, 0, 0.35);
+  border: 1px solid rgba(255, 85, 0, 0.15);
+  border-radius: 50%;
+}
+
 .fm-zone-coach {
   margin-top: 8px;
   font-size: 0.72rem;
