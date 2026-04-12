@@ -754,6 +754,9 @@ button {
   line-height: 1.6;
   margin-bottom: 32px;
   opacity: 0.85;
+  padding: 10px 0;
+  border-top: 1px solid rgba(255, 85, 0, 0.12);
+  margin-top: 16px;
 }
 
 .pillar-line {
@@ -5638,6 +5641,68 @@ body.focus-mode .focus-target {
 .path-card[data-path="integrated"]:hover .path-card-inner {
   transform: translateY(-3px);
   transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* =====================================================
+   PATH-SPECIFIC BRANDED SUBS — Distinct atmosphere
+   ===================================================== */
+.path-card[data-path="athlete"] .path-branded-sub {
+  color: var(--orange);
+  letter-spacing: 0.2em;
+  font-size: 0.72rem;
+  border-bottom: 1px solid rgba(255, 85, 0, 0.2);
+  padding-bottom: 8px;
+  display: inline-block;
+}
+
+.path-card[data-path="adult"] .path-branded-sub {
+  color: #6a8fff;
+  letter-spacing: 0.15em;
+  font-size: 0.72rem;
+  border-bottom: 1px solid rgba(106, 143, 255, 0.2);
+  padding-bottom: 8px;
+  display: inline-block;
+}
+
+.path-card[data-path="integrated"] .path-branded-sub {
+  color: #50c878;
+  letter-spacing: 0.12em;
+  font-size: 0.72rem;
+  border-bottom: 1px solid rgba(80, 200, 120, 0.2);
+  padding-bottom: 8px;
+  display: inline-block;
+}
+
+/* Path-specific badge colors */
+.path-card[data-path="athlete"] .path-badge {
+  border-color: rgba(255, 85, 0, 0.3);
+  color: rgba(255, 85, 0, 0.8);
+}
+
+.path-card[data-path="adult"] .path-badge {
+  border-color: rgba(106, 143, 255, 0.3);
+  color: rgba(106, 143, 255, 0.8);
+}
+
+.path-card[data-path="integrated"] .path-badge {
+  border-color: rgba(80, 200, 120, 0.3);
+  color: rgba(80, 200, 120, 0.8);
+}
+
+/* Path-specific who-for line */
+.path-card[data-path="athlete"] .path-who-for {
+  border-color: rgba(255, 85, 0, 0.15);
+  color: rgba(255, 85, 0, 0.6);
+}
+
+.path-card[data-path="adult"] .path-who-for {
+  border-color: rgba(106, 143, 255, 0.15);
+  color: rgba(106, 143, 255, 0.6);
+}
+
+.path-card[data-path="integrated"] .path-who-for {
+  border-color: rgba(80, 200, 120, 0.15);
+  color: rgba(80, 200, 120, 0.6);
 }
 
 /* =====================================================
