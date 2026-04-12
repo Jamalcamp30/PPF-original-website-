@@ -1,0 +1,942 @@
+/* ============================================================
+   PPF ICONIC — 9.7+ Elite Upgrade Styles
+   Covers: hero iconic treatment, visual proof dominance,
+   evidence wrappers, back-half compression, path differentiation
+   ============================================================ */
+
+/* ── CSS CUSTOM PROPERTIES ──────────────────────────── */
+:root {
+  --ic-orange: #ff5500;
+  --ic-blue: #6a8fff;
+  --ic-green: #50c878;
+  --ic-dark: #0a0a0a;
+  --ic-card: #111;
+  --ic-border: rgba(255,255,255,0.06);
+  --ic-text: rgba(255,255,255,0.7);
+  --ic-text-dim: rgba(255,255,255,0.4);
+}
+
+/* ============================================================
+   1. HERO — ICONIC TREATMENT
+   ============================================================ */
+
+/* Larger, more dramatic hero headline */
+.hero-headline {
+  font-size: clamp(56px, 10vw, 140px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+
+/* 4-line headline animation delays */
+.hero-headline .headline-word:nth-child(1) { animation-delay: 0.4s; }
+.hero-headline .headline-word:nth-child(3) { animation-delay: 0.55s; }
+.hero-headline .headline-word:nth-child(5) { animation-delay: 0.7s; }
+.hero-headline .headline-word:nth-child(7) { animation-delay: 0.85s; }
+
+/* Signature line — the ownable, unmistakable brand statement */
+.hero-signature {
+  display: block;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: clamp(14px, 1.8vw, 22px);
+  letter-spacing: 0.35em;
+  color: var(--ic-orange);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeSlideUp 0.7s var(--ease-out-expo, cubic-bezier(0.16,1,0.3,1)) 0.15s forwards;
+  position: relative;
+  padding-left: 0;
+}
+
+.hero-signature::before {
+  content: '';
+  display: inline-block;
+  width: 32px;
+  height: 2px;
+  background: var(--ic-orange);
+  vertical-align: middle;
+  margin-right: 14px;
+}
+
+.hero-signature::after {
+  content: '';
+  display: inline-block;
+  width: 32px;
+  height: 2px;
+  background: var(--ic-orange);
+  vertical-align: middle;
+  margin-left: 14px;
+}
+
+/* Hero sub — lighter, more room to breathe */
+.hero-sub {
+  font-size: clamp(15px, 1.4vw, 19px);
+  line-height: 1.75;
+  max-width: 560px;
+  margin-bottom: 40px;
+}
+
+/* Hero closing mark — a short brand anchor below the CTA */
+.hero-close-mark {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+  opacity: 0;
+  animation: fadeSlideUp 0.6s var(--ease-out-expo, cubic-bezier(0.16,1,0.3,1)) 1.4s forwards;
+}
+
+.hero-close-mark__line {
+  width: 24px;
+  height: 1px;
+  background: rgba(255,85,0,0.4);
+}
+
+.hero-close-mark__text {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  font-weight: 500;
+}
+
+/* Hero metrics — more refined spacing */
+.hero-metrics {
+  padding: 20px 40px;
+  gap: 0;
+}
+
+.hero-metrics .metric-item {
+  padding: 0 24px;
+}
+
+/* ============================================================
+   2. VISUAL PROOF DOMINANCE — Cinematic evidence strip
+   ============================================================ */
+
+/* Full-width visual evidence section right after proof-wall */
+.visual-evidence {
+  position: relative;
+  padding: 80px 0;
+  background: #080808;
+  overflow: hidden;
+}
+
+.visual-evidence::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, #0a0a0a 0%, transparent 15%, transparent 85%, #0a0a0a 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.visual-evidence__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 3;
+}
+
+.visual-evidence__header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.visual-evidence__kicker {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: var(--ic-orange);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.visual-evidence__title {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.visual-evidence__title .accent {
+  color: var(--ic-orange);
+}
+
+/* Cinematic grid — large hero image + supporting cells */
+.visual-evidence__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-rows: 260px 260px;
+  gap: 6px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.visual-evidence__cell {
+  position: relative;
+  background: #111;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  min-height: 200px;
+}
+
+.visual-evidence__cell--hero {
+  grid-row: 1 / 3;
+}
+
+.visual-evidence__cell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.85) 100%);
+  z-index: 1;
+}
+
+.visual-evidence__cell-label {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ic-orange);
+  margin-bottom: 4px;
+}
+
+.visual-evidence__cell-title {
+  position: relative;
+  z-index: 2;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  color: #fff;
+  line-height: 1.1;
+}
+
+.visual-evidence__cell-quote {
+  position: relative;
+  z-index: 2;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.55);
+  font-style: italic;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+/* Placeholder visual treatment for cells awaiting real media */
+.visual-evidence__cell[data-media-needed]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 50% 70%, rgba(255,85,0,0.08) 0%, transparent 60%),
+    linear-gradient(135deg, #0d0d0d 0%, #151515 50%, #0d0d0d 100%);
+}
+
+@media (max-width: 900px) {
+  .visual-evidence__grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  .visual-evidence__cell--hero {
+    grid-row: auto;
+    grid-column: 1 / -1;
+    min-height: 240px;
+  }
+}
+
+@media (max-width: 600px) {
+  .visual-evidence__grid {
+    grid-template-columns: 1fr;
+  }
+  .visual-evidence__cell {
+    min-height: 180px;
+  }
+}
+
+/* ============================================================
+   3. PROOF WALL — Enhanced visual presence
+   ============================================================ */
+
+/* Upgraded proof wall — bigger numbers, more impact */
+.proof-wall {
+  padding: 56px 0;
+  background: linear-gradient(180deg, rgba(8,8,8,0.98) 0%, rgba(12,12,12,0.98) 100%);
+}
+
+.proof-wall__stat-num {
+  font-size: clamp(2.6rem, 5vw, 3.8rem);
+  background: linear-gradient(180deg, #fff 30%, rgba(255,255,255,0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.proof-wall__stat {
+  padding: 20px 12px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.proof-wall__stat:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,85,0,0.15);
+}
+
+/* Evidence items — more prominent */
+.proof-wall__evidence-item {
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.proof-wall__evidence-item:hover {
+  transform: translateY(-2px);
+}
+
+.proof-wall__evidence-result {
+  font-size: 1.5rem;
+}
+
+/* ============================================================
+   4. ENHANCED PROOF ARCHITECTURE — Verification layers
+   ============================================================ */
+
+/* Proof file cards — upgraded cinematic styling */
+.pc-file {
+  position: relative;
+  overflow: hidden;
+}
+
+.pc-file::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--ic-orange);
+  opacity: 0.6;
+  border-radius: 0 2px 2px 0;
+}
+
+.pc-file-status {
+  position: relative;
+}
+
+.pc-file-status::before {
+  content: '✓';
+  margin-right: 6px;
+  color: #50c878;
+  font-weight: 700;
+}
+
+/* Coach commentary highlight — attached to proof elements */
+.ba-coach-note {
+  position: relative;
+  padding-left: 16px;
+}
+
+.ba-coach-note::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: var(--ic-orange);
+  border-radius: 1px;
+  opacity: 0.5;
+}
+
+/* Verification badge wrapper */
+.proof-verified-wrapper {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* Verification badge styling */
+.proof-verified-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  color: #50c878;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 6px 14px;
+  border: 1px solid rgba(80,200,120,0.2);
+  border-radius: 20px;
+  background: rgba(80,200,120,0.04);
+}
+
+.proof-verified-badge::before {
+  content: '✓';
+  font-weight: 700;
+}
+
+/* Story timeline — more structured feel */
+.story-timeline {
+  position: relative;
+  padding-left: 20px;
+}
+
+.story-timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(180deg, var(--ic-orange), rgba(255,85,0,0.1));
+}
+
+.st-step {
+  position: relative;
+}
+
+.st-step::before {
+  content: '';
+  position: absolute;
+  left: -23px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--ic-orange);
+}
+
+/* ============================================================
+   5. PATH EMOTIONAL DIFFERENTIATION
+   ============================================================ */
+
+/* Athlete Path — Aggressive, electric, high-energy */
+.path-card[data-path="athlete"] {
+  border-color: rgba(255,85,0,0.1);
+}
+
+.path-card[data-path="athlete"] .path-card-inner {
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(255,85,0,0.06) 0%, transparent 50%),
+    linear-gradient(180deg, #0c0c0c 0%, #0a0a0a 100%);
+}
+
+.path-card[data-path="athlete"] .path-tag {
+  color: var(--ic-orange);
+  border-color: rgba(255,85,0,0.3);
+  background: rgba(255,85,0,0.08);
+}
+
+.path-card[data-path="athlete"] .path-hero-metric__num {
+  background: linear-gradient(135deg, var(--ic-orange), #ff8844);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.path-card[data-path="athlete"] .path-proof-card {
+  border-left: 3px solid var(--ic-orange);
+  background: rgba(255,85,0,0.04);
+}
+
+/* Adult Path — Structured, grounded, steady confidence */
+.path-card[data-path="adult"] .path-card-inner {
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(106,143,255,0.05) 0%, transparent 50%),
+    linear-gradient(180deg, #0c0c0c 0%, #0a0a0a 100%);
+}
+
+.path-card[data-path="adult"] .path-tag {
+  color: var(--ic-blue);
+  border-color: rgba(106,143,255,0.3);
+  background: rgba(106,143,255,0.08);
+}
+
+.path-card[data-path="adult"] .path-philosophy {
+  border-left: 3px solid rgba(106,143,255,0.4);
+  padding-left: 16px;
+  margin: 12px 0;
+}
+
+.path-card[data-path="adult"] .path-philosophy__line {
+  font-style: italic;
+  color: var(--ic-blue);
+  font-size: 0.95rem;
+}
+
+.path-card[data-path="adult"] .path-proof-card {
+  border-left: 3px solid var(--ic-blue);
+  background: rgba(106,143,255,0.04);
+}
+
+/* Integrated Path — Warm, trust-forward, nurturing */
+.path-card[data-path="integrated"] .path-card-inner {
+  background:
+    radial-gradient(ellipse at 50% 80%, rgba(80,200,120,0.05) 0%, transparent 50%),
+    linear-gradient(180deg, #0c0c0c 0%, #0a0a0a 100%);
+}
+
+.path-card[data-path="integrated"] .path-tag {
+  color: var(--ic-green);
+  border-color: rgba(80,200,120,0.3);
+  background: rgba(80,200,120,0.08);
+}
+
+.path-card[data-path="integrated"] .path-trust-statement {
+  background: rgba(80,200,120,0.04);
+  border: 1px solid rgba(80,200,120,0.12);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 12px 0;
+}
+
+.path-card[data-path="integrated"] .path-proof-card {
+  border-left: 3px solid var(--ic-green);
+  background: rgba(80,200,120,0.04);
+}
+
+/* Path proof cards — shared upgraded styles */
+.path-proof-card {
+  border-radius: 8px;
+  padding: 16px 18px;
+  margin-top: 16px;
+  transition: transform 0.3s ease;
+}
+
+.path-proof-card:hover {
+  transform: translateY(-2px);
+}
+
+.path-proof-card__badge {
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  color: #50c878;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.path-proof-card__result {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.path-proof-card__name {
+  font-size: 0.72rem;
+  color: var(--ic-text-dim);
+  letter-spacing: 0.08em;
+  margin-top: 2px;
+}
+
+.path-proof-card__quote {
+  font-size: 0.82rem;
+  color: var(--ic-text);
+  font-style: italic;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* Path card hover glow effects */
+.path-card[data-path="athlete"]:hover {
+  box-shadow: 0 0 40px rgba(255,85,0,0.08), 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.path-card[data-path="adult"]:hover {
+  box-shadow: 0 0 40px rgba(106,143,255,0.08), 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.path-card[data-path="integrated"]:hover {
+  box-shadow: 0 0 40px rgba(80,200,120,0.08), 0 20px 60px rgba(0,0,0,0.4);
+}
+
+/* ============================================================
+   6. BACK-HALF COMPRESSION — Lighter, more luxurious
+   ============================================================ */
+
+/* CTA Branch — cleaner, more spacious */
+.cta-branch {
+  padding: 80px 0 60px;
+}
+
+.cta-branch__grid {
+  gap: 16px;
+}
+
+.cta-branch__card {
+  padding: 32px 28px;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.cta-branch__card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,85,0,0.15);
+}
+
+/* Start section — more breathing room */
+.start-section {
+  padding: 80px 0;
+}
+
+.start-grid {
+  gap: 48px;
+}
+
+/* FAQ — compressed, cleaner */
+.faq-section {
+  margin-top: 60px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+.faq-grid {
+  gap: 8px;
+}
+
+.faq-item {
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+.faq-item:hover {
+  border-color: rgba(255,85,0,0.1);
+}
+
+/* Media Gallery — more cinematic */
+.media-gallery {
+  padding: 60px 0;
+}
+
+.media-gallery__grid {
+  gap: 4px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.media-gallery__item {
+  min-height: 220px;
+  transition: transform 0.4s ease;
+}
+
+.media-gallery__item:hover {
+  transform: scale(1.02);
+  z-index: 2;
+}
+
+.media-gallery__item-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+}
+
+/* Member Preview — lighter, more refined */
+.member-preview {
+  padding: 60px 0;
+}
+
+.member-preview__grid {
+  gap: 16px;
+}
+
+.member-preview__card {
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.member-preview__card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,85,0,0.12);
+}
+
+/* Social section — simple, elegant */
+.social-section {
+  padding: 40px 0 60px;
+}
+
+/* ============================================================
+   7. AUTHORITY SECTION — More commanding presence
+   ============================================================ */
+
+.ppf-authority__record {
+  transition: transform 0.3s ease;
+}
+
+.ppf-authority__record:hover {
+  transform: translateY(-2px);
+}
+
+.ppf-authority__record-value {
+  background: linear-gradient(135deg, #fff 30%, rgba(255,255,255,0.7) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ppf-authority__coach-note {
+  position: relative;
+}
+
+.ppf-authority__coach-note::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--ic-orange);
+  opacity: 0.5;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ============================================================
+   8. EXPERIENCE SECTION — More distinct visual weight
+   ============================================================ */
+
+.experience-day {
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.experience-day:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,85,0,0.15);
+}
+
+.day-num {
+  background: linear-gradient(135deg, var(--ic-orange), #ff8844);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   9. FLOOR MAP — Richer zone interaction
+   ============================================================ */
+
+.fm-zone {
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.fm-zone:hover {
+  transform: translateY(-2px);
+}
+
+.fm-zone[data-zone="sprint"]:hover { border-color: rgba(255,85,0,0.2); }
+.fm-zone[data-zone="platform"]:hover { border-color: rgba(255,255,255,0.12); }
+.fm-zone[data-zone="agility"]:hover { border-color: rgba(255,85,0,0.15); }
+.fm-zone[data-zone="conditioning"]:hover { border-color: rgba(106,143,255,0.15); }
+.fm-zone[data-zone="movement"]:hover { border-color: rgba(80,200,120,0.15); }
+.fm-zone[data-zone="assessment"]:hover { border-color: rgba(255,255,255,0.12); }
+
+/* ============================================================
+   10. PROOF SECTION — BEFORE/AFTER CARDS upgraded
+   ============================================================ */
+
+.ba-card {
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.ba-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,85,0,0.12);
+}
+
+.proof-section .ba-card .ba-highlight {
+  color: #50c878;
+}
+
+.ba-change {
+  color: #50c878;
+  font-weight: 600;
+}
+
+/* ============================================================
+   11. LIVE BOARD — Pulsing, alive feel
+   ============================================================ */
+
+.live-board__pulse-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: #50c878;
+  border-radius: 50%;
+  margin-right: 8px;
+  animation: livePulse 2s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(80,200,120,0.5); }
+  50% { opacity: 0.7; box-shadow: 0 0 12px 4px rgba(80,200,120,0.2); }
+}
+
+.live-board__entry {
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.live-board__entry:hover {
+  transform: translateX(4px);
+  background: rgba(255,255,255,0.03);
+}
+
+/* ============================================================
+   12. TRUST MARKERS — Refined credibility strip
+   ============================================================ */
+
+.trust-markers {
+  padding: 48px 0;
+}
+
+.trust-markers__review-strip {
+  margin-top: 24px;
+}
+
+.trust-markers__review {
+  transition: transform 0.3s ease;
+}
+
+.trust-markers__review:hover {
+  transform: translateY(-1px);
+}
+
+.trust-markers__review-stars {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   13. SCROLL-REVEAL ENHANCEMENTS
+   ============================================================ */
+
+/* Smoother reveal timing */
+.reveal-up {
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* Section transitions — more refined */
+.env-transition {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,85,0,0.1) 50%, transparent 100%);
+  margin: 0;
+}
+
+.section-transition {
+  height: 1px;
+}
+
+/* ============================================================
+   14. GLOBAL POLISH
+   ============================================================ */
+
+/* Section labels — consistent elevated treatment */
+.section-label {
+  position: relative;
+}
+
+/* Section titles — gradient treatment */
+.section-title .accent {
+  background: linear-gradient(135deg, var(--ic-orange), #ff8844);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Smoother section spacing */
+.section {
+  position: relative;
+}
+
+/* CTA buttons — refined hover */
+.cta-action {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta-action:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(255,85,0,0.2);
+}
+
+/* Ghost CTA — more defined */
+.cta-shell--ghost .cta-action:hover {
+  box-shadow: 0 4px 20px rgba(255,255,255,0.05);
+}
+
+/* Comparison strip — cleaner */
+.path-compare-strip {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* ============================================================
+   15. LEADERSHIP — More commanding
+   ============================================================ */
+
+.ldr-forge-headline {
+  text-align: center;
+}
+
+.ldr-forge-line em {
+  color: var(--ic-orange);
+  font-style: normal;
+}
+
+.ldr-card {
+  transition: transform 0.3s ease;
+}
+
+.ldr-card:hover {
+  transform: translateY(-3px);
+}
+
+/* ============================================================
+   16. MOBILE RESPONSIVE REFINEMENTS
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .hero-headline {
+    font-size: clamp(48px, 12vw, 80px);
+  }
+
+  .hero-signature {
+    font-size: clamp(11px, 3vw, 14px);
+    letter-spacing: 0.2em;
+  }
+
+  .hero-signature::before,
+  .hero-signature::after {
+    width: 16px;
+  }
+
+  .visual-evidence {
+    padding: 48px 0;
+  }
+
+  .visual-evidence__title {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+
+  .cta-branch {
+    padding: 60px 0 40px;
+  }
+
+  .hero-close-mark {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-signature::before,
+  .hero-signature::after {
+    display: none;
+  }
+
+  .visual-evidence__cell {
+    min-height: 160px;
+  }
+}
