@@ -1647,14 +1647,48 @@ button {
 .path-proof-card {
   border-left: 3px solid var(--orange);
   background: rgba(255, 85, 0, 0.03);
+  padding: 20px 24px;
+  margin: 20px 0;
+  border-radius: 0 4px 4px 0;
+}
+.path-proof-card__badge {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+.path-proof-card__result {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.path-proof-card__name {
+  font-size: 0.78rem;
+  color: var(--gray-400);
+  margin-bottom: 10px;
+}
+.path-proof-card__quote {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--gray-300);
+  line-height: 1.6;
 }
 .path-proof-card--adult {
   border-left-color: #6a8fff;
   background: rgba(100, 140, 255, 0.03);
 }
+.path-proof-card--adult .path-proof-card__badge {
+  color: #6a8fff;
+}
 .path-proof-card--integrated {
   border-left-color: #50c878;
   background: rgba(80, 200, 120, 0.03);
+}
+.path-proof-card--integrated .path-proof-card__badge {
+  color: #50c878;
 }
 
 /* =====================================================
