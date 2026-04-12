@@ -36,7 +36,7 @@ var PPF_STRIPE = (function () {
     /* ═══ ADULT MEMBERSHIPS ═══ */
     'adult-monthly': {
       name: 'Adult Membership — Month to Month',
-      price: '$199',
+      price: '$150',
       period: '/month',
       mode: 'subscription',
       badge: 'FLEXIBLE',
@@ -87,11 +87,11 @@ var PPF_STRIPE = (function () {
 
     'adult-6-month': {
       name: 'Adult Membership — 6-Month Commitment',
-      price: '$159',
+      price: '$179',
       period: '/month',
       total: '$954 total',
       mode: 'subscription',
-      badge: 'MOST POPULAR',
+      badge: 'POPULAR',
       badgeColor: '#ff5500',
       includes: [
         'Unlimited coached classes',
@@ -113,9 +113,9 @@ var PPF_STRIPE = (function () {
 
     'adult-12-month': {
       name: 'Adult Membership — 12-Month Commitment',
-      price: '$149',
+      price: '$159',
       period: '/month',
-      total: '$1,788 total',
+      total: '$1,908 total',
       mode: 'subscription',
       badge: 'BEST VALUE',
       badgeColor: '#ff5500',
