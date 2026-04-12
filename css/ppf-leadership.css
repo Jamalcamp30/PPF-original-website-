@@ -558,6 +558,16 @@
   margin-bottom: 0;
 }
 
+.ldr-card-proof {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ldr-orange);
+  line-height: 1.6;
+  margin-top: 16px;
+  opacity: 0.9;
+}
+
 
 /* ── Card Divider line ──────────────────────────────── */
 .ldr-card-divider {

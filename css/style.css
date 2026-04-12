@@ -1624,20 +1624,37 @@ button {
 
 /* Enhanced per-path visual atmospheres */
 
-/* Athlete: clean background — no decorative pattern overlay */
+/* Athlete: sharp, high-intensity feel */
 .path-card[data-path="athlete"] .path-card-inner {
   background-image: none;
+  border-left: 3px solid rgba(255, 85, 0, 0.2);
 }
 
-/* Adult: clean background — no decorative grid overlay */
+/* Adult: structured, grounded feel */
 .path-card[data-path="adult"] .path-card-inner {
   background-image: none;
   background-size: auto;
+  border-left: 3px solid rgba(100, 140, 255, 0.2);
 }
 
-/* Integrated: clean background — no decorative glow overlay */
+/* Integrated: warm, welcoming feel */
 .path-card[data-path="integrated"] .path-card-inner {
   background-image: none;
+  border-left: 3px solid rgba(80, 200, 120, 0.2);
+}
+
+/* Path proof cards — unique per path */
+.path-proof-card {
+  border-left: 3px solid var(--orange);
+  background: rgba(255, 85, 0, 0.03);
+}
+.path-proof-card--adult {
+  border-left-color: #6a8fff;
+  background: rgba(100, 140, 255, 0.03);
+}
+.path-proof-card--integrated {
+  border-left-color: #50c878;
+  background: rgba(80, 200, 120, 0.03);
 }
 
 /* =====================================================
