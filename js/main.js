@@ -2683,9 +2683,9 @@
   const scrollProgressBar = qs('#scrollProgress');
   if (scrollProgressBar) {
     window.addEventListener('scroll', function () {
-      const winH = document.documentElement.scrollHeight - window.innerHeight;
-      const pct  = winH > 0 ? (window.scrollY / winH) * 100 : 0;
-      scrollProgressBar.style.width = pct + '%';
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercentage = scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0;
+      scrollProgressBar.style.width = scrollPercentage + '%';
     }, { passive: true });
   }
 
@@ -2728,19 +2728,26 @@
   if (dmToggle) {
     const sunIcon  = qs('.dm-icon-sun', dmToggle);
     const moonIcon = qs('.dm-icon-moon', dmToggle);
-    const savedMode = localStorage.getItem('ppf-color-mode');
+    let savedMode = null;
+    try { savedMode = localStorage.getItem('ppf-color-mode'); } catch (e) { /* private browsing */ }
 
     function setMode(isLight) {
       document.body.classList.toggle('light-mode', isLight);
       if (sunIcon)  sunIcon.style.display  = isLight ? 'none' : 'block';
       if (moonIcon) moonIcon.style.display = isLight ? 'block' : 'none';
-      localStorage.setItem('ppf-color-mode', isLight ? 'light' : 'dark');
+      try { localStorage.setItem('ppf-color-mode', isLight ? 'light' : 'dark'); } catch (e) { /* storage unavailable */ }
     }
 
     if (savedMode === 'light') setMode(true);
 
     dmToggle.addEventListener('click', () => {
       setMode(!document.body.classList.contains('light-mode'));
+    });
+    dmToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        setMode(!document.body.classList.contains('light-mode'));
+      }
     });
   }
 
