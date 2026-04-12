@@ -791,6 +791,64 @@ button {
 
 .pillar-card:hover .pillar-line { width: 80px; }
 
+/* Pillar case proof — real verifiable result per pillar */
+.pillar-case-proof {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  background: rgba(255, 85, 0, 0.04);
+  border-radius: 4px;
+  border-left: 2px solid rgba(255, 85, 0, 0.25);
+}
+.pillar-case-proof__icon {
+  font-size: 16px;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+.pillar-case-proof__text {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--gray-300);
+}
+.pillar-case-proof__text strong {
+  color: var(--white);
+}
+
+/* Standard evidence strip — photo placeholders */
+.standard-evidence-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-top: 48px;
+}
+.evidence-strip__item {
+  background: var(--bg-card);
+  padding: 32px 20px;
+  text-align: center;
+  transition: background var(--transition-med);
+}
+.evidence-strip__item:hover {
+  background: var(--bg-card-hover);
+}
+.evidence-strip__placeholder {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 16px;
+  color: var(--gray-600);
+}
+.evidence-strip__placeholder svg {
+  width: 100%;
+  height: 100%;
+}
+.evidence-strip__caption {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+
 /* =====================================================
    PATHS SECTION — THREE LANES
    ===================================================== */
@@ -6175,6 +6233,7 @@ body.focus-mode .focus-target {
    ===================================================== */
 @media (max-width: 1100px) {
   .pillars-grid { grid-template-columns: repeat(2, 1fr); }
+  .standard-evidence-strip { grid-template-columns: repeat(2, 1fr); }
   .proof-metrics-grid { grid-template-columns: repeat(2, 1fr); }
   .proof-stories { grid-template-columns: repeat(2, 1fr); }
   .faq-grid { grid-template-columns: 1fr; }
@@ -6378,6 +6437,7 @@ body.focus-mode .focus-target {
   :root { --section-pad: 60px; }
 
   .pillars-grid { grid-template-columns: 1fr; }
+  .standard-evidence-strip { grid-template-columns: 1fr; }
   .proof-metrics-grid { grid-template-columns: 1fr; }
   .proof-tabs { flex-direction: column; border-bottom: none; }
   .proof-tab { border: 1px solid rgba(255, 255, 255, 0.08); border-bottom: none; }
