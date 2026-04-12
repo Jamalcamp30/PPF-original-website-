@@ -181,7 +181,7 @@
     <canvas class="pv-canvas" id="pvCanvas" aria-hidden="true"></canvas>
     <div class="pv-brand" id="pvBrand">
       <div class="pv-brand-mark">PPF</div>
-      <div class="pv-brand-tag">Performance. Precision. Foundation.</div>
+      <div class="pv-brand-tag">Power Performance and Fitness</div>
     </div>
     <!-- 11. SIGNATURE INTRO — metrics boot sequence -->
     <div class="pv-metrics-boot">
@@ -216,21 +216,21 @@
   <div class="scroll-progress" id="scrollProgress"></div>
 
   <!-- SECTION INDICATOR (right-side dots) -->
-  <div class="section-indicator" id="sectionIndicator">
-    <div class="section-indicator__dot" data-section="hero" data-label="Home"></div>
-    <div class="section-indicator__dot" data-section="standard" data-label="Standard"></div>
-    <div class="section-indicator__dot" data-section="paths" data-label="Paths"></div>
-    <div class="section-indicator__dot" data-section="proof" data-label="Proof"></div>
-    <div class="section-indicator__dot" data-section="leadership" data-label="Leadership"></div>
-    <div class="section-indicator__dot" data-section="memberships" data-label="Memberships"></div>
-    <div class="section-indicator__dot" data-section="start" data-label="Start"></div>
+  <div class="section-indicator" id="sectionIndicator" role="navigation" aria-label="Page sections">
+    <div class="section-indicator__dot" data-section="hero" data-label="Home" role="button" tabindex="0" aria-label="Navigate to Home"></div>
+    <div class="section-indicator__dot" data-section="standard" data-label="Standard" role="button" tabindex="0" aria-label="Navigate to Standard"></div>
+    <div class="section-indicator__dot" data-section="paths" data-label="Paths" role="button" tabindex="0" aria-label="Navigate to Paths"></div>
+    <div class="section-indicator__dot" data-section="proof" data-label="Proof" role="button" tabindex="0" aria-label="Navigate to Proof"></div>
+    <div class="section-indicator__dot" data-section="leadership" data-label="Leadership" role="button" tabindex="0" aria-label="Navigate to Leadership"></div>
+    <div class="section-indicator__dot" data-section="memberships" data-label="Memberships" role="button" tabindex="0" aria-label="Navigate to Memberships"></div>
+    <div class="section-indicator__dot" data-section="start" data-label="Start" role="button" tabindex="0" aria-label="Navigate to Start"></div>
   </div>
 
   <!-- NAVIGATION -->
   <nav class="site-nav" id="siteNav">
-    <a href="#hero" class="nav-logo" aria-label="PPF Athletics">
+    <a href="#hero" class="nav-logo" aria-label="PPF — Power Performance and Fitness">
       <span class="logo-mark">PPF</span>
-      <span class="logo-tag">ATHLETICS</span>
+      <span class="logo-tag">POWER PERFORMANCE &amp; FITNESS</span>
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -3437,46 +3437,33 @@
               <p>PPF is not a gym — it is a coaching system. Every session is coach-led, periodized, and purpose-driven. We sell structured transformation backed by 20+ years of results.</p>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       7. VISUAL MEDIA SECTIONS — Video placeholders, galleries
-  ============================================================ -->
-  <section class="section media-gallery" id="mediaGallery">
-    <div class="media-gallery__inner">
-      <div class="section-label reveal-up">INSIDE PPF</div>
-      <h2 class="section-title reveal-up">
-        The Floor.<br />
-        <span class="accent">Unfiltered.</span>
-      </h2>
-
-      <div class="media-gallery__grid">
-        <div class="media-gallery__item media-gallery__item--video">
-          <iframe src="https://www.instagram.com/reel/ppfathletics/?utm_source=ig_embed" allowfullscreen loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" title="Sprint Mechanics — PPF Athletics" style="border:0;width:100%;height:100%;border-radius:inherit"></iframe>
-          <div class="media-gallery__item-label">Sprint Mechanics</div>
-          <div class="media-gallery__item-desc">Timing gates. Side angle. Full drive phase.</div>
-        </div>
-        <div class="media-gallery__item media-gallery__item--video">
-          <iframe src="https://www.instagram.com/reel/ppfathletics/?utm_source=ig_embed" allowfullscreen loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" title="Coached Deadlift — PPF Athletics" style="border:0;width:100%;height:100%;border-radius:inherit"></iframe>
-          <div class="media-gallery__item-label">Coached Deadlift</div>
-          <div class="media-gallery__item-desc">Coach cueing posture under load. Real time.</div>
-        </div>
-        <div class="media-gallery__item media-gallery__item--video">
-          <iframe src="https://www.instagram.com/reel/ppfathletics/?utm_source=ig_embed" allowfullscreen loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" title="Integrated Session — PPF Athletics" style="border:0;width:100%;height:100%;border-radius:inherit"></iframe>
-          <div class="media-gallery__item-label">Integrated Session</div>
-          <div class="media-gallery__item-desc">Adaptive coaching. Eye level. Full support.</div>
-        </div>
-        <div class="media-gallery__item" data-media-needed="photo: athletes on turf, timing gates visible, stopwatch or film setup">
-          <div class="media-gallery__item-label">Combine Day</div>
-        </div>
-        <div class="media-gallery__item" data-media-needed="photo: real handwritten whiteboard with day's programming visible">
-          <div class="media-gallery__item-label">Today's Programming</div>
-        </div>
-        <div class="media-gallery__item" data-media-needed="photo: Richard or Rebecca actively coaching, cueing an athlete mid-rep">
-          <div class="media-gallery__item-label">Mid-Rep Coaching</div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Can my child and I train at PPF at the same time?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Yes. PPF runs Athlete Path, Adult Path, and Integrated sessions concurrently in the same facility. Many families train at the same time in their respective paths — each with their own coach and programming.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>How do you track progress and hold me accountable?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>Every member goes through periodic benchmark testing — 40-yard dash, squat max, body composition, and more. Coaches log your results, track trends, and adjust programming. You always know exactly where you stand and what to work on next.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>What does the Integrated Path look like for someone with a disability?</span>
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer">
+              <p>The Integrated Path is fully adaptive — every exercise is modified to the individual, not the other way around. Coaches work at eye level, build motor patterns progressively, and celebrate independence milestones. It is real coaching, not babysitting.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -3523,39 +3510,144 @@
   </section>
 
   <!-- ============================================================
-       SOCIAL — CLEAN SOCIAL PROOF STRIP
+       7. LIVE FROM THE FLOOR — Social media proof wall
   ============================================================ -->
-  <section class="section social-section" id="social">
-    <div class="container">
-      <div class="section-label reveal-up">COMMUNITY</div>
+  <section class="section ppf-social-wall" id="mediaGallery">
+    <div class="ppf-social-wall__inner">
+      <div class="section-label reveal-up">LIVE FROM THE FLOOR</div>
       <h2 class="section-title reveal-up">
-        See the Work.<br />
-        <span class="accent">Follow the Standard.</span>
+        Recent Work from<br />
+        <span class="accent">@ppfathletics</span>
       </h2>
+      <p class="ppf-social-wall__intro reveal-up">Coaching is the standard. Watch the work.</p>
 
-      <div class="eco-social-bar reveal-up">
-        <div class="eco-social-links">
-          <a href="https://www.instagram.com/ppfathletics" target="_blank" rel="noopener noreferrer" class="eco-social-link" data-platform="instagram">
+      <!-- Featured Reel — large embed -->
+      <div class="ppf-social-wall__featured reveal-up">
+        <div class="ppf-social-wall__embed" id="ppfFeaturedEmbed">
+          <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/ppfathletics/" data-instgrm-version="14">
+            <a href="https://www.instagram.com/ppfathletics/" target="_blank" rel="noopener noreferrer">View this post on Instagram — @ppfathletics</a>
+          </blockquote>
+        </div>
+        <div class="ppf-social-wall__featured-info">
+          <div class="ppf-social-wall__featured-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="10"/></svg>
+            FEATURED
+          </div>
+          <h3 class="ppf-social-wall__featured-title">The Standard in Action</h3>
+          <p class="ppf-social-wall__featured-desc">Every session. Every rep. Every cue. This is what coached training looks like — no shortcuts, no guessing, no wasted movement.</p>
+          <a href="https://www.instagram.com/ppfathletics/" target="_blank" rel="noopener noreferrer" class="ppf-social-wall__follow-btn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            <span class="eco-social-link__name">PPF Athletics</span>
-            <span class="eco-social-link__handle">@ppfathletics</span>
-          </a>
-          <a href="https://www.instagram.com/ppf_adaptedfitness" target="_blank" rel="noopener noreferrer" class="eco-social-link" data-platform="instagram-integrated">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-            <span class="eco-social-link__name">Integrated Fitness</span>
-            <span class="eco-social-link__handle">@ppf_adaptedfitness</span>
-          </a>
-          <a href="https://www.facebook.com/ppfathletics" target="_blank" rel="noopener noreferrer" class="eco-social-link" data-platform="facebook">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-            <span class="eco-social-link__name">Facebook</span>
-            <span class="eco-social-link__handle">PPF Athletics</span>
-          </a>
-          <a href="https://x.com/ppfathletics" target="_blank" rel="noopener noreferrer" class="eco-social-link" data-platform="x">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4l11.733 16h4.267l-11.733-16zM4 20l6.768-6.768M13.232 10.768L20 4"/></svg>
-            <span class="eco-social-link__name">X / Twitter</span>
-            <span class="eco-social-link__handle">PPF Athletics</span>
+            Follow @ppfathletics
           </a>
         </div>
+      </div>
+
+      <!-- Content Cards Grid — recent highlights -->
+      <div class="ppf-social-wall__grid reveal-up">
+        <a href="https://www.instagram.com/ppfathletics/" target="_blank" rel="noopener noreferrer" class="ppf-social-wall__card">
+          <div class="ppf-social-wall__card-visual">
+            <svg class="ppf-social-wall__card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <div class="ppf-social-wall__card-type">REEL</div>
+          </div>
+          <div class="ppf-social-wall__card-body">
+            <div class="ppf-social-wall__card-title">Sprint Mechanics</div>
+            <div class="ppf-social-wall__card-desc">Timing gates. Side angle. Full drive phase.</div>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/ppfathletics/" target="_blank" rel="noopener noreferrer" class="ppf-social-wall__card">
+          <div class="ppf-social-wall__card-visual">
+            <svg class="ppf-social-wall__card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <div class="ppf-social-wall__card-type">REEL</div>
+          </div>
+          <div class="ppf-social-wall__card-body">
+            <div class="ppf-social-wall__card-title">Coached Deadlift</div>
+            <div class="ppf-social-wall__card-desc">Coach cueing posture under load. Real time.</div>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/ppfathletics/" target="_blank" rel="noopener noreferrer" class="ppf-social-wall__card">
+          <div class="ppf-social-wall__card-visual">
+            <svg class="ppf-social-wall__card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <div class="ppf-social-wall__card-type">REEL</div>
+          </div>
+          <div class="ppf-social-wall__card-body">
+            <div class="ppf-social-wall__card-title">Integrated Session</div>
+            <div class="ppf-social-wall__card-desc">Adaptive coaching. Eye level. Full support.</div>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/ppfathletics/" target="_blank" rel="noopener noreferrer" class="ppf-social-wall__card">
+          <div class="ppf-social-wall__card-visual">
+            <svg class="ppf-social-wall__card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="ppf-social-wall__card-type">POST</div>
+          </div>
+          <div class="ppf-social-wall__card-body">
+            <div class="ppf-social-wall__card-title">Combine Day</div>
+            <div class="ppf-social-wall__card-desc">Athletes on turf. Timing gates. Game day prep.</div>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/ppfathletics/" target="_blank" rel="noopener noreferrer" class="ppf-social-wall__card">
+          <div class="ppf-social-wall__card-visual">
+            <svg class="ppf-social-wall__card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <div class="ppf-social-wall__card-type">POST</div>
+          </div>
+          <div class="ppf-social-wall__card-body">
+            <div class="ppf-social-wall__card-title">Today's Programming</div>
+            <div class="ppf-social-wall__card-desc">Whiteboard. Structure. Every session planned.</div>
+          </div>
+        </a>
+        <a href="https://www.instagram.com/ppf_adaptedfitness" target="_blank" rel="noopener noreferrer" class="ppf-social-wall__card">
+          <div class="ppf-social-wall__card-visual">
+            <svg class="ppf-social-wall__card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <div class="ppf-social-wall__card-type">REEL</div>
+          </div>
+          <div class="ppf-social-wall__card-body">
+            <div class="ppf-social-wall__card-title">Mid-Rep Coaching</div>
+            <div class="ppf-social-wall__card-desc">Active coaching cues. Every rep accounted for.</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- This week strip -->
+      <div class="ppf-social-wall__week-strip reveal-up">
+        <div class="ppf-social-wall__week-label">THIS WEEK AT PPF</div>
+        <div class="ppf-social-wall__week-items">
+          <div class="ppf-social-wall__week-item">
+            <span class="ppf-social-wall__week-num">6</span>
+            <span class="ppf-social-wall__week-text">Sessions Coached</span>
+          </div>
+          <div class="ppf-social-wall__week-item">
+            <span class="ppf-social-wall__week-num">3</span>
+            <span class="ppf-social-wall__week-text">Paths Active</span>
+          </div>
+          <div class="ppf-social-wall__week-item">
+            <span class="ppf-social-wall__week-num">40+</span>
+            <span class="ppf-social-wall__week-text">Athletes on Floor</span>
+          </div>
+          <div class="ppf-social-wall__week-item">
+            <span class="ppf-social-wall__week-num">100%</span>
+            <span class="ppf-social-wall__week-text">Coach-Led</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social accounts bar -->
+      <div class="ppf-social-wall__accounts reveal-up">
+        <a href="https://www.instagram.com/ppfathletics" target="_blank" rel="noopener noreferrer" class="ppf-social-wall__account ppf-social-wall__account--primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          <span class="ppf-social-wall__account-name">@ppfathletics</span>
+          <span class="ppf-social-wall__account-badge">PRIMARY</span>
+        </a>
+        <a href="https://www.instagram.com/ppf_adaptedfitness" target="_blank" rel="noopener noreferrer" class="ppf-social-wall__account">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          <span class="ppf-social-wall__account-name">@ppf_adaptedfitness</span>
+        </a>
+        <a href="https://www.facebook.com/ppfathletics" target="_blank" rel="noopener noreferrer" class="ppf-social-wall__account">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          <span class="ppf-social-wall__account-name">Facebook</span>
+        </a>
+        <a href="https://x.com/ppfathletics" target="_blank" rel="noopener noreferrer" class="ppf-social-wall__account">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4l11.733 16h4.267l-11.733-16zM4 20l6.768-6.768M13.232 10.768L20 4"/></svg>
+          <span class="ppf-social-wall__account-name">X / Twitter</span>
+        </a>
       </div>
 
     </div>
@@ -3573,7 +3665,7 @@
         <div class="footer-brand">
           <div class="footer-logo">
             <span class="logo-mark">PPF</span>
-            <span class="logo-tag">ATHLETICS</span>
+            <span class="logo-tag">POWER PERFORMANCE &amp; FITNESS</span>
           </div>
           <p class="footer-brand-line">Three Paths. One Standard.</p>
           <p class="footer-brand-sub">Coaching is the standard. Proven in every room.</p>

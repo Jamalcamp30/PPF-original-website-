@@ -940,3 +940,356 @@
     min-height: 160px;
   }
 }
+
+/* ============================================================
+   PPF SOCIAL WALL — Live From The Floor
+   ============================================================ */
+.ppf-social-wall {
+  padding: 80px 0 60px;
+  background: #080808;
+}
+
+.ppf-social-wall__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.ppf-social-wall__intro {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.04em;
+  margin-top: 8px;
+  margin-bottom: 40px;
+}
+
+/* Featured embed area */
+.ppf-social-wall__featured {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+  margin-bottom: 48px;
+  align-items: start;
+}
+
+.ppf-social-wall__embed {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ppf-social-wall__embed .instagram-media {
+  margin: 0 !important;
+  max-width: 100% !important;
+  min-width: 100% !important;
+  width: 100% !important;
+}
+
+.ppf-social-wall__featured-info {
+  padding: 20px 0;
+}
+
+.ppf-social-wall__featured-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ff5500;
+  margin-bottom: 16px;
+}
+
+.ppf-social-wall__featured-badge svg {
+  width: 14px;
+  height: 14px;
+  stroke: #ff5500;
+}
+
+.ppf-social-wall__featured-title {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.6rem;
+  letter-spacing: 0.06em;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.ppf-social-wall__featured-desc {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 24px;
+}
+
+.ppf-social-wall__follow-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #ff5500 0%, #e04400 100%);
+  color: #fff;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ppf-social-wall__follow-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(255,85,0,0.3);
+}
+
+.ppf-social-wall__follow-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Content card grid */
+.ppf-social-wall__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.ppf-social-wall__card {
+  display: flex;
+  flex-direction: column;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  overflow: hidden;
+  text-decoration: none;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.ppf-social-wall__card:hover {
+  border-color: rgba(255,85,0,0.2);
+  transform: translateY(-2px);
+}
+
+.ppf-social-wall__card-visual {
+  position: relative;
+  aspect-ratio: 16/10;
+  background: linear-gradient(135deg, rgba(255,85,0,0.04) 0%, rgba(255,255,255,0.01) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ppf-social-wall__card-icon {
+  width: 40px;
+  height: 40px;
+  stroke: rgba(255,255,255,0.2);
+  transition: stroke 0.3s ease;
+}
+
+.ppf-social-wall__card:hover .ppf-social-wall__card-icon {
+  stroke: #ff5500;
+}
+
+.ppf-social-wall__card-type {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  background: rgba(0,0,0,0.4);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.ppf-social-wall__card-body {
+  padding: 14px 16px 18px;
+}
+
+.ppf-social-wall__card-title {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 0.88rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 4px;
+}
+
+.ppf-social-wall__card-desc {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.5;
+}
+
+/* This week strip */
+.ppf-social-wall__week-strip {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 20px 28px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  margin-bottom: 40px;
+}
+
+.ppf-social-wall__week-label {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #ff5500;
+  white-space: nowrap;
+}
+
+.ppf-social-wall__week-items {
+  display: flex;
+  gap: 32px;
+  flex: 1;
+}
+
+.ppf-social-wall__week-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.ppf-social-wall__week-num {
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.ppf-social-wall__week-text {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.04em;
+}
+
+/* Social accounts bar */
+.ppf-social-wall__accounts {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ppf-social-wall__account {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px;
+  text-decoration: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.ppf-social-wall__account:hover {
+  border-color: rgba(255,85,0,0.15);
+  background: rgba(255,255,255,0.04);
+}
+
+.ppf-social-wall__account--primary {
+  border-color: rgba(255,85,0,0.15);
+  background: rgba(255,85,0,0.04);
+}
+
+.ppf-social-wall__account svg {
+  width: 18px;
+  height: 18px;
+  stroke: rgba(255,255,255,0.5);
+  flex-shrink: 0;
+}
+
+.ppf-social-wall__account--primary svg {
+  stroke: #ff5500;
+}
+
+.ppf-social-wall__account-name {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.02em;
+}
+
+.ppf-social-wall__account--primary .ppf-social-wall__account-name {
+  color: #fff;
+}
+
+.ppf-social-wall__account-badge {
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ff5500;
+  background: rgba(255,85,0,0.1);
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+/* Member Preview — kept but refined */
+.member-preview {
+  padding: 60px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ppf-social-wall__featured {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .ppf-social-wall__embed {
+    min-height: 300px;
+  }
+
+  .ppf-social-wall__grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .ppf-social-wall__week-strip {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .ppf-social-wall__week-items {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .ppf-social-wall__accounts {
+    flex-direction: column;
+  }
+
+  .ppf-social-wall__account {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .ppf-social-wall__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ppf-social-wall__featured {
+    grid-template-columns: 1fr 1fr;
+  }
+}

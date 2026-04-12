@@ -8781,14 +8781,23 @@ body.focus-mode .focus-target {
   pointer-events: auto;
 }
 .section-indicator__dot {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
   background: transparent;
   transition: all 0.4s var(--ease-out-expo);
   cursor: pointer;
   position: relative;
+  /* Increase clickable area with padding */
+  padding: 0;
+  box-sizing: content-box;
+}
+.section-indicator__dot::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
 }
 .section-indicator__dot:hover {
   border-color: rgba(255, 255, 255, 0.4);
