@@ -144,8 +144,9 @@ button {
   transition: width 0.3s var(--ease-out-expo),
               height 0.3s var(--ease-out-expo),
               border-color 0.3s,
-              opacity 0.3s;
-  mix-blend-mode: difference;
+              opacity 0.3s,
+              background 0.3s;
+  will-change: left, top;
 }
 
 .cursor-dot {
@@ -157,18 +158,29 @@ button {
   pointer-events: none;
   z-index: 999999;
   transform: translate(-50%, -50%);
-  transition: transform 0.1s;
+  transition: transform 0.15s var(--ease-out-expo),
+              width 0.2s ease,
+              height 0.2s ease;
+  will-change: left, top;
 }
 
 .cursor-ring.hovering {
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
   border-color: var(--orange);
+  background: rgba(255, 85, 0, 0.04);
+}
+
+.cursor-ring.hovering + .cursor-dot,
+.cursor-ring.hovering ~ .cursor-dot {
+  width: 3px;
+  height: 3px;
 }
 
 .cursor-ring.clicking {
   width: 28px;
   height: 28px;
+  background: rgba(255, 85, 0, 0.08);
 }
 
 /* ── NAVIGATION ─────────────────────────────────────── */
@@ -1466,6 +1478,7 @@ button {
   transform: scale(0.97);
   transition: opacity 0.4s ease, transform 0.4s ease;
   overflow-y: auto;
+  cursor: none;
 }
 
 .path-card.unlocked .path-unlock-panel {
@@ -8724,11 +8737,20 @@ body.focus-mode .focus-target {
 
 /* ── SECTION BREATHING ROOM — Increased spacing between major sections ── */
 .section + .section {
-  margin-top: 40px;
+  margin-top: 32px;
+}
+/* Subtle section separator line for visual rhythm */
+.section + .section::before {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 85, 0, 0.15), transparent);
+  margin: 0 auto 0;
 }
 @media (max-width: 768px) {
   .section + .section {
-    margin-top: 24px;
+    margin-top: 20px;
   }
 }
 
@@ -8738,39 +8760,44 @@ body.focus-mode .focus-target {
   top: 0;
   left: 0;
   width: 0%;
-  height: 3px;
-  background: var(--orange);
-  z-index: 10001;
-  transition: width 0.1s linear;
+  height: 2px;
+  background: linear-gradient(90deg, var(--orange) 0%, #ff8844 50%, var(--orange) 100%);
+  z-index: 999998;
+  transition: width 0.08s linear;
   pointer-events: none;
+  box-shadow: 0 0 8px rgba(255, 85, 0, 0.3);
 }
 
 /* ── SECTION INDICATOR — Shows current section name ──────────────────── */
 .section-indicator {
   position: fixed;
-  right: 24px;
+  right: 20px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 9999;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   pointer-events: auto;
 }
 .section-indicator__dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  border: 1.5px solid var(--gray-500);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
   background: transparent;
-  transition: all 0.3s var(--ease-out-expo);
+  transition: all 0.4s var(--ease-out-expo);
   cursor: pointer;
   position: relative;
+}
+.section-indicator__dot:hover {
+  border-color: rgba(255, 255, 255, 0.4);
 }
 .section-indicator__dot.active {
   background: var(--orange);
   border-color: var(--orange);
-  transform: scale(1.3);
+  transform: scale(1.4);
+  box-shadow: 0 0 6px rgba(255, 85, 0, 0.3);
 }
 .section-indicator__dot::after {
   content: attr(data-label);
@@ -8800,8 +8827,8 @@ body.focus-mode .focus-target {
 
 /* ── DARK MODE TOGGLE ────────────────────────────────────────────────── */
 .dark-mode-toggle {
-  background: none;
-  border: 1.5px solid var(--gray-500);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   width: 34px;
   height: 34px;
@@ -8809,7 +8836,7 @@ body.focus-mode .focus-target {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.3s var(--ease-out-expo);
   margin-left: 8px;
   padding: 0;
   color: var(--gray-300);
@@ -8818,34 +8845,39 @@ body.focus-mode .focus-target {
 .dark-mode-toggle:hover {
   border-color: var(--orange);
   color: var(--orange);
+  background: rgba(255, 85, 0, 0.06);
+  transform: rotate(15deg);
 }
 .dark-mode-toggle svg {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
 }
 
 /* Light mode overrides */
 body.light-mode {
-  --bg-base:        #f5f5f5;
-  --bg-surface:     #eaeaea;
-  --bg-elevated:    #e0e0e0;
+  --bg-base:        #fafafa;
+  --bg-surface:     #f0f0f0;
+  --bg-elevated:    #e8e8e8;
   --bg-card:        #ffffff;
-  --bg-card-hover:  #f0f0f0;
+  --bg-card-hover:  #f5f5f5;
   --white:          #111111;
   --gray-100:       #1a1a1a;
-  --gray-300:       #444444;
-  --gray-500:       #888888;
-  --gray-700:       #d0d0d0;
-  --gray-800:       #e0e0e0;
+  --gray-300:       #555555;
+  --gray-500:       #999999;
+  --gray-700:       #d4d4d4;
+  --gray-800:       #e5e5e5;
 }
 body.light-mode .site-nav {
-  background: rgba(245, 245, 245, 0.92);
+  background: rgba(250, 250, 250, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 body.light-mode .site-nav.scrolled {
-  background: rgba(245, 245, 245, 0.96);
+  background: rgba(250, 250, 250, 0.95);
+  border-bottom-color: rgba(255, 85, 0, 0.1);
 }
 body.light-mode .hero-video-overlay {
-  background: rgba(245, 245, 245, 0.6);
+  background: rgba(250, 250, 250, 0.7);
 }
 body.light-mode .proof-wall {
   background: var(--bg-surface);
@@ -8854,18 +8886,35 @@ body.light-mode .footer-ambient {
   display: none;
 }
 body.light-mode .nav-links {
-  background: rgba(245, 245, 245, 0.98);
+  background: rgba(250, 250, 250, 0.98);
 }
 body.light-mode .dark-mode-toggle {
-  border-color: var(--gray-500);
+  border-color: rgba(0, 0, 0, 0.12);
   color: var(--gray-300);
+  background: rgba(0, 0, 0, 0.03);
+}
+body.light-mode .cursor-ring {
+  border-color: rgba(255, 85, 0, 0.8);
+}
+body.light-mode .scroll-progress {
+  box-shadow: 0 0 6px rgba(255, 85, 0, 0.2);
+}
+body.light-mode .section-indicator__dot {
+  border-color: rgba(0, 0, 0, 0.12);
+}
+body.light-mode .path-card {
+  border-color: rgba(0, 0, 0, 0.06);
+}
+body.light-mode .cta-shell {
+  background: linear-gradient(180deg, #ffffff 0%, #f5f5f5 100%);
+  border-color: rgba(255, 85, 0, 0.2);
 }
 
-/* ── MICRO-INTERACTIONS ON SCROLL — Subtle parallax & fade ───────────── */
+/* ── MICRO-INTERACTIONS ON SCROLL — Subtle, sleek reveals ────────────── */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
+  transform: translateY(20px);
+  transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
 }
 .scroll-reveal.visible {
   opacity: 1;
@@ -8873,10 +8922,17 @@ body.light-mode .dark-mode-toggle {
 }
 .scroll-scale {
   opacity: 0;
-  transform: scale(0.96);
-  transition: opacity 0.5s ease, transform 0.5s var(--ease-out-expo);
+  transform: scale(0.97) translateY(8px);
+  transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo);
 }
 .scroll-scale.visible {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1) translateY(0);
 }
+
+/* Stagger children for a wave effect */
+.scroll-scale:nth-child(2) { transition-delay: 0.06s; }
+.scroll-scale:nth-child(3) { transition-delay: 0.12s; }
+.scroll-scale:nth-child(4) { transition-delay: 0.18s; }
+.scroll-scale:nth-child(5) { transition-delay: 0.24s; }
+.scroll-scale:nth-child(6) { transition-delay: 0.30s; }
