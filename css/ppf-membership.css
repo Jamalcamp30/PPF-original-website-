@@ -918,3 +918,12 @@
     transform: none;
   }
 }
+
+/* "Best for" recommendation line on pricing cards */
+.ppf-ms__card-best-for {
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.08em;
+  margin-top: 8px;
+  font-style: italic;
+}

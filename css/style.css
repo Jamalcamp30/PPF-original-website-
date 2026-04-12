@@ -2656,6 +2656,40 @@ button {
   color: var(--gray-500);
 }
 
+.footer-legal {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.35);
+}
+.footer-legal-link {
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+.footer-legal-link:hover {
+  color: rgba(255,255,255,0.6);
+  border-bottom-color: rgba(255,255,255,0.3);
+}
+
+/* Local trust strip near Start Here */
+.local-trust-strip {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+  padding: 16px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.local-trust-strip__item {
+  font-size: 0.76rem;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.5);
+}
+
 /* =====================================================
    STORY OUTCOME BADGES — PROOF ENGINE ENHANCEMENT
    ===================================================== */
