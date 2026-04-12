@@ -1207,6 +1207,84 @@ button {
 .path-card[data-path="adult"] .path-branded-sub { color: #6a8fff; }
 .path-card[data-path="integrated"] .path-branded-sub { color: #50c878; }
 
+/* ── Path-specific openers — distinct emotional gravity per card ── */
+
+/* Athlete hero metric — big number first */
+.path-hero-metric {
+  margin-bottom: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 85, 0, 0.12);
+}
+.path-hero-metric__num {
+  font-family: var(--font-display);
+  font-size: 42px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--orange);
+}
+.path-hero-metric__label {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin-top: 6px;
+}
+
+/* Adult philosophy quote — grounded coaching voice */
+.path-philosophy {
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  border-left: 2px solid #6a8fff;
+  background: rgba(100, 140, 255, 0.04);
+  border-radius: 0 4px 4px 0;
+}
+.path-philosophy__line {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--white);
+  line-height: 1.3;
+  letter-spacing: 0.02em;
+}
+.path-philosophy__attr {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(100, 140, 255, 0.6);
+  margin-top: 8px;
+}
+
+/* Integrated trust statement — warmth and safety first */
+.path-trust-statement {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 20px;
+  padding: 16px 20px;
+  background: rgba(80, 200, 120, 0.04);
+  border-radius: 4px;
+  border-left: 2px solid #50c878;
+}
+.path-trust-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  color: #50c878;
+  margin-top: 2px;
+}
+.path-trust-icon svg {
+  width: 100%;
+  height: 100%;
+}
+.path-trust-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--white);
+  font-style: italic;
+}
+
 /* Signature outcome line */
 .path-outcome {
   font-size: 13px;
@@ -3083,6 +3161,24 @@ button {
   font-size: 13px;
   line-height: 1.65;
   color: var(--gray-300);
+}
+
+/* Compact first-visit info (inside whn-timeline) */
+.fv-compact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.fv-compact__item {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--gray-400);
+}
+.fv-compact__item strong {
+  color: var(--white);
 }
 
 /* =====================================================

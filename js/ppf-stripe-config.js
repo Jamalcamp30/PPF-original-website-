@@ -61,9 +61,9 @@ var PPF_STRIPE = (function () {
 
     'adult-3-month': {
       name: 'Adult Membership — 3-Month Commitment',
-      price: '$179',
+      price: '$139',
       period: '/month',
-      total: '$537 total',
+      total: '$417 total',
       mode: 'subscription',
       badge: '',
       badgeColor: '',
@@ -87,9 +87,9 @@ var PPF_STRIPE = (function () {
 
     'adult-6-month': {
       name: 'Adult Membership — 6-Month Commitment',
-      price: '$179',
+      price: '$129',
       period: '/month',
-      total: '$954 total',
+      total: '$774 total',
       mode: 'subscription',
       badge: 'POPULAR',
       badgeColor: '#ff5500',
@@ -113,9 +113,9 @@ var PPF_STRIPE = (function () {
 
     'adult-12-month': {
       name: 'Adult Membership — 12-Month Commitment',
-      price: '$159',
+      price: '$109',
       period: '/month',
-      total: '$1,908 total',
+      total: '$1,308 total',
       mode: 'subscription',
       badge: 'BEST VALUE',
       badgeColor: '#ff5500',
