@@ -25,6 +25,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="dns-prefetch" href="https://www.instagram.com" />
+  <link rel="dns-prefetch" href="https://www.google.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/command-trigger.css" />
@@ -210,6 +212,20 @@
   <div class="cursor-ring" id="cursorRing"></div>
   <div class="cursor-dot" id="cursorDot"></div>
 
+  <!-- SCROLL PROGRESS BAR -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- SECTION INDICATOR (right-side dots) -->
+  <div class="section-indicator" id="sectionIndicator">
+    <div class="section-indicator__dot" data-section="hero" data-label="Home"></div>
+    <div class="section-indicator__dot" data-section="standard" data-label="Standard"></div>
+    <div class="section-indicator__dot" data-section="paths" data-label="Paths"></div>
+    <div class="section-indicator__dot" data-section="proof" data-label="Proof"></div>
+    <div class="section-indicator__dot" data-section="leadership" data-label="Leadership"></div>
+    <div class="section-indicator__dot" data-section="memberships" data-label="Memberships"></div>
+    <div class="section-indicator__dot" data-section="start" data-label="Start"></div>
+  </div>
+
   <!-- NAVIGATION -->
   <nav class="site-nav" id="siteNav">
     <a href="#hero" class="nav-logo" aria-label="PPF Athletics">
@@ -228,6 +244,10 @@
       <li><a href="#start" class="nav-link nav-cta ppf-nav-trigger">Start Here</a></li>
       <li><a href="member/index.html" class="nav-link nav-member-btn">Member Login</a></li>
     </ul>
+    <button class="dark-mode-toggle" id="darkModeToggle" aria-label="Toggle light/dark mode" title="Toggle light/dark mode">
+      <svg class="dm-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg class="dm-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
   </nav>
 
 
@@ -239,7 +259,7 @@
     <div class="hero-video-wrap" id="heroVideoWrap">
       <video class="hero-video" id="heroVideo"
              autoplay muted loop playsinline
-             preload="auto"
+             preload="metadata"
              poster="media/hero-poster.jpg"
              data-media-needed="8-12s silent loop: athlete sprint through timing gates, adult coached deadlift, integrated member success moment, coach cueing correction">
         <!-- Replace these src paths with your exported/combined training clip -->
@@ -3434,17 +3454,20 @@
       </h2>
 
       <div class="media-gallery__grid">
-        <div class="media-gallery__item media-gallery__item--video" data-media-needed="15-30s clip: athlete sprint start through timing gates, side angle">
-          <div class="media-gallery__play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="media-gallery__item media-gallery__item--video">
+          <iframe src="https://www.instagram.com/reel/ppfathletics/?utm_source=ig_embed" allowfullscreen loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" title="Sprint Mechanics — PPF Athletics" style="border:0;width:100%;height:100%;border-radius:inherit"></iframe>
           <div class="media-gallery__item-label">Sprint Mechanics</div>
+          <div class="media-gallery__item-desc">Timing gates. Side angle. Full drive phase.</div>
         </div>
-        <div class="media-gallery__item media-gallery__item--video" data-media-needed="15-30s clip: adult coached deadlift with coach cueing posture">
-          <div class="media-gallery__play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="media-gallery__item media-gallery__item--video">
+          <iframe src="https://www.instagram.com/reel/ppfathletics/?utm_source=ig_embed" allowfullscreen loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" title="Coached Deadlift — PPF Athletics" style="border:0;width:100%;height:100%;border-radius:inherit"></iframe>
           <div class="media-gallery__item-label">Coached Deadlift</div>
+          <div class="media-gallery__item-desc">Coach cueing posture under load. Real time.</div>
         </div>
-        <div class="media-gallery__item media-gallery__item--video" data-media-needed="15-30s clip: integrated member completing movement with coach at eye level">
-          <div class="media-gallery__play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="media-gallery__item media-gallery__item--video">
+          <iframe src="https://www.instagram.com/reel/ppfathletics/?utm_source=ig_embed" allowfullscreen loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups" title="Integrated Session — PPF Athletics" style="border:0;width:100%;height:100%;border-radius:inherit"></iframe>
           <div class="media-gallery__item-label">Integrated Session</div>
+          <div class="media-gallery__item-desc">Adaptive coaching. Eye level. Full support.</div>
         </div>
         <div class="media-gallery__item" data-media-needed="photo: athletes on turf, timing gates visible, stopwatch or film setup">
           <div class="media-gallery__item-label">Combine Day</div>
@@ -3614,18 +3637,18 @@
 
   <script src="js/main.js"></script>
   <script src="js/ppf-hero-video.js"></script>
-  <script src="js/command-trigger.js"></script>
-  <script src="js/world-class-animations.js"></script>
-  <script src="js/ppf-performance-os.js"></script>
-  <script src="js/ppf-elite-animations.js"></script>
-  <script src="js/ppf-systems.js"></script>
-  <script src="js/ppf-ground-response.js"></script>
-  <script src="js/ppf-session-sequence.js"></script>
-  <script src="js/ppf-elite-experience.js"></script>
-  <script src="js/ppf-membership.js"></script>
-  <script src="js/ppf-leadership.js"></script>
-  <script src="js/ppf-premium-animations.js"></script>
-  <script src="js/ppf-blueprint.js"></script>
-  <script src="js/ppf-30x.js"></script>
+  <script src="js/command-trigger.js" defer></script>
+  <script src="js/world-class-animations.js" defer></script>
+  <script src="js/ppf-performance-os.js" defer></script>
+  <script src="js/ppf-elite-animations.js" defer></script>
+  <script src="js/ppf-systems.js" defer></script>
+  <script src="js/ppf-ground-response.js" defer></script>
+  <script src="js/ppf-session-sequence.js" defer></script>
+  <script src="js/ppf-elite-experience.js" defer></script>
+  <script src="js/ppf-membership.js" defer></script>
+  <script src="js/ppf-leadership.js" defer></script>
+  <script src="js/ppf-premium-animations.js" defer></script>
+  <script src="js/ppf-blueprint.js" defer></script>
+  <script src="js/ppf-30x.js" defer></script>
 </body>
 </html>
