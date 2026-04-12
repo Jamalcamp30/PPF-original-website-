@@ -552,8 +552,7 @@ button {
 }
 
 .headline-word:nth-child(1) { animation-delay: 0.5s; }
-.headline-word:nth-child(2) { animation-delay: 0.65s; margin-left: 0.15em; }
-.headline-word:nth-child(3) { animation-delay: 0.8s; }
+.headline-word:nth-child(3) { animation-delay: 0.75s; }
 
 .headline-word.accent { color: var(--orange); }
 
@@ -752,11 +751,35 @@ button {
   text-transform: uppercase;
   color: var(--orange);
   line-height: 1.6;
-  margin-bottom: 32px;
+  margin-bottom: 16px;
   opacity: 0.85;
   padding: 10px 0;
   border-top: 1px solid rgba(255, 85, 0, 0.12);
   margin-top: 16px;
+}
+
+.pillar-anchor {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 28px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.pillar-anchor__num {
+  font-family: var(--font-display);
+  font-size: 36px;
+  line-height: 1;
+  color: var(--white);
+  letter-spacing: -0.02em;
+}
+
+.pillar-anchor__label {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--gray-400);
+  letter-spacing: 0.02em;
 }
 
 .pillar-line {
