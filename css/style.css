@@ -221,12 +221,13 @@ button {
 }
 
 .logo-tag {
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 600;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--orange);
   line-height: 1;
+  white-space: nowrap;
 }
 
 .nav-links {
@@ -8910,6 +8911,45 @@ body.light-mode .scroll-progress {
 }
 body.light-mode .section-indicator__dot {
   border-color: rgba(0, 0, 0, 0.12);
+}
+body.light-mode .ppf-social-wall {
+  background: #f8f8f8;
+}
+body.light-mode .ppf-social-wall__intro,
+body.light-mode .ppf-social-wall__featured-desc,
+body.light-mode .ppf-social-wall__card-desc,
+body.light-mode .ppf-social-wall__week-text {
+  color: rgba(0,0,0,0.5);
+}
+body.light-mode .ppf-social-wall__featured-title,
+body.light-mode .ppf-social-wall__card-title,
+body.light-mode .ppf-social-wall__week-num {
+  color: #111;
+}
+body.light-mode .ppf-social-wall__embed,
+body.light-mode .ppf-social-wall__card,
+body.light-mode .ppf-social-wall__week-strip,
+body.light-mode .ppf-social-wall__account {
+  background: rgba(0,0,0,0.02);
+  border-color: rgba(0,0,0,0.06);
+}
+body.light-mode .ppf-social-wall__card-visual {
+  background: linear-gradient(135deg, rgba(255,85,0,0.03) 0%, rgba(0,0,0,0.01) 100%);
+}
+body.light-mode .ppf-social-wall__card-icon {
+  stroke: rgba(0,0,0,0.15);
+}
+body.light-mode .ppf-social-wall__card:hover .ppf-social-wall__card-icon {
+  stroke: #ff5500;
+}
+body.light-mode .ppf-social-wall__account-name {
+  color: rgba(0,0,0,0.6);
+}
+body.light-mode .ppf-social-wall__account--primary .ppf-social-wall__account-name {
+  color: #111;
+}
+body.light-mode .ppf-social-wall__account svg {
+  stroke: rgba(0,0,0,0.4);
 }
 body.light-mode .path-card {
   border-color: rgba(0, 0, 0, 0.06);
