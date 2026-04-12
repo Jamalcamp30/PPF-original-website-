@@ -842,6 +842,13 @@ button {
   width: 100%;
   height: 100%;
 }
+.evidence-strip__img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}
 .evidence-strip__caption {
   font-size: 11px;
   letter-spacing: 0.08em;
