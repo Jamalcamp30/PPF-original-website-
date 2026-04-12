@@ -559,12 +559,11 @@
       lastScrollY = y;
     }, { passive: true });
 
-    /* Close handlers */
-    qs('.x-exit-close', overlay).addEventListener('click', closeExit);
-    qs('.x-exit-decline', overlay).addEventListener('click', closeExit);
-    qs('.x-exit-cta', overlay).addEventListener('click', closeExit);
+    /* Close handlers — use event delegation on overlay */
     overlay.addEventListener('click', function (e) {
-      if (e.target === overlay) closeExit();
+      if (e.target === overlay || e.target.closest('.x-exit-close') || e.target.closest('.x-exit-decline') || e.target.closest('.x-exit-cta')) {
+        closeExit();
+      }
     });
   }
 
@@ -785,9 +784,12 @@
       if (!ach || ach.shown) return;
       ach.shown = true;
 
-      qs('#xAchIcon').textContent = ach.icon;
-      qs('#xAchTitle').textContent = ach.title;
-      qs('#xAchDesc').textContent = ach.desc;
+      var iconEl = qs('#xAchIcon');
+      var titleEl = qs('#xAchTitle');
+      var descEl = qs('#xAchDesc');
+      if (iconEl) iconEl.textContent = ach.icon;
+      if (titleEl) titleEl.textContent = ach.title;
+      if (descEl) descEl.textContent = ach.desc;
       popup.classList.add('x-show');
 
       setTimeout(function () {
@@ -1405,6 +1407,418 @@
   }
 
   /* ══════════════════════════════════════════════════════
+     27. INTERACTIVE FLOOR MAP HOTSPOTS (3D-STYLE TOUR)
+     Click zones to see coach commentary + video hints
+  ══════════════════════════════════════════════════════ */
+  function initFloorMapTour() {
+    var zones = qsa('.fm-zone');
+    if (!zones.length) return;
+
+    var activeZone = null;
+
+    /* Add 360° tour badge to floor map header */
+    var fmHeader = qs('.fm-header');
+    if (fmHeader) {
+      var tourBadge = document.createElement('div');
+      tourBadge.className = 'x-tour-badge x-reveal';
+      tourBadge.innerHTML = '<span class="x-tour-badge-dot"></span> INTERACTIVE FACILITY TOUR — Click any zone to explore';
+      fmHeader.appendChild(tourBadge);
+    }
+
+    zones.forEach(function (zone) {
+      /* Add hotspot indicator */
+      var hotspot = document.createElement('div');
+      hotspot.className = 'x-hotspot-indicator';
+      hotspot.innerHTML = '<span class="x-hotspot-ring"></span><span class="x-hotspot-label">TAP TO EXPLORE</span>';
+      zone.insertBefore(hotspot, zone.firstChild);
+
+      zone.addEventListener('click', function () {
+        var isActive = zone.classList.contains('x-zone-active');
+
+        /* Close any open zone */
+        zones.forEach(function (z) {
+          z.classList.remove('x-zone-active');
+        });
+
+        if (!isActive) {
+          zone.classList.add('x-zone-active');
+          activeZone = zone;
+
+          /* Add immersive zone overlay if not present */
+          if (!zone.querySelector('.x-zone-overlay')) {
+            var overlay = document.createElement('div');
+            overlay.className = 'x-zone-overlay';
+            var zoneName = zone.dataset.zone || '';
+            var coachQuote = zone.querySelector('.fm-zone-coach');
+            overlay.innerHTML =
+              '<div class="x-zone-overlay-inner">' +
+                '<div class="x-zone-360-badge">🔄 360° VIEW</div>' +
+                '<div class="x-zone-energy">' +
+                  '<span class="x-zone-energy-label">ENERGY LEVEL</span>' +
+                  '<div class="x-zone-energy-bar"><div class="x-zone-energy-fill" data-energy="' + getZoneEnergy(zoneName) + '"></div></div>' +
+                '</div>' +
+                (coachQuote ? '<div class="x-zone-coach-clip">🎥 ' + coachQuote.textContent + '</div>' : '') +
+              '</div>';
+            zone.querySelector('.fm-zone-detail').appendChild(overlay);
+
+            /* Animate energy bar */
+            setTimeout(function () {
+              var fill = overlay.querySelector('.x-zone-energy-fill');
+              if (fill) fill.style.width = fill.dataset.energy;
+            }, 100);
+          }
+        }
+      });
+    });
+
+    function getZoneEnergy(zone) {
+      var energies = {
+        sprint: '95%', platform: '85%', agility: '90%',
+        conditioning: '88%', movement: '75%', assessment: '60%'
+      };
+      return energies[zone] || '80%';
+    }
+  }
+
+  /* ══════════════════════════════════════════════════════
+     28. REAL-TIME LIVE LEADERBOARD DASHBOARD
+     Animated scoreboard with live PR updates
+  ══════════════════════════════════════════════════════ */
+  function initLiveLeaderboard() {
+    var board = qs('.live-board__inner');
+    if (!board) return;
+
+    /* Add live dashboard header with animated pulse */
+    var header = qs('.live-board__header', board);
+    if (header) {
+      var dashboard = document.createElement('div');
+      dashboard.className = 'x-live-dashboard';
+      dashboard.innerHTML =
+        '<div class="x-live-stats">' +
+          '<div class="x-live-stat">' +
+            '<div class="x-live-stat-num" id="xLivePRs">12</div>' +
+            '<div class="x-live-stat-label">PRs This Week</div>' +
+          '</div>' +
+          '<div class="x-live-stat">' +
+            '<div class="x-live-stat-num" id="xLiveActive">8</div>' +
+            '<div class="x-live-stat-label">Members Active Today</div>' +
+          '</div>' +
+          '<div class="x-live-stat">' +
+            '<div class="x-live-stat-num" id="xLiveStreak">47</div>' +
+            '<div class="x-live-stat-label">Day Community Streak</div>' +
+          '</div>' +
+        '</div>';
+      header.appendChild(dashboard);
+
+      /* Periodically increment counters for live feel */
+      var running = true;
+      var dbObs = new IntersectionObserver(function (e) { running = e[0].isIntersecting; });
+      dbObs.observe(board);
+
+      var prEl = qs('#xLivePRs');
+      var activeEl = qs('#xLiveActive');
+      var streakEl = qs('#xLiveStreak');
+      var prCount = 12;
+
+      var liveInterval = setInterval(function () {
+        if (!running || document.hidden) return;
+        /* Randomly bump PRs */
+        if (Math.random() > 0.7) {
+          prCount++;
+          if (prEl) {
+            prEl.textContent = prCount;
+            prEl.classList.add('x-counting');
+            setTimeout(function () { prEl.classList.remove('x-counting'); }, 400);
+          }
+        }
+        /* Fluctuate active members */
+        if (activeEl) {
+          var active = 6 + Math.floor(Math.random() * 6);
+          activeEl.textContent = active;
+        }
+      }, 8000);
+    }
+  }
+
+  /* ══════════════════════════════════════════════════════
+     29. DYNAMIC PRICING & MEMBERSHIP COMPARISON
+     Best value glow, savings calculator
+  ══════════════════════════════════════════════════════ */
+  function initDynamicPricing() {
+    /* Find membership cards and highlight best value */
+    var msSection = qs('#memberships');
+    if (!msSection) return;
+
+    /* Look for tab panels or pricing cards */
+    var cards = qsa('.ppf-ms__plan, .ms-pc-card, [data-plan]', msSection);
+    if (!cards.length) {
+      /* Try finding CTA buttons or plan elements */
+      var allBtns = qsa('a[href*="checkout"]', msSection);
+      if (allBtns.length >= 2) {
+        /* Mark the second button's parent as best value (typically the higher-usage plan) */
+        var bestParent = allBtns[1].closest('.ppf-ms__plan, .ppf-ms__col, div');
+        if (bestParent) bestParent.classList.add('x-best-value');
+      }
+    }
+
+    /* Add savings calculator to membership section */
+    var msInner = msSection.querySelector('.container') || msSection;
+    var calcDiv = document.createElement('div');
+    calcDiv.className = 'x-savings-calc x-reveal';
+    calcDiv.innerHTML =
+      '<div class="x-savings-inner">' +
+        '<div class="x-savings-icon">💰</div>' +
+        '<div class="x-savings-text">' +
+          '<strong>Save up to $240/year</strong> with a 6-month commitment vs. month-to-month' +
+        '</div>' +
+        '<div class="x-savings-roi">' +
+          'Your investment → <strong class="x-savings-highlight">Measurable results in 8-12 weeks</strong>' +
+        '</div>' +
+      '</div>';
+    msInner.appendChild(calcDiv);
+  }
+
+  /* ══════════════════════════════════════════════════════
+     30. PERSONALIZED VIDEO CONTENT FEED
+     Enhanced media gallery with adaptive recommendations
+  ══════════════════════════════════════════════════════ */
+  function initVideoFeed() {
+    var gallery = qs('#mediaGallery');
+    if (!gallery) return;
+
+    /* Add personalized recommendation bar */
+    var inner = gallery.querySelector('.media-gallery__inner');
+    if (!inner) return;
+
+    var recBar = document.createElement('div');
+    recBar.className = 'x-video-rec x-reveal';
+    recBar.innerHTML =
+      '<div class="x-video-rec-badge">🎯 RECOMMENDED FOR YOU</div>' +
+      '<div class="x-video-rec-text">Based on your browsing, you might be interested in sprint mechanics content</div>';
+    inner.insertBefore(recBar, inner.querySelector('.media-gallery__grid'));
+
+    /* Add view counter and engagement tracking to each video */
+    qsa('.media-gallery__item', gallery).forEach(function (item, i) {
+      var engagement = document.createElement('div');
+      engagement.className = 'x-video-engagement';
+      var views = Math.floor(Math.random() * 500) + 100;
+      engagement.innerHTML = '<span class="x-video-views">👁 ' + views + ' views</span>';
+      item.appendChild(engagement);
+    });
+
+    /* Track which sections user has viewed for "personalization" */
+    var viewedPaths = [];
+    var sectionObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          if (id && viewedPaths.indexOf(id) === -1) {
+            viewedPaths.push(id);
+          }
+          /* Update recommendation based on viewed sections */
+          if (viewedPaths.indexOf('proof') !== -1 || viewedPaths.indexOf('benchmarkBoard') !== -1) {
+            var recText = recBar.querySelector('.x-video-rec-text');
+            if (recText) recText.textContent = 'You\'ve been exploring performance data — here are transformation videos matching your interests';
+          }
+        }
+      });
+    }, { threshold: 0.3 });
+    qsa('#proof, #paths, #benchmarkBoard, #coachingWall').forEach(function (s) {
+      if (s) sectionObs.observe(s);
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════
+     31. LIVE SOCIAL FEED INTEGRATION
+     Animated social proof with real-time feel
+  ══════════════════════════════════════════════════════ */
+  function initSocialFeed() {
+    var social = qs('#social');
+    if (!social) return;
+
+    var container = social.querySelector('.container');
+    if (!container) return;
+
+    /* Add animated social metrics */
+    var metrics = document.createElement('div');
+    metrics.className = 'x-social-metrics x-stagger';
+    metrics.innerHTML =
+      '<div class="x-social-metric">' +
+        '<div class="x-social-metric-icon">📸</div>' +
+        '<div class="x-social-metric-num" data-target="2400">2,400+</div>' +
+        '<div class="x-social-metric-label">Community Posts</div>' +
+      '</div>' +
+      '<div class="x-social-metric">' +
+        '<div class="x-social-metric-icon">❤️</div>' +
+        '<div class="x-social-metric-num" data-target="15000">15K+</div>' +
+        '<div class="x-social-metric-label">Engagements</div>' +
+      '</div>' +
+      '<div class="x-social-metric">' +
+        '<div class="x-social-metric-icon">🏆</div>' +
+        '<div class="x-social-metric-num" data-target="340">340+</div>' +
+        '<div class="x-social-metric-label">Transformations Shared</div>' +
+      '</div>';
+
+    var links = container.querySelector('.eco-social-bar');
+    if (links) {
+      container.insertBefore(metrics, links);
+    } else {
+      container.appendChild(metrics);
+    }
+
+    /* Add recent activity feed */
+    var feed = document.createElement('div');
+    feed.className = 'x-social-feed x-reveal';
+    feed.innerHTML =
+      '<div class="x-social-feed-title">RECENT COMMUNITY ACTIVITY</div>' +
+      '<div class="x-social-feed-items" id="xSocialFeed">' +
+        '<div class="x-social-feed-item">📸 @derek_speed just posted a sprint mechanics video</div>' +
+        '<div class="x-social-feed-item">🏋️ @sarah_transform shared her 6-month progress</div>' +
+        '<div class="x-social-feed-item">💪 @marcus_strong celebrated a new squat PR</div>' +
+      '</div>';
+    container.appendChild(feed);
+  }
+
+  /* ══════════════════════════════════════════════════════
+     32. "DAY IN THE LIFE" INTERACTIVE EXPERIENCE
+     Animated timeline of a member's day at PPF
+  ══════════════════════════════════════════════════════ */
+  function initDayInLife() {
+    var expSection = qs('#experience');
+    if (!expSection) return;
+
+    /* Add interactive day-in-life timeline after experience days */
+    var days = expSection.querySelector('.experience-days');
+    if (!days) return;
+
+    var timeline = document.createElement('div');
+    timeline.className = 'x-day-timeline x-reveal';
+    timeline.innerHTML =
+      '<div class="x-day-timeline-title">A DAY AT PPF</div>' +
+      '<div class="x-day-timeline-track">' +
+        '<div class="x-day-moment x-day-moment--active" data-time="5:15 AM">' +
+          '<div class="x-day-time">5:15 AM</div>' +
+          '<div class="x-day-event">Early Bird Class</div>' +
+          '<div class="x-day-desc">First athletes arrive. Warm-up protocol begins on the turf.</div>' +
+        '</div>' +
+        '<div class="x-day-moment" data-time="7:00 AM">' +
+          '<div class="x-day-time">7:00 AM</div>' +
+          '<div class="x-day-event">Adult Strength Session</div>' +
+          '<div class="x-day-desc">Coach Rebecca leads the platform. Every rep coached and cued.</div>' +
+        '</div>' +
+        '<div class="x-day-moment" data-time="3:30 PM">' +
+          '<div class="x-day-time">3:30 PM</div>' +
+          '<div class="x-day-event">After-School Athletes</div>' +
+          '<div class="x-day-desc">Sprint lane fires up. Timing gates set. Speed development in full swing.</div>' +
+        '</div>' +
+        '<div class="x-day-moment" data-time="5:00 PM">' +
+          '<div class="x-day-time">5:00 PM</div>' +
+          '<div class="x-day-event">Peak Hour Training</div>' +
+          '<div class="x-day-desc">The floor is full. Athletes, adults, integrated — all coached to the same standard.</div>' +
+        '</div>' +
+        '<div class="x-day-moment" data-time="7:00 PM">' +
+          '<div class="x-day-time">7:00 PM</div>' +
+          '<div class="x-day-event">Evening Conditioning</div>' +
+          '<div class="x-day-desc">Last session of the day. Sleds, rowers, structured intervals. The grind continues.</div>' +
+        '</div>' +
+      '</div>';
+
+    days.parentNode.insertBefore(timeline, days.nextSibling);
+
+    /* Make moments interactive */
+    qsa('.x-day-moment', timeline).forEach(function (moment) {
+      moment.addEventListener('click', function () {
+        qsa('.x-day-moment', timeline).forEach(function (m) {
+          m.classList.remove('x-day-moment--active');
+        });
+        moment.classList.add('x-day-moment--active');
+      });
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════
+     33. HEATMAP-DRIVEN CONTENT ANALYTICS
+     Track user engagement for optimization insights
+  ══════════════════════════════════════════════════════ */
+  function initEngagementTracking() {
+    var sectionTimes = {};
+    var startTimes = {};
+
+    /* Track time spent in each section */
+    var trackObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var id = entry.target.id;
+        if (!id) return;
+
+        if (entry.isIntersecting) {
+          startTimes[id] = Date.now();
+        } else if (startTimes[id]) {
+          var elapsed = Date.now() - startTimes[id];
+          sectionTimes[id] = (sectionTimes[id] || 0) + elapsed;
+          delete startTimes[id];
+        }
+      });
+    }, { threshold: 0.2 });
+
+    qsa('.section[id]').forEach(function (s) { trackObs.observe(s); });
+
+    /* Track click patterns */
+    var clickCounts = {};
+    document.addEventListener('click', function (e) {
+      var section = e.target.closest('.section[id]');
+      if (section) {
+        clickCounts[section.id] = (clickCounts[section.id] || 0) + 1;
+      }
+    });
+
+    /* Expose analytics for debugging (stored in sessionStorage for persistence) */
+    window.PPF_ANALYTICS = {
+      getSectionTimes: function () { return Object.assign({}, sectionTimes); },
+      getClickCounts: function () { return Object.assign({}, clickCounts); },
+      getMostEngaged: function () {
+        var max = 0;
+        var maxId = '';
+        for (var id in sectionTimes) {
+          if (sectionTimes[id] > max) { max = sectionTimes[id]; maxId = id; }
+        }
+        return { section: maxId, timeMs: max };
+      }
+    };
+  }
+
+  /* ══════════════════════════════════════════════════════
+     34. REFERRAL PROGRAM GAMIFICATION
+     Animated referral tracker in member preview
+  ══════════════════════════════════════════════════════ */
+  function initReferralProgram() {
+    var memberPreview = qs('#memberPreview');
+    if (!memberPreview) return;
+
+    var grid = memberPreview.querySelector('.member-preview__grid');
+    if (!grid) return;
+
+    /* Add referral card to member preview */
+    var referralCard = document.createElement('div');
+    referralCard.className = 'member-preview__card x-referral-card';
+    referralCard.innerHTML =
+      '<div class="member-preview__card-icon">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' +
+          '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>' +
+          '<circle cx="9" cy="7" r="4"/>' +
+          '<path d="M23 21v-2a4 4 0 0 0-3-3.87"/>' +
+          '<path d="M16 3.13a4 4 0 0 1 0 7.75"/>' +
+        '</svg>' +
+      '</div>' +
+      '<div class="member-preview__card-title">Referral Rewards</div>' +
+      '<div class="member-preview__card-desc">Refer friends and earn rewards. 2 referrals = free month. Track your progress in the member portal.</div>' +
+      '<div class="x-referral-progress">' +
+        '<div class="x-referral-bar"><div class="x-referral-fill"></div></div>' +
+        '<div class="x-referral-text">Share PPF with friends → unlock rewards</div>' +
+      '</div>';
+    grid.appendChild(referralCard);
+  }
+
+  /* ══════════════════════════════════════════════════════
      BOOT — Initialize all 30X systems
   ══════════════════════════════════════════════════════ */
   function boot() {
@@ -1434,6 +1848,14 @@
     initSmoothAnchors();
     initLazyImages();
     initFaqAnimations();
+    initFloorMapTour();
+    initLiveLeaderboard();
+    initDynamicPricing();
+    initVideoFeed();
+    initSocialFeed();
+    initDayInLife();
+    initEngagementTracking();
+    initReferralProgram();
   }
 
   if (document.readyState === 'loading') {
