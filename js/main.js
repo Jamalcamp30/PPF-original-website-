@@ -392,9 +392,11 @@
   }
 
   /* ── ANIMATED NUMBER COUNTERS ────────────────────── */
+  /* HTML shows the FINAL value as fallback so visitors never see zeros.
+     JS animates from ~70 % of the target up to the target for a subtle reveal. */
   function animateCounter(el, target, duration = 1800) {
     const start    = performance.now();
-    const startVal = parseInt(el.textContent, 10) || 0;
+    const startVal = Math.round(target * 0.7);
 
     function update(now) {
       const elapsed  = now - start;
@@ -452,8 +454,11 @@
     const activePanel = qs(`#proof${id.charAt(0).toUpperCase() + id.slice(1)}`);
     if (activePanel) {
       activePanel.classList.add('active');
-      // Reset counter values before re-animating
-      qsa('.proof-num', activePanel).forEach(el => { el.textContent = '0'; });
+      // Reset counter values to ~70% of target before re-animating (never show zeros)
+      qsa('.proof-num', activePanel).forEach(el => {
+        const t = parseInt(el.dataset.target, 10) || 0;
+        el.textContent = Math.round(t * 0.7);
+      });
       // Trigger counter animations
       initCounters(activePanel);
       // Trigger bar fill animations
