@@ -106,6 +106,8 @@
   const isTouchDevice = () => window.matchMedia('(hover: none)').matches;
 
   if (!isTouchDevice() && cursorRing && cursorDot) {
+    /* Add class to enable cursor:none only when custom cursor is present */
+    document.body.classList.add('has-custom-cursor');
     /* Ensure cursor elements are always visible and tracking */
     cursorRing.style.display = '';
     cursorDot.style.display  = '';
