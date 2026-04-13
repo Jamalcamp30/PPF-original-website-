@@ -128,7 +128,7 @@
     /* Use event delegation so ALL interactive elements (including those
        inside overlays, popups, and dynamically shown panels) get the
        cursor hover effect without needing re-binding. */
-    const INTERACTIVE_SELECTOR = 'a, button, input, select, textarea, [role="button"], .path-card, .pillar-card, .proof-metric, .story-card, .force-panel, .ppf-cta, .path-unlock-close, .path-unlock-panel a, .ps-close, .dark-mode-toggle, .section-indicator__dot';
+    const INTERACTIVE_SELECTOR = 'a, button, input, select, textarea, [role="button"], .path-card, .pillar-card, .proof-metric, .story-card, .force-panel, .ppf-cta, .path-unlock-close, .path-unlock-panel a, .ps-close, .nav-hamburger, .nav-menu__link, .nav-dropdown__item, .nav-menu__cta';
     document.addEventListener('mouseover', (e) => {
       if (e.target.closest(INTERACTIVE_SELECTOR)) {
         cursorRing.classList.add('hovering');

@@ -20,15 +20,97 @@
     .path-section p { font-size: 0.92rem; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 16px; }
     .path-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 0 auto; max-width: 1000px; }
   </style>
+  <link rel="stylesheet" href="../css/ppf-mega-nav.css" />
+  <link rel="stylesheet" href="../css/ppf-homepage-redesign.css" />
 </head>
 <body class="path-page">
-  <nav class="path-nav">
-    <a href="../index.html" class="path-nav__logo">PPF ATHLETICS</a>
-    <div style="display:flex;gap:20px;align-items:center">
-      <a href="./" class="path-nav__back">← All Paths</a>
-      <a href="../proof.html" class="path-nav__back">Proof</a>
-      <a href="../memberships.html" class="path-nav__back">Memberships</a>
-      <a href="../start.html" class="path-nav__back" style="color:#50c878">Start Here</a>
+    <nav class="site-nav" id="siteNav">
+    <a href="../index.html" class="nav-logo" aria-label="PPF — Power Performance and Fitness">
+      <span class="logo-mark">PPF</span>
+      <span class="logo-tag">POWER PERFORMANCE &amp; FITNESS</span>
+    </a>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span class="nav-hamburger__line"></span>
+      <span class="nav-hamburger__line"></span>
+      <span class="nav-hamburger__line"></span>
+    </button>
+    <div class="nav-menu" id="navMenu">
+      <ul class="nav-menu__list">
+        <li class="nav-menu__item nav-menu__item--has-dropdown">
+          <a href="./" class="nav-menu__link">Paths</a>
+          <div class="nav-dropdown">
+            <a href="athlete.html" class="nav-dropdown__item">
+              <span class="nav-dropdown__label">Athlete Performance</span>
+              <span class="nav-dropdown__desc">Speed, power &amp; game-day prep for ages 12–22</span>
+            </a>
+            <a href="adult.html" class="nav-dropdown__item">
+              <span class="nav-dropdown__label">Adult Performance</span>
+              <span class="nav-dropdown__desc">Coach-led strength training for all levels</span>
+            </a>
+            <a href="integrated.html" class="nav-dropdown__item">
+              <span class="nav-dropdown__label">Integrated Fitness</span>
+              <span class="nav-dropdown__desc">Adaptive coaching with dignity &amp; purpose</span>
+            </a>
+            <a href="./" class="nav-dropdown__item nav-dropdown__item--all">
+              <span class="nav-dropdown__label">View All Paths →</span>
+            </a>
+          </div>
+        </li>
+        <li class="nav-menu__item nav-menu__item--has-dropdown">
+          <a href="../proof.html" class="nav-menu__link">Proof</a>
+          <div class="nav-dropdown">
+            <a href="../proof.html" class="nav-dropdown__item">
+              <span class="nav-dropdown__label">Results &amp; Outcomes</span>
+              <span class="nav-dropdown__desc">Before/after data, verified benchmarks</span>
+            </a>
+            <a href="../proof.html#testimonials" class="nav-dropdown__item">
+              <span class="nav-dropdown__label">Testimonials</span>
+              <span class="nav-dropdown__desc">What athletes &amp; families say</span>
+            </a>
+            <a href="https://www.google.com/maps/place/PPF+Athletics/" target="_blank" rel="noopener noreferrer" class="nav-dropdown__item">
+              <span class="nav-dropdown__label">Google Reviews</span>
+              <span class="nav-dropdown__desc">5.0 stars — read them yourself</span>
+            </a>
+          </div>
+        </li>
+        <li class="nav-menu__item nav-menu__item--has-dropdown">
+          <a href="../memberships.html" class="nav-menu__link">Memberships</a>
+          <div class="nav-dropdown">
+            <a href="../memberships.html" class="nav-dropdown__item">
+              <span class="nav-dropdown__label">Plans &amp; Pricing</span>
+              <span class="nav-dropdown__desc">Group, private, nutrition &amp; perks</span>
+            </a>
+            <a href="../start.html" class="nav-dropdown__item">
+              <span class="nav-dropdown__label">Free 3-Day Experience</span>
+              <span class="nav-dropdown__desc">Try PPF — zero cost, zero obligation</span>
+            </a>
+            <a href="../member/index.html" class="nav-dropdown__item">
+              <span class="nav-dropdown__label">Member Login</span>
+              <span class="nav-dropdown__desc">Access your dashboard &amp; profile</span>
+            </a>
+          </div>
+        </li>
+        <li class="nav-menu__item nav-menu__item--has-dropdown">
+          <a href="../contact.html" class="nav-menu__link">About</a>
+          <div class="nav-dropdown">
+            <a href="../index.html#founders" class="nav-dropdown__item">
+              <span class="nav-dropdown__label">Meet the Founders</span>
+              <span class="nav-dropdown__desc">Richard &amp; Rebecca Camp — 25+ years</span>
+            </a>
+            <a href="../index.html#faq" class="nav-dropdown__item">
+              <span class="nav-dropdown__label">FAQ</span>
+              <span class="nav-dropdown__desc">Ages, schedule, what to expect</span>
+            </a>
+            <a href="../contact.html" class="nav-dropdown__item">
+              <span class="nav-dropdown__label">Contact &amp; Location</span>
+              <span class="nav-dropdown__desc">7721 Majors Rd, Cumming, GA</span>
+            </a>
+          </div>
+        </li>
+      </ul>
+      <div class="nav-menu__actions">
+        <a href="../start.html" class="nav-menu__cta">Start Here</a>
+      </div>
     </div>
   </nav>
 
@@ -105,6 +187,8 @@
     <p style="margin-top:16px;font-size:0.82rem;color:rgba(255,255,255,0.5);letter-spacing:0.06em">Start with a conversation built around real needs.</p>
     <a href="tel:+16789389668" style="display:inline-block;padding:10px 24px;background:transparent;color:#50c878;border:1px solid rgba(80,200,120,0.3);font-family:var(--font-display,'Bebas Neue',sans-serif);font-size:0.88rem;letter-spacing:0.1em;text-decoration:none;border-radius:6px;margin-top:12px">CALL REBECCA &mdash; (678) 938-9668</a>
   </div>
+
+  <script src="../js/ppf-mega-nav.js"></script>
 
 </body>
 </html>
