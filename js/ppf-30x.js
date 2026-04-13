@@ -784,77 +784,9 @@
      13. ACHIEVEMENT BADGE SYSTEM
      Unlockable badges based on site interaction
   ══════════════════════════════════════════════════════ */
+  /* Achievement system disabled — not professional for production site */
   function initAchievements() {
-    var popup = document.createElement('div');
-    popup.className = 'x-achievement-popup';
-    popup.innerHTML =
-      '<div class="x-achievement-icon" id="xAchIcon">🏅</div>' +
-      '<div class="x-achievement-body">' +
-        '<h4 id="xAchTitle">Achievement Unlocked</h4>' +
-        '<p id="xAchDesc">Description</p>' +
-      '</div>';
-    document.body.appendChild(popup);
-
-    var achievements = {
-      explorer: { icon: '🔍', title: 'Explorer', desc: 'You explored 3+ sections of PPF', shown: false },
-      quiz_start: { icon: '📋', title: 'Assessment Started', desc: 'You began the Performance Passport', shown: false },
-      scroll_master: { icon: '📜', title: 'Deep Diver', desc: 'You scrolled through 75% of the site', shown: false },
-      engaged: { icon: '⚡', title: 'Engaged', desc: 'You spent 60+ seconds on the site', shown: false }
-    };
-
-    function showAchievement(key) {
-      var ach = achievements[key];
-      if (!ach || ach.shown) return;
-      ach.shown = true;
-
-      var iconEl = qs('#xAchIcon');
-      var titleEl = qs('#xAchTitle');
-      var descEl = qs('#xAchDesc');
-      if (iconEl) iconEl.textContent = ach.icon;
-      if (titleEl) titleEl.textContent = ach.title;
-      if (descEl) descEl.textContent = ach.desc;
-      popup.classList.add('x-show');
-
-      setTimeout(function () {
-        popup.classList.remove('x-show');
-      }, 4000);
-    }
-
-    /* Explorer: visited 3+ sections */
-    var visitedSections = new Set();
-    var sectionObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          visitedSections.add(entry.target.id);
-          if (visitedSections.size >= 3) showAchievement('explorer');
-        }
-      });
-    }, { threshold: 0.3 });
-    qsa('.section[id]').forEach(function (s) { sectionObserver.observe(s); });
-
-    /* Quiz start */
-    var quizEl = qs('#passportQuiz');
-    if (quizEl) {
-      quizEl.addEventListener('click', function (e) {
-        if (e.target.closest('.passport-option')) showAchievement('quiz_start');
-      });
-    }
-
-    /* Scroll master: 75% of page */
-    var scrollChecked = false;
-    window.addEventListener('scroll', function () {
-      if (scrollChecked) return;
-      var scrollPct = (window.pageYOffset + window.innerHeight) / document.documentElement.scrollHeight;
-      if (scrollPct > 0.75) {
-        scrollChecked = true;
-        showAchievement('scroll_master');
-      }
-    }, { passive: true });
-
-    /* Engaged: 60 seconds on site */
-    setTimeout(function () {
-      showAchievement('engaged');
-    }, 60000);
+    /* Intentionally empty — achievement popups removed */
   }
 
   /* ══════════════════════════════════════════════════════

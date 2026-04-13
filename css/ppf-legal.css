@@ -426,3 +426,95 @@ a { color: inherit; }
   .ppf-contact-card { padding: 24px 18px; }
   .ppf-contact-cta { padding: 36px 18px; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   COLOR OVERRIDES — Explicit colors to prevent style.css :root
+   from overriding the rgba-white grays needed on these dark pages.
+   style.css redefines --gray-700 as #2a2a2a (dark) instead of the
+   rgba(255,255,255,0.7) (light) defined above, making text invisible.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* Body text — readable light gray on dark background */
+.ppf-legal-section__body,
+.ppf-legal-section__body p,
+.ppf-legal-section__body ul li,
+.ppf-legal-intro,
+.ppf-contact-hero__sub {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* Headings — bright white */
+.ppf-legal-title,
+.ppf-legal-section__heading,
+.ppf-contact-card__name {
+  color: #fff;
+}
+
+/* Secondary text */
+.ppf-legal-effective,
+.ppf-contact-cta__text,
+.ppf-contact-social__link {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Contact card detail text and links */
+.ppf-contact-card__detail,
+.ppf-contact-card__detail a,
+.ppf-legal-contact__item,
+.ppf-legal-contact__item a {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.ppf-contact-card__detail a:hover,
+.ppf-legal-contact__item a:hover {
+  color: #fff;
+}
+
+/* Hours table */
+.ppf-contact-hours td {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.ppf-contact-hours td:first-child {
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Footer text */
+.ppf-legal-footer__copy {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.ppf-legal-footer__link {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.ppf-legal-footer__link:hover {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Legal contact block */
+.ppf-legal-contact__address {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Dividers */
+.ppf-legal-divider {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Surface backgrounds */
+.ppf-legal-contact,
+.ppf-contact-card {
+  background: #0e0e0e;
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Social link borders */
+.ppf-contact-social__link {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+
+.ppf-contact-social__link:hover {
+  color: #fff;
+  border-color: rgba(255, 85, 0, 0.3);
+}
