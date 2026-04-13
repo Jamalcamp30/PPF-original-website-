@@ -169,34 +169,28 @@
 </head>
 <body>
 
-  <!-- PULSE VAULT OPENING -->
-  <div class="pulse-vault" id="pulseVault" role="presentation" aria-label="PPF Athletics brand introduction">
-    <canvas class="pv-canvas" id="pvCanvas" aria-hidden="true"></canvas>
-    <div class="pv-brand" id="pvBrand">
-      <div class="pv-brand-mark">PPF</div>
-      <div class="pv-brand-tag">Power Performance and Fitness</div>
-    </div>
-    <div class="pv-metrics-boot">
-      <div class="pv-metric-boot"><div class="pv-metric-boot__value">20+</div><div class="pv-metric-boot__label">Years</div></div>
-      <div class="pv-metric-boot"><div class="pv-metric-boot__value">500+</div><div class="pv-metric-boot__label">Athletes</div></div>
-      <div class="pv-metric-boot"><div class="pv-metric-boot__value">3</div><div class="pv-metric-boot__label">Paths</div></div>
-      <div class="pv-metric-boot"><div class="pv-metric-boot__value">1</div><div class="pv-metric-boot__label">Standard</div></div>
-    </div>
-  </div>
-
-  <!-- POST-SUBMIT TRANSFORMATION OVERLAY -->
-  <div class="post-submit-overlay" id="postSubmitOverlay">
-    <div class="ps-inner">
-      <div class="ps-badge"><span class="ps-badge-pulse"></span> YOU ARE NOW IN MOTION</div>
-      <h2 class="ps-title">Welcome to the System.</h2>
-      <p class="ps-sub">Your application has been received. A PPF coach — not an automated message — will reach out within 24 hours to confirm your path and schedule Day 1.</p>
-      <div class="ps-path-badge">YOUR PATH AWAITS</div>
-      <div class="ps-steps">
-        <div class="ps-step"><div class="ps-step-num">1</div><div class="ps-step-text">A coach reviews your submission and assigns your intake lane.</div></div>
-        <div class="ps-step"><div class="ps-step-num">2</div><div class="ps-step-text">You receive a direct call or text to schedule your first session.</div></div>
-        <div class="ps-step"><div class="ps-step-num">3</div><div class="ps-step-text">Day 1 begins — assessment, coaching, and your first real standard.</div></div>
+  <!-- PPF BRAND INTRO -->
+  <div class="ppf-brand-intro" id="ppfBrandIntro" role="presentation" aria-label="PPF Athletics brand introduction">
+    <div class="ppf-brand-intro__content">
+      <div class="ppf-brand-intro__logo">
+        <!-- Barbell + PPF Logo SVG -->
+        <svg class="ppf-brand-intro__svg" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+          <!-- Left barbell plates -->
+          <rect x="30" y="20" width="14" height="120" rx="2" fill="#FF5500" class="ppf-intro-plate" />
+          <rect x="50" y="10" width="14" height="140" rx="2" fill="#FF5500" class="ppf-intro-plate" />
+          <rect x="70" y="25" width="14" height="110" rx="2" fill="#FF5500" class="ppf-intro-plate" />
+          <!-- Bar -->
+          <rect x="84" y="70" width="232" height="20" rx="3" fill="#fff" class="ppf-intro-bar" />
+          <!-- PPF Letters -->
+          <text x="200" y="92" text-anchor="middle" fill="#fff" font-family="'Bebas Neue', sans-serif" font-size="72" font-weight="700" letter-spacing="8" class="ppf-intro-letters">PPF</text>
+          <!-- Right barbell plates -->
+          <rect x="316" y="25" width="14" height="110" rx="2" fill="#FF5500" class="ppf-intro-plate" />
+          <rect x="336" y="10" width="14" height="140" rx="2" fill="#FF5500" class="ppf-intro-plate" />
+          <rect x="356" y="20" width="14" height="120" rx="2" fill="#FF5500" class="ppf-intro-plate" />
+        </svg>
+        <div class="ppf-brand-intro__text">ATHLETICS</div>
       </div>
-      <button class="ps-close" type="button">CONTINUE EXPLORING</button>
+      <div class="ppf-brand-intro__slogan">POWER PERFORMANCE &amp; FITNESS</div>
     </div>
   </div>
 
@@ -724,31 +718,149 @@
   </section>
 
 
-  <!-- ============================================================
-       FOUNDER SNIPPET
+    <!-- ============================================================
+       LEADERSHIP
   ============================================================ -->
   <section class="section" id="founders" style="padding:80px 0">
-    <div class="container" style="max-width:900px;text-align:center">
-      <div class="section-label reveal-up">LEADERSHIP</div>
-      <h2 class="section-title reveal-up">
-        Built By Two People.<br />
-        <span class="accent">Protected Every Day.</span>
-      </h2>
-      <p class="section-intro reveal-up">Every system, session, and standard at PPF traces back to Richard and Rebecca Camp. They built it, they run it, and they still coach in it every day.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:48px;text-align:left">
+    <div class="container" style="max-width:1000px">
+
+      <!-- Header -->
+      <div style="text-align:center;margin-bottom:60px">
+        <div class="section-label reveal-up" style="justify-content:center">LEADERSHIP</div>
+        <h2 class="section-title reveal-up" style="text-align:center">
+          They Did Not Inherit<br />
+          <span class="accent">This Standard.</span>
+        </h2>
+        <p class="section-intro reveal-up" style="text-align:center;margin:0 auto 16px">They built it. They protect it. And every person who walks through that door meets it through them.</p>
+        <p style="font-size:0.85rem;color:rgba(255,255,255,0.5);letter-spacing:0.1em;text-transform:uppercase;text-align:center">THE STANDARD STARTS WITH WHO LEADS IT.</p>
+      </div>
+
+      <!-- Intro -->
+      <div class="reveal-up" style="text-align:center;margin-bottom:48px">
+        <p style="font-size:1rem;line-height:1.8;color:rgba(255,255,255,0.7);max-width:700px;margin:0 auto">Every system, session, and standard at PPF traces back to Richard and Rebecca Camp. They built it, they run it, and they still coach in it every day.</p>
+        <p style="font-size:0.85rem;color:rgba(255,255,255,0.5);margin-top:12px;font-style:italic">Not instructors filling a schedule. Founders who built the system and still protect it.</p>
+      </div>
+
+      <div style="text-align:center;margin-bottom:48px">
+        <p style="font-size:0.78rem;color:#FF5500;letter-spacing:0.15em;text-transform:uppercase">BUILT TOGETHER. LED DIFFERENTLY. HELD TO ONE STANDARD.</p>
+      </div>
+
+      <!-- Founder Cards -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:60px" class="ldr-founder-grid">
+
+        <!-- Richard Camp -->
         <div class="reveal-up" style="padding:32px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:4px">
-          <h3 style="font-family:var(--font-display);font-size:1.6rem;letter-spacing:0.08em;margin-bottom:8px">Richard Camp</h3>
-          <div style="font-size:0.78rem;color:#FF5500;letter-spacing:0.1em;margin-bottom:16px">FOUNDER · CSCS · 25+ YEARS · PERFORMANCE LEADERSHIP</div>
-          <p style="font-size:0.9rem;line-height:1.7;color:rgba(255,255,255,0.7)">Military-trained discipline. CSCS-certified coaching. 25+ years building athletes who show up on game day. Richard built the performance side of PPF around one rule: every rep has purpose.</p>
-          <p style="font-size:0.82rem;color:#FF5500;margin-top:12px">500+ athletes coached · 4.48s best 40-yard produced · 95% return-to-play rate</p>
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+            <div style="width:48px;height:48px;border-radius:50%;background:#FF5500;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.4rem;color:#fff;flex-shrink:0">R</div>
+            <div>
+              <h3 style="font-family:var(--font-display);font-size:1.6rem;letter-spacing:0.08em;margin:0">Richard Camp</h3>
+              <div style="font-size:0.72rem;color:rgba(255,255,255,0.5);letter-spacing:0.08em">FOUNDER &middot; PERFORMANCE LEADERSHIP</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+            <span style="font-size:0.7rem;padding:4px 10px;background:rgba(255,85,0,0.1);border:1px solid rgba(255,85,0,0.2);border-radius:2px;color:#FF5500;letter-spacing:0.08em">CSCS</span>
+            <span style="font-size:0.7rem;padding:4px 10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">FOUNDER</span>
+            <span style="font-size:0.7rem;padding:4px 10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">25+ YEARS EXPERIENCE</span>
+            <span style="font-size:0.7rem;padding:4px 10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">MILITARY BACKGROUND</span>
+            <span style="font-size:0.7rem;padding:4px 10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">BODYBUILDING</span>
+          </div>
+          <p style="font-size:0.9rem;line-height:1.7;color:rgba(255,255,255,0.7);margin-bottom:16px">Military-trained discipline. CSCS-certified coaching. 25+ years building athletes who show up on game day. Richard built the performance side of PPF around one rule: every rep has purpose, every athlete is held to standard.</p>
+          <p style="font-size:0.78rem;color:#FF5500;letter-spacing:0.06em">500+ ATHLETES COACHED &middot; 4.48S BEST 40-YARD PRODUCED &middot; 95% RETURN-TO-PLAY RATE</p>
         </div>
+
+        <!-- Rebecca Camp -->
         <div class="reveal-up" style="padding:32px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:4px">
-          <h3 style="font-family:var(--font-display);font-size:1.6rem;letter-spacing:0.08em;margin-bottom:8px">Rebecca Camp</h3>
-          <div style="font-size:0.78rem;color:#FF5500;letter-spacing:0.1em;margin-bottom:16px">FOUNDER · 18+ YEARS IN EDUCATION · OPERATIONS &amp; CULTURE</div>
-          <p style="font-size:0.9rem;line-height:1.7;color:rgba(255,255,255,0.7)">18 years in education — specializing in special education — gave Rebecca an instinct for meeting people where they are. She built PPF’s operations and culture so the experience matches the standard.</p>
-          <p style="font-size:0.82rem;color:#FF5500;margin-top:12px">Built the Integrated Path · 85% trial-to-member rate · 18+ years in education</p>
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px">
+            <div style="width:48px;height:48px;border-radius:50%;background:#FF5500;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.4rem;color:#fff;flex-shrink:0">R</div>
+            <div>
+              <h3 style="font-family:var(--font-display);font-size:1.6rem;letter-spacing:0.08em;margin:0">Rebecca Camp</h3>
+              <div style="font-size:0.72rem;color:rgba(255,255,255,0.5);letter-spacing:0.08em">FOUNDER &middot; OPERATIONS &amp; CULTURE</div>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px">
+            <span style="font-size:0.7rem;padding:4px 10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">FOUNDER</span>
+            <span style="font-size:0.7rem;padding:4px 10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">18+ YEARS IN EDUCATION</span>
+            <span style="font-size:0.7rem;padding:4px 10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">SPECIAL EDUCATION BACKGROUND</span>
+            <span style="font-size:0.7rem;padding:4px 10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">CULTURE BUILDER</span>
+            <span style="font-size:0.7rem;padding:4px 10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">EXPERIENCE LEADER</span>
+          </div>
+          <p style="font-size:0.9rem;line-height:1.7;color:rgba(255,255,255,0.7);margin-bottom:16px">18 years in education &mdash; specializing in special education &mdash; gave Rebecca an instinct for meeting people where they are. She built PPF&rsquo;s operations and culture so the experience matches the standard: personal, dependable, and professionally led.</p>
+          <p style="font-size:0.78rem;color:#FF5500;letter-spacing:0.06em">BUILT THE INTEGRATED PATH FROM SCRATCH &middot; 85% TRIAL-TO-MEMBER RATE &middot; 18+ YEARS IN EDUCATION</p>
         </div>
       </div>
+
+      <!-- They Built the Standard -->
+      <div class="reveal-up" style="text-align:center;margin-bottom:48px;padding:32px;border-top:1px solid rgba(255,255,255,0.08);border-bottom:1px solid rgba(255,255,255,0.08)">
+        <h3 style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:0.1em;margin-bottom:8px">THEY BUILT THE STANDARD. THEY PROTECT IT EVERY DAY.</h3>
+      </div>
+
+      <!-- Why / What / What Grid -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;margin-bottom:48px" class="ldr-responsibility-grid">
+        <div class="reveal-up" style="padding:24px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:4px">
+          <h4 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:0.1em;margin-bottom:12px;color:#FF5500">WHY THEY STARTED IT</h4>
+          <p style="font-size:0.85rem;line-height:1.7;color:rgba(255,255,255,0.6)">Too many places call themselves coaching facilities without real coaching behind the work. PPF exists to be the exception.</p>
+        </div>
+        <div class="reveal-up" style="padding:24px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:4px">
+          <h4 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:0.1em;margin-bottom:12px;color:#FF5500">WHAT STARTS WITH RICHARD</h4>
+          <ul style="list-style:none;padding:0;margin:0">
+            <li style="font-size:0.85rem;line-height:2;color:rgba(255,255,255,0.6)">Performance tone and session intensity</li>
+            <li style="font-size:0.85rem;line-height:2;color:rgba(255,255,255,0.6)">Coaching standard and athlete accountability</li>
+            <li style="font-size:0.85rem;line-height:2;color:rgba(255,255,255,0.6)">Strength and movement expectations</li>
+          </ul>
+        </div>
+        <div class="reveal-up" style="padding:24px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:4px">
+          <h4 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:0.1em;margin-bottom:12px;color:#FF5500">WHAT STARTS WITH REBECCA</h4>
+          <ul style="list-style:none;padding:0;margin:0">
+            <li style="font-size:0.85rem;line-height:2;color:rgba(255,255,255,0.6)">Operational consistency and professionalism</li>
+            <li style="font-size:0.85rem;line-height:2;color:rgba(255,255,255,0.6)">Member experience and communication</li>
+            <li style="font-size:0.85rem;line-height:2;color:rgba(255,255,255,0.6)">Culture, environment, and trust</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- What They Protect Daily -->
+      <div class="reveal-up" style="text-align:center;margin-bottom:48px">
+        <h4 style="font-family:var(--font-display);font-size:1.1rem;letter-spacing:0.15em;margin-bottom:20px;color:rgba(255,255,255,0.5)">WHAT THEY PROTECT DAILY</h4>
+        <div style="display:flex;justify-content:center;gap:32px;flex-wrap:wrap">
+          <div style="font-size:0.85rem;color:rgba(255,255,255,0.7);letter-spacing:0.06em">&#9670; COACHING OVER CHAOS</div>
+          <div style="font-size:0.85rem;color:rgba(255,255,255,0.7);letter-spacing:0.06em">&#9670; STANDARDS OVER SHORTCUTS</div>
+          <div style="font-size:0.85rem;color:rgba(255,255,255,0.7);letter-spacing:0.06em">&#9670; STRUCTURE OVER RANDOMNESS</div>
+        </div>
+        <p style="font-size:0.78rem;color:#FF5500;letter-spacing:0.2em;margin-top:20px">DISCIPLINE. PURPOSE. INTENTION.</p>
+      </div>
+
+      <!-- Trust Markers -->
+      <div class="reveal-up" style="margin-bottom:48px">
+        <div style="text-align:center;margin-bottom:24px">
+          <span style="font-size:0.72rem;color:rgba(255,255,255,0.4);letter-spacing:0.15em">ACTIVE</span>
+          <h4 style="font-family:var(--font-display);font-size:1.2rem;letter-spacing:0.1em;margin-top:8px">TRUSTED BY ATHLETES, FAMILIES &amp; PARTNERS ACROSS NORTH ATLANTA</h4>
+        </div>
+        <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:24px">
+          <span style="font-size:0.72rem;padding:6px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">NORTH FORSYTH HS</span>
+          <span style="font-size:0.72rem;padding:6px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">SOUTH FORSYTH HS</span>
+          <span style="font-size:0.72rem;padding:6px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">WEST FORSYTH HS</span>
+          <span style="font-size:0.72rem;padding:6px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">LAMBERT HS</span>
+          <span style="font-size:0.72rem;padding:6px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">NSCA</span>
+          <span style="font-size:0.72rem;padding:6px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">BACKGROUND CHECKED</span>
+          <span style="font-size:0.72rem;padding:6px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">20+ YEARS</span>
+          <span style="font-size:0.72rem;padding:6px 14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:2px;color:rgba(255,255,255,0.6);letter-spacing:0.08em">CUMMING, GA</span>
+        </div>
+        <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap">
+          <div style="text-align:center">
+            <div style="color:#FF5500;font-size:0.9rem;letter-spacing:0.04em">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div style="font-size:0.82rem;color:rgba(255,255,255,0.6);margin-top:4px">5.0 on Google Reviews</div>
+          </div>
+          <div style="text-align:center">
+            <div style="color:#FF5500;font-size:0.9rem;letter-spacing:0.04em">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div style="font-size:0.82rem;color:rgba(255,255,255,0.6);margin-top:4px">Trusted by 100+ local families</div>
+          </div>
+          <div style="text-align:center">
+            <div style="color:#FF5500;font-size:0.9rem;letter-spacing:0.04em">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <div style="font-size:0.82rem;color:rgba(255,255,255,0.6);margin-top:4px">&ldquo;Best training facility in Forsyth County&rdquo;</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
