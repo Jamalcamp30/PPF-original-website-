@@ -2700,10 +2700,18 @@
       const sectionEl = qs('#' + sectionId);
       if (sectionEl) trackedSections.push({ el: sectionEl, dot: dot });
 
-      dot.addEventListener('click', () => {
+      function scrollToSection() {
         if (sectionEl) {
           const top = sectionEl.getBoundingClientRect().top + window.scrollY - 80;
           window.scrollTo({ top: top, behavior: 'smooth' });
+        }
+      }
+
+      dot.addEventListener('click', scrollToSection);
+      dot.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          scrollToSection();
         }
       });
     });
@@ -2764,12 +2772,63 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px 40px 0px' });
 
-    qsa('.media-gallery__item, .proof-metric, .story-card, .eco-social-link, .ppf-ms__card').forEach(el => {
+    qsa('.media-gallery__item, .proof-metric, .story-card, .eco-social-link, .ppf-ms__card, .ppf-social-wall__card').forEach(el => {
       if (!el.classList.contains('reveal-up')) {
         el.classList.add('scroll-scale');
         microObs.observe(el);
       }
     });
   }
+
+  /* ── DEFERRED SECTION LOADING ──────────────────────── */
+  /* Lazy-load heavy lower-page sections when they approach viewport */
+  (function initDeferredSections() {
+    if (!('IntersectionObserver' in window)) return;
+
+    var deferredObserver = new IntersectionObserver(function (entries, observer) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-mounted');
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: '400px 0px' });
+
+    /* Mark heavy sections for deferred CSS animations/transitions */
+    qsa('#xCalcSection, #xRoadmapSection, #visitLogistics').forEach(function (section) {
+      if (section) {
+        section.classList.add('deferred-section');
+        deferredObserver.observe(section);
+      }
+    });
+  })();
+
+  /* ── INSTAGRAM EMBED LAZY-LOAD ─────────────────────── */
+  /* Load Instagram embed.js only when social wall approaches viewport */
+  (function initInstagramEmbed() {
+    if (!('IntersectionObserver' in window)) return;
+    var socialWall = qs('#mediaGallery');
+    if (!socialWall) return;
+
+    var igLoaded = false;
+    var igObserver = new IntersectionObserver(function (entries, observer) {
+      if (!entries[0].isIntersecting) return;
+      if (igLoaded) return;
+      igLoaded = true;
+
+      var script = document.createElement('script');
+      script.src = 'https://www.instagram.com/embed.js';
+      script.async = true;
+      script.defer = true;
+      script.onload = function () {
+        if (window.instgrm && window.instgrm.Embeds) {
+          window.instgrm.Embeds.process();
+        }
+      };
+      document.body.appendChild(script);
+      observer.disconnect();
+    }, { rootMargin: '600px 0px' });
+
+    igObserver.observe(socialWall);
+  })();
 
 })();
