@@ -984,6 +984,18 @@
     </div>
   </footer>
 
+  <!-- Brand Intro Auto-Dismiss -->
+  <script>
+  (function(){
+    var intro = document.getElementById('ppfBrandIntro');
+    if (!intro) return;
+    setTimeout(function(){
+      intro.classList.add('ppf-intro-exit');
+      setTimeout(function(){ intro.classList.add('ppf-intro-done'); }, 900);
+    }, 2800);
+  })();
+  </script>
+
   <script src="js/main.js"></script>
   <script src="js/ppf-hero-video.js"></script>
   <script src="js/command-trigger.js" defer></script>
