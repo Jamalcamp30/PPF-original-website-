@@ -1318,7 +1318,7 @@
   color: #fff;
   font-family: var(--font-display, 'Bebas Neue', sans-serif);
   font-size: 1.15rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   line-height: 1;
   transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;

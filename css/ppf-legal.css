@@ -440,7 +440,7 @@ a { color: inherit; }
 .ppf-legal-section__body ul li,
 .ppf-legal-intro,
 .ppf-contact-hero__sub {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 /* Headings — bright white */
@@ -454,7 +454,7 @@ a { color: inherit; }
 .ppf-legal-effective,
 .ppf-contact-cta__text,
 .ppf-contact-social__link {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Contact card detail text and links */
@@ -462,7 +462,7 @@ a { color: inherit; }
 .ppf-contact-card__detail a,
 .ppf-legal-contact__item,
 .ppf-legal-contact__item a {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .ppf-contact-card__detail a:hover,
@@ -472,7 +472,7 @@ a { color: inherit; }
 
 /* Hours table */
 .ppf-contact-hours td {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .ppf-contact-hours td:first-child {
