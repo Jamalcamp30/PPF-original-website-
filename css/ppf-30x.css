@@ -200,12 +200,13 @@
    Live toast notifications
    ══════════════════════════════════════════════════════ */
 
+/* ── DISABLED: Toast notifications removed per owner request ── */
 .x-toast-container {
   position: fixed;
   bottom: 24px;
   left: 24px;
   z-index: 9000;
-  display: flex;
+  display: none !important;
   flex-direction: column;
   gap: 10px;
   pointer-events: none;

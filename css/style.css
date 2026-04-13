@@ -9217,7 +9217,7 @@ body.light-mode .nav-links {
 }
 
 /* Family Trust */
-body.light-mode .ftm-family-grid .ftm-blurb {
+body.light-mode .ftm-family-grid .ftm-family-card {
   background: #ffffff;
   border-color: rgba(0,0,0,0.06);
 }

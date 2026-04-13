@@ -353,12 +353,13 @@
 /* ═══════════════════════════════════════════════════════════════════
    3. NOTIFICATION TOAST STACK
    ═══════════════════════════════════════════════════════════════════ */
+/* ── DISABLED: Toast notifications removed per owner request ── */
 .mp-toast-container {
   position: fixed;
   top: 80px;
   right: 20px;
   z-index: 9000;
-  display: flex;
+  display: none !important;
   flex-direction: column;
   gap: 8px;
   pointer-events: none;
