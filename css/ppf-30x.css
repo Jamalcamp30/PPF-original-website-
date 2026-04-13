@@ -1098,26 +1098,9 @@
    TIER 6 — ACHIEVEMENT BADGES (Gamification)
    ══════════════════════════════════════════════════════ */
 
+/* Achievement badge system disabled — hidden for professional experience */
 .x-achievement-popup {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  z-index: 9200;
-  background: var(--bg-elevated);
-  border: 1px solid rgba(212, 168, 83, 0.3);
-  border-radius: 16px;
-  padding: 18px 22px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  opacity: 0;
-  transform: translateY(-20px) scale(0.9);
-  pointer-events: none;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(16px);
-  transition: opacity 0.5s var(--x-ease-bounce),
-              transform 0.5s var(--x-ease-bounce);
-  max-width: 340px;
+  display: none !important;
 }
 .x-achievement-popup.x-show {
   opacity: 1;

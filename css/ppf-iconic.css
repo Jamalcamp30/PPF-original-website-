@@ -20,9 +20,9 @@
    1. HERO — ICONIC TREATMENT
    ============================================================ */
 
-/* Larger, more dramatic hero headline */
+/* Larger, more dramatic hero headline — sized to avoid cutoff */
 .hero-headline {
-  font-size: clamp(56px, 10vw, 140px);
+  font-size: clamp(44px, 8vw, 110px);
   line-height: 0.92;
   letter-spacing: -0.03em;
   margin-bottom: 24px;
@@ -38,8 +38,8 @@
 .hero-signature {
   display: block;
   font-family: var(--font-display, 'Bebas Neue', sans-serif);
-  font-size: clamp(14px, 1.8vw, 22px);
-  letter-spacing: 0.35em;
+  font-size: clamp(11px, 1.3vw, 16px);
+  letter-spacing: 0.25em;
   color: var(--ic-orange);
   text-transform: uppercase;
   margin-bottom: 20px;
@@ -900,12 +900,12 @@
 
 @media (max-width: 768px) {
   .hero-headline {
-    font-size: clamp(48px, 12vw, 80px);
+    font-size: clamp(36px, 10vw, 64px);
   }
 
   .hero-signature {
-    font-size: clamp(11px, 3vw, 14px);
-    letter-spacing: 0.2em;
+    font-size: clamp(9px, 2.5vw, 12px);
+    letter-spacing: 0.15em;
   }
 
   .hero-signature::before,
@@ -1292,4 +1292,86 @@
   .ppf-social-wall__featured {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+/* ============================================================
+   SUBMIT BUTTON — Professional Elite Design
+   ============================================================ */
+
+.ppf-submit-wrap {
+  margin-top: 28px;
+}
+
+.ppf-submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 20px 32px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #FF5500 0%, #E04A00 100%);
+  color: #fff;
+  font-family: var(--font-display, 'Bebas Neue', sans-serif);
+  font-size: 1.15rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1;
+  transition: transform 0.2s ease, box-shadow 0.3s ease, background 0.3s ease;
+  box-shadow:
+    0 4px 16px rgba(255, 85, 0, 0.25),
+    0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.ppf-submit-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    transparent 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.ppf-submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 8px 28px rgba(255, 85, 0, 0.35),
+    0 2px 6px rgba(0, 0, 0, 0.4);
+  background: linear-gradient(135deg, #FF6611 0%, #FF5500 100%);
+}
+
+.ppf-submit-btn:active {
+  transform: translateY(0);
+  box-shadow:
+    0 2px 8px rgba(255, 85, 0, 0.2),
+    0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.ppf-submit-btn__text {
+  position: relative;
+  z-index: 1;
+}
+
+.ppf-submit-btn__arrow {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  stroke: #fff;
+  opacity: 0.8;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.ppf-submit-btn:hover .ppf-submit-btn__arrow {
+  transform: translateX(4px);
+  opacity: 1;
 }
