@@ -927,3 +927,120 @@
   margin-top: 8px;
   font-style: italic;
 }
+
+/* ── ADULT CLASS SCHEDULE & OPEN GYM ──────────────── */
+
+.ppf-ms__adult-schedule {
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ppf-ms__adult-schedule h4 {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+  color: var(--orange);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.ppf-ms__adult-schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.ppf-ms__adult-sched-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 28px 24px;
+  text-align: center;
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+  animation: ppfMsCardRise 0.5s var(--ease-out-expo) both;
+}
+
+.ppf-ms__adult-sched-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 85, 0, 0.15);
+}
+
+.ppf-ms__adult-sched-time {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--orange);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.ppf-ms__adult-sched-label {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gray-300);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ppf-ms__adult-sched-days {
+  font-size: 0.72rem;
+  color: var(--gray-500);
+  margin-top: 6px;
+}
+
+.ppf-ms__opengym {
+  margin-top: 32px;
+  background: var(--bg-card);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 28px 32px;
+  text-align: center;
+}
+
+.ppf-ms__opengym-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
+  color: var(--orange);
+  margin-bottom: 16px;
+}
+
+.ppf-ms__opengym-hours {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px 32px;
+}
+
+.ppf-ms__opengym-slot {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--gray-300);
+  letter-spacing: 0.04em;
+}
+
+.ppf-ms__opengym-slot strong {
+  color: #fff;
+}
+
+@media (max-width: 600px) {
+  .ppf-ms__adult-schedule-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .ppf-ms__adult-sched-card {
+    padding: 20px 16px;
+  }
+
+  .ppf-ms__adult-sched-time {
+    font-size: 1.5rem;
+  }
+
+  .ppf-ms__opengym-hours {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
