@@ -169,7 +169,7 @@
       // For 4x/week, suggest the 5x plan as better value
       if (freq === 4) {
         actualFreq = 5;
-        extraNote = '4x/week isn\'t available — the 5x plan is better value per session.';
+        extraNote = "4x/week isn't available \u2014 the 5x plan is better value per session.";
       }
 
       var goalPricing = pricing[goal];
@@ -279,7 +279,7 @@
       // Just exploring
       else if (answers.timeline === 'exploring') {
         title = 'Start Exploring Paths';
-        desc = 'No rush — browse the three PPF paths, read the proof, and come back when you\'re ready. We\'ll be here.';
+        desc = "No rush \u2014 browse the three PPF paths, read the proof, and come back when you're ready. We'll be here.";
         icon = '🔍';
         href = 'paths/';
         ctaText = 'Explore Paths →';
@@ -288,7 +288,7 @@
       // Ready + consistent or ready now / soon
       else {
         title = 'Start with the Free 3-Day Experience';
-        desc = 'You\'re ready. The 3-day experience gives you full access to coached training — zero cost, zero obligation. Just show up.';
+        desc = "You're ready. The 3-day experience gives you full access to coached training \u2014 zero cost, zero obligation. Just show up.";
         icon = '🚀';
         href = 'start.html';
         ctaText = 'Start Your 3-Day Pass →';
