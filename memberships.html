@@ -13,8 +13,9 @@
   <meta property="og:url" content="https://jamalcamp30.github.io/PPF-original-website-/memberships.html" />
   <meta property="og:site_name" content="PPF Athletics" />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:image" content="https://jamalcamp30.github.io/PPF-original-website-/media/ppf-og-image.svg" />
+  <meta property="og:image" content="https://jamalcamp30.github.io/PPF-original-website-/media/ppf-og-image.png" />
   <meta property="og:image:width" content="1200" />
+  <meta property="og:image:type" content="image/png" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="PPF Athletics — Power Performance &amp; Fitness" />
 
@@ -23,8 +24,8 @@
   <meta name="twitter:site" content="@ppfathletics" />
   <meta name="twitter:title" content="PPF Athletics — Memberships &amp; Pricing" />
   <meta name="twitter:description" content="PPF Athletics membership options, pricing, and schedules. Adult, Athlete, 1-on-1 Coaching, Nutrition, and Member Perks." />
-  <meta name="twitter:image" content="https://jamalcamp30.github.io/PPF-original-website-/media/ppf-og-image.svg" />
-  <meta name="twitter:image:alt" content="PPF Athletics — Power Performance &amp; Fitness" />
+  <meta name="twitter:image" content="https://jamalcamp30.github.io/PPF-original-website-/media/ppf-og-image.png" />
+  <meta name="twitter:image:alt" content="PPF Athletics — Power Performance and Fitness" />
 
   <!-- Canonical URL -->
   <link rel="canonical" href="https://jamalcamp30.github.io/PPF-original-website-/memberships.html" />
@@ -181,7 +182,11 @@
 
       <!-- ── Tab Bar (sticky) ────────────────────────── -->
       <nav class="ppf-ms__tabs" aria-label="Membership categories">
-        <button class="ppf-ms__tab active" data-tab="adult" type="button">Adult Membership</button>
+        <button class="ppf-ms__tab ppf-ms__tab--offers active" data-tab="offers" type="button">
+          <span class="ppf-ms__tab-pulse"></span>
+          Limited Time Offers
+        </button>
+        <button class="ppf-ms__tab" data-tab="adult" type="button">Adult Membership</button>
         <button class="ppf-ms__tab" data-tab="athlete" type="button">Athlete Training</button>
         <button class="ppf-ms__tab" data-tab="coaching" type="button">1-on-1 Coaching</button>
         <button class="ppf-ms__tab" data-tab="nutrition" type="button">Nutrition Coaching</button>
@@ -193,8 +198,78 @@
       <!-- ── Panels ──────────────────────────────────── -->
       <div class="ppf-ms__panels">
 
-        <!-- ═══ ADULT MEMBERSHIP ═══ -->
-        <div class="ppf-ms__panel active" data-panel="adult">
+        <!-- ═══ LIMITED TIME OFFERS ═══ -->
+        <div class="ppf-ms__panel active" data-panel="offers">
+          <div class="ppf-ms__offers-intro">
+            <span class="ppf-ms__offers-badge">
+              <span class="ppf-ms__offers-badge-dot"></span>
+              NEW MEMBER EXCLUSIVE
+            </span>
+            <h3 class="ppf-ms__headline" style="font-size:clamp(2rem,4vw,3.4rem);margin-bottom:12px">LIMITED TIME<br><span style="color:var(--orange)">STARTER OFFERS</span></h3>
+            <p class="ppf-ms__subline" style="margin-bottom:40px">Fast-entry pricing built for people ready to experience the PPF coaching standard. No contracts, no gimmicks — just real coaching from day one. These offers are available for new members only.</p>
+          </div>
+
+          <div class="ppf-ms__offers-grid">
+            <!-- Offer Card 1: Group Classes -->
+            <div class="ppf-ms__offer-card ppf-ms__offer-card--featured">
+              <div class="ppf-ms__offer-card-glow"></div>
+              <span class="ppf-ms__card-badge">MOST POPULAR</span>
+              <div class="ppf-ms__offers-label">GROUP CLASSES</div>
+              <div class="ppf-ms__card-name">10 Group Classes</div>
+              <div class="ppf-ms__card-price" style="color:var(--orange)">
+                <span data-count-target="59" data-count-prefix="$">$59</span>
+              </div>
+              <p class="ppf-ms__offer-desc">Jump into any of our coached group sessions — adults or athletes. Ten classes to experience the PPF standard firsthand.</p>
+              <div class="ppf-ms__offer-features">
+                <div class="ppf-ms__offer-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Coached group sessions</div>
+                <div class="ppf-ms__offer-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Adults or athlete sessions</div>
+                <div class="ppf-ms__offer-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Full facility experience</div>
+                <div class="ppf-ms__offer-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> No commitment required</div>
+              </div>
+              <div class="ppf-ms__offer-meta">Limited-time starter pricing</div>
+              <a href="checkout/?plan=10-group-classes" class="ppf-ms__btn ppf-ms__card-cta">SIGN UP NOW</a>
+            </div>
+
+            <!-- Offer Card 2: Personal Training -->
+            <div class="ppf-ms__offer-card">
+              <div class="ppf-ms__offers-label">PERSONAL TRAINING</div>
+              <div class="ppf-ms__card-name">3 Private Sessions</div>
+              <div class="ppf-ms__card-price" style="color:var(--orange)">
+                <span data-count-target="109" data-count-prefix="$">$109</span>
+              </div>
+              <p class="ppf-ms__offer-desc">One-on-one coaching tailored to your goals. Three sessions with a PPF coach — movement assessment, programming, and execution.</p>
+              <div class="ppf-ms__offer-features">
+                <div class="ppf-ms__offer-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Movement assessment</div>
+                <div class="ppf-ms__offer-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Custom programming</div>
+                <div class="ppf-ms__offer-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Direct coach attention</div>
+                <div class="ppf-ms__offer-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Goal-specific execution</div>
+              </div>
+              <div class="ppf-ms__offer-meta">Limited-time starter pricing</div>
+              <a href="checkout/?plan=3-personal-training" class="ppf-ms__btn ppf-ms__btn--outline ppf-ms__card-cta">GET STARTED</a>
+            </div>
+          </div>
+
+          <!-- Offer trust strip -->
+          <div class="ppf-ms__offers-trust">
+            <div class="ppf-ms__offers-trust-item">
+              <span class="ppf-ms__offers-trust-num">20+</span>
+              <span class="ppf-ms__offers-trust-label">Years Coaching</span>
+            </div>
+            <div class="ppf-ms__offers-trust-divider"></div>
+            <div class="ppf-ms__offers-trust-item">
+              <span class="ppf-ms__offers-trust-num">3</span>
+              <span class="ppf-ms__offers-trust-label">Performance Paths</span>
+            </div>
+            <div class="ppf-ms__offers-trust-divider"></div>
+            <div class="ppf-ms__offers-trust-item">
+              <span class="ppf-ms__offers-trust-num">0</span>
+              <span class="ppf-ms__offers-trust-label">Contracts Required</span>
+            </div>
+          </div>
+
+          <p class="ppf-ms__offers-footer">These offers are designed for first-time members. After your starter sessions, transition into any PPF membership path — explore the tabs above.</p>
+        </div>
+        <div class="ppf-ms__panel" data-panel="adult">
           <h3 class="ppf-ms__headline" style="font-size:clamp(2rem,4vw,3.4rem);margin-bottom:12px">ADULT MEMBERSHIP</h3>
           <p class="ppf-ms__subline" style="margin-bottom:32px">Built for adults who want more than access. Every option includes unlimited coached classes, open gym access, and full use of the facility. Commitment plans include priority scheduling, guaranteed session spots, and locked-in rate protection — designed for people serious about long-term progress.</p>
 

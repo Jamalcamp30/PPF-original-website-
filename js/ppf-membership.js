@@ -155,9 +155,30 @@
       });
     }, { threshold: 0.15 });
 
-    qsa('.ppf-ms__included-item, .ppf-ms__perk, .ppf-ms__sched-card', section).forEach(function (el) {
+    qsa('.ppf-ms__included-item, .ppf-ms__perk, .ppf-ms__sched-card, .ppf-ms__offer-feature', section).forEach(function (el) {
       revealObserver.observe(el);
     });
   }
+
+  /* ── URL query parameter tab switching ──────────── */
+  // Supports ?tab=offers (or any tab name) to open directly
+  function checkUrlTab() {
+    var params = new URLSearchParams(window.location.search);
+    var tabParam = params.get('tab');
+    if (!tabParam) return;
+    var targetTab = null;
+    tabs.forEach(function (t) {
+      if (t.getAttribute('data-tab') === tabParam) targetTab = t;
+    });
+    if (targetTab && !targetTab.classList.contains('active')) {
+      switchTab(targetTab);
+      // Scroll to memberships section
+      setTimeout(function () {
+        var el = document.getElementById('memberships');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+  }
+  checkUrlTab();
 
 })();

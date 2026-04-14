@@ -1044,3 +1044,281 @@
     gap: 8px;
   }
 }
+
+
+/* ============================================================
+   LIMITED TIME OFFERS TAB & PANEL
+   ============================================================ */
+
+/* ── OFFERS TAB — special pulse indicator ─────────── */
+.ppf-ms__tab--offers {
+  position: relative;
+  color: var(--orange);
+}
+
+.ppf-ms__tab--offers.active {
+  color: var(--white);
+}
+
+.ppf-ms__tab-pulse {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+  margin-right: 6px;
+  vertical-align: middle;
+  box-shadow: 0 0 0 0 rgba(255, 85, 0, 0.5);
+  animation: msOfferPulse 2s ease-in-out infinite;
+}
+
+@keyframes msOfferPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 85, 0, 0.5); }
+  70%  { box-shadow: 0 0 0 8px rgba(255, 85, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 85, 0, 0); }
+}
+
+/* ── OFFERS INTRO ─────────────────────────────────── */
+.ppf-ms__offers-intro {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.ppf-ms__offers-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  border: 1px solid var(--orange);
+  border-radius: 4px;
+  background: rgba(255, 85, 0, 0.04);
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 24px;
+  animation: msOfferBadgePulse 3s ease-in-out infinite;
+}
+
+@keyframes msOfferBadgePulse {
+  0%, 100% { border-color: var(--orange); box-shadow: none; }
+  50%      { border-color: var(--orange); box-shadow: 0 0 20px rgba(255, 85, 0, 0.12); }
+}
+
+.ppf-ms__offers-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+  animation: msOfferPulse 2s ease-in-out infinite;
+}
+
+/* ── OFFERS GRID ──────────────────────────────────── */
+.ppf-ms__offers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+/* ── OFFER CARD ───────────────────────────────────── */
+.ppf-ms__offer-card {
+  position: relative;
+  background: rgba(14, 14, 14, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 36px 28px 32px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  transition:
+    transform var(--transition-med),
+    border-color var(--transition-med),
+    box-shadow var(--transition-med);
+  animation: ppfMsCardRise 0.6s var(--ease-out-expo) both;
+}
+
+.ppf-ms__offer-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background: var(--orange);
+  opacity: 0;
+  transition: opacity var(--transition-med);
+  box-shadow: 0 0 12px var(--orange-glow);
+  border-radius: 1px;
+}
+
+.ppf-ms__offer-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.ppf-ms__offer-card:hover::after {
+  opacity: 1;
+}
+
+.ppf-ms__offer-card:nth-child(1) { animation-delay: 0s; }
+.ppf-ms__offer-card:nth-child(2) { animation-delay: 0.12s; }
+
+/* Featured offer card */
+.ppf-ms__offer-card--featured {
+  border-color: rgba(255, 85, 0, 0.25);
+}
+
+.ppf-ms__offer-card--featured::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--orange), transparent);
+}
+
+/* Card glow effect */
+.ppf-ms__offer-card-glow {
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 85, 0, 0.08), transparent 70%);
+  pointer-events: none;
+  animation: offerGlowFloat 6s ease-in-out infinite;
+}
+
+@keyframes offerGlowFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  50%      { transform: translate(-10px, 10px) scale(1.1); opacity: 1; }
+}
+
+/* ── OFFER CARD ELEMENTS ──────────────────────────── */
+.ppf-ms__offers-label {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 8px;
+}
+
+.ppf-ms__offer-desc {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--gray-300);
+  margin: 0 0 20px;
+}
+
+.ppf-ms__offer-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.ppf-ms__offer-feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--gray-300);
+}
+
+.ppf-ms__offer-meta {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+  margin-bottom: 24px;
+}
+
+/* ── TRUST STRIP ──────────────────────────────────── */
+.ppf-ms__offers-trust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 32px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 32px;
+}
+
+.ppf-ms__offers-trust-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  gap: 4px;
+}
+
+.ppf-ms__offers-trust-num {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  color: var(--white);
+}
+
+.ppf-ms__offers-trust-label {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+
+.ppf-ms__offers-trust-divider {
+  width: 1px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ── FOOTER NOTE ──────────────────────────────────── */
+.ppf-ms__offers-footer {
+  text-align: center;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  max-width: 560px;
+  margin: 0 auto;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+}
+
+/* ── OFFERS RESPONSIVE ────────────────────────────── */
+@media (max-width: 768px) {
+  .ppf-ms__offers-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ppf-ms__offer-features {
+    grid-template-columns: 1fr;
+  }
+
+  .ppf-ms__offers-trust {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .ppf-ms__offers-trust-divider {
+    display: none;
+  }
+
+  .ppf-ms__offers-trust-item {
+    min-width: calc(50% - 8px);
+  }
+}
