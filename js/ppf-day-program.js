@@ -186,8 +186,6 @@
       var angle = (i / nodes.length) * Math.PI * 2 - Math.PI / 2;
       var x = cx + Math.cos(angle) * radius;
       var y = cy + Math.sin(angle) * radius;
-      node.style.left = x + 'px';
-      node.style.top = y + 'px';
       node.style.transform = 'translate(-50%, -50%)';
 
       /* Start position: outside the viewport edges */
