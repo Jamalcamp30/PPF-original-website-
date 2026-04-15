@@ -3,29 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Integrated Path — PPF Athletics</title>
-  <meta name="description" content="PPF Integrated Fitness Path: Dignity-centered, adaptive coaching for individuals with unique needs. Full transparency, family communication, and measurable progress." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/style.css" />
-  <link rel="stylesheet" href="../css/ppf-blueprint.css" />
-  <style>
-    body { background: #0a0a0a; color: #fff; font-family: var(--font-body, 'Inter', sans-serif); margin: 0; }
-    .path-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; background: rgba(10,10,10,0.95); border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .path-nav__logo { font-family: var(--font-display, 'Bebas Neue', sans-serif); font-size: 1.4rem; color: #50c878; letter-spacing: 0.06em; text-decoration: none; }
-    .path-nav__back { color: rgba(255,255,255,0.6); font-size: 0.82rem; text-decoration: none; letter-spacing: 0.08em; }
-    .path-section { padding: 60px 24px; max-width: 1000px; margin: 0 auto; }
-    .path-section h3 { font-family: var(--font-display, 'Bebas Neue', sans-serif); font-size: clamp(1.6rem, 3vw, 2.4rem); letter-spacing: 0.06em; margin-bottom: 16px; }
-    .path-section p { font-size: 0.92rem; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 16px; }
-    .path-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 0 auto; max-width: 1000px; }
-  </style>
-  <link rel="stylesheet" href="../css/ppf-mega-nav.css" />
-  <link rel="stylesheet" href="../css/ppf-homepage-redesign.css" />
+  <title>PPF Integrated Day Program — Where Every Day Changes Lives</title>
+  <meta name="description" content="PPF Integrated's Day Program: a one-of-a-kind experience empowering adults with disabilities through fitness, daily living skills, community outings, and connection. Now accepting spring/summer enrollment — limited spots for up to 50 participants." />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Integrated Fitness — PPF Athletics" />
-  <meta property="og:description" content="Adaptive coaching with dignity & purpose at PPF Athletics." />
+  <meta property="og:title" content="PPF Integrated Day Program — Where Every Day Changes Lives" />
+  <meta property="og:description" content="PPF Integrated's Day Program: empowering adults with disabilities through fitness, daily living skills, community outings, and connection. 6 years of proven impact." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://jamalcamp30.github.io/PPF-original-website-/paths/integrated.html" />
   <meta property="og:site_name" content="PPF Athletics" />
@@ -35,9 +18,21 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://jamalcamp30.github.io/PPF-original-website-/media/ppf-og-image.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/ppf-mega-nav.css" />
+  <link rel="stylesheet" href="../css/ppf-day-program.css" />
 </head>
-<body class="path-page">
-    <nav class="site-nav" id="siteNav">
+<body class="dp-page">
+
+  <!-- ═══════════════════ COMMUNITY PULSE BG ═══════════════════ -->
+  <canvas class="dp-pulse-canvas" aria-hidden="true"></canvas>
+
+  <!-- ═══════════════════ NAVIGATION ═══════════════════════════ -->
+  <nav class="site-nav" id="siteNav">
     <a href="../index.html" class="nav-logo" aria-label="PPF — Power Performance and Fitness">
       <span class="logo-mark">PPF</span>
       <span class="logo-tag">POWER PERFORMANCE &amp; FITNESS</span>
@@ -61,8 +56,8 @@
               <span class="nav-dropdown__desc">Coach-led strength training for all levels</span>
             </a>
             <a href="integrated.html" class="nav-dropdown__item">
-              <span class="nav-dropdown__label">Integrated Fitness</span>
-              <span class="nav-dropdown__desc">Adaptive coaching with dignity &amp; purpose</span>
+              <span class="nav-dropdown__label">Integrated Day Program</span>
+              <span class="nav-dropdown__desc">A life-changing daily experience</span>
             </a>
             <a href="./" class="nav-dropdown__item nav-dropdown__item--all">
               <span class="nav-dropdown__label">View All Paths →</span>
@@ -80,10 +75,6 @@
               <span class="nav-dropdown__label">Testimonials</span>
               <span class="nav-dropdown__desc">What athletes &amp; families say</span>
             </a>
-            <a href="https://www.instagram.com/ppfathletics" target="_blank" rel="noopener noreferrer" class="nav-dropdown__item">
-              <span class="nav-dropdown__label">PPF Athletics</span>
-              <span class="nav-dropdown__desc">Follow us on Instagram</span>
-            </a>
           </div>
         </li>
         <li class="nav-menu__item nav-menu__item--has-dropdown">
@@ -97,45 +88,10 @@
               <span class="nav-dropdown__label">Free 3-Day Experience</span>
               <span class="nav-dropdown__desc">Try PPF — zero cost, zero obligation</span>
             </a>
-            <a href="../member/index.html" class="nav-dropdown__item">
-              <span class="nav-dropdown__label">Member Login</span>
-              <span class="nav-dropdown__desc">Access your dashboard &amp; profile</span>
-            </a>
           </div>
         </li>
-        <li class="nav-menu__item nav-menu__item--has-dropdown">
-          <a href="../explore.html" class="nav-menu__link">Explore</a>
-          <div class="nav-dropdown">
-            <a href="../explore.html#compare" class="nav-dropdown__item">
-              <span class="nav-dropdown__label">PPF vs Other Gyms</span>
-              <span class="nav-dropdown__desc">See why coached training is different</span>
-            </a>
-            <a href="../explore.html#calculator" class="nav-dropdown__item">
-              <span class="nav-dropdown__label">Plan Calculator</span>
-              <span class="nav-dropdown__desc">Find your best-value membership</span>
-            </a>
-            <a href="../explore.html#commute" class="nav-dropdown__item">
-              <span class="nav-dropdown__label">Commute Check</span>
-              <span class="nav-dropdown__desc">Drive time &amp; best training windows</span>
-            </a>
-          </div>
-        </li>
-        <li class="nav-menu__item nav-menu__item--has-dropdown">
-          <a href="../contact.html" class="nav-menu__link">About</a>
-          <div class="nav-dropdown">
-            <a href="../index.html#founders" class="nav-dropdown__item">
-              <span class="nav-dropdown__label">Meet the Founders</span>
-              <span class="nav-dropdown__desc">Richard &amp; Rebecca Camp — 25+ years</span>
-            </a>
-            <a href="../index.html#faq" class="nav-dropdown__item">
-              <span class="nav-dropdown__label">FAQ</span>
-              <span class="nav-dropdown__desc">Ages, schedule, what to expect</span>
-            </a>
-            <a href="../contact.html" class="nav-dropdown__item">
-              <span class="nav-dropdown__label">Contact &amp; Location</span>
-              <span class="nav-dropdown__desc">7721 Majors Rd, Cumming, GA</span>
-            </a>
-          </div>
+        <li class="nav-menu__item">
+          <a href="../contact.html" class="nav-menu__link">Contact</a>
         </li>
       </ul>
       <div class="nav-menu__actions">
@@ -144,81 +100,584 @@
     </div>
   </nav>
 
-  <div class="path-page__hero">
-    <a href="./" class="path-page__back">← All Paths</a>
-    <h1 class="path-page__title">INTEGRATED<br /><span style="color:#50c878">PATH</span></h1>
-    <p class="path-page__sub">For individuals with unique needs and their families. Dignity-centered, adaptive coaching with full transparency, open communication, and measurable progress.</p>
-  </div>
+  <!-- ═══════════════════ MAIN CONTENT ═════════════════════════ -->
+  <main class="dp-main">
 
-  <div class="path-divider"></div>
+    <!-- ─── HERO ──────────────────────────────────────────── -->
+    <section class="dp-hero" id="dpHero">
+      <div class="dp-hero__badge">
+        <span class="dp-hero__badge-dot"></span>
+        Spring / Summer Enrollment Open
+      </div>
 
-  <div class="path-section">
-    <h3>WHO THIS PATH IS FOR</h3>
-    <p>The Integrated Fitness path is built for individuals of all ages with adaptive needs — including developmental, physical, and neurological differences. This is not a side program or an afterthought. It is a fully designed coaching system built on dignity, structure, communication, and measurable progress.</p>
-    <p>Every session is supervised, sensory-aware, and designed around the individual. Families are welcome to observe, participate, and stay involved throughout the process.</p>
-  </div>
+      <h1 class="dp-hero__title">
+        THE DAY PROGRAM<br />
+        <span>UNLIKE ANYTHING ELSE</span>
+      </h1>
 
-  <div class="path-divider"></div>
+      <p class="dp-hero__sub">
+        PPF Integrated's Day Program isn't just a service — it's a movement. For 6&nbsp;years, we've been
+        transforming lives, strengthening families, and uplifting an entire community. Very few businesses
+        in this country do what we do. And nobody does it like this.
+      </p>
 
-  <div class="path-section">
-    <h3>HOW ENROLLMENT WORKS</h3>
-    <p><strong>Step 1 — Initial Consultation:</strong> A phone or in-person conversation with Rebecca to understand the individual's needs, goals, comfort level, and family expectations.</p>
-    <p><strong>Step 2 — Intake Assessment:</strong> A coach-led, sensory-aware assessment of movement ability, comfort, and communication style. Parents welcome to observe.</p>
-    <p><strong>Step 3 — Program Design:</strong> A personalized plan is built — adapted class sessions, 1:1 coaching, or day program support. Scheduling around the family.</p>
-    <p><strong>Step 4 — First Session:</strong> A guided, low-pressure session designed to build trust and establish comfort.</p>
-  </div>
+      <div class="dp-hero__stats">
+        <div class="dp-hero__stat">
+          <div class="dp-hero__stat-num" data-count="6" data-suffix="+">0</div>
+          <div class="dp-hero__stat-label">Years of Impact</div>
+        </div>
+        <div class="dp-hero__stat">
+          <div class="dp-hero__stat-num" data-count="50" data-suffix="">0</div>
+          <div class="dp-hero__stat-label">Participants Capacity</div>
+        </div>
+        <div class="dp-hero__stat">
+          <div class="dp-hero__stat-num" data-count="7" data-suffix="+">0</div>
+          <div class="dp-hero__stat-label">Staff Every Day</div>
+        </div>
+      </div>
 
-  <div class="path-divider"></div>
+      <div class="dp-hero__scroll-cue">
+        <span>Scroll to experience a day</span>
+        <div class="dp-hero__scroll-line"></div>
+      </div>
+    </section>
 
-  <div class="path-section">
-    <h3>WHAT TO EXPECT OVER TIME</h3>
-    <p><strong>Week 1:</strong> Comfort building. Routine introduction. Coach-family debrief after every session. Establishing trust and familiarity.</p>
-    <p><strong>Week 4:</strong> Growing independence. Recognized routines. First milestone review with the family. Adjustments based on observed progress.</p>
-    <p><strong>Month 3:</strong> Visible confidence gains. Task independence emerging. Full progress report shared with the family. Long-term plan established.</p>
-  </div>
+    <div class="dp-divider"></div>
 
-  <div class="path-divider"></div>
+    <!-- ─── ABOUT THE PROGRAM ─────────────────────────────── -->
+    <section class="dp-section dp-reveal" style="opacity:0;transform:translateY(30px)">
+      <div class="dp-section__label">The Program</div>
+      <h2 class="dp-section__title">A ONE-OF-A-KIND EXPERIENCE</h2>
+      <div class="dp-section__desc">
+        <p>PPF Integrated's Day Program offers the tools to live a life filled with valuable and engaging connections.
+        We provide a program that assists families and individuals with the transition from secondary school
+        into adulthood — as well as adults looking to further develop skills and quality of life.</p>
+        <p style="margin-top:16px">Empowering and supporting adults with disabilities in developing skills for independence,
+        health and fitness, and integration in their community based on self-directed interest is our
+        sole focus. We make adulting fun and engaging for every participant within our facility
+        and our community.</p>
+        <p style="margin-top:16px">This side of the business is something truly extraordinary. Very few companies — very few
+        businesses — do anything like this. The amount of impact within the community, within our
+        participants' lives, and within their families' lives over the past 6&nbsp;years is
+        absolutely remarkable.</p>
+      </div>
+    </section>
 
-  <div class="path-section">
-    <h3>FEATURED RESULTS</h3>
-    <p><strong>Maria A.'s Son</strong> — Age 14 · Coordination improved 60% in 8 months. Motor skills dramatically improved.</p>
-    <p><strong>James B.'s Tyler</strong> — Age 19 · Daily engagement achieved in 12 months. Asks to go every day.</p>
-    <p><strong>Sandra J.'s Daughter</strong> — Age 16 · 3 exercises performed independently in 6 months.</p>
-    <p><strong>Emma C.</strong> — Full independence achieved in daily tasks after 6 months of adapted coaching.</p>
-  </div>
+    <div class="dp-divider"></div>
 
-  <div class="path-divider"></div>
+    <!-- ─── PINNED STORY: "ONE DAY AT PPF INTEGRATED" ─────── -->
+    <section class="dp-story" id="dpStory">
+      <div class="dp-section" style="text-align:center;padding-bottom:20px">
+        <div class="dp-section__label dp-reveal" style="opacity:0;transform:translateY(20px)">Experience</div>
+        <h2 class="dp-section__title dp-reveal" style="opacity:0;transform:translateY(20px)">ONE DAY AT PPF INTEGRATED</h2>
+        <p class="dp-section__desc dp-reveal" style="opacity:0;transform:translateY(20px);margin-left:auto;margin-right:auto;text-align:center">
+          Every day is structured with intention. Every moment matters. Scroll through a full day with us.
+        </p>
+      </div>
 
-  <div class="path-section">
-    <h3>FAMILY TRUST STANDARDS</h3>
-    <p><strong>100% Supervised Sessions</strong> — Every session has certified, background-checked coaching.</p>
-    <p><strong>Open Door Policy</strong> — Parents welcome to observe any session at any time.</p>
-    <p><strong>Direct Coach Access</strong> — Regular updates. Rebecca and the team are always accessible.</p>
-    <p><strong>Individual Growth Tracking</strong> — Measured by confidence, comfort, and growing independence.</p>
-    <p><strong>Monthly Progress Reviews</strong> — Week 1 debrief, monthly milestones, and family-integrated planning.</p>
-  </div>
+      <div class="dp-story__pin">
+        <div class="dp-story__frame">
+          <div class="dp-story__inner" style="position:relative;height:100%;display:flex;align-items:center;justify-content:center">
 
-  <div class="path-divider"></div>
+            <!-- Slide 1: Arrival -->
+            <div class="dp-story__slide" data-stage="arrival">
+              <div class="dp-story__icon">🚗</div>
+              <div class="dp-story__time">9:00 AM</div>
+              <div class="dp-story__heading">ARRIVAL &amp; CHECK-IN</div>
+              <div class="dp-story__text">
+                Car rider drop-off every morning. Participants arrive ready for a day built with purpose.
+                Every entrance is greeted, every face is known, every name matters. The day starts with energy.
+              </div>
+            </div>
 
-  <div class="path-section">
-    <h3>PRICING &amp; CONSULTATION</h3>
-    <p>Integrated sessions are structured around individual needs. Pricing is determined after a personal consultation with Rebecca to understand the right format, frequency, and support level for each family.</p>
-    <p>Contact Rebecca directly to start the conversation:</p>
-    <p><strong>Phone:</strong> <a href="tel:+16789389668" style="color:#50c878;text-decoration:none">(678) 938-9668</a></p>
-    <p><strong>Email:</strong> <a href="mailto:rebecca@ppfathletics.com" style="color:#50c878;text-decoration:none">rebecca@ppfathletics.com</a></p>
-  </div>
+            <!-- Slide 2: Morning Meeting -->
+            <div class="dp-story__slide" data-stage="meeting">
+              <div class="dp-story__icon">🤝</div>
+              <div class="dp-story__time">9:15 AM</div>
+              <div class="dp-story__heading">DAILY MEETING</div>
+              <div class="dp-story__text">
+                Every single day begins with a team meeting — accountability, encouragement, and connection.
+                The group gathers, goals are set, and the tone is locked in. Structure with soul.
+              </div>
+            </div>
 
-  <div class="path-divider"></div>
+            <!-- Slide 3: Movement & Fitness -->
+            <div class="dp-story__slide" data-stage="movement">
+              <div class="dp-story__icon">💪</div>
+              <div class="dp-story__time">10:00 AM</div>
+              <div class="dp-story__heading">MOVEMENT &amp; FITNESS</div>
+              <div class="dp-story__text">
+                Workouts built on research-based principles. Modified fitness programming designed for
+                individuals of all functional levels. Movement is medicine — and here, it's coached at the
+                highest standard.
+              </div>
+            </div>
 
-  <div class="path-section" style="text-align:center">
-    <h3>READY TO START?</h3>
-    <p>Schedule a family consultation. Rebecca will walk you through everything — no pressure, no forms, just a real conversation.</p>
-    <a href="tel:+16789389668" style="display:inline-block;padding:14px 32px;background:#50c878;color:#0a0a0a;font-family:var(--font-display,'Bebas Neue',sans-serif);font-size:1rem;letter-spacing:0.12em;text-decoration:none;border-radius:6px;margin-top:12px">SCHEDULE A FAMILY CONSULTATION</a>
-    <p style="margin-top:16px;font-size:0.82rem;color:rgba(255,255,255,0.5);letter-spacing:0.06em">Start with a conversation built around real needs.</p>
-    <a href="tel:+16789389668" style="display:inline-block;padding:10px 24px;background:transparent;color:#50c878;border:1px solid rgba(80,200,120,0.3);font-family:var(--font-display,'Bebas Neue',sans-serif);font-size:0.88rem;letter-spacing:0.1em;text-decoration:none;border-radius:6px;margin-top:12px">CALL REBECCA &mdash; (678) 938-9668</a>
-  </div>
+            <!-- Slide 4: Community Outing -->
+            <div class="dp-story__slide" data-stage="outing">
+              <div class="dp-story__icon">🌍</div>
+              <div class="dp-story__time">11:30 AM</div>
+              <div class="dp-story__heading">COMMUNITY OUTING</div>
+              <div class="dp-story__text">
+                Daily outings into the community. Real-world engagement, real-world skills, real-world connection.
+                We don't stay inside four walls. We go out, we give back, we build confidence in public settings.
+              </div>
+            </div>
 
+            <!-- Slide 5: Wrap-Up -->
+            <div class="dp-story__slide" data-stage="wrapup">
+              <div class="dp-story__icon">✨</div>
+              <div class="dp-story__time">2:00 PM</div>
+              <div class="dp-story__heading">AFTERNOON WRAP-UP</div>
+              <div class="dp-story__text">
+                The day settles. Pick-ups begin in the early afternoon. Every participant leaves with progress,
+                with connection, with something gained. Families receive their children back better than they arrived.
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress dots -->
+      <nav class="dp-story__progress" aria-label="Story progress">
+        <div class="dp-story__progress-dot" data-idx="0"></div>
+        <div class="dp-story__progress-dot" data-idx="1"></div>
+        <div class="dp-story__progress-dot" data-idx="2"></div>
+        <div class="dp-story__progress-dot" data-idx="3"></div>
+        <div class="dp-story__progress-dot" data-idx="4"></div>
+      </nav>
+    </section>
+
+    <div class="dp-divider"></div>
+
+    <!-- ─── STRUCTURED DAY CARDS ──────────────────────────── -->
+    <section class="dp-section">
+      <div class="dp-section__label dp-reveal" style="opacity:0;transform:translateY(20px)">The System</div>
+      <h2 class="dp-section__title dp-reveal" style="opacity:0;transform:translateY(20px)">ORGANIZED. INTENTIONAL. DEPENDABLE.</h2>
+      <p class="dp-section__desc dp-reveal" style="opacity:0;transform:translateY(20px)">
+        Every element of the Day Program is designed with structure. This isn't daycare. This is a system
+        built on professional standards, research-based methods, and genuine care.
+      </p>
+
+      <div class="dp-cards">
+        <div class="dp-card">
+          <div class="dp-card__icon">📋</div>
+          <div class="dp-card__title">Daily Meetings</div>
+          <div class="dp-card__desc">Every morning starts with accountability and connection — setting the tone for a purpose-driven day.</div>
+        </div>
+        <div class="dp-card">
+          <div class="dp-card__icon">🏋️</div>
+          <div class="dp-card__title">Movement &amp; Fitness</div>
+          <div class="dp-card__desc">Research-based, modified fitness programs designed for all functional levels and abilities.</div>
+        </div>
+        <div class="dp-card">
+          <div class="dp-card__icon">🧠</div>
+          <div class="dp-card__title">Daily Living Skills</div>
+          <div class="dp-card__desc">Real-world independence skills: cooking, communication, money management, and social engagement.</div>
+        </div>
+        <div class="dp-card">
+          <div class="dp-card__icon">🌎</div>
+          <div class="dp-card__title">Daily Community Outings</div>
+          <div class="dp-card__desc">We leave the building every single day. Real integration, real confidence, real-world presence.</div>
+        </div>
+        <div class="dp-card">
+          <div class="dp-card__icon">🤝</div>
+          <div class="dp-card__title">Social Connection</div>
+          <div class="dp-card__desc">Peer-to-peer bonds, team activities, and meaningful friendships built through shared experiences.</div>
+        </div>
+        <div class="dp-card">
+          <div class="dp-card__icon">❤️</div>
+          <div class="dp-card__title">Family Communication</div>
+          <div class="dp-card__desc">Direct access to leadership. Progress updates, open-door policy, and total transparency.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="dp-divider"></div>
+
+    <!-- ─── DAILY MEETING CIRCLE ──────────────────────────── -->
+    <section class="dp-section">
+      <div style="text-align:center">
+        <div class="dp-section__label dp-reveal" style="opacity:0;transform:translateY(20px)">Connection</div>
+        <h2 class="dp-section__title dp-reveal" style="opacity:0;transform:translateY(20px)">EVERY DAY BEGINS TOGETHER</h2>
+        <p class="dp-section__desc dp-reveal" style="opacity:0;transform:translateY(20px);margin-left:auto;margin-right:auto;text-align:center">
+          Structure. Accountability. Connection. Our daily meetings aren't a formality — they're the heartbeat
+          of the program.
+        </p>
+      </div>
+
+      <div class="dp-circle">
+        <div class="dp-circle__ring"></div>
+        <!-- Participant nodes -->
+        <div class="dp-circle__node">1</div>
+        <div class="dp-circle__node">2</div>
+        <div class="dp-circle__node">3</div>
+        <div class="dp-circle__node">4</div>
+        <div class="dp-circle__node">5</div>
+        <div class="dp-circle__node">6</div>
+        <div class="dp-circle__node">7</div>
+        <div class="dp-circle__node">8</div>
+        <!-- Connection lines -->
+        <div class="dp-circle__connection" style="width:200px;transform:rotate(0deg)"></div>
+        <div class="dp-circle__connection" style="width:180px;transform:rotate(45deg)"></div>
+        <div class="dp-circle__connection" style="width:220px;transform:rotate(90deg)"></div>
+        <div class="dp-circle__connection" style="width:190px;transform:rotate(135deg)"></div>
+        <div class="dp-circle__connection" style="width:210px;transform:rotate(180deg)"></div>
+        <div class="dp-circle__connection" style="width:170px;transform:rotate(225deg)"></div>
+        <div class="dp-circle__connection" style="width:200px;transform:rotate(270deg)"></div>
+        <div class="dp-circle__connection" style="width:185px;transform:rotate(315deg)"></div>
+        <!-- Center label -->
+        <div class="dp-circle__label">DAILY MEETING<br /><span style="font-size:0.7em;color:rgba(255,255,255,0.5)">Structure · Accountability · Connection</span></div>
+      </div>
+    </section>
+
+    <div class="dp-divider"></div>
+
+    <!-- ─── COMMUNITY ROUTE REVEAL ────────────────────────── -->
+    <section class="dp-route">
+      <div class="dp-section__label dp-reveal" style="opacity:0;transform:translateY(20px)">Community</div>
+      <h2 class="dp-section__title dp-reveal" style="opacity:0;transform:translateY(20px)">WE DON'T STAY INSIDE FOUR WALLS</h2>
+      <p class="dp-section__desc dp-reveal" style="opacity:0;transform:translateY(20px);margin-left:auto;margin-right:auto;text-align:center">
+        Daily outings are the backbone of integration. Our participants go out into the community every single day,
+        building confidence, giving back, and engaging with the real world.
+      </p>
+
+      <div class="dp-route__map">
+        <svg class="dp-route__svg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet">
+          <!-- Center PPF Hub -->
+          <circle class="dp-route__center" cx="400" cy="200" r="24" />
+          <text class="dp-route__center-text" x="400" y="205" text-anchor="middle">PPF</text>
+
+          <!-- Route path branching out from center -->
+          <path class="dp-route__path" d="M400,200 C300,200 250,120 180,100 M400,200 C480,140 550,100 620,80 M400,200 C340,260 280,300 200,320 M400,200 C500,250 560,300 640,330 M400,200 C400,280 420,340 400,380" />
+
+          <!-- Community destinations -->
+          <g class="dp-route__dest" data-dest="0">
+            <circle class="dp-route__dest-circle" cx="180" cy="100" r="18" />
+            <text class="dp-route__dest-text" x="180" y="104" text-anchor="middle">Volunteer</text>
+          </g>
+          <g class="dp-route__dest" data-dest="1">
+            <circle class="dp-route__dest-circle" cx="620" cy="80" r="18" />
+            <text class="dp-route__dest-text" x="620" y="84" text-anchor="middle">Recreation</text>
+          </g>
+          <g class="dp-route__dest" data-dest="2">
+            <circle class="dp-route__dest-circle" cx="200" cy="320" r="18" />
+            <text class="dp-route__dest-text" x="200" y="324" text-anchor="middle">Shopping</text>
+          </g>
+          <g class="dp-route__dest" data-dest="3">
+            <circle class="dp-route__dest-circle" cx="640" cy="330" r="18" />
+            <text class="dp-route__dest-text" x="640" y="334" text-anchor="middle">Dining</text>
+          </g>
+          <g class="dp-route__dest" data-dest="4">
+            <circle class="dp-route__dest-circle" cx="400" cy="380" r="18" />
+            <text class="dp-route__dest-text" x="400" y="384" text-anchor="middle">Events</text>
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <div class="dp-divider"></div>
+
+    <!-- ─── PARTICIPANT WALL ──────────────────────────────── -->
+    <section class="dp-wall">
+      <div class="dp-section__label dp-reveal" style="opacity:0;transform:translateY(20px)">Capacity</div>
+      <h2 class="dp-section__title dp-reveal" style="opacity:0;transform:translateY(20px)">50 LIVES. ONE STANDARD.</h2>
+      <p class="dp-section__desc dp-reveal" style="opacity:0;transform:translateY(20px);margin-left:auto;margin-right:auto;text-align:center">
+        Every tile represents a life we have the privilege to impact. Up to 50 kids and adults,
+        every single day, trusted to our care.
+      </p>
+
+      <div class="dp-wall__grid">
+        <!-- 50 tiles -->
+        <div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div>
+        <div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div>
+        <div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div>
+        <div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div>
+        <div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div>
+        <div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div>
+        <div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div>
+        <div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div>
+        <div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div>
+        <div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div><div class="dp-wall__tile"></div>
+      </div>
+
+      <div class="dp-wall__word">CARE</div>
+      <div class="dp-wall__word">COMMUNITY</div>
+      <div class="dp-wall__word">CONFIDENCE</div>
+    </section>
+
+    <div class="dp-divider"></div>
+
+    <!-- ─── IMPACT RIPPLE ─────────────────────────────────── -->
+    <section class="dp-impact">
+      <div class="dp-section__label dp-reveal" style="opacity:0;transform:translateY(20px)">Impact</div>
+      <h2 class="dp-section__title dp-reveal" style="opacity:0;transform:translateY(20px)">RIPPLE EFFECT</h2>
+      <p class="dp-section__desc dp-reveal" style="opacity:0;transform:translateY(20px);margin-left:auto;margin-right:auto;text-align:center">
+        The impact of this program doesn't stop at the individual. It reaches families. It reaches communities.
+        After 6&nbsp;years, the ripple effect is undeniable.
+      </p>
+
+      <div class="dp-impact__rings">
+        <div class="dp-impact__ring dp-impact__ring--community">
+          <span class="dp-impact__ring-label">COMMUNITY</span>
+        </div>
+        <div class="dp-impact__ring dp-impact__ring--family">
+          <span class="dp-impact__ring-label">FAMILY</span>
+        </div>
+        <div class="dp-impact__ring dp-impact__ring--core">
+          <span class="dp-impact__ring-label">PARTICIPANT</span>
+        </div>
+      </div>
+
+      <div class="dp-impact__proof">
+        <div class="dp-impact__proof-item">
+          <strong>6+</strong>
+          <span>Years of Proven Impact</span>
+        </div>
+        <div class="dp-impact__proof-item">
+          <strong>50</strong>
+          <span>Participants Served Daily</span>
+        </div>
+        <div class="dp-impact__proof-item">
+          <strong>365</strong>
+          <span>Community Outings Per Year</span>
+        </div>
+        <div class="dp-impact__proof-item">
+          <strong>100%</strong>
+          <span>Family Satisfaction</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="dp-divider"></div>
+
+    <!-- ─── STAFFING ──────────────────────────────────────── -->
+    <section class="dp-section" style="text-align:center">
+      <div class="dp-section__label dp-reveal" style="opacity:0;transform:translateY(20px)">Team</div>
+      <h2 class="dp-section__title dp-reveal" style="opacity:0;transform:translateY(20px)">BACKED BY A REAL TEAM</h2>
+      <p class="dp-section__desc dp-reveal" style="opacity:0;transform:translateY(20px);margin-left:auto;margin-right:auto;text-align:center">
+        We don't run a skeleton crew. On any given day, there are 5–6 trained helpers on the floor,
+        plus a director and assistant director. Every participant is seen. Every moment is supervised.
+      </p>
+
+      <div class="dp-staff">
+        <div class="dp-staff__card">
+          <div class="dp-staff__card-num">1</div>
+          <div class="dp-staff__card-label">Director</div>
+        </div>
+        <div class="dp-staff__card">
+          <div class="dp-staff__card-num">1</div>
+          <div class="dp-staff__card-label">Assistant Director</div>
+        </div>
+        <div class="dp-staff__card">
+          <div class="dp-staff__card-num">5–6</div>
+          <div class="dp-staff__card-label">Daily Helpers</div>
+        </div>
+        <div class="dp-staff__card">
+          <div class="dp-staff__card-num">7+</div>
+          <div class="dp-staff__card-label">Total Staff Daily</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="dp-divider"></div>
+
+    <!-- ─── DAY-IN-MOTION TIMELINE ────────────────────────── -->
+    <section class="dp-section">
+      <div style="text-align:center">
+        <div class="dp-section__label dp-reveal" style="opacity:0;transform:translateY(20px)">Schedule</div>
+        <h2 class="dp-section__title dp-reveal" style="opacity:0;transform:translateY(20px)">A DAY IN MOTION</h2>
+        <p class="dp-section__desc dp-reveal" style="opacity:0;transform:translateY(20px);margin-left:auto;margin-right:auto;text-align:center">
+          From morning drop-off to afternoon pick-up, every hour is filled with purpose, movement,
+          and genuine connection.
+        </p>
+      </div>
+
+      <div class="dp-timeline">
+        <div class="dp-timeline__line"></div>
+        <div class="dp-timeline__fill"></div>
+
+        <div class="dp-timeline__stop">
+          <div class="dp-timeline__node"></div>
+          <div class="dp-timeline__content">
+            <div class="dp-timeline__time-tag">9:00 AM</div>
+            <div class="dp-timeline__title">ARRIVAL &amp; CHECK-IN</div>
+            <div class="dp-timeline__desc">Car rider drop-off. Participants arrive and check in with staff. Every face is greeted by name.</div>
+          </div>
+        </div>
+
+        <div class="dp-timeline__stop">
+          <div class="dp-timeline__node"></div>
+          <div class="dp-timeline__content">
+            <div class="dp-timeline__time-tag">9:15 AM</div>
+            <div class="dp-timeline__title">DAILY TEAM MEETING</div>
+            <div class="dp-timeline__desc">Group circle. Goals set. Expectations locked. The standard is established before anything else begins.</div>
+          </div>
+        </div>
+
+        <div class="dp-timeline__stop">
+          <div class="dp-timeline__node"></div>
+          <div class="dp-timeline__content">
+            <div class="dp-timeline__time-tag">10:00 AM</div>
+            <div class="dp-timeline__title">MOVEMENT &amp; TRAINING</div>
+            <div class="dp-timeline__desc">Modified fitness programming. Research-based. All genres of fitness adapted for every functional level.</div>
+          </div>
+        </div>
+
+        <div class="dp-timeline__stop">
+          <div class="dp-timeline__node"></div>
+          <div class="dp-timeline__content">
+            <div class="dp-timeline__time-tag">11:00 AM</div>
+            <div class="dp-timeline__title">DAILY LIVING SKILLS</div>
+            <div class="dp-timeline__desc">Cooking, budgeting, communication, social navigation — practical independence training for real life.</div>
+          </div>
+        </div>
+
+        <div class="dp-timeline__stop">
+          <div class="dp-timeline__node"></div>
+          <div class="dp-timeline__content">
+            <div class="dp-timeline__time-tag">11:30 AM</div>
+            <div class="dp-timeline__title">COMMUNITY OUTING</div>
+            <div class="dp-timeline__desc">Out into the community every single day. Volunteer work, recreation, shopping, dining — real integration.</div>
+          </div>
+        </div>
+
+        <div class="dp-timeline__stop">
+          <div class="dp-timeline__node"></div>
+          <div class="dp-timeline__content">
+            <div class="dp-timeline__time-tag">2:00 PM</div>
+            <div class="dp-timeline__title">WRAP-UP &amp; PICK-UP</div>
+            <div class="dp-timeline__desc">The day settles. Parents begin pick-up in the early afternoon. Every participant leaves with progress gained.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="dp-divider"></div>
+
+    <!-- ─── LEADERSHIP: REBECCA CAMP ──────────────────────── -->
+    <section class="dp-section" id="dpLeadership">
+      <div style="text-align:center;margin-bottom:48px">
+        <div class="dp-section__label dp-reveal" style="opacity:0;transform:translateY(20px)">Leadership</div>
+        <h2 class="dp-section__title dp-reveal" style="opacity:0;transform:translateY(20px)">THE STANDARD STARTS AT THE TOP</h2>
+      </div>
+
+      <div class="dp-leader">
+        <div class="dp-leader__portrait">
+          <div class="dp-leader__portrait-frame"></div>
+          <div class="dp-leader__initials">RC</div>
+        </div>
+
+        <div class="dp-leader__info">
+          <div class="dp-leader__role">Owner / Director</div>
+          <h3 class="dp-leader__name">REBECCA CAMP</h3>
+          <div class="dp-leader__title-line">Ed.S Special Education / Behavior Disorders with Autism Concentration</div>
+
+          <div class="dp-leader__bio">
+            Rebecca Camp has worked with individuals with special needs for over 17&nbsp;years. Her passion
+            and drive is to provide individuals access to daily living activities that will benefit their
+            health and overall wellness.
+          </div>
+
+          <div class="dp-leader__bio">
+            Rebecca has worked with individuals with special needs in various settings including many levels
+            within the public school system. Once leaving the public school system, she began a modified fitness
+            program for individuals with special needs. The program encompasses many aspects of all genres of
+            fitness. She applied research-based principles and daily living skills to form an all-encompassing
+            fitness program for individuals of all functional levels.
+          </div>
+
+          <div class="dp-leader__creds">
+            <div class="dp-leader__cred">
+              <span class="dp-leader__cred-icon">🎓</span>
+              <span>Bachelor's Degree in Psychology — Georgia State University</span>
+            </div>
+            <div class="dp-leader__cred">
+              <span class="dp-leader__cred-icon">🎓</span>
+              <span>Master's Degree in Special Education, Behavior Disorders (Autism Concentration) — Georgia State University</span>
+            </div>
+            <div class="dp-leader__cred">
+              <span class="dp-leader__cred-icon">🎓</span>
+              <span>Educational Specialist Degree in Special Education — University of West Georgia</span>
+            </div>
+          </div>
+
+          <div class="dp-leader__stat-bar">
+            <div class="dp-leader__stat">
+              <div class="dp-leader__stat-num">17+</div>
+              <div class="dp-leader__stat-label">Years Experience</div>
+            </div>
+            <div class="dp-leader__stat">
+              <div class="dp-leader__stat-num">3</div>
+              <div class="dp-leader__stat-label">Degrees Earned</div>
+            </div>
+            <div class="dp-leader__stat">
+              <div class="dp-leader__stat-num">6+</div>
+              <div class="dp-leader__stat-label">Years Running PPF Day Program</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="dp-divider"></div>
+
+    <!-- ─── ENROLLMENT CTA ────────────────────────────────── -->
+    <section class="dp-cta" id="dpEnroll">
+      <div class="dp-cta__status">
+        <span class="dp-cta__status-dot"></span>
+        Spring / Summer Enrollment Open — Limited Spots Remaining
+      </div>
+
+      <h2 class="dp-cta__heading dp-reveal" style="opacity:0;transform:translateY(20px)">THIS IS YOUR INVITATION</h2>
+
+      <p class="dp-cta__sub dp-reveal" style="opacity:0;transform:translateY(20px)">
+        We are now accepting new participants for spring and summer. Limited spots remain in the Day Program.
+        Schedule a family consultation with Rebecca — no pressure, no forms, just a real conversation
+        about what your family needs.
+      </p>
+
+      <div class="dp-cta__btn-wrap dp-reveal" style="opacity:0;transform:translateY(20px)">
+        <div class="dp-cta__btn-glow"></div>
+        <div class="dp-cta__btn-border"></div>
+        <a href="tel:+16789389668" class="dp-cta__btn">
+          SCHEDULE A FAMILY CONSULTATION
+          <span>→</span>
+        </a>
+      </div>
+
+      <br />
+
+      <a href="tel:+16789389668" class="dp-cta__secondary dp-reveal" style="opacity:0;transform:translateY(20px)">
+        📞 CALL REBECCA — (678) 938-9668
+      </a>
+
+      <p class="dp-reveal" style="opacity:0;transform:translateY(20px);margin-top:24px;font-size:0.78rem;color:rgba(255,255,255,0.4);letter-spacing:0.08em">
+        Start with a conversation built around real needs.
+      </p>
+    </section>
+
+    <!-- ─── FOOTER STRIP ──────────────────────────────────── -->
+    <footer style="text-align:center;padding:48px 24px 32px;border-top:1px solid rgba(255,255,255,0.06)">
+      <p style="font-size:0.72rem;color:rgba(255,255,255,0.3);letter-spacing:0.08em">
+        PPF INTEGRATED DAY PROGRAM &nbsp;·&nbsp; 7721 Majors Rd, Cumming, GA &nbsp;·&nbsp;
+        <a href="tel:+16789389668" style="color:rgba(80,200,120,0.6);text-decoration:none">(678) 938-9668</a>
+      </p>
+      <p style="font-size:0.64rem;color:rgba(255,255,255,0.2);margin-top:8px;letter-spacing:0.06em">
+        &copy; 2024 PPF Athletics. All rights reserved. &nbsp;·&nbsp;
+        <a href="../privacy-policy.html" style="color:rgba(255,255,255,0.25);text-decoration:none">Privacy</a> &nbsp;·&nbsp;
+        <a href="../terms-of-service.html" style="color:rgba(255,255,255,0.25);text-decoration:none">Terms</a>
+      </p>
+    </footer>
+
+  </main>
+
+  <!-- ═══════════════════ SCRIPTS ══════════════════════════════ -->
   <script src="../js/ppf-mega-nav.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="../js/ppf-day-program.js"></script>
 
 </body>
 </html>

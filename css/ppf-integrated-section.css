@@ -1,0 +1,851 @@
+/* ============================================================
+   PPF INTEGRATED — Elite Homepage Section
+   Premium adaptive fitness section with animated icons,
+   program grid, scroll progression, and Rebecca spotlight
+   ============================================================ */
+
+/* ── VARIABLES ─────────────────────────────────────────── */
+.ppf-int {
+  --int-accent: #50c878;
+  --int-accent-dim: rgba(80, 200, 120, 0.12);
+  --int-accent-glow: rgba(80, 200, 120, 0.25);
+  --int-surface: #111111;
+  --int-surface-2: #161616;
+  --int-border: rgba(255, 255, 255, 0.06);
+  --int-text: rgba(255, 255, 255, 0.82);
+  --int-text-dim: rgba(255, 255, 255, 0.5);
+  --int-text-bright: #ffffff;
+  --int-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --int-radius: 8px;
+}
+
+/* ── SECTION WRAPPER ───────────────────────────────────── */
+.ppf-int {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(10,10,10,0) 0%, rgba(10,60,30,0.04) 50%, rgba(10,10,10,0) 100%);
+}
+
+.ppf-int__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ── HERO BLOCK ────────────────────────────────────────── */
+.ppf-int__hero {
+  text-align: center;
+  padding: 100px 24px 60px;
+  position: relative;
+}
+
+.ppf-int__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--int-accent);
+  margin-bottom: 24px;
+}
+
+.ppf-int__eyebrow-line {
+  width: 32px;
+  height: 1px;
+  background: var(--int-accent);
+  opacity: 0.4;
+}
+
+.ppf-int__headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  line-height: 1.05;
+  letter-spacing: 0.03em;
+  margin: 0 0 20px;
+  color: var(--int-text-bright);
+}
+
+.ppf-int__headline em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--int-accent) 0%, #3dd970 50%, #a8f0c0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.ppf-int__sub {
+  font-size: clamp(0.88rem, 1.4vw, 1.02rem);
+  color: var(--int-text-dim);
+  line-height: 1.75;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* ── INTRO BLOCK ───────────────────────────────────────── */
+.ppf-int__intro {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 60px 24px;
+  text-align: center;
+}
+
+.ppf-int__intro-body {
+  font-size: 0.92rem;
+  color: var(--int-text);
+  line-height: 1.85;
+}
+
+.ppf-int__intro-body + .ppf-int__intro-body {
+  margin-top: 16px;
+}
+
+/* ── DIVIDER ───────────────────────────────────────────── */
+.ppf-int__divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--int-border), transparent);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── VALUE STRIP ───────────────────────────────────────── */
+.ppf-int__values {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-top: 1px solid var(--int-border);
+  border-bottom: 1px solid var(--int-border);
+}
+
+.ppf-int__value {
+  padding: 36px 28px;
+  border-right: 1px solid var(--int-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.ppf-int__value:last-child {
+  border-right: none;
+}
+
+.ppf-int__value-icon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 16px;
+}
+
+.ppf-int__value-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--int-accent);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.ppf-int__value-icon svg path,
+.ppf-int__value-icon svg circle,
+.ppf-int__value-icon svg polyline,
+.ppf-int__value-icon svg line,
+.ppf-int__value-icon svg rect {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  transition: stroke-dashoffset 1.2s var(--int-ease);
+}
+
+.ppf-int__value.is-traced .ppf-int__value-icon svg path,
+.ppf-int__value.is-traced .ppf-int__value-icon svg circle,
+.ppf-int__value.is-traced .ppf-int__value-icon svg polyline,
+.ppf-int__value.is-traced .ppf-int__value-icon svg line,
+.ppf-int__value.is-traced .ppf-int__value-icon svg rect {
+  stroke-dashoffset: 0;
+}
+
+.ppf-int__value-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  color: var(--int-text-bright);
+  margin-bottom: 8px;
+}
+
+.ppf-int__value-desc {
+  font-size: 0.78rem;
+  color: var(--int-text-dim);
+  line-height: 1.6;
+}
+
+/* Top accent line on value cards */
+.ppf-int__value::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--int-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s var(--int-ease);
+}
+
+.ppf-int__value.is-traced::before {
+  transform: scaleX(1);
+}
+
+/* ── WHY IT MATTERS ────────────────────────────────────── */
+.ppf-int__why {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.ppf-int__why-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  margin: 0 0 20px;
+}
+
+.ppf-int__why-body {
+  font-size: 0.9rem;
+  color: var(--int-text-dim);
+  line-height: 1.8;
+}
+
+.ppf-int__why-body + .ppf-int__why-body {
+  margin-top: 14px;
+}
+
+.ppf-int__benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ppf-int__benefit {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--int-border);
+  font-size: 0.85rem;
+  color: var(--int-text);
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.5s var(--int-ease);
+}
+
+.ppf-int__benefit.is-revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ppf-int__benefit-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--int-accent-dim);
+  border: 1px solid rgba(80, 200, 120, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--int-accent);
+  font-size: 0.65rem;
+}
+
+/* ── PROGRAM GRID ──────────────────────────────────────── */
+.ppf-int__programs {
+  padding: 80px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.ppf-int__programs-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.ppf-int__programs-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--int-accent);
+  margin-bottom: 12px;
+}
+
+.ppf-int__programs-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+.ppf-int__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Day Program card spans 2 columns — the visual centerpiece */
+.ppf-int__card--day {
+  grid-column: span 2;
+}
+
+.ppf-int__card {
+  position: relative;
+  padding: 36px 28px;
+  background: var(--int-surface);
+  border: 1px solid var(--int-border);
+  border-radius: var(--int-radius);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.7s var(--int-ease);
+}
+
+.ppf-int__card.is-locked {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Top bar that slides in */
+.ppf-int__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--int-accent), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--int-ease) 0.3s;
+}
+
+.ppf-int__card.is-locked::before {
+  transform: scaleX(1);
+}
+
+.ppf-int__card-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: rgba(80, 200, 120, 0.4);
+  margin-bottom: 12px;
+}
+
+.ppf-int__card-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  letter-spacing: 0.06em;
+  margin: 0 0 6px;
+  color: var(--int-text-bright);
+}
+
+.ppf-int__card-sub {
+  font-size: 0.76rem;
+  color: var(--int-accent);
+  letter-spacing: 0.06em;
+  font-style: italic;
+  margin-bottom: 14px;
+}
+
+.ppf-int__card-desc {
+  font-size: 0.84rem;
+  color: var(--int-text-dim);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.ppf-int__card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.14em;
+  color: var(--int-accent);
+  text-decoration: none;
+  transition: gap 0.3s var(--int-ease);
+}
+
+.ppf-int__card-cta:hover {
+  gap: 14px;
+}
+
+.ppf-int__card-cta svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Day Program card special styling — wider, richer */
+.ppf-int__card--day {
+  background: linear-gradient(135deg, var(--int-surface) 0%, rgba(16,40,24,0.3) 100%);
+  border-color: rgba(80, 200, 120, 0.12);
+}
+
+.ppf-int__card--day .ppf-int__card-badge {
+  display: inline-block;
+  padding: 4px 14px;
+  background: var(--int-accent-dim);
+  border: 1px solid rgba(80, 200, 120, 0.2);
+  border-radius: 100px;
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--int-accent);
+  margin-bottom: 14px;
+}
+
+/* ── SCROLL PROGRESSION STRIP ──────────────────────────── */
+.ppf-int__progression {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 48px 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ppf-int__prog-step {
+  text-align: center;
+  flex: 1;
+  position: relative;
+  padding: 0 12px;
+}
+
+.ppf-int__prog-step-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.2);
+  transition: color 0.6s ease;
+}
+
+.ppf-int__prog-step.is-lit .ppf-int__prog-step-label {
+  color: var(--int-accent);
+}
+
+.ppf-int__prog-arrow {
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.1);
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  transition: color 0.6s ease;
+}
+
+.ppf-int__prog-arrow.is-lit {
+  color: rgba(80, 200, 120, 0.4);
+}
+
+/* ── SCHEDULE ──────────────────────────────────────────── */
+.ppf-int__schedule {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.ppf-int__schedule-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.ppf-int__schedule-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+
+.ppf-int__schedule-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.ppf-int__sched-card {
+  padding: 28px 24px;
+  background: var(--int-surface);
+  border: 1px solid var(--int-border);
+  border-radius: var(--int-radius);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s var(--int-ease);
+}
+
+.ppf-int__sched-card.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ppf-int__sched-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  color: var(--int-accent);
+  margin-bottom: 12px;
+}
+
+.ppf-int__sched-time {
+  font-size: 0.84rem;
+  color: var(--int-text);
+  line-height: 1.7;
+}
+
+/* ── REBECCA SPOTLIGHT ─────────────────────────────────── */
+.ppf-int__spotlight {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 48px;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.ppf-int__spot-portrait {
+  width: 200px;
+  height: 240px;
+  background: var(--int-surface);
+  border: 1px solid var(--int-border);
+  border-radius: var(--int-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: all 0.8s var(--int-ease);
+}
+
+.ppf-int__spot-portrait.is-revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ppf-int__spot-portrait-frame {
+  position: absolute;
+  inset: -3px;
+  border: 1px solid rgba(80, 200, 120, 0.15);
+  border-radius: calc(var(--int-radius) + 3px);
+  opacity: 0;
+  transition: opacity 0.5s ease 0.4s;
+}
+
+.ppf-int__spot-portrait.is-revealed .ppf-int__spot-portrait-frame {
+  opacity: 1;
+}
+
+.ppf-int__spot-initials {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3.2rem;
+  letter-spacing: 0.08em;
+  color: rgba(80, 200, 120, 0.2);
+}
+
+.ppf-int__spot-info {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: all 0.8s var(--int-ease) 0.15s;
+}
+
+.ppf-int__spot-info.is-revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ppf-int__spot-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--int-accent);
+  margin-bottom: 8px;
+}
+
+.ppf-int__spot-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  letter-spacing: 0.04em;
+  margin: 0 0 6px;
+}
+
+.ppf-int__spot-title {
+  font-size: 0.8rem;
+  color: var(--int-text-dim);
+  font-style: italic;
+  margin-bottom: 16px;
+}
+
+.ppf-int__spot-body {
+  font-size: 0.88rem;
+  color: var(--int-text);
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+
+.ppf-int__spot-contact {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ppf-int__spot-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  border: 1px solid var(--int-border);
+  border-radius: var(--int-radius);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--int-text);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.ppf-int__spot-link:hover {
+  border-color: rgba(80, 200, 120, 0.3);
+  background: var(--int-accent-dim);
+  color: var(--int-accent);
+}
+
+.ppf-int__spot-link--primary {
+  background: var(--int-accent);
+  color: #0a0a0a;
+  border-color: var(--int-accent);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.86rem;
+  letter-spacing: 0.12em;
+}
+
+.ppf-int__spot-link--primary:hover {
+  background: #3dd970;
+  border-color: #3dd970;
+  color: #0a0a0a;
+}
+
+/* ── CLOSING STATEMENT ─────────────────────────────────── */
+.ppf-int__close {
+  text-align: center;
+  padding: 80px 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.ppf-int__close-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  letter-spacing: 0.04em;
+  margin: 0 0 20px;
+}
+
+.ppf-int__close-body {
+  font-size: 0.9rem;
+  color: var(--int-text-dim);
+  line-height: 1.8;
+}
+
+.ppf-int__close-body + .ppf-int__close-body {
+  margin-top: 14px;
+}
+
+.ppf-int__close-sig {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.ppf-int__close-sig-line {
+  width: 40px;
+  height: 1px;
+  background: var(--int-accent);
+  opacity: 0.3;
+}
+
+.ppf-int__close-sig-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--int-accent);
+}
+
+/* ── CONFIDENCE COUNTER CARDS ──────────────────────────── */
+.ppf-int__counters {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 1000px;
+  margin: 48px auto 0;
+}
+
+.ppf-int__counter {
+  padding: 24px 20px;
+  background: var(--int-surface);
+  border: 1px solid var(--int-border);
+  border-radius: var(--int-radius);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: all 0.5s var(--int-ease);
+}
+
+.ppf-int__counter.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ppf-int__counter-icon {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.ppf-int__counter-label {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  color: var(--int-text-bright);
+}
+
+.ppf-int__counter-sub {
+  font-size: 0.68rem;
+  color: var(--int-text-dim);
+  margin-top: 4px;
+}
+
+/* ── RESPONSIVE ────────────────────────────────────────── */
+@media (max-width: 960px) {
+  .ppf-int__values {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ppf-int__value:nth-child(2) {
+    border-right: none;
+  }
+
+  .ppf-int__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ppf-int__card--day {
+    grid-column: span 2;
+  }
+
+  .ppf-int__counters {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .ppf-int__hero {
+    padding: 70px 20px 40px;
+  }
+
+  .ppf-int__why {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 60px 20px;
+  }
+
+  .ppf-int__values {
+    grid-template-columns: 1fr;
+  }
+
+  .ppf-int__value {
+    border-right: none;
+    border-bottom: 1px solid var(--int-border);
+  }
+
+  .ppf-int__value:last-child {
+    border-bottom: none;
+  }
+
+  .ppf-int__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ppf-int__card--day {
+    grid-column: span 1;
+  }
+
+  .ppf-int__schedule-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ppf-int__spotlight {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 32px;
+  }
+
+  .ppf-int__spot-portrait {
+    margin: 0 auto;
+    width: 160px;
+    height: 200px;
+  }
+
+  .ppf-int__spot-contact {
+    justify-content: center;
+  }
+
+  .ppf-int__progression {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .ppf-int__prog-arrow {
+    width: 24px;
+  }
+
+  .ppf-int__counters {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .ppf-int__counters {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── REDUCED MOTION ────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ppf-int__value::before,
+  .ppf-int__card::before {
+    transform: scaleX(1);
+  }
+
+  .ppf-int__value-icon svg path,
+  .ppf-int__value-icon svg circle,
+  .ppf-int__value-icon svg polyline,
+  .ppf-int__value-icon svg line,
+  .ppf-int__value-icon svg rect {
+    stroke-dashoffset: 0;
+  }
+
+  .ppf-int__card,
+  .ppf-int__benefit,
+  .ppf-int__sched-card,
+  .ppf-int__counter,
+  .ppf-int__spot-portrait,
+  .ppf-int__spot-info {
+    opacity: 1;
+    transform: none;
+  }
+}
