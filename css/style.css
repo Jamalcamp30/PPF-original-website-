@@ -8593,6 +8593,12 @@ body.focus-mode .focus-target {
   opacity: 1;
 }
 
+.path-desc--detail {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: -16px;
+}
+
 .paths-section .path-highlights {
   display: flex;
   opacity: 1;
