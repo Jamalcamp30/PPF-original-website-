@@ -1,0 +1,94 @@
+/* =====================================================
+   PPF STICKY MOBILE CTA BAR
+   Persistent bottom action bar — mobile only (≤768px).
+   Two actions: Start 3-Day (primary) + Call (secondary).
+   Hides on scroll-down, reveals on scroll-up.
+   ===================================================== */
+
+.ppf-sticky-bar {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .ppf-sticky-bar {
+    display: flex;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 900;
+    gap: 10px;
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+    background: rgba(10, 10, 10, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255, 85, 0, 0.28);
+    box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.45);
+    transform: translateY(0);
+    transition: transform 0.28s ease, opacity 0.28s ease;
+    will-change: transform;
+  }
+
+  .ppf-sticky-bar[data-state="hidden"] {
+    transform: translateY(110%);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .ppf-sticky-bar__btn {
+    flex: 1 1 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: 48px;
+    padding: 0 14px;
+    font-family: 'Bebas Neue', 'Inter', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .ppf-sticky-bar__btn--primary {
+    background: #FF5500;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(255, 85, 0, 0.4);
+  }
+
+  .ppf-sticky-bar__btn--primary:active {
+    transform: scale(0.98);
+  }
+
+  .ppf-sticky-bar__btn--ghost {
+    background: transparent;
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.35);
+    flex: 0 1 40%;
+  }
+
+  .ppf-sticky-bar__btn--ghost:active {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .ppf-sticky-bar__icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  /* Lift footer content so the bar never covers the last row */
+  body.ppf-has-sticky-bar {
+    padding-bottom: 72px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ppf-sticky-bar {
+    transition: none;
+  }
+}
