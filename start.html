@@ -174,6 +174,116 @@
   </section>
 
   <!-- ═══════════════════════════════════════════════ -->
+  <!-- INLINE LEAD FORM (above-the-fold quick start)   -->
+  <!-- ═══════════════════════════════════════════════ -->
+  <section class="section start-inline-section" id="startInline" aria-label="Claim your 3-day experience">
+    <div class="container">
+      <div class="start-inline">
+        <div class="start-inline__copy">
+          <span class="start-inline__label">CLAIM YOUR 3-DAY EXPERIENCE</span>
+          <h2 class="start-inline__headline">Start now.<br/><span class="accent">A coach replies within 24 hours.</span></h2>
+          <ul class="start-inline__points">
+            <li>✓ Real coach call/text — no automated funnel</li>
+            <li>✓ No pressure, no contract, no credit card</li>
+            <li>✓ Serving Forsyth County &amp; North Atlanta</li>
+          </ul>
+          <p class="start-inline__scrolldown"><a href="#start">Prefer the full application? Scroll down →</a></p>
+        </div>
+        <form class="start-inline__form" id="startInlineForm" novalidate>
+          <div class="start-inline__row">
+            <label class="start-inline__field">
+              <span>First Name</span>
+              <input type="text" name="firstName" id="inlineFirstName" autocomplete="given-name" required />
+            </label>
+            <label class="start-inline__field">
+              <span>Last Name</span>
+              <input type="text" name="lastName" id="inlineLastName" autocomplete="family-name" />
+            </label>
+          </div>
+          <label class="start-inline__field">
+            <span>Email</span>
+            <input type="email" name="email" id="inlineEmail" autocomplete="email" required />
+          </label>
+          <div class="start-inline__row">
+            <label class="start-inline__field">
+              <span>Phone</span>
+              <input type="tel" name="phone" id="inlinePhone" autocomplete="tel" placeholder="(000) 000-0000" />
+            </label>
+            <label class="start-inline__field">
+              <span>Your Path</span>
+              <select name="path" id="inlinePath" required>
+                <option value="">Choose your path</option>
+                <option value="athlete">Athlete (12–22)</option>
+                <option value="adult">Adult</option>
+                <option value="integrated">Integrated Fitness</option>
+                <option value="unsure">Not sure yet</option>
+              </select>
+            </label>
+          </div>
+          <button type="submit" class="start-inline__submit">
+            <span>CLAIM MY 3-DAY EXPERIENCE</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <p class="start-inline__trust">Your info is safe. A real PPF coach — not an auto-responder — reaches out within 24 hours.</p>
+          <p class="start-inline__success" id="startInlineSuccess" role="status" hidden>You're in. A PPF coach will be in touch within 24 hours.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+  <style>
+    .start-inline-section { padding: 56px 0; background: #0a0a0a; position: relative; }
+    .start-inline { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; max-width: 1100px; margin: 0 auto; }
+    .start-inline__label { display:inline-block; font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.18em; color: #FF5500; font-size: 0.85rem; margin-bottom: 14px; }
+    .start-inline__headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.05; color: #fff; margin: 0 0 18px; letter-spacing: 0.02em; }
+    .start-inline__headline .accent { color: #FF5500; }
+    .start-inline__points { list-style:none; padding:0; margin: 0 0 16px; color: #d0d0d0; font-size: 0.95rem; line-height: 1.9; }
+    .start-inline__scrolldown { font-size: 0.82rem; letter-spacing: 0.05em; margin:0; }
+    .start-inline__scrolldown a { color: #FF5500; text-decoration: none; }
+    .start-inline__form { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,85,0,0.25); border-radius: 6px; padding: 26px; display: flex; flex-direction: column; gap: 14px; }
+    .start-inline__row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .start-inline__field { display: flex; flex-direction: column; gap: 6px; }
+    .start-inline__field > span { font-size: 0.72rem; letter-spacing: 0.12em; color: #9a9a9a; text-transform: uppercase; }
+    .start-inline__field input, .start-inline__field select { background: rgba(0,0,0,0.5); color: #fff; border: 1px solid rgba(255,255,255,0.18); border-radius: 4px; padding: 11px 12px; font-family: inherit; font-size: 0.95rem; transition: border-color .2s ease; }
+    .start-inline__field input:focus, .start-inline__field select:focus { border-color: #FF5500; outline: none; }
+    .start-inline__submit { display:inline-flex; align-items:center; justify-content:center; gap:10px; background:#FF5500; color:#fff; border:none; padding:14px 18px; font-family:'Bebas Neue', sans-serif; letter-spacing:0.1em; font-size:1rem; border-radius:4px; cursor:pointer; transition: transform .15s ease, box-shadow .2s ease; }
+    .start-inline__submit:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(255,85,0,.35); }
+    .start-inline__submit:disabled { opacity:.6; cursor:wait; }
+    .start-inline__submit svg { width: 16px; height: 16px; }
+    .start-inline__trust { font-size: 0.74rem; color: #888; margin: 2px 0 0; line-height: 1.5; }
+    .start-inline__success { background: rgba(255,85,0,0.12); border: 1px solid rgba(255,85,0,0.4); color: #fff; padding: 12px 14px; border-radius: 4px; font-size: 0.9rem; margin: 4px 0 0; }
+    @media (max-width: 860px) {
+      .start-inline { grid-template-columns: 1fr; gap: 28px; }
+      .start-inline__row { grid-template-columns: 1fr; }
+    }
+  </style>
+  <script>
+    (function () {
+      var form = document.getElementById('startInlineForm');
+      if (!form) return;
+      var successEl = document.getElementById('startInlineSuccess');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var first = document.getElementById('inlineFirstName');
+        var email = document.getElementById('inlineEmail');
+        var path  = document.getElementById('inlinePath');
+        var valid = true;
+        [first, email, path].forEach(function (el) {
+          if (!el.value.trim()) { el.style.borderColor = '#ff3300'; valid = false; }
+          else { el.style.borderColor = ''; }
+        });
+        if (!valid) return;
+        var btn = form.querySelector('button[type="submit"]');
+        if (btn) { btn.disabled = true; btn.querySelector('span').textContent = 'SENDING…'; }
+        setTimeout(function () {
+          if (successEl) { successEl.hidden = false; }
+          form.reset();
+          if (btn) { btn.disabled = false; btn.querySelector('span').textContent = 'CLAIM MY 3-DAY EXPERIENCE'; }
+        }, 900);
+      });
+    })();
+  </script>
+
+  <!-- ═══════════════════════════════════════════════ -->
   <!-- 3-DAY EXPERIENCE                                -->
   <!-- ═══════════════════════════════════════════════ -->
   <section class="section experience-section" id="experience">
