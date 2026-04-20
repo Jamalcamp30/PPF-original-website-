@@ -3,8 +3,6 @@
    Persistent bottom action bar — mobile only (≤768px).
    Two actions: Start 3-Day (primary) + Call (secondary).
    Hides on scroll-down, reveals on scroll-up.
-   Hides automatically inside the start.html #start form
-   section (body[data-sticky-bar-hide-inform]).
    ===================================================== */
 
 .ppf-sticky-bar {

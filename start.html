@@ -261,6 +261,7 @@
       var form = document.getElementById('startInlineForm');
       if (!form) return;
       var successEl = document.getElementById('startInlineSuccess');
+      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         var first = document.getElementById('inlineFirstName');
@@ -271,6 +272,10 @@
           if (!el.value.trim()) { el.style.borderColor = '#ff3300'; valid = false; }
           else { el.style.borderColor = ''; }
         });
+        if (email.value.trim() && !EMAIL_RE.test(email.value.trim())) {
+          email.style.borderColor = '#ff3300';
+          valid = false;
+        }
         if (!valid) return;
         var btn = form.querySelector('button[type="submit"]');
         if (btn) { btn.disabled = true; btn.querySelector('span').textContent = 'SENDING…'; }
